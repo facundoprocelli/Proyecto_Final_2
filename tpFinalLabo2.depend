@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1698358202 source:c:\users\gc\desktop\tpfinallabo2\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1698358867 source:c:\users\gc\desktop\tpfinallabo2\listasimple.c
+	<stdio.h>
+	<stdlib.h>
+	"string.h"
+	"listaSimple.h"
+
+1698358990 c:\users\gc\desktop\tpfinallabo2\listasimple.h
+
