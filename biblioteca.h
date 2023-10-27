@@ -1,12 +1,11 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
-#define MAX_DIM 20
-#include "arbolMiembros.h"
-#include "filaReservas.h"
-#include "listaDobleReservas.h"
-#include "listaSimpleLibros.h"
+#define MAX_DIM 25
+
 
 ///estructuras
+
+///Estructura miembros
 
 typedef struct
 {
@@ -21,7 +20,7 @@ typedef struct
 typedef struct
 {
 
-    int id; //id autoincremental
+    int idMiembro; //id autoincremental
     stPersona datosPersonales;
     int historialDelPrestamo[100];///CHECKEAR SI USAR ARREGLO U OTRO TIPO DE DATO POR EL TAMAÑO FIJO,Arreglo con las ID de los prestamos que leyo(luego si quiere ver el libro lo busca por ID en un archivo)
     int estado; //activo o de baja
@@ -30,6 +29,65 @@ typedef struct
     int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
 
 } stMiembro;
+
+///Estructura prestamos
+
+typedef struct{
+
+    int diaTiempo;
+    int mesTiempo;
+    int anioTiempo;
+
+} stFecha;
+
+typedef struct{
+
+    int idPrestamo;
+    int idUsuarioPrestado;
+    int precioPrestamo;
+    stFecha inicioPrestamo;
+    stFecha vencimientoPrestamo;
+
+} stPrestamos;
+
+
+typedef struct
+{
+    stPrestamos datoPrestamo;
+    struct nodoDoble*anterior;
+    struct nodoDoble*siguiente;
+
+} nodoDoble;
+
+
+typedef struct{
+
+    struct nodoDoble*primero;
+    struct nodoDoble*ultimo;
+
+} filaReservas;
+
+///estructura libros
+
+typedef struct{
+
+    int idLibro; //id autoincremental
+    char nombreDeLibro[MAX_DIM];
+    char generoLibro[MAX_DIM];
+    char autorLibro[MAX_DIM];
+    char descripcionLibro[MAX_DIM];
+    int estado; // si esta activo,eliminado o prestado
+    int vecesPrestadoLibro;
+    filaReservas reservasLibro;
+
+} stLibro;
+
+typedef struct
+{
+    stLibro datoLibro;
+    struct nodoSimple*siguiente;
+
+} nodoSimple;
 
 ///funciones
 
