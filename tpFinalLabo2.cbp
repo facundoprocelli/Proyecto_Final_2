@@ -31,10 +31,26 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="listaSimple.c">
+		<Unit filename="arbolMiembros.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="listaSimple.h" />
+		<Unit filename="arbolMiembros.h" />
+		<Unit filename="biblioteca.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="biblioteca.h" />
+		<Unit filename="filaReservas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="filaReservas.h" />
+		<Unit filename="listaDobleReservas.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="listaDobleReservas.h" />
+		<Unit filename="listaSimpleLibros.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="listaSimpleLibros.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

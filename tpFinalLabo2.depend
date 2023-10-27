@@ -11,3 +11,44 @@
 
 1698358990 c:\users\gc\desktop\tpfinallabo2\listasimple.h
 
+1698358202 source:c:\users\fabri\desktop\tpfinallabo2\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1698446912 source:c:\users\fabri\desktop\tpfinallabo2\biblioteca.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"biblioteca.h"
+
+1698447953 c:\users\fabri\desktop\tpfinallabo2\biblioteca.h
+	"arbolMiembros.h"
+	"filaReservas.h"
+	"listaDobleReservas.h"
+	"listaSimpleLibros.h"
+
+1698365368 source:c:\users\fabri\desktop\tpfinallabo2\filareservas.c
+
+1698364591 source:c:\users\fabri\desktop\tpfinallabo2\listadoblereservas.c
+
+1698364288 source:c:\users\fabri\desktop\tpfinallabo2\listasimplelibros.c
+
+1698446912 c:\users\fabri\desktop\tpfinallabo2\arbolmiembros.h
+	"biblioteca.h"
+
+1698447720 c:\users\fabri\desktop\tpfinallabo2\filareservas.h
+	"biblioteca.h"
+
+1698447720 c:\users\fabri\desktop\tpfinallabo2\listadoblereservas.h
+	"biblioteca.h"
+
+1698447720 c:\users\fabri\desktop\tpfinallabo2\listasimplelibros.h
+	"biblioteca.h"
+
+1698447953 source:c:\users\fabri\desktop\tpfinallabo2\arbolmiembros.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"biblioteca.h"
+
