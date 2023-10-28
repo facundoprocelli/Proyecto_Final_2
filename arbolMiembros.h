@@ -9,7 +9,7 @@ stPersona crearUnaPersona();
 
 void mostrarUnaPersona(stPersona aux);
 
-void mostrarUnMiembro(stMiembro aux)
+void mostrarUnMiembro(stMiembro aux);
 
 
 // Estructura Miembro
@@ -23,9 +23,9 @@ nodoArbol *inicArbol();
 
 nodoArbol *crearNodoArbol(stMiembro miembro);
 
-nodoArbol *buscarNodo(nodoArbol *arbol, int idMiembro);
+nodoArbol *buscarNodoArbol(nodoArbol *arbol, int idMiembro);
 
-nodoArbol *insertarNodo(nodoArbol *raiz, nodoArbol *NN);
+nodoArbol *insertarNodoArbol(nodoArbol *raiz, nodoArbol *NN);
 
 void preorden(nodoArbol *raiz);
 
@@ -35,15 +35,15 @@ void postorder(nodoArbol *raiz);
 
 nodoArbol *borrarNodo(nodoArbol *raiz, int idMiembro);
 
-nodoArbol* nodoMasDerecha(nodoArbol*raiz);
+nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz);
 
-nodoArbol* nodoMasIzquierda(nodoArbol*raiz);
+nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz);
 
 int esHoja(nodoArbol*raiz);
 
-int esGradoUno(nodoArbol*raiz);
+int esGradoUnoArbol(nodoArbol*raiz);
 
-int estaLleno(nodoArbol*raiz);
+int estaLlenoArbol(nodoArbol*raiz);
 
 int arbolVacio(nodoArbol*raiz);
 
