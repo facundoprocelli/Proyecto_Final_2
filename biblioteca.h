@@ -36,8 +36,8 @@ typedef struct
 {
 
     stMiembro dato;
-    struct nodoArbol *der;
-    struct nodoArbol *izq;
+    struct nodoArbol* derecha;
+    struct nodoArbol* izquierda;
 
 } nodoArbol;
 

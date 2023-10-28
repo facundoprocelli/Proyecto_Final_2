@@ -27,11 +27,11 @@ nodoArbol *buscarNodoArbol(nodoArbol *arbol, int idMiembro);
 
 nodoArbol *insertarNodoArbol(nodoArbol *raiz, nodoArbol *NN);
 
-void preorden(nodoArbol *raiz);
+void mostrarArbolPreorden(nodoArbol *raiz);
 
-void inorder(nodoArbol *raiz);
+void mostrarArbolInorden(nodoArbol *raiz);
 
-void postorder(nodoArbol *raiz);
+void mostrarArbolPostorden(nodoArbol *raiz);
 
 nodoArbol *borrarNodo(nodoArbol *raiz, int idMiembro);
 
@@ -50,7 +50,7 @@ int arbolVacio(nodoArbol*raiz);
 
 
 
-// cambiar el prottipado
+
 
 
 

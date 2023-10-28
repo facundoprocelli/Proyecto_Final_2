@@ -3,6 +3,7 @@
 #include "biblioteca.h"
 
 nodoSimple*inicListaSimple();
+nodoSimple*crearNodoSimple(stLibro aux);
 nodoSimple*agregarAlPpioSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 
