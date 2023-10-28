@@ -2,18 +2,8 @@
 #define ARBOLMIEMBROS_H_INCLUDED
 #include "biblioteca.h"
 
-// Estrutura Arbol
 
-typedef struct
-{
-
-    stMiembro dato;
-    struct nodoArbol *der;
-    struct nodoArbol *izq;
-
-} nodoArbol;
-
-// Estrutura Persona
+// Estructura Persona
 
 stPersona crearUnaPersona();
 
@@ -22,14 +12,14 @@ void mostrarUnaPersona(stPersona aux);
 void mostrarUnMiembro(stMiembro aux)
 
 
-// Estrutura Miembro
+// Estructura Miembro
 
 stMiembro crearUnMiembro();
 
 
-//Estrutura Arbol
+//Estructura Arbol
 
-nodoArbol *inicarbol();
+nodoArbol *inicArbol();
 
 nodoArbol *crearNodoArbol(stMiembro miembro);
 
@@ -45,5 +35,33 @@ void postorder(nodoArbol *raiz);
 
 nodoArbol *borrarNodo(nodoArbol *raiz, int idMiembro);
 
+nodoArbol* nodoMasDerecha(nodoArbol*raiz);
 
-#endif // ARBOLMIEMBROS_H_INCLUDED
+nodoArbol* nodoMasIzquierda(nodoArbol*raiz);
+
+int esHoja(nodoArbol*raiz);
+
+int esGradoUno(nodoArbol*raiz);
+
+int estaLleno(nodoArbol*raiz);
+
+int arbolVacio(nodoArbol*raiz);
+
+
+
+
+// cambiar el prottipado
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif //ARBOLMIEMBROS_H_INCLUDED

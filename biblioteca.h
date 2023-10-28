@@ -30,6 +30,18 @@ typedef struct
 
 } stMiembro;
 
+// Estrutura Arbol
+
+typedef struct
+{
+
+    stMiembro dato;
+    struct nodoArbol *der;
+    struct nodoArbol *izq;
+
+} nodoArbol;
+
+
 ///Estructura prestamos
 
 typedef struct{

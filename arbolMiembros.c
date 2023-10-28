@@ -12,7 +12,7 @@ typedef struct
 
     int id; //id autoincremental
     stPersona datosPersonales;
-    int historialDelPrestamo[100];///CHECKEAR SI USAR ARREGLO U OTRO TIPO DE DATO POR EL TAMAÃ‘O FIJO,Arreglo con las ID de los prestamos que leyo(luego si quiere ver el libro lo busca por ID en un archivo)
+    int historialDelPrestamo[100];///CHECKEAR SI USAR ARREGLO U OTRO TIPO DE DATO POR EL TAMAÑO FIJO,Arreglo con las ID de los prestamos que leyo(luego si quiere ver el libro lo busca por ID en un archivo)
     int estado; //activo o de baja
     int saldo;// es el dinero que el miembro ingreso a la cuenta, se debera utilizar dinero para los prestamos, si no tiene, no puede pagar un prestamo
     int prestamosActivos; // nro de cuantos prestamos tiene activos/en propiedad
@@ -21,8 +21,6 @@ typedef struct
 } stMiembro;
 
 */
-
-
 
 
 /// crear un miembro
@@ -61,16 +59,18 @@ stMiembro crearUnMiembro()
 
     auxMiembro.estado = 0; // activo o dado de baja
 
-    auxMiembro.id = 0; /// hacer funcion de ID automatica
+    auxMiembro.idMiembro = 0; /// hacer funcion de ID automatica
 
     auxMiembro.prestamosActivos = 0;
 
-    strcpy(auxMiembro.saldo, 0);
+    auxMiembro.saldo=0;
 
     auxMiembro.limitePrestamos = 5; // predeterminado
 
     return auxMiembro;
 }
+
+///mostrar un miembro
 
 void mostrarUnaPersona(stPersona aux)
 {
@@ -85,13 +85,14 @@ void mostrarUnMiembro(stMiembro aux)
     mostrarUnaPersona(aux.datosPersonales);
     printf("Historial de prestamos: |%i|\n", aux.historialDelPrestamo); /// for para poder ver todos
     printf("Estado: |%i| \n", aux.estado);
-    printf("ID: |%i|\n", aux.id);
+    printf("ID: |%i|\n", aux.idMiembro);
     printf("Prestamos activos: |%i|\n", aux.prestamosActivos);
     printf("Saldo en cuenta: |%i|\n", aux.saldo);
 }
 
-/// Inicar un arbol
-nodoArbol *inicarbol()
+/// Iniciar un arbol
+
+nodoArbol *inicArbol()
 {
     return NULL;
 }
@@ -104,36 +105,36 @@ nodoArbol *crearNodoArbol(stMiembro miembro)
     nodoArbol *aux = (nodoArbol *)malloc(sizeof(nodoArbol));
 
     aux->dato = miembro;
-    aux->izq = inicarbol();
-    aux->der = inicarbol();
+    aux->izq = inicArbol();
+    aux->der = inicArbol();
 
     return aux;
 }
 
 /// Buscar un nodo en un arbol
 
-nodoArbol *buscarNodo(nodoArbol *arbol, int idMiembro)
+nodoArbol *buscarNodo(nodoArbol *raiz, int idBuscar)
 {
 
-    nodoArbol *rta = inicarbol();
-    if (arbol != NULL)
+    nodoArbol *rta = inicArbol();
+    if (raiz != NULL)
     {
-        if (idMiembro == arbol->dato.id)
+        if (idBuscar == raiz->dato.idMiembro)
         {
-            rta = arbol;
+            rta = raiz;
         }
         else
         {
 
-            if (idMiembro > arbol->dato.id)
+            if (idBuscar > raiz->dato.idMiembro)
             {
                 // primer acercamiento al corte
-                rta = buscarNodo(arbol->der, idMiembro);
+                rta = buscarNodo(raiz->der, idBuscar);
             }
             else
             {
                 // segundo acercamiento al corte
-                rta = buscarNodo(arbol->izq, idMiembro);
+                rta = buscarNodo(raiz->izq, idBuscar);
             }
         }
     }
@@ -142,26 +143,26 @@ nodoArbol *buscarNodo(nodoArbol *arbol, int idMiembro)
 
 /// Insertar un nodo en un arbol
 
-nodoArbol *insertarNodo(nodoArbol *raiz, nodoArbol *NN)
+nodoArbol *insertarNodo(nodoArbol *raiz, nodoArbol *NuevoNodo)
 {
 
     if (raiz == NULL)
     {
-        raiz = NN;
+        raiz = NuevoNodo;
     }
 
     else
     {
 
-        if (NN->dato > raiz->dato)
+        if (NuevoNodo->dato.idMiembro > raiz->dato.idMiembro)
         {
             // Pongo ese = ya que el dato se va a linkear a esa parte
-            raiz->der = insertarNodo(raiz->der, NN);
+            raiz->der = insertarNodo(raiz->der, NuevoNodo);
         }
         else
         {
             // Pongo ese = ya que el dato se va a linkear a esa parte
-            raiz->izq = insertarNodo(raiz->izq, NN);
+            raiz->izq = insertarNodo(raiz->izq, NuevoNodo);
         }
     }
 
@@ -204,47 +205,83 @@ void postorder(nodoArbol *raiz)
     }
 }
 
+int esHoja(nodoArbol*raiz)
+{
+    return (raiz && !raiz->izq && !raiz->der);
+}
+
+int esGradoUnoArbol(nodoArbol*raiz)
+{
+    return (raiz && ((raiz->izq && !raiz->der) || (!raiz->izq && raiz->der)));
+}
+
+int estaLlenoArbol(nodoArbol*raiz)
+{
+    return (raiz && raiz->izq && raiz->der);
+}
+
+int arbolVacio(nodoArbol*raiz)
+{
+    return raiz;
+}
+
 // Borrar Nodo
 
-nodoArbol *borrarNodo(nodoArbol *raiz, int idMiembro)
+nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz)
+{
+    while(raiz->der != NULL)
+    {
+        raiz=raiz->der;
+    }
+    return raiz;
+}
+
+nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz)
+{
+    while(raiz->izq != NULL)
+    {
+        raiz=raiz->izq;
+    }
+    return raiz;
+}
+
+nodoArbol *borrarNodoArbol(nodoArbol *raiz, int idBuscar)
 {
     if (raiz != NULL)
     {
 
-        if (raiz->dato.id == dato)
+        if (raiz->dato.idMiembro == idBuscar)
         {
 
             if (raiz->izq != NULL)
             {
 
                 nodoArbol *masDerecha = nodoMasDerecha(raiz->izq);
-                raiz->dato.id = masDerecha->dato.id;
-                raiz->izq = borrarNodo(raiz->izq, masDerecha->dato.id);
+                raiz->dato.idMiembro = masDerecha->dato.idMiembro;
+                raiz->izq = borrarNodo(raiz->izq, masDerecha->dato.idMiembro);
             }
             else if (raiz->der != NULL)
             {
                 nodoArbol *masIzquierda = nodoMasIzquierda(raiz->der);
-                raiz->dato.id = masIzquierda->dato.id;
-                raiz->der = borrarNodo(raiz->der, masIzquierda->dato.id);
+                raiz->dato.idMiembro = masIzquierda->dato.idMiembro;
+                raiz->der = borrarNodo(raiz->der, masIzquierda->dato.idMiembro);
             }
-
             if (esHoja(raiz) == 1)
             {
                 free(raiz);
                 raiz = NULL;
             }
         }
-        else if (dato < raiz->dato.id)
+        else if (idBuscar < raiz->dato.idMiembro)
         {
-            raiz->izq = borrarNodo(raiz->izq, idMiembro);
+            raiz->izq = borrarNodo(raiz->izq, idBuscar);
         }
 
         else
         {
-            raiz->der = borrarNodo(raiz->der, idMiembro);
+            raiz->der = borrarNodo(raiz->der, idBuscar);
         }
     }
 
     return raiz;
 }
-

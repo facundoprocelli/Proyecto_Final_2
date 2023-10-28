@@ -34,4 +34,8 @@ nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo)
     return listaSimple;
 }
 
-//
+int
+
+//funciones de buscar
+
+

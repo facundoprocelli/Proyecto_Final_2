@@ -11,7 +11,7 @@
 
 1698358990 c:\users\gc\desktop\tpfinallabo2\listasimple.h
 
-1698449517 source:c:\users\fabri\desktop\tpfinallabo2\main.c
+1698451411 source:c:\users\fabri\desktop\tpfinallabo2\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -25,7 +25,7 @@
 	<time.h>
 	"biblioteca.h"
 
-1698450096 c:\users\fabri\desktop\tpfinallabo2\biblioteca.h
+1698450714 c:\users\fabri\desktop\tpfinallabo2\biblioteca.h
 
 1698449360 source:c:\users\fabri\desktop\tpfinallabo2\filareservas.c
 	<stdio.h>
@@ -41,7 +41,7 @@
 	<time.h>
 	"biblioteca.h"
 
-1698449551 source:c:\users\fabri\desktop\tpfinallabo2\listasimplelibros.c
+1698450474 source:c:\users\fabri\desktop\tpfinallabo2\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -60,7 +60,7 @@
 1698449551 c:\users\fabri\desktop\tpfinallabo2\listasimplelibros.h
 	"biblioteca.h"
 
-1698449360 source:c:\users\fabri\desktop\tpfinallabo2\arbolmiembros.c
+1698451381 source:c:\users\fabri\desktop\tpfinallabo2\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
