@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <ctype.h>
 #include "arbolMiembros.h"
 
 
@@ -30,21 +31,31 @@ stPersona crearUnaPersona()
     stPersona aux;
 
     puts("----------------- Ingrese los datos personales del nuevo miembro ---------------------"); /// HACER VALIDACIONES
-    printf("Nombre: ");
-    fflush(stdin);
-    scanf("%s", &aux.nombre);
+    do
+    {
+        printf("Nombre: ");
+        fflush(stdin);
+        scanf("%s",&aux.nombre);
+    }
+    while(validarDigitosEnStrings(aux.nombre)== 1 || validarRangoDeNombre(aux.nombre)== 1);
 
-    printf("DNI: ");
-    fflush(stdin);
-    scanf("%s", &aux.dni);
-
-    printf("Nro de telefono: ");
-    fflush(stdin);
-    scanf("%s", &aux.numeroDeTelefono);
+    do
+    {
+        printf("DNI: ");
+        fflush(stdin);
+        scanf("%s", &aux.dni);
+    }
+    while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0);
+    do
+    {
+        printf("Nro de telefono: ");
+        fflush(stdin);
+        scanf("%s", &aux.numeroDeTelefono);
+    }while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0);
 
     printf("Direccion: ");
     fflush(stdin);
-    scanf("%s", &aux.direccion);
+    gets(&aux.direccion);///preguntar que tipo de validacion hacemos(solo mdp u otro tipo)
 
     return aux;
 }
@@ -53,9 +64,7 @@ stMiembro crearUnMiembro()
 {
     stMiembro auxMiembro;
 
-
     auxMiembro.datosPersonales = crearUnaPersona();
-
 
     auxMiembro.historialDelPrestamo[0] = 0;
 
@@ -311,3 +320,91 @@ nodoArbol *borrarNodoArbol(nodoArbol *raiz, int idBuscar)
 
     return raiz;
 }
+
+///Validaciones
+
+int validarRangoDeNombre(char nombreAux[])
+{
+    int flag = 0;
+
+    if(strlen(nombreAux)>MAX_DIM||strlen(nombreAux)<3)
+    {
+        printf("\nIngrese un nombre entre 3 y 25 caracteres\n");
+        flag = 1;
+    }
+
+    return flag;
+}
+
+int validarDigitosEnStrings(char nombreAux[])
+{
+
+    int flag = 0;
+    int i = 0;
+    while(i<strlen(nombreAux)&& flag == 0)
+    {
+
+        if(isalpha(nombreAux[i])!= 0)
+        {
+            i++;
+        }
+        else
+        {
+            printf("\nError, hay datos numericos en el nombre...\n");
+            flag = 1;
+        }
+    }
+    return flag;
+}
+
+int validarRangoDNI(char dniAux[])
+{
+
+    int flag = 0;
+    int length = strlen(dniAux);
+    if(length >= 7 && length <= 8)
+    {
+        flag = 1;
+    }
+    else
+    {
+        printf("\nIngrese un DNI entre 7 y 8 digitos.\n");
+    }
+    return flag;
+}
+
+
+int validarCaracteresEnEnteros(char dni[])
+{
+
+    int flag = 1;
+    for(int i = 0; i<strlen(dni) && flag == 1; i++)
+    {
+        if(!isdigit(dni[i]))  // Si el carácter actual no es un dígito
+        {
+            printf("\nNo puede ingresar caracteres...Reintente\n");
+            flag = 0;
+        }
+    }
+
+    return flag;
+}
+int validarRangoTelefono(char telefono[])
+{
+
+    int flag = 0;
+    int length = strlen(telefono);
+    if(length >= 8 && length <= 10)
+    {
+        flag = 1;
+    }
+    else
+    {
+        printf("\nIngrese un Nro de telefono entre 8 y 10 digitos(ej:2235762462).\n");
+    }
+    return flag;
+}
+
+
+
+

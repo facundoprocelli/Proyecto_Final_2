@@ -47,11 +47,12 @@ int estaLlenoArbol(nodoArbol*raiz);
 
 int arbolVacio(nodoArbol*raiz);
 
-
-
-
-
-
+///validaciones
+int validarRangoDeNombre(char nombreAux[]);///tamaño del nombre
+int validarDigitosEnStrings(char nombreAux[]);///Que no se encuentren numeros en un nombre
+int validarRangoDNI(char dniAux[]);
+int validarCaracteresEnEnteros(char dni[]);
+int validarRangoTelefono(char telefono[]);
 
 
 
