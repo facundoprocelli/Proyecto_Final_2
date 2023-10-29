@@ -2,7 +2,6 @@
 #define BIBLIOTECA_H_INCLUDED
 #define MAX_DIM 25
 
-
 ///estructuras
 
 ///Estructura miembros
@@ -101,7 +100,20 @@ typedef struct
 
 } nodoSimple;
 
-///funciones
+///funciones biblioteca
 
+void biblioteca();
+int preguntarDatoEntero();
+void limpiarPantalla();
+void menuDeAccionesPrincipales();
+void opcionesMenuGestionarLibros();
+void menuLibros();
+void opcionesMenuBuscarLibros();
+void menuBuscarLibros();
+void opcionesMenuActualizarLibros();
+void menuActualizarLibro();
+
+void menuMiembros();
+void opcionesMenuMiembros();
 
 #endif // BIBLIOTECA_H_INCLUDED
