@@ -5,9 +5,9 @@
 #include "listaSimpleLibros.h"
 
 
-///crear un libro
+///funciones estructura libro
 
-stLibro crearUnLibro() ///LEO VALIDATE TODA ESTAA (funcion)
+stLibro crearUnLibro()
 {
     stLibro aux;
 
@@ -22,6 +22,7 @@ stLibro crearUnLibro() ///LEO VALIDATE TODA ESTAA (funcion)
 
     printf("Genero: \n");
     validarGenero(aux.generoLibro);
+
     do
     {
         printf("Autor: ");
@@ -40,12 +41,36 @@ stLibro crearUnLibro() ///LEO VALIDATE TODA ESTAA (funcion)
     return aux;
 }
 
+//mostrar un libro
+void mostrarUnLibro(stLibro aux)
+{
+    puts("--------------------LIBRO: ----------------");
+    printf("ID Libro..............: %i \n",aux.idLibro);
+    printf("Nombre................: %s \n",aux.nombreDeLibro);
+    printf("Genero................: %s \n",aux.generoLibro);
+    printf("Autor.................: %s \n",aux.autorLibro);
+    printf("Estado................: %i \n",aux.estado);
+    printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
+    ///printf("",aux.reservasLibro); ///mostrar fila de reservas de este libro
+    puts("---------------------------------------------");
+}
+
 
 /// lista simple de libros
 
 nodoSimple*inicListaSimple()
 {
     return NULL;
+}
+
+//mostrar toda la lista simple
+void mostrarListaSimple(nodoSimple*listaSimple)
+{
+    while(listaSimple != NULL)
+    {
+        mostrarUnLibro(listaSimple->datoLibro);
+        listaSimple=listaSimple->siguiente;
+    }
 }
 
 //crear un nodo simple
@@ -85,6 +110,8 @@ nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo)
     }
     return listaSimple;
 }
+
+
 
 //verificar si existe el libro
 
@@ -183,6 +210,8 @@ stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
     }
     return aux;
 }
+
+
 
 
 ///validaciones

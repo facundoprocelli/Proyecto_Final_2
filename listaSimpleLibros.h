@@ -5,13 +5,14 @@
 ///funciones estructura libros
 
 stLibro crearUnLibro();
+void mostrarUnLibro(stLibro aux);
 
-//faltan las validaciones del libro
 
 ///funciones lista simple
 
 //funciones basicas
 nodoSimple*inicListaSimple();
+void mostrarListaSimple(nodoSimple*listaSimple);
 nodoSimple*crearNodoSimple(stLibro aux);
 nodoSimple*agregarAlPpioSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);

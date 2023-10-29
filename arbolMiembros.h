@@ -51,7 +51,7 @@ int arbolVacio(nodoArbol*raiz);
 int validarRangoDeNombre(char nombreAux[]);///tamaño del nombre
 int validarDigitosEnStrings(char nombreAux[]);///Que no se encuentren numeros en un nombre
 int validarRangoDNI(char dniAux[]);
-int validarCaracteresEnEnteros(char dni[]);
+int validarCaracteresEnEnteros(char aux[]);
 int validarRangoTelefono(char telefono[]);
 
 

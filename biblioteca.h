@@ -19,7 +19,6 @@ typedef struct
 typedef struct
 {
 
-    int idMiembro; //id autoincremental
     stPersona datosPersonales;
     int historialDelPrestamo[100];///CHECKEAR SI USAR ARREGLO U OTRO TIPO DE DATO POR EL TAMA�O FIJO,Arreglo con las ID de los prestamos que leyo(luego si quiere ver el libro lo busca por ID en un archivo)
     int estado; //activo o de baja
@@ -54,17 +53,17 @@ typedef struct{
 typedef struct{
 
     int idPrestamo;
-    int idUsuarioPrestado;
-    int precioPrestamo;
+    int dniUsuarioPrestado;
+    char precioPrestamo[MAX_DIM];
     stFecha inicioPrestamo;
     stFecha vencimientoPrestamo;
 
-} stPrestamos;
+} stPrestamo;
 
 
 typedef struct
 {
-    stPrestamos datoPrestamo;
+    stPrestamo datoPrestamo;
     struct nodoDoble*anterior;
     struct nodoDoble*siguiente;
 

@@ -6,6 +6,29 @@
 
 //la biblioteca va a tener el arreglo de listas simples de los libros
 
+
+///funciones generales
+
+int preguntarDatoEntero()
+{
+    int dato=0;
+    printf("Ingrese un dato: ");
+    fflush(stdin);
+    scanf("%i",&dato);
+    return dato;
+}
+
+void limpiarPantalla()
+{
+    system("cls");
+}
+
+int convertirStringsDeNumerosAEntero(char aux[])
+{
+    return atoi(aux);
+}
+
+///menues
 void biblioteca()
 {
     int opMenuPrin=0;
@@ -35,27 +58,7 @@ void biblioteca()
     }
     while(opMenuPrin=='s' || opMenuPrin=='S');
 
-
-
-
-
-
 }
-
-int preguntarDatoEntero()
-{
-    int dato=0;
-    printf("Ingrese un dato: ");
-    fflush(stdin);
-    scanf("%i",&dato);
-    return dato;
-}
-
-void limpiarPantalla()
-{
-    system("cls");
-}
-
 void menuDeAccionesPrincipales()
 {
     printf("Por favor, seleccione que accion desea relizar \n");
@@ -71,9 +74,9 @@ void opcionesMenuGestionarLibros()
 
     printf("[1] Ingresar Nuevo Libro \n");
     printf("[2] Buscar libros\n");
-    printf("[3] Prestar Libros\n");
-    printf("[4] Devolver Libros\n");
-    printf("[5] Reservar Libros\n");
+    printf("[3] Prestar Libro\n");
+    printf("[4] Devolver Libro\n");
+    printf("[5] Reservar Libro\n");
     printf("[6] Actualizar Libro \n");
     printf("[7] Eliminar Libro\n");
     puts("---------------------------------------------------");
