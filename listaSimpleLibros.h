@@ -29,4 +29,9 @@ stLibro retornarLibroXid(nodoSimple*listaSimple,int idBuscar);
 stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
 
 
+///validaciones
+//Se utilizaron validaciones ya hechas en otras librerias para modularizar
+void validarGenero(char auxGenero[]);
+void opcionesGenero();
+
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

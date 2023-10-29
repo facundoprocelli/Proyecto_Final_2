@@ -12,18 +12,23 @@ stLibro crearUnLibro() ///LEO VALIDATE TODA ESTAA (funcion)
     stLibro aux;
 
     puts("--------------- Ingrese los datos del nuevo libro ----------------------");
-    printf("Nombre: ");
-    fflush(stdin);
-    gets(&aux.nombreDeLibro);
+    do
+    {
+        printf("Nombre: ");
+        fflush(stdin);
+        gets(&aux.nombreDeLibro);
+    }
+    while(validarDigitosEnStrings(aux.nombreDeLibro)== 1||validarRangoDeNombre(aux.nombreDeLibro)== 1);///reutilizo la funcion de validarDigitos y validarRangoNombre que hice en arboles
 
-    printf("Genero: ");
-    fflush(stdin);
-    gets(&aux.generoLibro);
-
-    printf("Autor: ");
-    fflush(stdin);
-    gets(&aux.autorLibro);
-
+    printf("Genero: \n");
+    validarGenero(aux.generoLibro);
+    do
+    {
+        printf("Autor: ");
+        fflush(stdin);
+        gets(&aux.autorLibro);
+    }
+    while(validarDigitosEnStrings(aux.autorLibro)== 1||validarRangoDeNombre(aux.autorLibro)==1);
     aux.estado=1; // 0.dado de baja, 1.disponible, 2. prestado
 
     aux.idLibro=0; ///es necesario una funcion automatica
@@ -163,7 +168,7 @@ stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
 
 stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
 {
-        stLibro aux;
+    stLibro aux;
     while(listaSimple != NULL && strcmpi(listaSimple->datoLibro.autorLibro,autorBuscar) != 0)
     {
         listaSimple= listaSimple->siguiente;
@@ -177,4 +182,61 @@ stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
         puts("Libro no encontrado");
     }
     return aux;
+}
+
+
+///validaciones
+
+
+
+void validarGenero(char auxGenero[])
+{
+    int opSw = 0,flag = 0;
+    do
+    {
+        opcionesGenero();
+        opSw = preguntarDatoEntero();
+        switch(opSw)
+        {
+        case 1:
+            strcpy(auxGenero,"Fantasia");
+            flag = 1;
+            break;
+        case 2:
+            strcpy(auxGenero,"Ciencia Ficcion");
+            flag = 1;
+            break;
+        case 3:
+            strcpy(auxGenero,"Romance");
+            flag = 1;
+            break;
+        case 4:
+            strcpy(auxGenero,"Terror");
+            flag = 1;
+            break;
+        case 5:
+            strcpy(auxGenero,"Comedia");
+            flag = 1;
+            break;
+        default:
+            printf("\nIngrese una opcion valida\n");
+            flag = 0;
+            break;
+
+
+        }
+
+    }
+    while(flag == 0);
+
+}
+
+void opcionesGenero()
+{
+    printf("[1]Fantasia\n");
+    printf("[2]Ciencia Ficcion\n");
+    printf("[3]Romance\n");
+    printf("[4]Terror\n");
+    printf("[5]Comedia\n");
+
 }
