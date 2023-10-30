@@ -6,45 +6,41 @@
 // Estructura Persona
 
 stPersona crearUnaPersona();
-
 void mostrarUnaPersona(stPersona aux);
-
 void mostrarUnMiembro(stMiembro aux);
 
-
-// Estructura Miembro
+///Estructura Miembro
 
 stMiembro crearUnMiembro();
 
 
-//Estructura Arbol
-
+///Estructura Arbol
+//basicas
 nodoArbol *inicArbol();
-
 nodoArbol *crearNodoArbol(stMiembro miembro);
 
-nodoArbol *buscarNodoArbol(nodoArbol *arbol, int idMiembro);
-
-nodoArbol *insertarNodoArbol(nodoArbol *raiz, nodoArbol *NN);
+//busqueda y muestra
+nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[]);
 
 void mostrarArbolPreorden(nodoArbol *raiz);
-
 void mostrarArbolInorden(nodoArbol *raiz);
-
 void mostrarArbolPostorden(nodoArbol *raiz);
 
-nodoArbol *borrarNodo(nodoArbol *raiz, int idMiembro);
+//insertar y borrar
+nodoArbol * insertarPorDni(nodoArbol * raiz,nodoArbol * nuevo);
+nodoArbol * borrarUnNodoPorDni(nodoArbol * raiz,char dniMiembro[]);
 
 nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz);
-
 nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz);
 
+
+
+
+
+
 int esHoja(nodoArbol*raiz);
-
 int esGradoUnoArbol(nodoArbol*raiz);
-
 int estaLlenoArbol(nodoArbol*raiz);
-
 int arbolVacio(nodoArbol*raiz);
 
 ///validaciones

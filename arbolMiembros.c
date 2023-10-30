@@ -4,29 +4,8 @@
 #include <time.h>
 #include <ctype.h>
 #include "arbolMiembros.h"
-
-
-
-/*
-typedef struct
-{
-
-    int id; //id autoincremental
-    stPersona datosPersonales;
-    int historialDelPrestamo[100];///CHECKEAR SI USAR ARREGLO U OTRO TIPO DE DATO POR EL TAMA�O FIJO,Arreglo con las ID de los prestamos que leyo(luego si quiere ver el libro lo busca por ID en un archivo)
-    int estado; //activo o de baja
-    int saldo;// es el dinero que el miembro ingreso a la cuenta, se debera utilizar dinero para los prestamos, si no tiene, no puede pagar un prestamo
-    int prestamosActivos; // nro de cuantos prestamos tiene activos/en propiedad
-    int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
-
-} stMiembro;
-
-*/
-
-///funciones estructura miembro
-
-// crear un miembro
-
+///funciones miembro
+//crear una persona
 stPersona crearUnaPersona()
 {
     stPersona aux;
@@ -52,7 +31,8 @@ stPersona crearUnaPersona()
         printf("Nro de telefono: ");
         fflush(stdin);
         scanf("%s", &aux.numeroDeTelefono);
-    }while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0);
+    }
+    while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0);
 
     printf("Direccion: ");
     fflush(stdin);
@@ -61,6 +41,7 @@ stPersona crearUnaPersona()
     return aux;
 }
 
+// crear un miembro
 stMiembro crearUnMiembro()
 {
     stMiembro auxMiembro;
@@ -126,68 +107,56 @@ nodoArbol *crearNodoArbol(stMiembro miembro)
     return aux;
 }
 
+//insertar un dato
+nodoArbol * insertarPorDni(nodoArbol * raiz,nodoArbol * nuevo)
+{
+
+
+    if(raiz != NULL)
+    {
+        if(strcmp(raiz->dato.datosPersonales.dni,nuevo->dato.datosPersonales.dni)>0)
+        {
+
+            raiz->izquierda = insertarPorDni(raiz->izquierda,nuevo);
+        }
+        else
+        {
+            raiz->derecha = insertarPorDni(raiz->derecha,nuevo);
+        }
+
+    }
+    else
+    {
+        raiz = nuevo;
+    }
+
+
+    return raiz;
+}
+
+
 // Buscar un nodo en un arbol
 
-//nodoArbol *buscarNodoArbol(nodoArbol *raiz, char dniBuscar[])
-//{
-//
-//    nodoArbol *rta = inicArbol();
-//    if (raiz != NULL)
-//    {
-//        if (idBuscar == raiz->dato.idMiembro)
-//        {
-//            rta = raiz;
-//        }
-//        else
-//        {
-//
-//            if (idBuscar > raiz->dato.idMiembro)
-//            {
-//                // primer acercamiento al corte
-//                rta = buscarNodoArbol(raiz->derecha, idBuscar);
-//            }
-//            else
-//            {
-//                // segundo acercamiento al corte
-//                rta = buscarNodoArbol(raiz->izquierda, idBuscar);
-//            }
-//        }
-//    }
-//
-//    if(rta == NULL)
-//    {
-//        puts("Miembro no encontrado");
-//    }
-//
-//    return rta;
-//}
+nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
+{
 
-// Insertar un nodo en un arbol
+    nodoArbol * nuevo = inicArbol();
+    if(raiz!= NULL)
+    {
+        if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)== 0)
+        {
+            nuevo = raiz;
+            nuevo->izquierda = NULL;
+            nuevo->derecha = NULL;
+        }
+        raiz->izquierda = buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
 
-//nodoArbol *insertarNodoArbol(nodoArbol *raiz, nodoArbol *NuevoNodo)
-//{
-//
-//    if (raiz == NULL)
-//    {
-//        raiz = NuevoNodo;
-//    }
-//    else
-//    {
-//
-//        if (NuevoNodo->dato.idMiembro > raiz->dato.idMiembro)
-//        {
-//            // Pongo ese = ya que el dato se va a linkear a esa parte
-//            raiz->derecha = insertarNodoArbol(raiz->derecha, NuevoNodo);
-//        }
-//        else
-//        {
-//            // Pongo ese = ya que el dato se va a linkear a esa parte
-//            raiz->izquierda = insertarNodoArbol(raiz->izquierda, NuevoNodo);
-//        }
-//    }
-//
-//    return raiz;
-//}
+        raiz->derecha = buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
+    }
+
+
+    return nuevo;
+}
 
 //mostrar arbol
 
@@ -245,6 +214,47 @@ int estaLlenoArbol(nodoArbol*raiz)
 }
 
 // Borrar Nodo
+nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
+{
+    if (raiz != NULL)
+    {
+        if (strcmp(raiz->dato.datosPersonales.dni, dniMiembro) == 0)
+        {
+            nodoArbol* aux;
+            if (esHoja(raiz))
+            {
+                free(raiz);
+                raiz = NULL;
+            }
+            else if (raiz->izquierda != NULL)
+            {
+                aux = nodoMasDerechaArbol(raiz->izquierda);
+                raiz->dato = aux->dato;
+                raiz->izquierda = borrarUnNodoPorDni(raiz->izquierda, aux->dato.datosPersonales.dni);
+            }
+            else if (raiz->derecha != NULL)
+            {
+                aux = nodoMasIzquierdaArbol(raiz->derecha);
+                raiz->dato = aux->dato;
+                raiz->derecha = borrarUnNodoPorDni(raiz->derecha, aux->dato.datosPersonales.dni);
+            }
+        }
+        else if (strcmp(raiz->dato.datosPersonales.dni, dniMiembro) < 0)
+        {
+            raiz->derecha = borrarUnNodoPorDni(raiz->derecha, dniMiembro);
+        }
+        else
+        {
+            raiz->izquierda = borrarUnNodoPorDni(raiz->izquierda, dniMiembro);
+        }
+    }
+
+    return raiz;
+}
+
+
+
+
 int arbolVacio(nodoArbol*raiz)
 {
     if(raiz != NULL)
@@ -260,67 +270,31 @@ int arbolVacio(nodoArbol*raiz)
 
 nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz)
 {
-    while(raiz->derecha != NULL)
+    if(raiz!= NULL)
     {
-        raiz=raiz->derecha;
+        if(raiz->derecha != NULL)
+        {
+
+            raiz = nodoMasDerechaArbol(raiz->derecha);
+        }
     }
     return raiz;
 }
 
 nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz)
 {
-    while(raiz->izquierda != NULL)
+    if(raiz!= NULL)
     {
-        raiz=raiz->izquierda;
+        if(raiz->izquierda != NULL)
+        {
+
+            raiz = nodoMasIzquierdaArbol(raiz->izquierda);
+        }
     }
     return raiz;
 }
 
-//nodoArbol *borrarNodoArbol(nodoArbol *raiz, int idBuscar)
-//{
-//    if (!arbolVacio(raiz))
-//    {
-//        if(raiz->dato.idMiembro == idBuscar)
-//        {
-//            nodoArbol*aux=raiz;
-//            if(estaLlenoArbol(raiz))
-//            {
-//                raiz->dato= nodoMasIzquierdaArbol(raiz->izquierda)->dato;
-//                raiz->izquierda=borrarNodoArbol(raiz->izquierda, raiz->dato.idMiembro);
-//            }
-//            else
-//            {
-//                if(esHoja(raiz))
-//                {
-//                    raiz=NULL;
-//                }
-//                else
-//                {
-//                    if(raiz->izquierda != NULL)
-//                    {
-//                        raiz= raiz->izquierda;
-//                    }
-//                    else
-//                    {
-//                        raiz=raiz->derecha;
-//                    }
-//                }
-//            }
-//            free(aux);
-//
-//        }
-//        else if (idBuscar < raiz->dato.idMiembro)
-//        {
-//            raiz->izquierda = borrarNodoArbol(raiz->izquierda, idBuscar);
-//        }
-//        else
-//        {
-//            raiz->derecha = borrarNodoArbol(raiz->derecha, idBuscar);
-//        }
-//    }
-//
-//    return raiz;
-//}
+
 
 ///Validaciones
 
