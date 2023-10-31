@@ -299,7 +299,8 @@ int validarRangoDeNombre(char nombreAux[])
     int i = 0;
     int longitud = 0;
 
-    while (nombreAux[i] != '\0') {
+    while (nombreAux[i] != '\0')
+    {
         i++;
 
     }
@@ -387,6 +388,71 @@ int validarRangoTelefono(char telefono[])
     }
     return flag;
 }
+
+///archivos
+
+void cargarUnMiembroAlArchivo(stMiembro aux)///Cuando se cree un nuevo miembro utilizo esta funcion
+{
+
+    FILE * buffer = fopen(ARCHIVO_MIEMBROS,"ab");
+    if(buffer != NULL)
+    {
+        fwrite(&aux,sizeof(stMiembro),1,buffer);
+        fclose(buffer);
+    }
+    else
+    {
+        puts("Archivo vacio");
+    }
+
+}
+
+nodoArbol * archivoAlArbol(nodoArbol * raiz)///el dato de cada nodo del arbol se va almacenar en el archivo
+{
+    FILE * buffer = fopen(ARCHIVO_MIEMBROS,"rb");
+    stMiembro aux;
+
+    if(buffer != NULL)
+    {
+        while(fread(&aux,sizeof(stMiembro),1,buffer)>0)
+        {
+            raiz = insertarPorDni(raiz,crearNodoArbol(aux));
+        }
+        fclose(buffer);
+
+    }
+    else
+    {
+        puts("Archivo vacio");
+    }
+
+    return raiz;
+}
+
+void mostrarArchivoDeMiembros()
+{
+
+    FILE * buffer = fopen(ARCHIVO_MIEMBROS,"rb");
+    stMiembro aux;
+
+    if(buffer != NULL)
+    {
+        while(fread(&aux,sizeof(stMiembro),1,buffer)>0)
+        {
+            mostrarUnMiembro(aux);
+        }
+        fclose(buffer);
+
+    }
+    else
+    {
+        puts("Archivo vacio");
+    }
+
+}
+
+
+
 
 
 

@@ -34,10 +34,6 @@ nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz);
 nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz);
 
 
-
-
-
-
 int esHoja(nodoArbol*raiz);
 int esGradoUnoArbol(nodoArbol*raiz);
 int estaLlenoArbol(nodoArbol*raiz);
@@ -50,7 +46,10 @@ int validarRangoDNI(char dniAux[]);
 int validarCaracteresEnEnteros(char aux[]);
 int validarRangoTelefono(char telefono[]);
 
-
+///archivos
+void cargarUnMiembroAlArchivo(stMiembro aux);
+nodoArbol * archivoAlArbol(nodoArbol * raiz);
+void mostrarArchivoDeMiembros();
 
 
 
