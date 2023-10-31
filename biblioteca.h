@@ -53,7 +53,7 @@ typedef struct{
 typedef struct{
 
     int idPrestamo;
-    int dniUsuarioPrestado;
+    char dniUsuarioPrestado[MAX_DIM];
     char precioPrestamo[MAX_DIM];
     stFecha inicioPrestamo;
     stFecha vencimientoPrestamo;

@@ -252,9 +252,6 @@ nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
     return raiz;
 }
 
-
-
-
 int arbolVacio(nodoArbol*raiz)
 {
     if(raiz != NULL)
@@ -293,8 +290,6 @@ nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz)
     }
     return raiz;
 }
-
-
 
 ///Validaciones
 

@@ -15,26 +15,26 @@ int main()
     char archivoPrestamos[MAX_DIM]="archivoPrestamos";
     char archivoLibros[MAX_DIM]="archivoLibros";
 
-    //printf("\Benvindo a la Biblotequiña do BookMaze\n");
+    printf("\Benvindo a la Biblotequiña do BookMaze\n");
     //biblioteca();
 
 //    nodoSimple*listaSimple=inicListaSimple();
 //    listaSimple=agregarAlFinalSimple(listaSimple,crearNodoSimple(crearUnLibro()));
 //    mostrarListaSimple(listaSimple);
 
-    nodoArbol*raiz=inicArbol();
-    raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro()));
-    raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro()));
+//    nodoArbol*raiz=inicArbol();
 //    raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro()));
-    mostrarArbolInorden(raiz);
-    puts("\n...........................Buscar............................\n");
-    ///raiz = borrarUnNodoPorDni(raiz,"46012540");
-    nodoArbol * buscado = buscarNodoPorDniArbol(raiz,"46012540");
-    mostrarArbolInorden(buscado);
+//    raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro()));
+////    raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro()));
+//    mostrarArbolInorden(raiz);
+//    puts("\n...........................Buscar............................\n");
+//    ///raiz = borrarUnNodoPorDni(raiz,"46012540");
+//    nodoArbol * buscado = buscarNodoPorDniArbol(raiz,"46012540");
+//    mostrarArbolInorden(buscado);
 
-//    nodoDoble*listaDoble=inicListaDoble();
-//    listaDoble=agregarAlFinalDoble(listaDoble,crearNodoDoble(crearUnPrestamo(35)));
-//    mostrarListaDoble(listaDoble);
+    nodoDoble*listaDoble=inicListaDoble();
+    listaDoble=agregarAlFinalDoble(listaDoble,crearNodoDoble(crearUnPrestamo("46012540")));
+    mostrarListaDoble(listaDoble);
 
 
     return 0;

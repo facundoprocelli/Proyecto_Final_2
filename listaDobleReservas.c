@@ -6,7 +6,7 @@
 
 ///funciones estructura prestamo
 
-stPrestamo crearUnPrestamo(int dniUsuarioPrestadoAux)
+stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
 {
     stPrestamo aux;
 
@@ -19,7 +19,7 @@ stPrestamo crearUnPrestamo(int dniUsuarioPrestadoAux)
         scanf("%s",&aux.precioPrestamo);
     }while(validarPrecioPrestamo(aux.precioPrestamo) || validarCaracteresEnEnteros(aux.precioPrestamo) ==0);
 
-    aux.dniUsuarioPrestado=dniUsuarioPrestadoAux;
+    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
 //    aux.inicioPrestamo
 //    aux.vencimientoPrestamo
@@ -42,7 +42,7 @@ void mostrarUnPrestamo(stPrestamo aux)
 {
     puts("---------------------Prestamo---------------------");
     printf("ID Prestamo...............: %i \n",aux.idPrestamo);
-    printf("DNI del miembro...........: %i \n",aux.dniUsuarioPrestado);
+    printf("DNI del miembro...........: %s \n",aux.dniUsuarioPrestado);
     printf("Precio del prestamo.......: %s \n",aux.precioPrestamo);
     printf("Inicio del prestamo.......:\n");
     mostrarUnaFecha(aux.inicioPrestamo);
@@ -113,6 +113,7 @@ nodoDoble*agregarAlFinalDoble(nodoDoble*listaDoble,nodoDoble*nuevoNodo)
         nodoDoble*aux=buscarUltimoNodoDoble(listaDoble);
 
         aux->siguiente=nuevoNodo;
+
         nuevoNodo->anterior=aux;
     }
     else
