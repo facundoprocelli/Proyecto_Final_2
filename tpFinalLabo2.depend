@@ -67,48 +67,50 @@
 	<time.h>
 	"biblioteca.h"
 
-1698606221 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
+1698775791 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1698607656 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
-
-1698589913 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<time.h>
-	"filaReservas.h"
-
-1698607907 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<time.h>
-	"listaDobleReservas.h"
-
-1698607296 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<time.h>
-	"listaSimpleLibros.h"
-
-1698607853 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
-	<stdio.h>
-	<stdlib.h>
-	<string.h>
-	<time.h>
+1698776597 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
 	"arbolMiembros.h"
 	"filaReservas.h"
-	"biblioteca.h"
 	"listaDobleReservas.h"
 	"listaSimpleLibros.h"
 
-1698607868 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
+1698775791 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"filaReservas.h"
+
+1698775791 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"listaDobleReservas.h"
+
+1698776540 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"listaSimpleLibros.h"
+
+1698776589 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
+	<stdio.h>
+	<stdlib.h>
+	"biblioteca.h"
+	"arbolMiembros.h"
+	"filaReservas.h"
+	"listaDobleReservas.h"
+	"listaSimpleLibros.h"
+
+1698775791 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -116,16 +118,16 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1698602805 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
+1698775791 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
 	"biblioteca.h"
 
-1698589913 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
+1698775791 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
 	"biblioteca.h"
 
-1698607450 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
+1698775791 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
 	"biblioteca.h"
 
-1698606371 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
+1698776733 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
 	"biblioteca.h"
 
 1698771406 source:c:\users\gc\desktop\proyecto_final_2-main\arbolmiembros.c

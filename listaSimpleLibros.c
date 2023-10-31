@@ -217,20 +217,22 @@ stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
 ///validaciones
 
 
-
 void validarGenero(char auxGenero[])
 {
     char opSw[1];
     int flag = 0;
     int op;
     do
-    { ///----------Se puede hacer en una funcion aparte----------------
-        do{
-        opcionesGenero();
-        printf("Ingrese una opcion");
-        fflush(stdin);
-        scanf("%s", &opSw);
-        }while (validarCaracteresEnEnteros(opSw) == 0);
+    {
+        ///----------Se puede hacer en una funcion aparte----------------
+        do
+        {
+            opcionesGenero();
+            printf("Ingrese una opcion");
+            fflush(stdin);
+            scanf("%s", &opSw);
+        }
+        while (validarCaracteresEnEnteros(opSw) == 0);
 
         op = convertirStringsDeNumerosAEntero(opSw);
 
@@ -270,6 +272,8 @@ void validarGenero(char auxGenero[])
 
 }
 
+//Opciones del genero de un libro
+
 void opcionesGenero()
 {
     printf("[1]Fantasia\n");
@@ -278,4 +282,38 @@ void opcionesGenero()
     printf("[4]Terror\n");
     printf("[5]Comedia\n");
 
+}
+
+// cargar un libro a un archivo
+
+void cargarUnLibroAlArchivo(stLibro aux) //cuando se cree un nuevo libro se utiliza esta funcion
+{
+    FILE*buffer=fopen(ARCHIVO_LIBROS,"ab");
+    if(buffer != NULL)
+    {
+        fwrite(&aux,sizeof(stLibro),1,buffer);
+        fclose(buffer);
+    }
+    else
+    {
+        puts("Archivo vacio");
+    }
+}
+
+void mostrarArchivoLibros()
+{
+    FILE*buffer=fopen(ARCHIVO_LIBROS,"rb");
+    stLibro aux;
+    if(buffer != NULL)
+    {
+        while(fread(&aux,sizeof(stLibro),1,buffer)>0)
+        {
+            mostrarUnLibro(aux);
+        }
+        fclose(buffer);
+    }
+    else
+    {
+        puts("Archivo vacio");
+    }
 }

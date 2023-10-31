@@ -35,4 +35,8 @@ stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
 void validarGenero(char auxGenero[]);
 void opcionesGenero();
 
+
+/// funciones del archivo de libros
+
+void cargarUnLibroAlArchivo(stLibro aux);
 #endif // LSTASIMPLESLIBROS_H_INCLUDED
