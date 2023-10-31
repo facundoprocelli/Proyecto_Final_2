@@ -1,6 +1,7 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
-#define MAX_DIM 25
+#define MAX_DIM 26
+
 
 ///estructuras
 
@@ -115,4 +116,11 @@ void menuActualizarLibro();
 void menuMiembros();
 void opcionesMenuMiembros();
 
+/*
+#include "arbolMiembros.h"
+#include "filaReservas.h"
+#include "listaDobleReservas.h"
+#include "listaSimpleLibros.h"
+
+*/
 #endif // BIBLIOTECA_H_INCLUDED

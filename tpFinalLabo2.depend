@@ -187,3 +187,66 @@
 	"listaDobleReservas.h"
 	"listaSimpleLibros.h"
 
+1698773622 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"biblioteca.h"
+
+1698774541 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.h
+	"arbolMiembros.h"
+	"filaReservas.h"
+	"listaDobleReservas.h"
+	"listaSimpleLibros.h"
+
+1698772531 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"filaReservas.h"
+
+1698772531 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.h
+	"biblioteca.h"
+
+1698772531 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"listaDobleReservas.h"
+
+1698772531 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.h
+	"biblioteca.h"
+
+1698772531 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"listaSimpleLibros.h"
+
+1698772531 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.h
+	"biblioteca.h"
+
+1698773826 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\main.c
+	<stdio.h>
+	<stdlib.h>
+	"biblioteca.h"
+	"arbolMiembros.h"
+	"filaReservas.h"
+	"listaDobleReservas.h"
+	"listaSimpleLibros.h"
+
+1698772531 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
+	"biblioteca.h"
+
+1698774480 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	<ctype.h>
+	"arbolMiembros.h"
+

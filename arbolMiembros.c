@@ -296,8 +296,17 @@ nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz)
 int validarRangoDeNombre(char nombreAux[])
 {
     int flag = 0;
+    int i = 0;
+    int longitud = 0;
 
-    if(strlen(nombreAux)>MAX_DIM||strlen(nombreAux)<3)
+    while (nombreAux[i] != '\0') {
+        i++;
+
+    }
+    longitud = i;
+
+
+    if(longitud >= MAX_DIM||longitud < 3)
     {
         printf("\nIngrese un nombre entre 3 y 25 caracteres\n");
         flag = 1;
@@ -306,15 +315,19 @@ int validarRangoDeNombre(char nombreAux[])
     return flag;
 }
 
+
+
+
 int validarDigitosEnStrings(char nombreAux[])
 {
 
     int flag = 0;
     int i = 0;
+    char espacio = ' ';
     while(i<strlen(nombreAux)&& flag == 0)
     {
 
-        if(isalpha(nombreAux[i])!= 0)
+        if(isalpha(nombreAux[i])!= 0 || nombreAux[i] == espacio)
         {
             i++;
         }

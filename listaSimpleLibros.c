@@ -220,12 +220,21 @@ stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
 
 void validarGenero(char auxGenero[])
 {
-    int opSw = 0,flag = 0;
+    char opSw[1];
+    int flag = 0;
+    int op;
     do
-    {
+    { ///----------Se puede hacer en una funcion aparte----------------
+        do{
         opcionesGenero();
-        opSw = preguntarDatoEntero();
-        switch(opSw)
+        printf("Ingrese una opcion");
+        fflush(stdin);
+        scanf("%s", &opSw);
+        }while (validarCaracteresEnEnteros(opSw) == 0);
+
+        op = convertirStringsDeNumerosAEntero(opSw);
+
+        switch(op)
         {
         case 1:
             strcpy(auxGenero,"Fantasia");
@@ -256,6 +265,7 @@ void validarGenero(char auxGenero[])
         }
 
     }
+
     while(flag == 0);
 
 }
