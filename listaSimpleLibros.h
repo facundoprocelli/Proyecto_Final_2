@@ -1,6 +1,29 @@
 #ifndef LISTASIMPLELIBROS_H_INCLUDED
 #define LISTASIMPLELIBROS_H_INCLUDED
-#include "biblioteca.h"
+#define MAX_DIM 26
+#include "filaReservas.h"
+///estructura libros
+
+typedef struct{
+
+    int idLibro; //id autoincremental
+    char nombreDeLibro[MAX_DIM];
+    char generoLibro[MAX_DIM];
+    char autorLibro[MAX_DIM];
+    char descripcionLibro[MAX_DIM];
+    int estado; // si esta activo,eliminado o prestado
+    int vecesPrestadoLibro;
+    filaReservas reservasLibro;
+
+} stLibro;
+
+typedef struct
+{
+    stLibro datoLibro;
+    struct nodoSimple*siguiente;
+
+} nodoSimple;
+
 
 ///funciones estructura libros
 

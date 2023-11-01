@@ -5,6 +5,11 @@
 #include "biblioteca.h"
 
 
+#define ARCHIVO_MIEMBROS "archivoMiembros.bin"
+#define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
+#define ARCHIVO_LIBROS "archivoLibros.bin"
+
+
 
 //la biblioteca va a tener el arreglo de listas simples de los libros
 
@@ -39,26 +44,27 @@ void biblioteca()
     {
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
         switch(opMenuPrin)
         {
         case 1:
-            menuLibros();
+            opContinuarMenuPrin=menuLibros();
             break;
         case 2:
-            menuMiembros();
+            opContinuarMenuPrin= menuMiembros();
             break;
         case 3:
             break;
+        case 4:
+            puts("Adios");
+            break;
         default:
+            opContinuarMenuPrin='s';
             puts("Ingrese una opcion valida");
             break;
         }
-        printf("Desea volver al menu principal? s/n: ");
-        fflush(stdin);
-        scanf("%c",&opContinuarMenuPrin);
-        limpiarPantalla();
     }
-    while(opMenuPrin=='s' || opMenuPrin=='S');
+    while(opContinuarMenuPrin=='s' || opContinuarMenuPrin=='S');
 
 }
 void menuDeAccionesPrincipales()
@@ -67,12 +73,13 @@ void menuDeAccionesPrincipales()
     printf("[1] Gestionar Libros\n");
     printf("[2] Gestionar Miembros\n");
     printf("[3] Gestionar Prestamos \n");
+    printf("[4] Finalizar programa \n");
     puts("-------------------------------------");
 }
 
 void opcionesMenuGestionarLibros()
 {
-    printf("\nSeleccione una opcion\n");
+    printf("Seleccione una opcion\n");
 
     printf("[1] Ingresar Nuevo Libro \n");
     printf("[2] Buscar libros\n");
@@ -81,26 +88,28 @@ void opcionesMenuGestionarLibros()
     printf("[5] Reservar Libro\n");
     printf("[6] Actualizar Libro \n");
     printf("[7] Eliminar Libro\n");
+    printf("[8] Volver al menu principal \n");
     puts("---------------------------------------------------");
 }
 
-void menuLibros()
+char menuLibros()
 {
     int opSw=0;
-    char opCont;
-
+    char opCont='s';
+    stLibro aux;
     do
     {
-
+        puts("---------------------------------------------------");
         opcionesMenuGestionarLibros();
         opSw=preguntarDatoEntero();
+        limpiarPantalla();
         switch(opSw)
         {
         case 1: //crear un libro nuevo
-
+            aux=crearUnLibro();
             break;
         case 2: //menu buscar libro
-            menuBuscarLibros();
+            opCont= menuBuscarLibros();
             break;
         case 3: // prestar un libro
 
@@ -111,16 +120,18 @@ void menuLibros()
         case 5: // reservar un libro
             break;
         case 6: // menu actualizar un libro
+            opCont= menuActualizarLibro();
             break;
         case 7: // eliminar un libro
+            break;
+        case 8:
+            limpiarPantalla();
+            return 's';
             break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        printf("Desea volver al menu de libros? s/n: ");
-        fflush(stdin);
-        scanf("%c",&opCont);
         limpiarPantalla();
     }
     while(opCont=='S' || opCont=='s');
@@ -137,18 +148,20 @@ void opcionesMenuActualizarLibros()
     printf("[2] Actualizar Genero\n");
     printf("[3] Actualizar Autor \n");
     printf("[4] Actualizar Descripcion\n");
-    printf("[5] Actualizar Estado"); // Activo o inactivo- No permitir poner que este prestado.
+    printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
+    printf("[6] Volver al menu de libros \n");
     puts("------------------------------------");
 }
 
-void menuActualizarLibro()
+char menuActualizarLibro()
 {
     int opSw=0;
-    char opCont;
+    char opCont='s';
     do
     {
         opcionesMenuActualizarLibros();
         opSw=preguntarDatoEntero();
+        limpiarPantalla();
         switch(opSw)
         {
         case 1:
@@ -161,13 +174,13 @@ void menuActualizarLibro()
             break;
         case 5:
             break;
+        case 6:
+            limpiarPantalla();
+            return 's';
+            break;
         default:
             break;
         }
-
-        printf("Desea seguir en el menu de actualizar libros? s/n: ");
-        fflush(stdin);
-        scanf("%c",&opCont);
         limpiarPantalla();
     }
     while(opCont == 's' || opCont=='S');
@@ -182,13 +195,14 @@ void opcionesMenuBuscarLibros()
     printf("[2] Buscar por Autor \n");
     printf("[3] Buscar por Genero \n");
     printf("[4] Buscar Palabra Clave \n");
+    printf("[5] Volver al menu de libros \n");
     puts("-----------------------------------------");
 }
 
-void menuBuscarLibros()
+char menuBuscarLibros()
 {
     int opSw=0;
-    char opCont;
+    char opCont='s';
     do
     {
         opcionesMenuBuscarLibros();
@@ -203,13 +217,14 @@ void menuBuscarLibros()
             break;
         case 4:
             break;
+        case 5:
+            limpiarPantalla();
+            return 's';
+            break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        printf("Desea seguir en el menu de buscar libros? s/n: ");
-        fflush(stdin);
-        scanf("%c",&opCont);
         limpiarPantalla();
     }
     while(opCont=='S' || opCont=='s');
@@ -226,13 +241,14 @@ void opcionesMenuMiembros()
     printf("[3] Calcular Multas \n");
     printf("[4] Generar Informes  \n");
     printf("[5] Modificar limite de prestamo a un miembro\n");
+    printf("[6] Volver al menu principal \n");
     puts("----------------------------------------------------");
 }
 
-void menuMiembros()
+char menuMiembros()
 {
     int opSw=0;
-    char opCont;
+    char opCont='s';
 
     do
     {
@@ -250,13 +266,14 @@ void menuMiembros()
             break;
         case 5:
             break;
+        case 6:
+            limpiarPantalla();
+            return 's';
+            break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        printf("Desea seguir en el menu miembros? s/n: ");
-        fflush(stdin);
-        scanf("%c",&opCont);
         limpiarPantalla();
     }
     while(opCont == 's' || opCont=='S');

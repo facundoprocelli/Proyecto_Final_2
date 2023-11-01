@@ -1,6 +1,12 @@
 #ifndef FILARESERVAS_H_INCLUDED
 #define FILARESERVAS_H_INCLUDED
-#include "biblioteca.h"
+#define MAX_DIM 26
+typedef struct{
+
+    struct nodoDoble*primero;
+    struct nodoDoble*ultimo;
+
+} filaReservas;
 
 void inicFila(filaReservas*reservas);
 

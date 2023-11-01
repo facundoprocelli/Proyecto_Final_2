@@ -1,6 +1,35 @@
 #ifndef LISTADOBLERESERVAS_H_INCLUDED
 #define LISTADOBLERESERVAS_H_INCLUDED
-#include "biblioteca.h"
+#define MAX_DIM 26
+///Estructura prestamos
+
+typedef struct{
+
+    int diaTiempo;
+    int mesTiempo;
+    int anioTiempo;
+
+} stFecha;
+
+typedef struct{
+
+    int idPrestamo;
+    char dniUsuarioPrestado[MAX_DIM];
+    char precioPrestamo[MAX_DIM];
+    stFecha inicioPrestamo;
+    stFecha vencimientoPrestamo;
+
+} stPrestamo;
+
+
+typedef struct
+{
+    stPrestamo datoPrestamo;
+    struct nodoDoble*anterior;
+    struct nodoDoble*siguiente;
+
+} nodoDoble;
+
 
 ///funciones estructura prestamos
 

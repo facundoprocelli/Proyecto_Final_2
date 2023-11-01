@@ -4,6 +4,12 @@
 #include <time.h>
 #include <ctype.h>
 #include "arbolMiembros.h"
+#define MAX_DIM 26
+#define ARCHIVO_MIEMBROS "archivoMiembros.bin"
+#define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
+#define ARCHIVO_LIBROS "archivoLibros.bin"
+
+
 ///funciones miembro
 //crear una persona
 stPersona crearUnaPersona()
