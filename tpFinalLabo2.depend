@@ -252,7 +252,7 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1698843818 source:c:\users\usuario\desktop\proyecto_final_2-main\arbolmiembros.c
+1698830628 source:c:\users\usuario\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -260,50 +260,50 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1698843850 c:\users\usuario\desktop\proyecto_final_2-main\arbolmiembros.h
+1698830628 c:\users\usuario\desktop\proyecto_final_2-main\arbolmiembros.h
 
-1698844010 c:\users\usuario\desktop\proyecto_final_2-main\biblioteca.h
+1698852076 c:\users\usuario\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 	"listaDobleReservas.h"
 	"arbolMiembros.h"
 	"filaReservas.h"
 
-1698843851 c:\users\usuario\desktop\proyecto_final_2-main\filareservas.h
+1698830628 c:\users\usuario\desktop\proyecto_final_2-main\filareservas.h
 
-1698843850 c:\users\usuario\desktop\proyecto_final_2-main\listadoblereservas.h
+1698830628 c:\users\usuario\desktop\proyecto_final_2-main\listadoblereservas.h
 
-1698843862 c:\users\usuario\desktop\proyecto_final_2-main\listasimplelibros.h
+1698830628 c:\users\usuario\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 
-1698844010 source:c:\users\usuario\desktop\proyecto_final_2-main\biblioteca.c
+1698852163 source:c:\users\usuario\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1698843818 source:c:\users\usuario\desktop\proyecto_final_2-main\filareservas.c
+1698830628 source:c:\users\usuario\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1698843851 source:c:\users\usuario\desktop\proyecto_final_2-main\listadoblereservas.c
+1698830628 source:c:\users\usuario\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1698843818 source:c:\users\usuario\desktop\proyecto_final_2-main\listasimplelibros.c
+1698850600 source:c:\users\usuario\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1698843994 source:c:\users\usuario\desktop\proyecto_final_2-main\main.c
+1698830628 source:c:\users\usuario\desktop\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"

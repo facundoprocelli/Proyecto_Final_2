@@ -272,7 +272,7 @@ void validarGenero(char auxGenero[])
         do
         {
             opcionesGenero();
-            printf("Ingrese una opcion");
+            printf("Ingrese una opcion: ");
             fflush(stdin);
             scanf("%s", &opSw);
         }

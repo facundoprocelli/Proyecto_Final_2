@@ -39,7 +39,7 @@ int convertirStringsDeNumerosAEntero(char aux[])
 void biblioteca()
 {
     int opMenuPrin=0;
-    char opContinuarMenuPrin;
+    char opContinuarMenuPrin='s';
     do
     {
         menuDeAccionesPrincipales();
@@ -48,10 +48,10 @@ void biblioteca()
         switch(opMenuPrin)
         {
         case 1:
-            opContinuarMenuPrin=menuLibros();
+            menuLibros();
             break;
         case 2:
-            opContinuarMenuPrin= menuMiembros();
+            menuMiembros();
             break;
         case 3:
             break;
@@ -59,12 +59,11 @@ void biblioteca()
             puts("Adios");
             break;
         default:
-            opContinuarMenuPrin='s';
             puts("Ingrese una opcion valida");
             break;
         }
     }
-    while(opContinuarMenuPrin=='s' || opContinuarMenuPrin=='S');
+    while(opContinuarMenuPrin != 'n');
 
 }
 void menuDeAccionesPrincipales()
@@ -92,7 +91,7 @@ void opcionesMenuGestionarLibros()
     puts("---------------------------------------------------");
 }
 
-char menuLibros()
+void menuLibros()
 {
     int opSw=0;
     char opCont='s';
@@ -109,7 +108,7 @@ char menuLibros()
             aux=crearUnLibro();
             break;
         case 2: //menu buscar libro
-            opCont= menuBuscarLibros();
+            menuBuscarLibros();
             break;
         case 3: // prestar un libro
 
@@ -120,21 +119,21 @@ char menuLibros()
         case 5: // reservar un libro
             break;
         case 6: // menu actualizar un libro
-            opCont= menuActualizarLibro();
+            menuActualizarLibro();
             break;
         case 7: // eliminar un libro
             break;
         case 8:
+            opCont='n';
             limpiarPantalla();
-            return 's';
             break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        limpiarPantalla();
+        //limpiarPantalla();
     }
-    while(opCont=='S' || opCont=='s');
+    while(opCont != 'n');
 
 
 }
@@ -153,7 +152,7 @@ void opcionesMenuActualizarLibros()
     puts("------------------------------------");
 }
 
-char menuActualizarLibro()
+void menuActualizarLibro()
 {
     int opSw=0;
     char opCont='s';
@@ -175,15 +174,15 @@ char menuActualizarLibro()
         case 5:
             break;
         case 6:
+            opCont='n';
             limpiarPantalla();
-            return 's';
             break;
         default:
             break;
         }
-        limpiarPantalla();
+        //limpiarPantalla();
     }
-    while(opCont == 's' || opCont=='S');
+    while(opCont != 'n');
 }
 
 void opcionesMenuBuscarLibros()
@@ -199,7 +198,7 @@ void opcionesMenuBuscarLibros()
     puts("-----------------------------------------");
 }
 
-char menuBuscarLibros()
+void menuBuscarLibros()
 {
     int opSw=0;
     char opCont='s';
@@ -218,24 +217,24 @@ char menuBuscarLibros()
         case 4:
             break;
         case 5:
+            opCont='n';
             limpiarPantalla();
-            return 's';
             break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        limpiarPantalla();
+        //limpiarPantalla();
     }
-    while(opCont=='S' || opCont=='s');
+    while(opCont=='n');
 
 }
 
 void opcionesMenuMiembros()
 {
 
+    puts("----------------------------------------------------");
     printf("Seleccione una opcion\n");
-
     printf("[1] Registrar Miembros \n");
     printf("[2] Buscar Miembros \n");
     printf("[3] Calcular Multas \n");
@@ -245,7 +244,7 @@ void opcionesMenuMiembros()
     puts("----------------------------------------------------");
 }
 
-char menuMiembros()
+void menuMiembros()
 {
     int opSw=0;
     char opCont='s';
@@ -254,6 +253,57 @@ char menuMiembros()
     {
         opcionesMenuMiembros();
         opSw=preguntarDatoEntero();
+        switch(opSw)
+        {
+        case 1:
+            break;
+        case 2:
+            menuBuscarMiembros();
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        //limpiarPantalla();
+    }
+    while(opCont == 'n');
+
+}
+
+
+void opcionesMenuBuscarMiembros()
+{
+
+    puts("------------------------------------------");
+    printf("Seleccione una opcion \n");
+    printf("[1] Buscar Por Nombre\n");
+    printf("[2] Buscar Por Id\n");
+    printf("[3] Buscar Alquileres\n");
+    printf("[4] Buscar por Saldo\n ");
+    printf("[5] Buscar por Limite de prestamos\n");
+    printf("[6] Volver al menu de miembros \n");
+    puts("------------------------------------------");
+}
+
+void menuBuscarMiembros()
+{
+    int opSw=0;
+    char opCont='s';
+    opcionesMenuBuscarMiembros();
+    opSw=preguntarDatoEntero();
+    do
+    {
+
         switch(opSw)
         {
         case 1:
@@ -268,31 +318,15 @@ char menuMiembros()
             break;
         case 6:
             limpiarPantalla();
-            return 's';
+            opCont='n';
             break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
-        limpiarPantalla();
+
     }
-    while(opCont == 's' || opCont=='S');
+    while(opCont != 'n');
 
 }
-
-
-void menuBuscarMiembros()
-{
-
-    printf("Seleccione una opcion \n");
-
-    printf("[1] Buscar Por Nombre\n");
-    printf("[2] Buscar Por Id\n");
-    printf("[3] Buscar Alquileres\n");
-    printf("[4] Buscar por Saldo\n ");
-    printf("[5] Buscar por Limite de prestamos\n");
-    puts("------------------------------------------");
-}
-
-
 

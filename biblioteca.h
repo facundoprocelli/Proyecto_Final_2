@@ -25,15 +25,17 @@ int preguntarDatoEntero();
 void limpiarPantalla();
 void menuDeAccionesPrincipales();
 void opcionesMenuGestionarLibros();
-char menuLibros();
+void menuLibros();
 void opcionesMenuBuscarLibros();
-char menuBuscarLibros();
+void menuBuscarLibros();
 void opcionesMenuActualizarLibros();
-char menuActualizarLibro();
+void menuActualizarLibro();
 
-char menuMiembros();
+void menuMiembros();
 void opcionesMenuMiembros();
 
+void opcionesMenuBuscarMiembros();
+void menuBuscarMiembros();
 
 
 
