@@ -154,6 +154,47 @@ nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 }
 
 
+nodoSimple* retornarNodosLibroXAutor(nodoSimple* listaSimple, char autorBuscar[]){
+
+nodoSimple* aux = inicListaSimple();
+
+
+while (listaSimple != NULL){
+
+    if (strcmpi(listaSimple->datoLibro.autorLibro, autorBuscar) == 0){
+
+        nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+        aux = agregarAlFinalSimple(aux, NN );
+    }
+
+    listaSimple = listaSimple->siguiente;
+}
+
+return aux;
+}
+
+
+
+
+nodoSimple* retornarNodosLibroXEstado(nodoSimple* listaSimple, int estado){
+
+nodoSimple* aux = inicListaSimple();
+
+
+while (listaSimple != NULL){
+
+    if (listaSimple->datoLibro.estado == estado){
+        nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+        aux = agregarAlFinalSimple(aux, NN);
+
+    }
+    listaSimple = listaSimple->siguiente;
+}
+
+return aux;
+}
+
+
 //funciones de buscar para retornar un libro
 
 stLibro retornarLibroXid(nodoSimple*listaSimple,int idBuscar)
