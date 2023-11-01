@@ -5,14 +5,11 @@
 
 
 
-
-
-
-
 int main()
 {
-    nodoArbol * raiz = inicArbol();
-    printf("\Bienvenido a la Biblioteca BookMaze\n");
+
+    printf("\t\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
+    printf("\t\t\t      =============================================\n");
     biblioteca();
 
 
