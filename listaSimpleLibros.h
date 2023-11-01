@@ -48,9 +48,13 @@ int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
 
 //funciones buscar
 
+
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar);
+nodoSimple* retornarNodoLibrosXAutor(nodoSimple* listaSimple, char autorBuscar[]);
 stLibro retornarLibroXid(nodoSimple*listaSimple,int idBuscar);
 stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
+stLibro retornarUnSoloLibroXAutor(nodoSimple*listaSimple,char autorBuscar[]);
+nodoSimple* retornarNodoLibrosXEstado(nodoSimple* listaSimple, int estado);
 
 
 ///validaciones
