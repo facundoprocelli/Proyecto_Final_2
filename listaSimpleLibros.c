@@ -41,6 +41,11 @@ stLibro crearUnLibro()
 
     aux.vecesPrestadoLibro=0;
 
+
+    printf("Desripcion: ");
+    fflush(stdin);
+    gets(&aux.descripcionLibro);
+
     return aux;
 }
 
@@ -54,6 +59,7 @@ void mostrarUnLibro(stLibro aux)
     printf("Autor.................: %s \n",aux.autorLibro);
     printf("Estado................: %i \n",aux.estado);
     printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
+    printf("Descripcion...........: %s \n", aux.descripcionLibro);
     ///printf("",aux.reservasLibro); ///mostrar fila de reservas de este libro
     puts("---------------------------------------------");
 }
@@ -154,46 +160,210 @@ nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 }
 
 
-nodoSimple* retornarNodosLibroXAutor(nodoSimple* listaSimple, char autorBuscar[]){
+nodoSimple* retornarNodosLibroXAutor(nodoSimple* listaSimple, char autorBuscar[])
+{
 
-nodoSimple* aux = inicListaSimple();
+    nodoSimple* aux = inicListaSimple();
 
 
-while (listaSimple != NULL){
+    while (listaSimple != NULL)
+    {
 
-    if (strcmpi(listaSimple->datoLibro.autorLibro, autorBuscar) == 0){
+        if (strcmpi(listaSimple->datoLibro.autorLibro, autorBuscar) == 0)
+        {
 
-        nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
-        aux = agregarAlFinalSimple(aux, NN );
+            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN );
+        }
+
+        listaSimple = listaSimple->siguiente;
     }
 
-    listaSimple = listaSimple->siguiente;
-}
-
-return aux;
+    return aux;
 }
 
 
 
 
-nodoSimple* retornarNodosLibroXEstado(nodoSimple* listaSimple, int estado){
+nodoSimple* retornarNodosLibroXEstado(nodoSimple* listaSimple, int estado)
+{
 
-nodoSimple* aux = inicListaSimple();
+    nodoSimple* aux = inicListaSimple();
 
 
-while (listaSimple != NULL){
+    while (listaSimple != NULL)
+    {
 
-    if (listaSimple->datoLibro.estado == estado){
-        nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
-        aux = agregarAlFinalSimple(aux, NN);
+        if (listaSimple->datoLibro.estado == estado)
+        {
+            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN);
 
+        }
+        listaSimple = listaSimple->siguiente;
     }
-    listaSimple = listaSimple->siguiente;
+
+    return aux;
 }
 
-return aux;
+
+
+
+
+
+
+
+//Funciones de modificar Libros
+
+nodoSimple* actualizarLibro(nodoSimple* lista)
+{
+    int opSw=0;
+    char opCont='s';
+    nodoSimple* buscado = inicListaSimple();
+    do
+    {
+        puts("---------------------------------------------------");
+        opcionesMenuActualizarLibros();
+
+        opSw = preguntarDatoEntero();
+
+        limpiarPantalla();
+        /*
+                printf("Ingrese el ID que desea bsucar");
+                int idBuscado = preguntarDatoEntero();
+
+
+                for(int i = 0; i < 5; i++)
+                {
+
+                    buscado = retornarLibroXid(arregloListas[i], idBuscado);
+
+                }
+
+                */
+
+
+        switch(opSw)
+        {
+        case 1: //Actualizar Nombre
+            lista = modificarNombreLibro(lista);
+            break;
+        case 2: //Actualizar Genero
+            lista = modificarGeneroLibro(lista);
+            break;
+        case 3: // Actualizar Autor
+            lista = modificarAutorLibro(lista);
+            break;
+        case 4: // Actualizar Descripción
+            lista = modificarDescripcionLibro(lista);
+            break;
+        case 5:
+                // Actualizar Estado
+            lista = modificarEstadoLibro(lista);
+            break;
+        case 6:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        limpiarPantalla();
+    }
+    while(opCont != 'n');
+
+    return lista ;
 }
 
+
+
+
+nodoSimple* modificarNombreLibro(nodoSimple* aux)
+{
+
+    do
+    {
+        printf("Ingrese el nuevo nombre ");
+        printf("Nombre: ");
+        fflush(stdin);
+        gets(aux->datoLibro.nombreDeLibro);
+    }
+    while(validarDigitosEnStrings(aux->datoLibro.nombreDeLibro)== 1||validarRangoDeNombre(aux->datoLibro.nombreDeLibro)== 1);///reutilizo la funcion de validarDigitos y validarRangoNombre que hice en arboles
+
+
+    return aux;
+}
+
+
+nodoSimple* modificarGeneroLibro(nodoSimple* aux)
+{
+
+    printf("Seleccione el nuevo Genero ");
+    printf("Genero: \n");
+    validarGenero(aux->datoLibro.generoLibro);
+
+    return aux;
+}
+
+
+nodoSimple* modificarAutorLibro(nodoSimple* aux)
+{
+
+    do
+    {
+        printf("Ingrese el nuevo Autor ");
+        printf("Autor: ");
+        fflush(stdin);
+        gets(aux->datoLibro.autorLibro);
+    }
+    while(validarDigitosEnStrings(aux->datoLibro.autorLibro)== 1||validarRangoDeNombre(aux->datoLibro.autorLibro)==1);
+
+    return aux;
+}
+
+
+nodoSimple* modificarDescripcionLibro(nodoSimple* aux)
+{
+
+
+    printf("Desripcion: ");
+    fflush(stdin);
+    gets(aux->datoLibro.descripcionLibro);
+
+
+    return aux;
+}
+
+
+nodoSimple* modificarEstadoLibro(nodoSimple* aux)
+{
+
+
+    char opSw[1];
+    int op = 0;
+    menuEstados();
+    do
+    {
+        op = preguntarDatoEntero();
+    }
+    while (op != 0 && op != 1  );
+
+        aux->datoLibro.estado = op;
+
+
+
+    return aux;
+}
+
+void menuEstados()
+{
+
+    printf("Seleccione una opcion\n");
+    printf("[0] Dar de Baja\n");
+    printf("[1] Dar de Alta\n");
+
+}
 
 //funciones de buscar para retornar un libro
 
@@ -361,3 +531,64 @@ void mostrarArchivoLibros()
         puts("Archivo vacio");
     }
 }
+
+/// Esto es lo que debe ir en biblioteca para que este el switch en la parte correcta, faltan los cambios para que funicone bien
+/*
+
+void menuLibros(nodoSimple arregloListas[])
+{
+    int opSw=0;
+    char opCont='s';
+    int i = 0;
+    stLibro aux;
+    do
+    {
+        puts("---------------------------------------------------");
+        opcionesMenuGestionarLibros();
+        opSw=preguntarDatoEntero();
+        //limpiarPantalla();
+        switch(opSw)
+        {
+        case 1: //crear un libro nuevo
+            aux = crearUnLibro();
+            for (i = 0; i < 5; i++){
+
+            if (strcmpi(aux.generoLibro, arregloListas[i].datoLibro.generoLibro) == 0){
+
+                //arregloListas[i] = agregarAlFinalSimple(arregloListas[i], crearNodoSimple(aux));
+                }
+            }
+
+            break;
+        case 2: //menu buscar libro
+            menuBuscarLibros();
+            break;
+        case 3: // prestar un libro
+
+            break;
+        case 4: // devolver un libro
+
+            break;
+        case 5: // reservar un libro
+            break;
+        case 6: // menu actualizar un libro
+            //arregloListas[i] =  actualizarLibro(arregloListas);
+            break;
+        case 7: // eliminar un libro
+            break;
+        case 8:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        //limpiarPantalla();
+    }
+    while(opCont != 'n');
+
+
+}
+
+*/
