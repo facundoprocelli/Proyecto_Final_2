@@ -11,7 +11,13 @@
 ///estructuras
 
 
+typedef struct
+{
+    nodoSimple*listaLibros;
+    char generoEstanteria[MAX_DIM];
 
+    
+}estanteria;
 
 
 
