@@ -80,13 +80,22 @@ int validarRangoDNI(char dniAux[]);
 int validarCaracteresEnEnteros(char aux[]);
 int validarRangoTelefono(char telefono[]);
 
+int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo);
+int validarEstadoMiembro(int estadoAux);
+int validarLimitePrestamoMiembro(int limiteAux);
+
 ///archivos
 void cargarUnMiembroAlArchivo(stMiembro aux);
 nodoArbol * archivoAlArbol(nodoArbol * raiz);
 void mostrarArchivoDeMiembros();
 
-
-
+///modificaciones
+nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[]);
+void opcionesMenuActualizarMiembros();
+nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux);
+void opcionesActualizarUnMiembro();
+nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux);
+void opcionesActualizarUnMiembroCampos();
 
 
 

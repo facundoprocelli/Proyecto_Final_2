@@ -394,6 +394,38 @@ int validarRangoTelefono(char telefono[])
     }
     return flag;
 }
+int validarEstadoMiembro(int estadoAux)
+{
+    int flag = 0;
+    if(estadoAux <0||estadoAux >1)
+    {
+        printf("Ingrese un estado valido\n");
+        flag = 1;
+    }
+
+    return flag;
+}
+
+int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo)
+{
+    if(opSw < minimo ||opSw >maximo)
+    {
+        printf("Ingrese una opcion o rango valido\n");
+        return 1;
+    }
+
+    return 0;
+}
+int validarLimitePrestamoMiembro(int limiteAux)
+{
+    int flag = 0;
+    if(limiteAux<0||limiteAux>3){
+            printf("Ingrese un limite valido\n");
+        flag = 1;
+    }
+
+    return flag;
+}
 
 ///archivos
 
@@ -457,9 +489,208 @@ void mostrarArchivoDeMiembros()
 
 }
 
+///modificaciones
+
+
+nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
+{
+    int  opSw = 0,min = 1,max = 3;
+    char op = 's';
+    nodoArbol * aux = inicArbol();
+    if(raiz!=NULL)
+    {
+        aux = buscarNodoPorDniArbol(raiz,dniAModificar);
+
+        do
+        {
+            do
+            {
+                opcionesMenuActualizarMiembros();
+                opSw = preguntarDatoEntero();
+            }
+            while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+
+            switch(opSw)
+            {
+            case 1:
+                aux = actualizarUnMiembroDatosPersonales(aux); ///modificar datospersonales
+                break;
+
+            case 2:
+                aux = actualizarUnMiembroCampos(aux);///modificar estado/saldo/lmite de prestamos
+                break;
+            case 3:
+                op = 'n';
+                break;
+            default:
+                puts("Ingrese una opcion valida\n");
+                break;
+            }
+
+        }
+        while(op != 'n');
+    }
+
+
+    return raiz;
+}
+
+
+void opcionesMenuActualizarMiembros()
+{
+    puts(".....................................................");
+    printf("[1]Actualizar datos personales\n");
+    printf("[2]Actualizar saldo|estado|cantidad de prestamos\n");
+    printf("[3]Volver al menu de miembros\n");
+    puts(".....................................................");
+
+}
+nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux)
+{
+
+    int flag = 0,opSw = 0,min = 1,max = 6;
+    char op = 's';
+
+    do
+    {
+        do
+        {
+            opcionesActualizarUnMiembro();
+            opSw = preguntarDatoEntero();
+        }
+        while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+        switch(opSw)
+        {
+        case 1:
+            do
+            {
+                printf("Nuevo nombre: ");
+                fflush(stdin);
+                scanf("%s",&aux->dato.datosPersonales.nombre);
+            }
+            while(validarDigitosEnStrings(aux->dato.datosPersonales.nombre)== 1 || validarRangoDeNombre(aux->dato.datosPersonales.nombre)== 1);
+
+            break;
+        case 2:
+            do
+            {
+                printf("Nuevo DNI: ");
+                fflush(stdin);
+                scanf("%s", &aux->dato.datosPersonales.dni);
+            }
+            while(validarRangoDNI(aux->dato.datosPersonales.dni)== 0 || validarCaracteresEnEnteros(aux->dato.datosPersonales.dni)== 0);
+            break;
+        case 3:
+            do
+            {
+                printf("Nuevo numero de telefono: ");
+                fflush(stdin);
+                scanf("%s", &aux->dato.datosPersonales.numeroDeTelefono);
+            }
+            while(validarRangoTelefono(aux->dato.datosPersonales.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux->dato.datosPersonales.numeroDeTelefono)== 0);
+            break;
+        case 4:
+            printf("Nueva direccion: ");
+            fflush(stdin);
+            gets(&aux->dato.datosPersonales.direccion);
+            break;
+        case 5:
+            aux->dato = crearUnMiembro();
+            break;
+        case 6:
+            op = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+
+        }
+
+    }
+    while(op !='n');
+    return aux;
+}
+
+void opcionesActualizarUnMiembro()
+{
+    puts(".....................................................");
+    printf("[1]Actualizar nombre\n");
+    printf("[2]Actualizar DNI\n");
+    printf("[3]Actualizar Numero de telefono\n");
+    printf("[4]Actualizar direccion\n");
+    printf("[5]Actualizar todo el miembro\n");
+    printf("[6]Volver al menu de miembros\n");
+    puts(".....................................................");
+
+}
+
+nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
+{
+    int  opSw = 0,min = 1,max = 4;
+    char op = 's';
+    do
+    {
+        do
+        {
+            opcionesActualizarUnMiembroCampos();
+            opSw = preguntarDatoEntero();
+        }
+        while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+        switch(opSw)
+        {
+        case 1:
+            do
+            {
+                printf("Ingrese el nuevo estado: ");
+                fflush(stdin);
+                scanf("%i",&aux->dato.estado);
+            }
+            while(validarEstadoMiembro(aux->dato.estado)== 1);
+            break;
+        case 2:
+            do
+            {
+                printf("Ingrese el nuevo saldo: ");
+                fflush(stdin);
+                scanf("%i",&aux->dato.saldo);
+            }
+            while(validarDentroDeUnRangoMiembro(aux->dato.saldo,0,100000)== 1);
+            break;
+        case 3:
+            do
+            {
+                printf("Ingrese el nuevo limite de prestamo: ");
+                fflush(stdin);
+                scanf("%i",&aux->dato.limitePrestamos);
+            }
+            while(validarLimitePrestamoMiembro(aux->dato.limitePrestamos)== 1);
+            break;
+        case 4:
+            op = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
 
 
 
+    }
+    while(op !='n');
 
 
+
+    return aux;
+}
+
+void opcionesActualizarUnMiembroCampos()
+{
+    puts(".....................................................");
+    printf("[1]Actualizar estado\n");
+    printf("[2]Actualizar saldo\n");
+    printf("[3]Actualizar limites de prestamos \n");
+    printf("[4]Volver al menu de miembros\n");
+    puts(".....................................................");
+
+}
 
