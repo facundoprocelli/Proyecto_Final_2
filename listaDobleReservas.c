@@ -25,8 +25,8 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
 
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
-//    aux.inicioPrestamo
-//    aux.vencimientoPrestamo
+   // aux.inicioPrestamo
+   // aux.vencimientoPrestamo
 
     return aux;
 }
@@ -76,7 +76,7 @@ void mostrarListaDoble(nodoDoble*listaDoble)
 
 nodoDoble*crearNodoDoble(stPrestamo aux)
 {
-    nodoDoble*nuevoNodo=(nodoDoble*)malloc(sizeof(stPrestamo));
+    nodoDoble*nuevoNodo=(nodoDoble*)malloc(sizeof(nodoDoble));
     nuevoNodo->datoPrestamo=aux;
     nuevoNodo->anterior=NULL;
     nuevoNodo->siguiente=NULL;
@@ -127,12 +127,27 @@ nodoDoble*agregarAlFinalDoble(nodoDoble*listaDoble,nodoDoble*nuevoNodo)
     return listaDoble;
 }
 
-//validaciones
+//borrar el primer nodo de la lista doble
+
+void borrarPrimerNodoDoble(nodoDoble**listaDoble)
+{
+    nodoDoble*aux;
+    if(listaDoble != NULL)
+    {
+        aux=(*listaDoble);
+        (*listaDoble)=(*listaDoble)->siguiente;
+        free(aux);
+    }
+
+
+}
+
+///validaciones
 
 int validarPrecioPrestamo(char aux[])
 {
     int flag=0;
-    int dato=atoi(aux); // funcion que convierte numeros en un string al tipo de dato entero
+    int dato=convertirStringsDeNumerosAEntero(aux); // funcion que convierte numeros en un string al tipo de dato entero
     int min=0,max=10000;
 
 
@@ -144,3 +159,5 @@ int validarPrecioPrestamo(char aux[])
 
     return flag;
 }
+
+
