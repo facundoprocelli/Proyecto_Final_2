@@ -151,7 +151,7 @@ void opcionesMenuActualizarLibros()
     printf("[6] Volver al menu de libros \n");
     puts("------------------------------------");
 }
-
+/*
 void menuActualizarLibro()
 {
     int opSw=0;
@@ -184,7 +184,7 @@ void menuActualizarLibro()
     }
     while(opCont != 'n');
 }
-
+*/
 void opcionesMenuBuscarLibros()
 {
 
@@ -226,7 +226,7 @@ void menuBuscarLibros()
         }
         //limpiarPantalla();
     }
-    while(opCont=='n');
+    while(opCont!='n');
 
 }
 
