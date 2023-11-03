@@ -13,10 +13,10 @@
 
 typedef struct
 {
-    nodoSimple*listaLibros;
+    nodoSimple* listaLibro;
     char generoEstanteria[MAX_DIM];
 
-    
+
 }estanteria;
 
 
@@ -35,7 +35,7 @@ void menuLibros();
 void opcionesMenuBuscarLibros();
 void menuBuscarLibros();
 void opcionesMenuActualizarLibros();
-void menuActualizarLibro();
+void actualizarLibro(estanteria arregloListas[]);
 
 void menuMiembros();
 void opcionesMenuMiembros();

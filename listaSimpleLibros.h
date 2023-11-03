@@ -14,6 +14,7 @@ typedef struct{
     char descripcionLibro[MAX_DIM_DESC];
     int estado; // si esta activo,eliminado o prestado
     int vecesPrestadoLibro;
+    char cantidadDeCopias[MAX_DIM];
     filaReservas reservasLibro;
 
 } stLibro;

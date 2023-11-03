@@ -41,6 +41,13 @@ stLibro crearUnLibro()
 
     aux.vecesPrestadoLibro=0;
 
+do
+    {
+        printf("Copias: ");
+        fflush(stdin);
+        gets(&aux.cantidadDeCopias);
+    }
+    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0| aux.cantidadDeCopias < 100);
 
     printf("Desripcion: ");
     fflush(stdin);
@@ -60,6 +67,7 @@ void mostrarUnLibro(stLibro aux)
     printf("Estado................: %i \n",aux.estado);
     printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
     printf("Descripcion...........: %s \n", aux.descripcionLibro);
+    printf("Copias................: %s \n", aux.cantidadDeCopias);
     ///printf("",aux.reservasLibro); ///mostrar fila de reservas de este libro
     puts("---------------------------------------------");
 }
@@ -215,67 +223,6 @@ nodoSimple* retornarNodosLibroXEstado(nodoSimple* listaSimple, int estado)
 
 //Funciones de modificar Libros
 
-nodoSimple* actualizarLibro(nodoSimple* lista)
-{
-    int opSw=0;
-    char opCont='s';
-    nodoSimple* buscado = inicListaSimple();
-    do
-    {
-        puts("---------------------------------------------------");
-        opcionesMenuActualizarLibros();
-
-        opSw = preguntarDatoEntero();
-
-        limpiarPantalla();
-        /*
-                printf("Ingrese el ID que desea bsucar");
-                int idBuscado = preguntarDatoEntero();
-
-
-                for(int i = 0; i < 5; i++)
-                {
-
-                    buscado = retornarLibroXid(arregloListas[i], idBuscado);
-
-                }
-
-                */
-
-
-        switch(opSw)
-        {
-        case 1: //Actualizar Nombre
-            lista = modificarNombreLibro(lista);
-            break;
-        case 2: //Actualizar Genero
-            lista = modificarGeneroLibro(lista);
-            break;
-        case 3: // Actualizar Autor
-            lista = modificarAutorLibro(lista);
-            break;
-        case 4: // Actualizar Descripción
-            lista = modificarDescripcionLibro(lista);
-            break;
-        case 5:
-                // Actualizar Estado
-            lista = modificarEstadoLibro(lista);
-            break;
-        case 6:
-            opCont='n';
-            limpiarPantalla();
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-        limpiarPantalla();
-    }
-    while(opCont != 'n');
-
-    return lista ;
-}
-
 
 
 
@@ -295,6 +242,21 @@ nodoSimple* modificarNombreLibro(nodoSimple* aux)
     return aux;
 }
 
+nodoSimple* modificarCantiadadDeCopias(nodoSimple* aux){
+
+do
+    {
+        printf("Ingrese la nueva cantiadad de copias ");
+        printf("Copias: ");
+        fflush(stdin);
+        gets(aux->datoLibro.cantidadDeCopias);
+    }
+    while(validarCaracteresEnEnteros(aux->datoLibro.cantidadDeCopias)== 0|| aux->datoLibro.cantidadDeCopias < 100);
+
+
+
+return aux;
+}
 
 nodoSimple* modificarGeneroLibro(nodoSimple* aux)
 {
@@ -469,7 +431,7 @@ void validarGenero(char auxGenero[])
             flag = 1;
             break;
         case 5:
-            strcpy(auxGenero,"Comedia");
+            strcpy(auxGenero,"Aventura");
             flag = 1;
             break;
         default:
@@ -494,7 +456,7 @@ void opcionesGenero()
     printf("[2]Ciencia Ficcion\n");
     printf("[3]Romance\n");
     printf("[4]Terror\n");
-    printf("[5]Comedia\n");
+    printf("[5]Aventura\n");
 
 }
 
@@ -532,63 +494,75 @@ void mostrarArchivoLibros()
     }
 }
 
-/// Esto es lo que debe ir en biblioteca para que este el switch en la parte correcta, faltan los cambios para que funicone bien
-/*
 
-void menuLibros(nodoSimple arregloListas[])
+
+void cargarLibrosPredeterminados()
 {
-    int opSw=0;
-    char opCont='s';
-    int i = 0;
-    stLibro aux;
-    do
-    {
-        puts("---------------------------------------------------");
-        opcionesMenuGestionarLibros();
-        opSw=preguntarDatoEntero();
-        //limpiarPantalla();
-        switch(opSw)
-        {
-        case 1: //crear un libro nuevo
-            aux = crearUnLibro();
-            for (i = 0; i < 5; i++){
 
-            if (strcmpi(aux.generoLibro, arregloListas[i].datoLibro.generoLibro) == 0){
+    FILE* archi = fopen(ARCHIVO_LIBROS, "wb");
 
-                //arregloListas[i] = agregarAlFinalSimple(arregloListas[i], crearNodoSimple(aux));
-                }
-            }
-
-            break;
-        case 2: //menu buscar libro
-            menuBuscarLibros();
-            break;
-        case 3: // prestar un libro
-
-            break;
-        case 4: // devolver un libro
-
-            break;
-        case 5: // reservar un libro
-            break;
-        case 6: // menu actualizar un libro
-            //arregloListas[i] =  actualizarLibro(arregloListas);
-            break;
-        case 7: // eliminar un libro
-            break;
-        case 8:
-            opCont='n';
-            limpiarPantalla();
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-        //limpiarPantalla();
-    }
-    while(opCont != 'n');
+    stLibro libro1;
+    libro1.idLibro = 1;
+    strcpy(libro1.autorLibro, "John Jackson Miller");
+    strcpy(libro1.generoLibro, "Ciencia Ficción");
+    strcpy(libro1.nombreDeLibro, "Kenobi");
+    strcpy(libro1.descripcionLibro, "Una historia que contribuye a la caracterización general de Obi-Wan Kenobi.");
+    libro1.estado = 1;
+    libro1.vecesPrestadoLibro = 0;
 
 
+    fwrite(&libro1, sizeof(stLibro), 1, archi);
+
+    stLibro libro2;
+    libro2.idLibro = 2;
+    strcpy(libro2.autorLibro, "Makoto Mizobuchi");
+    strcpy(libro2.generoLibro, "Aventura");
+    strcpy(libro2.nombreDeLibro, "Pokémon Mystery Dungeon: Ginji's Rescue Team");
+    strcpy(libro2.descripcionLibro, "Una emocionante historia de aventuras en el universo de Pokémon.");
+    libro2.estado = 1;
+    libro2.vecesPrestadoLibro = 0;
+
+
+    fwrite(&libro2, sizeof(stLibro), 1, archi);
+
+
+    stLibro libro3;
+    libro3.idLibro = 3;
+    strcpy(libro3.autorLibro, "J.K. Rowling");
+    strcpy(libro3.generoLibro, "Fantasía");
+    strcpy(libro3.nombreDeLibro, "Harry Potter and the Philosopher’s Stone");
+    strcpy(libro3.descripcionLibro, "La historia de un niño que descubre que es un mago en su 11 cumpleaños.");
+    libro3.estado = 1;
+    libro3.vecesPrestadoLibro = 0;
+
+
+    fwrite(&libro3, sizeof(stLibro), 1, archi);
+
+
+
+    stLibro libro4;
+    libro4.idLibro = 4;
+    strcpy(libro4.autorLibro, "Jane Austen");
+    strcpy(libro4.generoLibro, "Romance");
+    strcpy(libro4.nombreDeLibro, "Pride and Prejudice");
+    strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el señor Darcy.");
+    libro4.estado = 1;
+    libro4.vecesPrestadoLibro = 0;
+
+    fwrite(&libro4, sizeof(stLibro), 1, archi);
+
+
+    stLibro libro5;
+    libro5.idLibro = 5;
+    strcpy(libro5.autorLibro, "George Orwell");
+    strcpy(libro5.generoLibro, "Terror");
+    strcpy(libro5.nombreDeLibro, "1984");
+    strcpy(libro5.descripcionLibro, "Una novela distópica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
+    libro5.estado = 1;
+    libro5.vecesPrestadoLibro = 0;
+
+    fwrite(&libro5, sizeof(stLibro), 1, archi);
+
+    fclose(archi);
 }
 
-*/

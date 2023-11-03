@@ -57,6 +57,7 @@ void biblioteca()
             break;
         case 4:
             puts("Adios");
+            opContinuarMenuPrin = 'n';
             break;
         default:
             puts("Ingrese una opcion valida");
@@ -91,11 +92,13 @@ void opcionesMenuGestionarLibros()
     puts("---------------------------------------------------");
 }
 
-void menuLibros()
+void menuLibros(estanteria arregloListas[])
 {
     int opSw=0;
     char opCont='s';
     stLibro aux;
+
+
     do
     {
         puts("---------------------------------------------------");
@@ -106,6 +109,7 @@ void menuLibros()
         {
         case 1: //crear un libro nuevo
             aux=crearUnLibro();
+            mostrarUnLibro(aux);
             break;
         case 2: //menu buscar libro
             menuBuscarLibros();
@@ -119,7 +123,7 @@ void menuLibros()
         case 5: // reservar un libro
             break;
         case 6: // menu actualizar un libro
-            menuActualizarLibro();
+            actualizarLibro(arregloListas);
             break;
         case 7: // eliminar un libro
             break;
@@ -148,43 +152,75 @@ void opcionesMenuActualizarLibros()
     printf("[3] Actualizar Autor \n");
     printf("[4] Actualizar Descripcion\n");
     printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
-    printf("[6] Volver al menu de libros \n");
+    printf("[6] Actualizar Cantiadad de Copias\n");
+    printf("[7] Volver al menu de libros \n");
     puts("------------------------------------");
 }
-/*
-void menuActualizarLibro()
+
+
+void actualizarLibro(estanteria arregloListas[])
 {
     int opSw=0;
     char opCont='s';
+    nodoSimple* buscado = inicListaSimple();
     do
     {
+        puts("---------------------------------------------------");
         opcionesMenuActualizarLibros();
-        opSw=preguntarDatoEntero();
+
+        opSw = preguntarDatoEntero();
+
         limpiarPantalla();
+
+                printf("Ingrese el ID que desea bsucar");
+                int idBuscado = preguntarDatoEntero();
+
+/*
+                for(int i = 0; i < 5; i++)
+                {
+
+                    buscado = retornarLibroXid(arregloListas[i]->listaLibros, idBuscado);
+
+                    if(buscado != NULL){
+                        break;
+                    }
+
+                }
+*/
         switch(opSw)
         {
-        case 1:
+        case 1: //Actualizar Nombre
+            buscado = modificarNombreLibro(buscado);
             break;
-        case 2:
+        case 2: //Actualizar Genero
+            buscado = modificarGeneroLibro(buscado);
             break;
-        case 3:
+        case 3: // Actualizar Autor
+            buscado = modificarAutorLibro(buscado);
             break;
-        case 4:
+        case 4: // Actualizar Descripción
+            buscado = modificarDescripcionLibro(buscado);
             break;
         case 5:
+                // Actualizar Estado
+            buscado = modificarEstadoLibro(buscado);
             break;
         case 6:
+                // Actualizar Cantidad de Copias
+            buscado = modificarCantiadadDeCopias(buscado);
+        case 7:
             opCont='n';
             limpiarPantalla();
             break;
         default:
+            puts("Ingrese una opcion valida");
             break;
         }
-        //limpiarPantalla();
+        limpiarPantalla();
     }
     while(opCont != 'n');
 }
-*/
+
 void opcionesMenuBuscarLibros()
 {
 
