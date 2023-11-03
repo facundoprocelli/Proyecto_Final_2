@@ -69,7 +69,7 @@ void biblioteca()
 }
 void menuDeAccionesPrincipales()
 {
-    printf("Por favor, seleccione que accion desea relizar \n");
+    printf("Por favor, seleccione que accion desea realizar \n");
     printf("[1] Gestionar Libros\n");
     printf("[2] Gestionar Miembros\n");
     printf("[3] Gestionar Prestamos \n");
@@ -198,7 +198,7 @@ void actualizarLibro(estanteria arregloListas[])
         case 3: // Actualizar Autor
             buscado = modificarAutorLibro(buscado);
             break;
-        case 4: // Actualizar Descripción
+        case 4: // Actualizar DescripciÃ³n
             buscado = modificarDescripcionLibro(buscado);
             break;
         case 5:
