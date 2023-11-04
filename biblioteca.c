@@ -38,6 +38,12 @@ int convertirStringsDeNumerosAEntero(char aux[])
 ///menues
 void biblioteca()
 {
+    nodoArbol * arbolMiembros=inicArbol();
+    int dim=5;
+    estanteria arregloEstanterias[dim];
+
+    inicEstanterias(arregloEstanterias,dim); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
+
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
@@ -48,7 +54,7 @@ void biblioteca()
         switch(opMenuPrin)
         {
         case 1:
-            menuLibros();
+            menuLibros(); /// deberiamos pasarle el arreglo de estanterias
             break;
         case 2:
             menuMiembros();
@@ -172,21 +178,21 @@ void actualizarLibro(estanteria arregloListas[])
 
         limpiarPantalla();
 
-                printf("Ingrese el ID que desea bsucar");
-                int idBuscado = preguntarDatoEntero();
+        printf("Ingrese el ID que desea bsucar");
+        int idBuscado = preguntarDatoEntero();
 
-/*
-                for(int i = 0; i < 5; i++)
-                {
+        /*
+                        for(int i = 0; i < 5; i++)
+                        {
 
-                    buscado = retornarLibroXid(arregloListas[i]->listaLibros, idBuscado);
+                            buscado = retornarLibroXid(arregloListas[i]->listaLibros, idBuscado);
 
-                    if(buscado != NULL){
-                        break;
-                    }
+                            if(buscado != NULL){
+                                break;
+                            }
 
-                }
-*/
+                        }
+        */
         switch(opSw)
         {
         case 1: //Actualizar Nombre
@@ -202,12 +208,12 @@ void actualizarLibro(estanteria arregloListas[])
             buscado = modificarDescripcionLibro(buscado);
             break;
         case 5:
-                // Actualizar Estado
+            // Actualizar Estado
             buscado = modificarEstadoLibro(buscado);
             break;
         case 6:
-                // Actualizar Cantidad de Copias
-            buscado = modificarCantiadadDeCopias(buscado);
+            // Actualizar Cantidad de Copias
+            buscado = modificarCantidadDeCopias(buscado);
         case 7:
             opCont='n';
             limpiarPantalla();
@@ -366,3 +372,79 @@ void menuBuscarMiembros()
 
 }
 
+
+/// funciones estanteria
+
+void inicEstanterias(estanteria arregloListas[], int dim)
+{
+    char*generos[]= {"Fantasia","Ciencia Ficcion","Romance","Terror","Aventura"};
+
+    for(int i=0; i < dim; i++)
+    {
+        arregloListas[i].listaLibro=inicListaSimple();
+        strcpy(arregloListas[i].generoEstanteria,generos[i]);
+    }
+}
+
+void mostrarTodasLasEstanterias(estanteria arregloListas[],int dim)
+{
+
+    for(int i=0; i < dim; i++)
+    {
+        mostrarUnaEstanteria(arregloListas[i]);
+    }
+}
+
+void mostrarUnaEstanteria(estanteria unaEstanteriaSola)
+{
+    puts("\n-----------------------------------------");
+    printf("\nGENERO DE LA ESTANTERIA: %s \n",unaEstanteriaSola.generoEstanteria);
+
+    if(unaEstanteriaSola.listaLibro != NULL)
+    {
+        mostrarListaSimple(unaEstanteriaSola.listaLibro);
+
+    }
+    else
+    {
+        puts("Estanteria vacia :(");
+    }
+}
+
+void cargarEstanteriaOrdenada(estanteria arregloListas[],nodoSimple*nuevoNodo)
+{
+    // si el genero actual que esta en X estanteria es igual al genero del libro del nuevo nodo,
+    // se va a agregar al final en el genero correspondiente
+
+    if(strcmp(arregloListas[0].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    {
+
+        arregloListas[0].listaLibro=agregarAlFinalSimple(arregloListas[0].listaLibro,nuevoNodo);
+
+    }
+    else if(strcmp(arregloListas[1].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    {
+
+        arregloListas[1].listaLibro=agregarAlFinalSimple(arregloListas[1].listaLibro,nuevoNodo);
+
+    }
+    else if(strcmp(arregloListas[2].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    {
+
+        arregloListas[2].listaLibro=agregarAlFinalSimple(arregloListas[2].listaLibro,nuevoNodo);
+
+    }
+    else if(strcmp(arregloListas[3].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    {
+
+        arregloListas[3].listaLibro=agregarAlFinalSimple(arregloListas[3].listaLibro,nuevoNodo);
+
+    }
+    else
+    {
+
+        arregloListas[4].listaLibro=agregarAlFinalSimple(arregloListas[4].listaLibro,nuevoNodo);
+
+    }
+
+}

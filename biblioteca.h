@@ -1,6 +1,5 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
-
 #include "listaSimpleLibros.h"
 #include "listaDobleReservas.h"
 #include "arbolMiembros.h"
@@ -8,7 +7,7 @@
 #define MAX_DIM 26
 
 
-///estructuras
+///estructura estanteria
 
 
 typedef struct
@@ -21,21 +20,25 @@ typedef struct
 
 
 
-
+//funciones clasicas
+int preguntarDatoEntero();
+void limpiarPantalla();
 
 
 ///funciones biblioteca
 
+
 void biblioteca();
-int preguntarDatoEntero();
-void limpiarPantalla();
 void menuDeAccionesPrincipales();
+
 void opcionesMenuGestionarLibros();
 void menuLibros();
+
+void actualizarLibro(estanteria arregloListas[]);
+void opcionesMenuActualizarLibros();
+
 void opcionesMenuBuscarLibros();
 void menuBuscarLibros();
-void opcionesMenuActualizarLibros();
-void actualizarLibro(estanteria arregloListas[]);
 
 void menuMiembros();
 void opcionesMenuMiembros();
@@ -43,8 +46,11 @@ void opcionesMenuMiembros();
 void opcionesMenuBuscarMiembros();
 void menuBuscarMiembros();
 
-
-
+///funciones de estanteria
+void inicEstanterias(estanteria arregloListas[], int dim);
+void mostrarTodasLasEstanterias(estanteria arregloListas[],int dim);
+void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
+void cargarEstanteriaOrdenada(estanteria arregloListas[],nodoSimple*nuevoNodo);
 
 
 #endif // BIBLIOTECA_H_INCLUDED

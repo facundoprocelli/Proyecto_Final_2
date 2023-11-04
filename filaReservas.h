@@ -9,10 +9,12 @@ typedef struct{
 
 } filaReservas;
 
+///funciones fila
+
 void inicFila(filaReservas*reservas);
 void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux);
 void mostrarFila(filaReservas reservas);
 stPrestamo retornarPrimerPrestamoFila(filaReservas reservas);
-stPrestamo extraerUnPrestamoFila(filaReservas*reservas);
+stPrestamo extraerUnPrestamoFila(filaReservas reservas);
 
 #endif // FILARESERVAS_H_INCLUDED

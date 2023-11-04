@@ -58,7 +58,7 @@ nodoDoble*agregarAlFinalDoble(nodoDoble*listaDoble,nodoDoble*nuevoNodo);
 nodoDoble*buscarUltimoNodoDoble(nodoDoble*listaDoble);
 
 //borrar
-void borrarPrimerNodoDoble(nodoDoble**listaDoble);
+nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble);
 
 
 //validaciones

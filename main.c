@@ -8,9 +8,10 @@
 int main()
 {
 
-    printf("\t\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
-    printf("\t\t\t      =============================================\n");
-    biblioteca();
+//    printf("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
+//    printf("\t\t      =============================================\n\n");
+//    biblioteca();
+
 
 
     return 0;

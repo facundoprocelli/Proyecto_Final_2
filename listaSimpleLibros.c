@@ -19,7 +19,7 @@ stLibro crearUnLibro()
     {
         printf("Nombre: ");
         fflush(stdin);
-        gets(&aux.nombreDeLibro);
+        gets(aux.nombreDeLibro);
     }
     while(validarDigitosEnStrings(aux.nombreDeLibro)== 1||validarRangoDeNombre(aux.nombreDeLibro)== 1);///reutilizo la funcion de validarDigitos y validarRangoNombre que hice en arboles
 
@@ -30,7 +30,7 @@ stLibro crearUnLibro()
     {
         printf("Autor: ");
         fflush(stdin);
-        gets(&aux.autorLibro);
+        gets(aux.autorLibro);
     }
     while(validarDigitosEnStrings(aux.autorLibro)== 1||validarRangoDeNombre(aux.autorLibro)==1);
     aux.estado=1; // 0.dado de baja, 1.disponible, 2. prestado
@@ -45,13 +45,13 @@ do
     {
         printf("Copias: ");
         fflush(stdin);
-        gets(&aux.cantidadDeCopias);
+        gets(aux.cantidadDeCopias);
     }
-    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0| aux.cantidadDeCopias < 100);
+    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || aux.cantidadDeCopias < 100);
 
-    printf("Desripcion: ");
+    printf("Descripcion: ");
     fflush(stdin);
-    gets(&aux.descripcionLibro);
+    gets(aux.descripcionLibro);
 
     return aux;
 }
@@ -59,7 +59,7 @@ do
 //mostrar un libro
 void mostrarUnLibro(stLibro aux)
 {
-    puts("--------------------LIBRO: ----------------");
+    puts("--------------------LIBRO:----------------");
     printf("ID Libro..............: %i \n",aux.idLibro);
     printf("Nombre................: %s \n",aux.nombreDeLibro);
     printf("Genero................: %s \n",aux.generoLibro);
@@ -242,7 +242,8 @@ nodoSimple* modificarNombreLibro(nodoSimple* aux)
     return aux;
 }
 
-nodoSimple* modificarCantiadadDeCopias(nodoSimple* aux){
+nodoSimple* modificarCantidadDeCopias(nodoSimple* aux)
+{
 
 do
     {
@@ -460,6 +461,8 @@ void opcionesGenero()
 
 }
 
+///archivos
+
 // cargar un libro a un archivo
 
 void cargarUnLibroAlArchivo(stLibro aux) //cuando se cree un nuevo libro se utiliza esta funcion
@@ -476,6 +479,8 @@ void cargarUnLibroAlArchivo(stLibro aux) //cuando se cree un nuevo libro se util
     }
 }
 
+
+// mostrar todo el archivo de libros
 void mostrarArchivoLibros()
 {
     FILE*buffer=fopen(ARCHIVO_LIBROS,"rb");
@@ -494,7 +499,7 @@ void mostrarArchivoLibros()
     }
 }
 
-
+//cargar un par de libros para comenzar
 
 void cargarLibrosPredeterminados()
 {

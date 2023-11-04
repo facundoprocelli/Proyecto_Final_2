@@ -3,6 +3,7 @@
 #define MAX_DIM 26
 #define MAX_DIM_DESC 300
 #include "filaReservas.h"
+#include "arbolMiembros.h"
 ///estructura libros
 
 typedef struct{
@@ -52,11 +53,10 @@ nodoSimple* modificarGeneroLibro(nodoSimple* aux);
 nodoSimple* modificarAutorLibro(nodoSimple* aux);
 nodoSimple* modificarDescripcionLibro(nodoSimple* aux);
 nodoSimple* modificarEstadoLibro(nodoSimple* aux);
-
+nodoSimple* modificarCantidadDeCopias(nodoSimple* aux);
 
 
 //funciones buscar
-
 
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar);
 nodoSimple* retornarNodosLibrosXAutor(nodoSimple* listaSimple, char autorBuscar[]);
@@ -73,6 +73,8 @@ void opcionesGenero();
 
 
 /// funciones del archivo de libros
-
 void cargarUnLibroAlArchivo(stLibro aux);
+
+
+
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

@@ -129,16 +129,16 @@ nodoDoble*agregarAlFinalDoble(nodoDoble*listaDoble,nodoDoble*nuevoNodo)
 
 //borrar el primer nodo de la lista doble
 
-void borrarPrimerNodoDoble(nodoDoble**listaDoble)
+nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble)
 {
     nodoDoble*aux;
     if(listaDoble != NULL)
     {
-        aux=(*listaDoble);
-        (*listaDoble)=(*listaDoble)->siguiente;
+        aux=listaDoble;
+        listaDoble=listaDoble->siguiente;
         free(aux);
     }
-
+    return listaDoble;
 
 }
 

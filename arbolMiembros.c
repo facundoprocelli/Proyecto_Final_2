@@ -140,7 +140,6 @@ nodoArbol * insertarPorDni(nodoArbol * raiz,nodoArbol * nuevo)
     return raiz;
 }
 
-
 // Buscar un nodo en un arbol
 
 nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
@@ -209,15 +208,36 @@ int esHoja(nodoArbol*raiz)
     return (raiz && !raiz->izquierda && !raiz->derecha);
 }
 
+// preguntar si la raiz actual es de grado uno (si tiene un solo hijo)
+
 int esGradoUnoArbol(nodoArbol*raiz)
 {
     return (raiz && ((raiz->izquierda && !raiz->derecha) || (!raiz->izquierda && raiz->derecha)));
 }
 
+//preguntar si la raiz actual esta llena (si tiene dos hijos)
+
 int estaLlenoArbol(nodoArbol*raiz)
 {
     return (raiz && raiz->izquierda && raiz->derecha);
 }
+
+//preguntar si el arbol esta vacio
+
+
+int arbolVacio(nodoArbol*raiz)
+{
+    if(raiz != NULL)
+    {
+        return 0;
+    }
+    else
+    {
+        puts("Arbol Vacio");
+        return 1;
+    }
+}
+
 
 // Borrar Nodo
 nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
@@ -238,7 +258,7 @@ nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
                 raiz->dato = aux->dato;
                 raiz->izquierda = borrarUnNodoPorDni(raiz->izquierda, aux->dato.datosPersonales.dni);
             }
-            else if (raiz->derecha != NULL)
+            else
             {
                 aux = nodoMasIzquierdaArbol(raiz->derecha);
                 raiz->dato = aux->dato;
@@ -258,18 +278,8 @@ nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
     return raiz;
 }
 
-int arbolVacio(nodoArbol*raiz)
-{
-    if(raiz != NULL)
-    {
-        return 0;
-    }
-    else
-    {
-        puts("Arbol Vacio");
-        return 1;
-    }
-}
+
+
 
 nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz)
 {
@@ -297,6 +307,21 @@ nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz)
     return raiz;
 }
 
+//contar cantidad de miembros que hay
+
+
+int contarMiembrosArbol(nodoArbol* raiz)
+{
+    int contador=0;
+    if(raiz != NULL)
+    {
+        contador=1;
+        contador+= contarMiembrosArbol(raiz->izquierda);
+        contador+= contarMiembrosArbol(raiz->derecha);
+    }
+    return contador;
+}
+
 ///Validaciones
 
 int validarRangoDeNombre(char nombreAux[])
@@ -321,9 +346,6 @@ int validarRangoDeNombre(char nombreAux[])
 
     return flag;
 }
-
-
-
 
 int validarDigitosEnStrings(char nombreAux[])
 {

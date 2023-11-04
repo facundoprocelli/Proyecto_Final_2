@@ -67,11 +67,12 @@ nodoArbol * borrarUnNodoPorDni(nodoArbol * raiz,char dniMiembro[]);
 nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz);
 nodoArbol* nodoMasIzquierdaArbol(nodoArbol*raiz);
 
-
+//consultas
 int esHoja(nodoArbol*raiz);
 int esGradoUnoArbol(nodoArbol*raiz);
 int estaLlenoArbol(nodoArbol*raiz);
 int arbolVacio(nodoArbol*raiz);
+int contarMiembrosArbol(nodoArbol* raiz);
 
 ///validaciones
 int validarRangoDeNombre(char nombreAux[]);///tamaño del nombre
