@@ -89,6 +89,9 @@ int validarLimitePrestamoMiembro(int limiteAux);
 void cargarUnMiembroAlArchivo(stMiembro aux);
 nodoArbol * archivoAlArbol(nodoArbol * raiz);
 void mostrarArchivoDeMiembros();
+void arbolAlArchivo(nodoArbol * raiz);
+void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer);
+
 
 ///modificaciones
 nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[]);

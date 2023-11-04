@@ -441,8 +441,9 @@ int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo)
 int validarLimitePrestamoMiembro(int limiteAux)
 {
     int flag = 0;
-    if(limiteAux<0||limiteAux>3){
-            printf("Ingrese un limite valido\n");
+    if(limiteAux<0||limiteAux>3)
+    {
+        printf("Ingrese un limite valido\n");
         flag = 1;
     }
 
@@ -488,6 +489,45 @@ nodoArbol * archivoAlArbol(nodoArbol * raiz)///el dato de cada nodo del arbol se
 
     return raiz;
 }
+void arbolAlArchivo(nodoArbol * raiz)///cuando finaliza el programa se encarga de todas las modificaciones que se hicieron cargarlas en el archivo y se abre en WB para que no se repitan NODOS
+{
+
+
+    if(raiz!=NULL)
+    {
+
+
+        FILE * buffer = fopen(ARCHIVO_MIEMBROS,"wb");
+        if(buffer != NULL)
+        {
+            escribirArchivoArbol(raiz,buffer);
+
+            fclose(buffer);
+        }
+        else
+        {
+            puts("Archivo vacio");
+        }
+    }
+
+
+
+}
+void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer)///se encarga de pasar la estructura del nodo al archivo
+{
+
+    if(raiz !=NULL)
+    {
+        fwrite(&raiz->dato,sizeof(stMiembro),1,buffer);
+        escribirArchivoArbol(raiz->derecha,buffer);
+        escribirArchivoArbol(raiz->izquierda,buffer);
+
+    }
+
+
+
+}
+
 
 void mostrarArchivoDeMiembros()
 {
