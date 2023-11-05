@@ -189,7 +189,7 @@ void actualizarLibro(estanteria arregloListas[])
 
         limpiarPantalla();
 
-        printf("Ingrese el ID que desea bsucar");
+        printf("Ingrese el ID que desea buscar");
         int idBuscado = preguntarDatoEntero();
 
         /*
