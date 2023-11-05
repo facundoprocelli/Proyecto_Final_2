@@ -329,7 +329,7 @@ void menuMiembros()
         }
         //limpiarPantalla();
     }
-    while(opCont == 'n');
+    while(opCont != 'n');
 
 }
 
