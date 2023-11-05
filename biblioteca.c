@@ -38,11 +38,13 @@ int convertirStringsDeNumerosAEntero(char aux[])
 ///menues
 void biblioteca()
 {
+    estanteria arregloEstanterias[5];
+    inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
     nodoArbol * arbolMiembros=inicArbol();
-    int dim=5;
-    estanteria arregloEstanterias[dim];
 
-    inicEstanterias(arregloEstanterias,dim); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
+    arbolMiembros=archivoAlArbol(arbolMiembros);
+    archivoAEstanteria(arregloEstanterias); /// o capaz aca podemos leer el archivo de reservas tmb
+
 
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -54,7 +56,7 @@ void biblioteca()
         switch(opMenuPrin)
         {
         case 1:
-            menuLibros(); /// deberiamos pasarle el arreglo de estanterias
+            menuLibros(arregloEstanterias);
             break;
         case 2:
             menuMiembros();
@@ -71,6 +73,10 @@ void biblioteca()
         }
     }
     while(opContinuarMenuPrin != 'n');
+
+    arbolAlArchivo(arbolMiembros);
+    librosAlArchivo(arregloEstanterias);
+    ///prestamos al archivo
 
 }
 void menuDeAccionesPrincipales()
@@ -94,11 +100,12 @@ void opcionesMenuGestionarLibros()
     printf("[5] Reservar Libro\n");
     printf("[6] Actualizar Libro \n");
     printf("[7] Eliminar Libro\n");
-    printf("[8] Volver al menu principal \n");
+    printf("[8] Mostrar todos los libros \n");
+    printf("[9] Volver al menu principal \n");
     puts("---------------------------------------------------");
 }
 
-void menuLibros(estanteria arregloListas[])
+void menuLibros(estanteria arregloEstanterias[])
 {
     int opSw=0;
     char opCont='s';
@@ -114,7 +121,8 @@ void menuLibros(estanteria arregloListas[])
         switch(opSw)
         {
         case 1: //crear un libro nuevo
-            aux=crearUnLibro();
+            aux=crearUnLibro(arregloEstanterias);
+            cargarEstanteriaOrdenada(arregloEstanterias,crearNodoSimple(aux));
             mostrarUnLibro(aux);
             break;
         case 2: //menu buscar libro
@@ -129,11 +137,14 @@ void menuLibros(estanteria arregloListas[])
         case 5: // reservar un libro
             break;
         case 6: // menu actualizar un libro
-            actualizarLibro(arregloListas);
+            actualizarLibro(arregloEstanterias);
             break;
         case 7: // eliminar un libro
             break;
         case 8:
+            mostrarTodasLasEstanterias(arregloEstanterias);
+            break;
+        case 9:
             opCont='n';
             limpiarPantalla();
             break;
@@ -375,23 +386,23 @@ void menuBuscarMiembros()
 
 /// funciones estanteria
 
-void inicEstanterias(estanteria arregloListas[], int dim)
+void inicEstanterias(estanteria arregloEstanterias[])
 {
     char*generos[]= {"Fantasia","Ciencia Ficcion","Romance","Terror","Aventura"};
-
+    int dim=5;
     for(int i=0; i < dim; i++)
     {
-        arregloListas[i].listaLibro=inicListaSimple();
-        strcpy(arregloListas[i].generoEstanteria,generos[i]);
+        arregloEstanterias[i].listaLibro=inicListaSimple();
+        strcpy(arregloEstanterias[i].generoEstanteria,generos[i]);
     }
 }
 
-void mostrarTodasLasEstanterias(estanteria arregloListas[],int dim)
+void mostrarTodasLasEstanterias(estanteria arregloEstanterias[])
 {
-
+    int dim=5;
     for(int i=0; i < dim; i++)
     {
-        mostrarUnaEstanteria(arregloListas[i]);
+        mostrarUnaEstanteria(arregloEstanterias[i]);
     }
 }
 
@@ -411,39 +422,38 @@ void mostrarUnaEstanteria(estanteria unaEstanteriaSola)
     }
 }
 
-void cargarEstanteriaOrdenada(estanteria arregloListas[],nodoSimple*nuevoNodo)
+void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo)
 {
     // si el genero actual que esta en X estanteria es igual al genero del libro del nuevo nodo,
     // se va a agregar al final en el genero correspondiente
 
-    if(strcmp(arregloListas[0].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    if(strcmp(arregloEstanterias[0].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {
 
-        arregloListas[0].listaLibro=agregarAlFinalSimple(arregloListas[0].listaLibro,nuevoNodo);
+        arregloEstanterias[0].listaLibro=agregarAlFinalSimple(arregloEstanterias[0].listaLibro,nuevoNodo);
 
     }
-    else if(strcmp(arregloListas[1].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    else if(strcmp(arregloEstanterias[1].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {
 
-        arregloListas[1].listaLibro=agregarAlFinalSimple(arregloListas[1].listaLibro,nuevoNodo);
+        arregloEstanterias[1].listaLibro=agregarAlFinalSimple(arregloEstanterias[1].listaLibro,nuevoNodo);
 
     }
-    else if(strcmp(arregloListas[2].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    else if(strcmp(arregloEstanterias[2].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {
 
-        arregloListas[2].listaLibro=agregarAlFinalSimple(arregloListas[2].listaLibro,nuevoNodo);
+        arregloEstanterias[2].listaLibro=agregarAlFinalSimple(arregloEstanterias[2].listaLibro,nuevoNodo);
 
     }
-    else if(strcmp(arregloListas[3].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
+    else if(strcmp(arregloEstanterias[3].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {
 
-        arregloListas[3].listaLibro=agregarAlFinalSimple(arregloListas[3].listaLibro,nuevoNodo);
+        arregloEstanterias[3].listaLibro=agregarAlFinalSimple(arregloEstanterias[3].listaLibro,nuevoNodo);
 
     }
     else
     {
-
-        arregloListas[4].listaLibro=agregarAlFinalSimple(arregloListas[4].listaLibro,nuevoNodo);
+        arregloEstanterias[4].listaLibro=agregarAlFinalSimple(arregloEstanterias[4].listaLibro,nuevoNodo);
 
     }
 

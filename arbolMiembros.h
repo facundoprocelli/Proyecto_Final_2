@@ -80,8 +80,7 @@ int validarDigitosEnStrings(char nombreAux[]);///Que no se encuentren numeros en
 int validarRangoDNI(char dniAux[]);
 int validarCaracteresEnEnteros(char aux[]);
 int validarRangoTelefono(char telefono[]);
-
-int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo);
+int validarDentroDeUnRango(int dato,int minimo,int maximo);
 int validarEstadoMiembro(int estadoAux);
 int validarLimitePrestamoMiembro(int limiteAux);
 

@@ -5,12 +5,14 @@
 #include <ctype.h>
 #include "arbolMiembros.h"
 #define MAX_DIM 26
+
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
 #define ARCHIVO_LIBROS "archivoLibros.bin"
 
 
 ///funciones miembro
+
 //crear una persona
 stPersona crearUnaPersona()
 {
@@ -68,7 +70,6 @@ stMiembro crearUnMiembro()
 }
 
 //mostrar una persona
-
 void mostrarUnaPersona(stPersona aux)
 {
     printf("Nombre...............: %s \n", aux.nombre);
@@ -94,7 +95,7 @@ void mostrarUnMiembro(stMiembro aux)
 
 // Iniciar un arbol
 
-nodoArbol *inicArbol()
+nodoArbol*inicArbol()
 {
     return NULL;
 }
@@ -114,6 +115,7 @@ nodoArbol *crearNodoArbol(stMiembro miembro)
 }
 
 //insertar un dato
+
 nodoArbol * insertarPorDni(nodoArbol * raiz,nodoArbol * nuevo)
 {
 
@@ -155,10 +157,8 @@ nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
             nuevo->derecha = NULL;
         }
         raiz->izquierda = buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
-
         raiz->derecha = buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
     }
-
 
     return nuevo;
 }
@@ -405,8 +405,8 @@ int validarRangoTelefono(char telefono[])
 {
 
     int flag = 0;
-    int length = strlen(telefono);
-    if(length >= 8 && length <= 10)
+    int tam = strlen(telefono);
+    if(tam >= 8 && tam <= 10)
     {
         flag = 1;
     }
@@ -428,9 +428,9 @@ int validarEstadoMiembro(int estadoAux)
     return flag;
 }
 
-int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo)
+int validarDentroDeUnRango(int dato,int minimo,int maximo)
 {
-    if(opSw < minimo ||opSw >maximo)
+    if(dato < minimo ||dato >maximo)
     {
         printf("Ingrese una opcion o rango valido\n");
         return 1;
@@ -441,7 +441,8 @@ int validarDentroDeUnRangoMiembro(int opSw,int minimo,int maximo)
 int validarLimitePrestamoMiembro(int limiteAux)
 {
     int flag = 0;
-    if(limiteAux<0||limiteAux>3)
+
+    if(limiteAux<0 || limiteAux>3)
     {
         printf("Ingrese un limite valido\n");
         flag = 1;
@@ -452,7 +453,8 @@ int validarLimitePrestamoMiembro(int limiteAux)
 
 ///archivos
 
-void cargarUnMiembroAlArchivo(stMiembro aux)///Cuando se cree un nuevo miembro utilizo esta funcion
+//Cuando se cree un nuevo miembro utilizo esta funcion
+void cargarUnMiembroAlArchivo(stMiembro aux)
 {
 
     FILE * buffer = fopen(ARCHIVO_MIEMBROS,"ab");
@@ -467,8 +469,8 @@ void cargarUnMiembroAlArchivo(stMiembro aux)///Cuando se cree un nuevo miembro u
     }
 
 }
-
-nodoArbol * archivoAlArbol(nodoArbol * raiz)///el dato de cada nodo del arbol se va almacenar en el archivo
+//se pasan los datos del archivo al arbol
+nodoArbol * archivoAlArbol(nodoArbol * raiz)
 {
     FILE * buffer = fopen(ARCHIVO_MIEMBROS,"rb");
     stMiembro aux;
@@ -489,9 +491,11 @@ nodoArbol * archivoAlArbol(nodoArbol * raiz)///el dato de cada nodo del arbol se
 
     return raiz;
 }
-void arbolAlArchivo(nodoArbol * raiz)///cuando finaliza el programa se encarga de todas las modificaciones que se hicieron cargarlas en el archivo y se abre en WB para que no se repitan NODOS
-{
 
+//cuando finaliza el programa se encarga de todas las modificaciones que se hicieron cargarlas en el archivo y se abre en WB para que no se repitan NODOS
+
+void arbolAlArchivo(nodoArbol * raiz)
+{
 
     if(raiz!=NULL)
     {
@@ -501,7 +505,6 @@ void arbolAlArchivo(nodoArbol * raiz)///cuando finaliza el programa se encarga d
         if(buffer != NULL)
         {
             escribirArchivoArbol(raiz,buffer);
-
             fclose(buffer);
         }
         else
@@ -513,7 +516,10 @@ void arbolAlArchivo(nodoArbol * raiz)///cuando finaliza el programa se encarga d
 
 
 }
-void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer)///se encarga de pasar la estructura del nodo al archivo
+
+//se encarga de pasar la estructura del nodo al archivo
+
+void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer)
 {
 
     if(raiz !=NULL)
@@ -523,8 +529,6 @@ void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer)///se encarga de pasar 
         escribirArchivoArbol(raiz->izquierda,buffer);
 
     }
-
-
 
 }
 
@@ -570,7 +574,7 @@ nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
                 opcionesMenuActualizarMiembros();
                 opSw = preguntarDatoEntero();
             }
-            while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+            while(validarDentroDeUnRango(opSw,min,max)== 1);
 
             switch(opSw)
             {
@@ -620,7 +624,7 @@ nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux)
             opcionesActualizarUnMiembro();
             opSw = preguntarDatoEntero();
         }
-        while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+        while(validarDentroDeUnRango(opSw,min,max)== 1);
         switch(opSw)
         {
         case 1:
@@ -697,7 +701,7 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
             opcionesActualizarUnMiembroCampos();
             opSw = preguntarDatoEntero();
         }
-        while(validarDentroDeUnRangoMiembro(opSw,min,max)== 1);
+        while(validarDentroDeUnRango(opSw,min,max)== 1);
         switch(opSw)
         {
         case 1:
@@ -716,7 +720,7 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
                 fflush(stdin);
                 scanf("%i",&aux->dato.saldo);
             }
-            while(validarDentroDeUnRangoMiembro(aux->dato.saldo,0,100000)== 1);
+            while(validarDentroDeUnRango(aux->dato.saldo,0,100000)== 1);
             break;
         case 3:
             do

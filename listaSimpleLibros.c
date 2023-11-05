@@ -10,7 +10,7 @@
 
 ///funciones estructura libro
 
-stLibro crearUnLibro()
+stLibro crearUnLibro(estanteria arregloEstanterias[])
 {
     stLibro aux;
 
@@ -35,19 +35,19 @@ stLibro crearUnLibro()
     while(validarDigitosEnStrings(aux.autorLibro)== 1||validarRangoDeNombre(aux.autorLibro)==1);
     aux.estado=1; // 0.dado de baja, 1.disponible, 2. prestado
 
-    aux.idLibro=0; ///es necesario una funcion automatica
+    aux.idLibro=retornarUltimoIDLibro(arregloEstanterias)+ 1;
 
     inicFila(&aux.reservasLibro);
 
     aux.vecesPrestadoLibro=0;
 
-do
+    do
     {
         printf("Copias: ");
         fflush(stdin);
         gets(aux.cantidadDeCopias);
     }
-    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || aux.cantidadDeCopias < 100);
+    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || (aux.cantidadDeCopias < 100));
 
     printf("Descripcion: ");
     fflush(stdin);
@@ -55,6 +55,38 @@ do
 
     return aux;
 }
+
+
+int retornarUltimoIDLibro(estanteria arregloEstanterias[])
+{
+    int max= 0, aux= 0;
+    for(int i=0; i < 5; i++)
+    {
+        aux=retornarIDMasGrandeEnLista(arregloEstanterias[i].listaLibro);
+        if(aux > max)
+        {
+            max=aux;
+        }
+
+    }
+    return max;
+}
+
+int retornarIDMasGrandeEnLista(nodoSimple*listaSimple)
+{
+    int max=0;
+    while(listaSimple != NULL)
+    {
+        if(listaSimple->datoLibro.idLibro > max)
+        {
+            max=listaSimple->datoLibro.idLibro;
+        }
+        listaSimple=listaSimple->siguiente;
+    }
+    return max;
+}
+
+
 
 //mostrar un libro
 void mostrarUnLibro(stLibro aux)
@@ -571,3 +603,54 @@ void cargarLibrosPredeterminados()
     fclose(archi);
 }
 
+
+//cargar todos los libros al archivo
+
+void librosAlArchivo(estanteria arregloEstanterias[])
+{
+    int dim=5;
+    for(int i=0; i < dim; i++)
+    {
+        listaSimpleAlArchivo(arregloEstanterias[i].listaLibro);
+    }
+}
+
+//cargar una listaSimple de libros al archivo
+
+void listaSimpleAlArchivo(nodoSimple*listaSimple)
+{
+    FILE*buffer=fopen(ARCHIVO_LIBROS,"wb");
+    stLibro aux;
+    if(buffer != NULL)
+    {
+        while(listaSimple != NULL)
+        {
+            aux=listaSimple->datoLibro;
+            fwrite(&aux,sizeof(stLibro),1,buffer);
+        }
+
+        fclose(buffer);
+    }
+
+}
+
+
+//cargar estanterias del archivo
+
+void archivoAEstanteria(estanteria arregloEstanterias[])
+{
+    FILE*buffer=fopen(ARCHIVO_LIBROS,"rb");
+    stLibro aux;
+    if(buffer != NULL)
+    {
+
+        while(fread(&aux,sizeof(stLibro),1,buffer) > 0 )
+        {
+            cargarEstanteriaOrdenada(arregloEstanterias,crearNodoSimple(aux));
+        }
+
+
+        fclose(buffer);
+    }
+
+}

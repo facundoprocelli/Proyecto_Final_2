@@ -7,18 +7,6 @@
 #define MAX_DIM 26
 
 
-///estructura estanteria
-
-
-typedef struct
-{
-    nodoSimple* listaLibro;
-    char generoEstanteria[MAX_DIM];
-
-
-}estanteria;
-
-
 
 //funciones clasicas
 int preguntarDatoEntero();
@@ -32,9 +20,9 @@ void biblioteca();
 void menuDeAccionesPrincipales();
 
 void opcionesMenuGestionarLibros();
-void menuLibros();
+void menuLibros(estanteria arregloEstanterias[]);
 
-void actualizarLibro(estanteria arregloListas[]);
+void actualizarLibro(estanteria arregloEstanterias[]);
 void opcionesMenuActualizarLibros();
 
 void opcionesMenuBuscarLibros();
@@ -47,10 +35,9 @@ void opcionesMenuBuscarMiembros();
 void menuBuscarMiembros();
 
 ///funciones de estanteria
-void inicEstanterias(estanteria arregloListas[], int dim);
-void mostrarTodasLasEstanterias(estanteria arregloListas[],int dim);
+void inicEstanterias(estanteria arregloEstanterias[]);
+void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
-void cargarEstanteriaOrdenada(estanteria arregloListas[],nodoSimple*nuevoNodo);
-
+void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo);
 
 #endif // BIBLIOTECA_H_INCLUDED

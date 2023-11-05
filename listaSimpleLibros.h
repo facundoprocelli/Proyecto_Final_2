@@ -4,9 +4,12 @@
 #define MAX_DIM_DESC 300
 #include "filaReservas.h"
 #include "arbolMiembros.h"
+
+
 ///estructura libros
 
-typedef struct{
+typedef struct
+{
 
     int idLibro; //id autoincremental
     char nombreDeLibro[MAX_DIM];
@@ -20,6 +23,9 @@ typedef struct{
 
 } stLibro;
 
+
+///estructura listaSimple
+
 typedef struct
 {
     stLibro datoLibro;
@@ -28,9 +34,20 @@ typedef struct
 } nodoSimple;
 
 
+///estructura estanteria
+
+typedef struct
+{
+    nodoSimple* listaLibro;
+    char generoEstanteria[MAX_DIM];
+
+
+}estanteria;
+
+
 ///funciones estructura libros
 
-stLibro crearUnLibro();
+stLibro crearUnLibro(estanteria arregloEstanterias[]);
 void mostrarUnLibro(stLibro aux);
 
 
@@ -64,6 +81,8 @@ stLibro retornarLibroXid(nodoSimple*listaSimple,int idBuscar);
 stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
 stLibro retornarUnSoloLibroXAutor(nodoSimple*listaSimple,char autorBuscar[]);
 nodoSimple* retornarNodosLibrosXEstado(nodoSimple* listaSimple, int estado);
+int retornarIDMasGrandeEnLista(nodoSimple*listaSimple);
+int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
 
 
 ///validaciones
@@ -74,7 +93,9 @@ void opcionesGenero();
 
 /// funciones del archivo de libros
 void cargarUnLibroAlArchivo(stLibro aux);
-
+void librosAlArchivo(estanteria arregloEstanterias[]);
+void listaSimpleAlArchivo(nodoSimple*listaSimple);
+void archivoAEstanteria(estanteria arregloEstanterias[]);
 
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED
