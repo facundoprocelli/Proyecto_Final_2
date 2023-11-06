@@ -83,3 +83,20 @@ stPrestamo extraerUnPrestamoFila(filaReservas reservas)
     }
     return prestamo;
 }
+
+
+
+///funciones para el archivo de prestamos
+
+void recorrerFilaParaPrestamos(filaReservas reservasLibro,FILE*buffer)
+{
+    nodoDoble*auxNodo=reservasLibro.primero;
+    stPrestamo auxPrestamo;
+    while(auxNodo != NULL)
+    {
+        auxPrestamo=auxNodo->datoPrestamo;
+        fwrite(&auxPrestamo,sizeof(stPrestamo),1,buffer);
+        auxNodo=auxNodo->siguiente;
+    }
+}
+

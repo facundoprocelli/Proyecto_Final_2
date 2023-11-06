@@ -5,7 +5,6 @@
 #include "filaReservas.h"
 #include "arbolMiembros.h"
 
-
 ///estructura libros
 
 typedef struct
@@ -33,7 +32,6 @@ typedef struct
 
 } nodoSimple;
 
-
 ///estructura estanteria
 
 typedef struct
@@ -41,8 +39,8 @@ typedef struct
     nodoSimple* listaLibro;
     char generoEstanteria[MAX_DIM];
 
-
 }estanteria;
+
 
 
 ///funciones estructura libros
@@ -97,5 +95,8 @@ void librosAlArchivo(estanteria arregloEstanterias[]);
 void listaSimpleAlArchivo(nodoSimple*listaSimple);
 void archivoAEstanteria(estanteria arregloEstanterias[]);
 
+/// funciones del archivo de prestamos
+void prestamosAlArchivo(estanteria arregloEstanterias[]);
+void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

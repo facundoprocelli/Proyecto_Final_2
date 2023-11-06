@@ -67,46 +67,43 @@
 	<time.h>
 	"biblioteca.h"
 
-1699156788 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
+1699197760 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1699156711 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
+1699230999 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
-	"listaDobleReservas.h"
-	"arbolMiembros.h"
-	"filaReservas.h"
 
-1699108344 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
+1699231348 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1699108344 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
+1699231348 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1699156229 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
+1699231348 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1699140040 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
+1699197760 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
 
-1699143558 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
+1699197760 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -114,14 +111,14 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1699143558 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
+1699197760 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
 
-1699108344 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
+1699231212 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1699108344 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
+1699231212 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
 
-1699156340 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
+1699231239 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 

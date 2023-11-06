@@ -1,9 +1,6 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
 #include "listaSimpleLibros.h"
-#include "listaDobleReservas.h"
-#include "arbolMiembros.h"
-#include "filaReservas.h"
 #define MAX_DIM 26
 
 

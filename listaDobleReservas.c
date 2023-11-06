@@ -21,12 +21,13 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
         printf("Ingrese el precio del prestamo: ");
         fflush(stdin);
         scanf("%s",&aux.precioPrestamo);
-    }while(validarPrecioPrestamo(aux.precioPrestamo) || validarCaracteresEnEnteros(aux.precioPrestamo) ==0);
+    }
+    while(validarPrecioPrestamo(aux.precioPrestamo) || validarCaracteresEnEnteros(aux.precioPrestamo) ==0);
 
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
-   // aux.inicioPrestamo
-   // aux.vencimientoPrestamo
+    // aux.inicioPrestamo
+    // aux.vencimientoPrestamo
 
     return aux;
 }
@@ -141,6 +142,8 @@ nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble)
     return listaDoble;
 
 }
+
+
 
 ///validaciones
 

@@ -1,6 +1,7 @@
 #ifndef LISTADOBLERESERVAS_H_INCLUDED
 #define LISTADOBLERESERVAS_H_INCLUDED
 #define MAX_DIM 26
+
 ///Estructura prestamos
 
 typedef struct{
@@ -62,7 +63,8 @@ nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble);
 
 
 //validaciones
-
 int validarPrecioPrestamo(char aux[]);
+
+///Funciones archivo
 
 #endif // LISTADOBLERESERVAS_H_INCLUDED

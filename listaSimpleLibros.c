@@ -654,3 +654,28 @@ void archivoAEstanteria(estanteria arregloEstanterias[])
     }
 
 }
+
+
+/// funciones del archivo de prestamos
+
+void prestamosAlArchivo(estanteria arregloEstanterias[])
+{
+    FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"wb");
+    if(buffer != NULL)
+    {
+        for(int i=0 ; i < 5; i++)
+        {
+            recorrerLibrosParaFila(arregloEstanterias[i].listaLibro,buffer);
+        }
+        fclose(buffer);
+    }
+
+}
+
+void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
+{
+    while(listaSimpleLibros != NULL)
+    {
+        recorrerFilaParaPrestamos(listaSimpleLibros->datoLibro.reservasLibro,buffer);
+    }
+}
