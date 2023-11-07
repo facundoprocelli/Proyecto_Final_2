@@ -39,13 +39,13 @@ typedef struct
 
 // Estructura Persona
 
-stPersona crearUnaPersona();
+stPersona crearUnaPersona(nodoArbol * raiz);
 void mostrarUnaPersona(stPersona aux);
 void mostrarUnMiembro(stMiembro aux);
 
 ///Estructura Miembro
 
-stMiembro crearUnMiembro();
+stMiembro crearUnMiembro(nodoArbol * raiz);
 
 
 ///Estructura Arbol
@@ -83,7 +83,8 @@ int validarRangoTelefono(char telefono[]);
 int validarDentroDeUnRango(int dato,int minimo,int maximo);
 int validarEstadoMiembro(int estadoAux);
 int validarLimitePrestamoMiembro(int limiteAux);
-
+int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[]);
+int verificarNroExistente(nodoArbol * raiz,char nroExistente[]);
 ///archivos
 void cargarUnMiembroAlArchivo(stMiembro aux);
 nodoArbol * archivoAlArbol(nodoArbol * raiz);
@@ -95,7 +96,7 @@ void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer);
 ///modificaciones
 nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[]);
 void opcionesMenuActualizarMiembros();
-nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux);
+nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux);
 void opcionesActualizarUnMiembro();
 nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux);
 void opcionesActualizarUnMiembroCampos();

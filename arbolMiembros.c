@@ -14,7 +14,7 @@
 ///funciones miembro
 
 //crear una persona
-stPersona crearUnaPersona()
+stPersona crearUnaPersona(nodoArbol * raiz)
 {
     stPersona aux;
 
@@ -33,14 +33,14 @@ stPersona crearUnaPersona()
         fflush(stdin);
         scanf("%s", &aux.dni);
     }
-    while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0);
+    while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0||verificarDniExistente(raiz,aux.dni)== 1);
     do
     {
         printf("Nro de telefono: ");
         fflush(stdin);
         scanf("%s", &aux.numeroDeTelefono);
     }
-    while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0);
+    while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0||verificarNroExistente(raiz,aux.numeroDeTelefono)== 1);
 
     printf("Direccion: ");
     fflush(stdin);
@@ -50,11 +50,11 @@ stPersona crearUnaPersona()
 }
 
 // crear un miembro
-stMiembro crearUnMiembro()
+stMiembro crearUnMiembro(nodoArbol * raiz)
 {
     stMiembro auxMiembro;
 
-    auxMiembro.datosPersonales = crearUnaPersona();
+    auxMiembro.datosPersonales = crearUnaPersona(raiz);
 
     auxMiembro.historialDelPrestamo[0] = 0;
 
@@ -385,7 +385,6 @@ int validarRangoDNI(char dniAux[])
     return flag;
 }
 
-
 int validarCaracteresEnEnteros(char aux[])
 {
 
@@ -449,6 +448,48 @@ int validarLimitePrestamoMiembro(int limiteAux)
     }
 
     return flag;
+}
+//verifica si ya existe el DNI en otro miembro
+int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
+{
+    int flag = 0;
+
+    if(raiz!= NULL)
+    {
+        if(strcmpi(raiz->dato.datosPersonales.dni,dniAbuscar)== 0)
+        {
+            flag = 1;
+        }
+        flag += verificarDniExistente(raiz->derecha,dniAbuscar);
+        flag += verificarDniExistente(raiz->izquierda,dniAbuscar);
+    }
+
+    if(flag == 1)
+    {
+        puts("Ingrese un DNI que no este en la base de datos");
+    }
+return flag;
+}
+//verifica si ya existe el nro de telefono en otro miembro
+int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
+{
+    int flag = 0;
+
+    if(raiz!= NULL)
+    {
+        if(strcmpi(raiz->dato.datosPersonales.numeroDeTelefono,nroExistente)== 0)
+        {
+            flag = 1;
+        }
+        flag += verificarDniExistente(raiz->derecha,nroExistente);
+        flag += verificarDniExistente(raiz->izquierda,nroExistente);
+    }
+    if(flag == 1)
+    {
+        puts("Ingrese un numero de telefono que no este repetido en la base de datos");
+    }
+
+return flag;
 }
 
 ///archivos
@@ -579,7 +620,7 @@ nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
             switch(opSw)
             {
             case 1:
-                aux = actualizarUnMiembroDatosPersonales(aux); ///modificar datospersonales
+                aux = actualizarUnMiembroDatosPersonales(raiz,aux); ///modificar datospersonales
                 break;
 
             case 2:
@@ -611,7 +652,7 @@ void opcionesMenuActualizarMiembros()
     puts(".....................................................");
 
 }
-nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux)
+nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux)
 {
 
     int flag = 0,opSw = 0,min = 1,max = 6;
@@ -661,7 +702,7 @@ nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol * aux)
             gets(&aux->dato.datosPersonales.direccion);
             break;
         case 5:
-            aux->dato = crearUnMiembro();
+            aux->dato = crearUnMiembro(raiz);
             break;
         case 6:
             op = 'n';
