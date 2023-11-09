@@ -4,6 +4,7 @@
 #include <time.h>
 #include "listaSimpleLibros.h"
 #define MAX_DIM 26
+#define MAX_GEN 5
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
 #define ARCHIVO_LIBROS "archivoLibros.bin"
@@ -49,7 +50,7 @@ stLibro crearUnLibro(estanteria arregloEstanterias[])
     }
     while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || (aux.cantidadDeCopias < 100));
 
-    printf("Descripcion: ");
+    printf("Descripcion: Para ingresar palabras clave recurde usar el caracter # antes de la palabra, sin ");
     fflush(stdin);
     gets(aux.descripcionLibro);
 
@@ -223,6 +224,53 @@ nodoSimple* retornarNodosLibroXAutor(nodoSimple* listaSimple, char autorBuscar[]
 }
 
 
+///Retorna los nodos que coincidan con una palabra clave
+nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[])
+{
+
+    nodoSimple* aux = inicListaSimple();
+    char claveConDelimitador[MAX_DIM];
+    strcpy(claveConDelimitador, "#");
+    strcat(claveConDelimitador, clave);
+
+    printf("%s", claveConDelimitador);
+
+    while (listaSimple != NULL)
+    {
+
+
+        if (strstr(listaSimple->datoLibro.descripcionLibro, clave) == 0)
+        {
+
+            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN );
+        }
+        listaSimple = listaSimple->siguiente;
+    }
+    return aux;
+}
+
+nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[])
+{
+
+    nodoSimple* aux = inicListaSimple();
+
+
+    while (listaSimple != NULL)
+    {
+
+        if (strcmpi(listaSimple->datoLibro.nombreDeLibro, tituloBuscar) == 0)
+        {
+
+            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN );
+        }
+
+        listaSimple = listaSimple->siguiente;
+    }
+
+    return aux;
+}
 
 
 nodoSimple* retornarNodosLibroXEstado(nodoSimple* listaSimple, int estado)
@@ -277,7 +325,7 @@ nodoSimple* modificarNombreLibro(nodoSimple* aux)
 nodoSimple* modificarCantidadDeCopias(nodoSimple* aux)
 {
 
-do
+    do
     {
         printf("Ingrese la nueva cantiadad de copias ");
         printf("Copias: ");
@@ -288,7 +336,7 @@ do
 
 
 
-return aux;
+    return aux;
 }
 
 nodoSimple* modificarGeneroLibro(nodoSimple* aux)
@@ -344,7 +392,7 @@ nodoSimple* modificarEstadoLibro(nodoSimple* aux)
     }
     while (op != 0 && op != 1  );
 
-        aux->datoLibro.estado = op;
+    aux->datoLibro.estado = op;
 
 
 
@@ -663,7 +711,7 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
     FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"wb");
     if(buffer != NULL)
     {
-        for(int i=0 ; i < 5; i++)
+        for(int i=0 ; i < MAX_GEN; i++)
         {
             recorrerLibrosParaFila(arregloEstanterias[i].listaLibro,buffer);
         }
@@ -679,3 +727,176 @@ void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
         recorrerFilaParaPrestamos(listaSimpleLibros->datoLibro.reservasLibro,buffer);
     }
 }
+
+
+/// Funciones para buscar libros
+
+
+
+
+/// Buscar e imprimir libros por autor
+void buscarLibroXAutor(estanteria arregloEstanterias[])
+{
+
+    char autor[MAX_DIM];
+
+    do
+    {
+        printf("Ingrese el autor que desa buscar");
+        fflush(stdin);
+        gets(autor);
+    }
+    while(validarDigitosEnStrings(autor)== 1||validarRangoDeNombre(autor)== 1);
+    buscarEstanteriaParaAutor(arregloEstanterias, autor);
+
+}
+
+void buscarEstanteriaParaAutor(estanteria arregloEstanterias[], char autor[])
+{
+
+    int flag = 0;
+
+    for (int i= 0; i < MAX_GEN; i++)
+    {
+
+        nodoSimple* aux = retornarNodosLibroXAutor(arregloEstanterias[i].listaLibro, autor);
+
+        if (strcmpi(aux->datoLibro.autorLibro, autor) == 0)
+        {
+
+            mostrarListaSimple(aux);
+            flag = 1;
+        }
+    }
+
+    if(!flag)
+    {
+        printf("\nNo se encontro ningun libro de ese Autor\n");
+    }
+
+}
+
+
+/// Buscar e imprimir libros por Genero
+
+
+void buscarLibroXgenero(estanteria arregloEstanterias[])
+{
+
+    nodoSimple* aux = inicListaSimple();
+
+    printf("Elije una opcion\n");
+    validarGenero(aux->datoLibro.generoLibro);
+
+    for (int i = 0; i < MAX_GEN; i++)
+    {
+        if (strcmpi(aux->datoLibro.generoLibro, arregloEstanterias[i].generoEstanteria) == 0)
+        {
+            mostrarListaSimple(arregloEstanterias[i].listaLibro);
+        }
+    }
+}
+
+
+
+/// Buscar e imprimir libros por Titulo
+
+void buscarLibroXTitulo(estanteria arregloEstanterias[])
+{
+
+    char titulo[MAX_DIM];
+
+    do
+    {
+        printf("Ingrese el Titulo que desa buscar");
+        fflush(stdin);
+        gets(titulo);
+    }
+    while(validarDigitosEnStrings(titulo)== 1||validarRangoDeNombre(titulo)== 1);
+
+    buscarEstanteriaParaTitulo(arregloEstanterias, titulo);
+
+}
+
+void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[])
+{
+
+    int flag = 0;
+
+    for (int i= 0; i < MAX_GEN; i++)
+    {
+
+        nodoSimple* aux = retornarNodosLibroXTitulo(arregloEstanterias[i].listaLibro, titulo);
+
+        if (strcmpi(aux->datoLibro.nombreDeLibro, titulo) == 0)
+        {
+
+            mostrarListaSimple(aux);
+            flag =1;
+        }
+    }
+
+    if (!flag)
+    {
+        printf("\nNo se encontro nungun Libro con ese Titulo\n");
+    }
+
+}
+
+
+/// Buscar e imprimir libros por Clave
+
+/// Este codigo esta roto, no anda del todo.
+/// El porbelma que me tira es que me da un bucle infinito sin que yo le llegue a escribir nada, a pesar de que tenga el fflush.
+// ver que onda eso
+void buscarLibroXClave( estanteria arregloEstanterias[])
+{
+
+    char claves[MAX_DIM];
+
+    do
+    {
+        printf("Ingrese las palabras clave \n");
+        fflush(stdin);
+        fgets(claves, MAX_DIM, stdin);
+    }
+    while(validarDigitosEnStrings(claves)== 1||validarRangoDeNombre(claves)== 1);
+
+
+    for (int i = 0; i < MAX_DIM; i++)
+    {
+
+
+        buscarPalabrasClaves(arregloEstanterias[i].listaLibro, claves);
+
+    }
+
+}
+
+
+
+void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[])
+{
+
+    nodoSimple* aux = inicListaSimple();
+    char delimitador[] = "#";
+
+    char *token = strtok(claves, delimitador);
+
+    while (token != NULL)
+    {
+
+        if (strstr(token, delimitador) != NULL)
+        {
+            aux = retornarNodosLibroXClave(listaSimple, token);
+        }
+        mostrarListaSimple(aux);
+
+        token = strtok(NULL, delimitador);
+        }
+    }
+
+
+
+
+/// Esto queda a definir

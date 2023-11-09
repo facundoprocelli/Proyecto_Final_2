@@ -126,7 +126,7 @@ void menuLibros(estanteria arregloEstanterias[])
             mostrarUnLibro(aux);
             break;
         case 2: //menu buscar libro
-            menuBuscarLibros();
+            menuBuscarLibros(arregloEstanterias);
             break;
         case 3: // prestar un libro
 
@@ -251,7 +251,7 @@ void opcionesMenuBuscarLibros()
     puts("-----------------------------------------");
 }
 
-void menuBuscarLibros()
+void menuBuscarLibros(estanteria arregloEstanterias[])
 {
     int opSw=0;
     char opCont='s';
@@ -262,12 +262,16 @@ void menuBuscarLibros()
         switch(opSw)
         {
         case 1:
+            buscarLibroXTitulo(arregloEstanterias);
             break;
         case 2:
+            buscarLibroXAutor(arregloEstanterias);
             break;
         case 3:
+            buscarLibroXgenero(arregloEstanterias);
             break;
         case 4:
+            buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
             opCont='n';

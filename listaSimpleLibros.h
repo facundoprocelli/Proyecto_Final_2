@@ -70,6 +70,20 @@ nodoSimple* modificarDescripcionLibro(nodoSimple* aux);
 nodoSimple* modificarEstadoLibro(nodoSimple* aux);
 nodoSimple* modificarCantidadDeCopias(nodoSimple* aux);
 
+// funciones de mostrar
+
+void buscarLibroXAutor(estanteria arregloEstanterias[]);
+void buscarEstanteriaParaAutor(estanteria arregloEstanterias[], char autor[]);
+void buscarLibroXgenero(estanteria arregloEstanterias[]);
+void buscarLibroXTitulo(estanteria arregloEstanterias[]);
+void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[]);
+void buscarLibroXClave( estanteria arregloEstanterias[]);
+void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[]);
+
+
+
+
+
 
 //funciones buscar
 
@@ -81,6 +95,8 @@ stLibro retornarUnSoloLibroXAutor(nodoSimple*listaSimple,char autorBuscar[]);
 nodoSimple* retornarNodosLibrosXEstado(nodoSimple* listaSimple, int estado);
 int retornarIDMasGrandeEnLista(nodoSimple*listaSimple);
 int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
+nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[]);
+nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 
 
 ///validaciones
