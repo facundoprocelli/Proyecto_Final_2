@@ -14,7 +14,7 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
 {
     stPrestamo aux;
 
-    aux.idPrestamo= 0; ///Hacer una funcion automatica
+    aux.idPrestamo= retornarUltimoIDPrestamo() +1;
 
     do
     {
@@ -163,4 +163,22 @@ int validarPrecioPrestamo(char aux[])
     return flag;
 }
 
+///funciones archivo
 
+int retornarUltimoIDPrestamo()
+{
+    FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"rb");
+    stPrestamo aux;
+    int ultId=0;
+    if(buffer != NULL)
+    {
+        while(fread(&aux,sizeof(stPrestamo),1,buffer) > 0)
+        {
+            if(aux.idPrestamo > ultId)
+            {
+                ultId=aux.idPrestamo;
+            }
+        }
+    }
+    return ultId;
+}

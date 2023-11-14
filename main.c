@@ -10,8 +10,10 @@ int main()
 
     printf("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
     printf("\t\t      =============================================\n\n");
-    biblioteca();
 
+
+
+    biblioteca();
 
 
 

@@ -1,7 +1,7 @@
 #ifndef BIBLIOTECA_H_INCLUDED
 #define BIBLIOTECA_H_INCLUDED
-#include "listaSimpleLibros.h"
 #define MAX_DIM 26
+#include "listaSimpleLibros.h"
 
 
 
@@ -25,11 +25,17 @@ void opcionesMenuActualizarLibros();
 void opcionesMenuBuscarLibros();
 void menuBuscarLibros();
 
-void menuMiembros();
+void menuMiembros(nodoArbol * raiz);
 void opcionesMenuMiembros();
 
 void opcionesMenuBuscarMiembros();
 void menuBuscarMiembros();
+
+void opcionesMenuPrestamos();
+void menuPrestamos();
+
+
+void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 
 ///funciones de estanteria
 void inicEstanterias(estanteria arregloEstanterias[]);

@@ -4,7 +4,6 @@
 #include <time.h>
 #include "biblioteca.h"
 
-
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
 #define ARCHIVO_LIBROS "archivoLibros.bin"
@@ -59,12 +58,14 @@ void biblioteca()
             menuLibros(arregloEstanterias);
             break;
         case 2:
-            menuMiembros();
+            menuMiembros(arbolMiembros);
             break;
         case 3:
+
             break;
         case 4:
             puts("Adios");
+            informeFinal(arbolMiembros,arregloEstanterias);
             opContinuarMenuPrin = 'n';
             break;
         default:
@@ -76,7 +77,7 @@ void biblioteca()
 
     arbolAlArchivo(arbolMiembros);
     librosAlArchivo(arregloEstanterias);
-    ///prestamos al archivo
+    prestamosAlArchivo(arregloEstanterias);
 
 }
 void menuDeAccionesPrincipales()
@@ -247,7 +248,9 @@ void opcionesMenuBuscarLibros()
     printf("[2] Buscar por Autor \n");
     printf("[3] Buscar por Genero \n");
     printf("[4] Buscar Palabra Clave \n");
-    printf("[5] Volver al menu de libros \n");
+    printf("[5] Buscar libros disponibles \n"); //cuando la cantidad de copias es mayor a 0
+    printf("[6] Buscar libros que todas sus copias estan prestadas \n"); //cuando la cant de copias es 0
+    printf("[7] Volver al menu de libros \n");
     puts("-----------------------------------------");
 }
 
@@ -274,6 +277,10 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
+            break;
+        case 6:
+            break;
+        case 7:
             opCont='n';
             limpiarPantalla();
             break;
@@ -301,7 +308,7 @@ void opcionesMenuMiembros()
     puts("----------------------------------------------------");
 }
 
-void menuMiembros()
+void menuMiembros(nodoArbol * raiz)
 {
     int opSw=0;
     char opCont='s';
@@ -312,16 +319,17 @@ void menuMiembros()
         opSw=preguntarDatoEntero();
         switch(opSw)
         {
-        case 1:
+        case 1: //ingresar un nuevo miembro al arbol
+            raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro(raiz)));
             break;
-        case 2:
+        case 2: //buscar un determinado miembro
             menuBuscarMiembros();
             break;
-        case 3:
+        case 3: //calcular multas
             break;
-        case 4:
+        case 4: ///informes sobre miembros (hacer un menu)
             break;
-        case 5:
+        case 5: //modificar el limite de prestamos en un miembro
             break;
         case 6:
             opCont='n';
@@ -343,12 +351,13 @@ void opcionesMenuBuscarMiembros()
 
     puts("------------------------------------------");
     printf("Seleccione una opcion \n");
-    printf("[1] Buscar Por Nombre\n");
-    printf("[2] Buscar Por Id\n");
-    printf("[3] Buscar Alquileres\n");
-    printf("[4] Buscar por Saldo\n ");
-    printf("[5] Buscar por Limite de prestamos\n");
-    printf("[6] Volver al menu de miembros \n");
+    printf("[1] Buscar por Nombre\n");
+    printf("[2] Buscar por DNI\n");
+    printf("[3] Buscar por Estado\n");
+    printf("[4] Buscar por saldo\n "); //mayor o menor al dato buscado
+    printf("[5] Buscar por Nro de prestamos activos");
+    printf("[6] Buscar por Limite de prestamos\n");
+    printf("[7] Volver al menu de miembros \n");
     puts("------------------------------------------");
 }
 
@@ -374,6 +383,8 @@ void menuBuscarMiembros()
         case 5:
             break;
         case 6:
+            break;
+        case 7:
             limpiarPantalla();
             opCont='n';
             break;
@@ -462,3 +473,68 @@ void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNo
     }
 
 }
+
+void opcionesMenuPrestamos()
+{
+    puts("[1] Pedir un libro"); //es crear un prestamo
+    puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
+    puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[4] Modificar fecha de vencimiento de un prestamo");
+    puts("[5] Volver al menu principal");
+}
+
+void menuPrestamos()
+{
+
+    int opSw=0;
+    char opCont='s';
+    opcionesMenuPrestamos();
+    opSw=preguntarDatoEntero();
+    do
+    {
+
+        switch(opSw)
+        {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            limpiarPantalla();
+            opCont='n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+
+    }
+    while(opCont != 'n');
+
+}
+
+
+
+void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
+{
+    puts("-----------------------------------------------------------");
+    printf("Total de miembros: \n");
+    printf("Cantidad de miembros activos: \n");
+    printf("Cantidad de miembros dados de baja: \n");
+    printf("Total de libros: \n");
+    printf("Total de prestamos: \n");
+    printf("Libro mas prestado: \n");
+    printf("Miembro con mayor sueldo: \n");
+    printf("Libro con mayor cantidad de copias: \n");
+    printf("Prestamo mas costoso: \n");
+    printf("Miembro con mas prestamos: \n");
+    puts("-----------------------------------------------------------");
+
+}
+
+
+

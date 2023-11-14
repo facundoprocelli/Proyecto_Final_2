@@ -66,5 +66,6 @@ nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble);
 int validarPrecioPrestamo(char aux[]);
 
 ///Funciones archivo
+int retornarUltimoIDPrestamo();
 
 #endif // LISTADOBLERESERVAS_H_INCLUDED

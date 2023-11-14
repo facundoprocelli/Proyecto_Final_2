@@ -98,7 +98,6 @@ int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[]);
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 
-
 ///validaciones
 //Se utilizaron validaciones ya hechas en otras librerias para modularizar
 void validarGenero(char auxGenero[]);
