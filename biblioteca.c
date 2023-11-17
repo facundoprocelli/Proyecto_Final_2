@@ -46,8 +46,19 @@ void biblioteca()
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
 
+    /*
+    Para solucionar el problema de los prestamos inactivos y seguirlos teniendo en el archivo pero no en las filas de los libros
+    propusimos, para implementar el TDA de pilas, guardar todos los prestamos inactivos en una pila y luego cuando se cierre el programa,
+    guardarlos en el archivo. por lo tanto nos quedarian los activos primeros y a lo ultimo los prestamos inactivos en el archivo
+
+    crear una libreria mas de pilas.
+
+    */
+
+
+
     nodoArbol * arbolMiembros=inicArbol();
-    arbolMiembros=archivoAlArbol(arbolMiembros);
+    arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
 
     int opMenuPrin=0;
@@ -66,7 +77,7 @@ void biblioteca()
             menuMiembros(arbolMiembros);
             break;
         case 3:
-
+            menuPrestamos();
             break;
         case 4:
             puts("Adios");
@@ -98,21 +109,28 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
         switch(opMenuPrin)
         {
         case 1:
-            menuBuscarLibros();
+            /// si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
+
             break;
         case 2:
-            mostrarTodasLasEstanterias(arregloEstanterias);
+            menuBuscarLibros();
             break;
         case 3:
-            menuBuscarMiembros();
+            mostrarTodasLasEstanterias(arregloEstanterias);
             break;
         case 4:
-            ///mostrar informes genereales
+            menuBuscarMiembros();
 
             break;
         case 5:
-            opContinuarMenuPrin = 'n';
+            ///mostrar informes genereales
 
+            break;
+        case 6:
+
+            break;
+        case 7:
+            opContinuarMenuPrin = 'n';
             break;
         default:
             puts("Ingrese una opcion valida");
@@ -124,12 +142,16 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
 }
 void opcionesMenuUsuario()
 {
+    //aca va todo lo que puede hacer un usuario ningun menu libros ni nada debido a que eso es del admin
+
     puts("----------------------------------");
-    printf("[1]Buscar libro\n");
-    printf("[2]Mostrar todos los libros\n");
-    printf("[3]Buscar miembro\n");
-    printf("[4]Ver informes\n");
-    printf("[5]Volver al menu principal\n");
+    printf("[1] Pedir un libro \n"); //es crear un prestamo
+    printf("[2] Buscar un libro\n");
+    printf("[3] Mostrar todos los libros\n");
+    printf("[4] Buscar miembro\n");
+    printf("[5] Consultar prestamos"); //Menu: cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
+    printf("[6] Devolver un libro"); //aumentar el contador de cantcopias +1
+    printf("[7]Volver al menu principal\n");
     puts("----------------------------------");
 }
 
@@ -344,10 +366,10 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             //buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
-            buscarLibrosXEstado(arregloEstanterias);
+            //buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            buscarLibrosXCopias(arregloEstanterias);
+            //buscarLibrosXCopias(arregloEstanterias);
             break;
         case 7:
             opCont='n';
@@ -550,6 +572,7 @@ void opcionesMenuPrestamos()
     puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
     puts("[4] Modificar fecha de vencimiento de un prestamo");
     puts("[5] Volver al menu principal");
+    puts("-------------------------------------------------------");
 }
 
 void menuPrestamos()
@@ -590,6 +613,9 @@ void menuPrestamos()
 
 void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
 {
+
+    ///aca tenemos que hacer muchas funciones que cumplan con los requerimientos del informe
+
     puts("-----------------------------------------------------------");
     printf("Total de miembros: \n");
     printf("Cantidad de miembros activos: \n");

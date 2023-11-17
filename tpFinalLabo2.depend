@@ -67,43 +67,43 @@
 	<time.h>
 	"biblioteca.h"
 
-1699987049 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
+1700258721 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1699987049 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
+1700253566 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 
-1699544755 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
+1700253566 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1699984817 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
+1700253566 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1699544755 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
+1700253566 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1699983825 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
+1700256415 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
 
-1699544755 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
+1700259607 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -111,14 +111,14 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1699544755 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
+1700259418 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
 
-1699544755 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
+1700253566 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1699983447 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
+1700259198 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
 
-1699930127 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
+1700253566 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 

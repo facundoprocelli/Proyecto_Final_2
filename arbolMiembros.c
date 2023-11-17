@@ -58,13 +58,11 @@ stMiembro crearUnMiembro(nodoArbol * raiz)
 
     auxMiembro.datosPersonales = crearUnaPersona(raiz);
 
-    auxMiembro.historialDelPrestamo[0] = 0;
+    auxMiembro.estado = 1; // 1.activo o 0.dado de baja, comienza activo
 
-    auxMiembro.estado = 1; // 1.activo o 0.dado de baja
+    auxMiembro.validosPrestamosActivosID=0; // por el momento tiene 0 validos debido a que se inician sin ningun prestamo
 
-    auxMiembro.prestamosActivos = 0;
-
-    auxMiembro.saldo=0;
+    auxMiembro.saldo=0; // comienza con saldo 0 y lo podra ir modificando
 
     auxMiembro.limitePrestamos = 5; // predeterminado, si se penaliza puede disminuir o si paga puede aumentar
 
@@ -86,9 +84,13 @@ void mostrarUnMiembro(stMiembro aux)
 {
     puts("--------------------------Miembro-----------------------");
     mostrarUnaPersona(aux.datosPersonales);
-    printf("Historial de prestamos......: %i\n", aux.historialDelPrestamo); /// for para poder ver todos
+
+
+    //printf("Prestamos activos...........: %i\n", aux.historialDelPrestamo); /// for para poder ver todos
+
+
     printf("Estado......................: %i \n", aux.estado);
-    printf("Prestamos activos...........: %i \n", aux.prestamosActivos);
+    printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
     puts("--------------------------------------------------------");
 }
