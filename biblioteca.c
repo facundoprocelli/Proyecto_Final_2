@@ -13,6 +13,7 @@
 //la biblioteca va a tener el arreglo de listas simples de los libros
 
 
+
 ///funciones generales
 
 int preguntarDatoEntero()
@@ -39,12 +40,14 @@ int convertirStringsDeNumerosAEntero(char aux[])
 void biblioteca()
 {
 
+    cargarLibrosPredeterminados(); // se cargan los libros automaticamente
     estanteria arregloEstanterias[5];
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    nodoArbol * arbolMiembros=inicArbol();
+    archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
-    //arbolMiembros=archivoAlArbol(arbolMiembros);
-    //archivoAEstanteria(arregloEstanterias); /// o capaz aca podemos leer el archivo de reservas tmb
+
+    nodoArbol * arbolMiembros=inicArbol();
+    arbolMiembros=archivoAlArbol(arbolMiembros);
 
 
     int opMenuPrin=0;
@@ -226,6 +229,25 @@ void opcionesMenuActualizarLibros()
     puts("------------------------------------");
 }
 
+int preguntarID(estanteria arregloEstanterias[])
+{
+
+    char idBuscado[MAX_DIM];
+    int idConvertido;
+    int ultimoID;
+    do
+    {
+        printf("Ingrese el ID que desea buscar");
+        fflush(stdin);
+        gets(idBuscado);
+
+        ultimoID = retornarUltimoIDLibro(arregloEstanterias);
+        idConvertido = convertirStringsDeNumerosAEntero(idBuscado);
+    }
+    while (validarCaracteresEnEnteros(idBuscado) == 0 || idConvertido > ultimoID);
+
+    return idConvertido;
+}
 
 void actualizarLibro(estanteria arregloListas[])
 {
@@ -238,24 +260,19 @@ void actualizarLibro(estanteria arregloListas[])
         opcionesMenuActualizarLibros();
 
         opSw = preguntarDatoEntero();
+        int idBuscado = preguntarID(arregloListas);
 
         limpiarPantalla();
 
-        printf("Ingrese el ID que desea buscar");
-        int idBuscado = preguntarDatoEntero();
+        for(int i = 0; i < 5; i++)
+        {
+            buscado = retornarNodoSimpleXid(arregloListas[i].listaLibro, idBuscado);
+            if(buscado != NULL)
+            {
+                break;
+            }
+        }
 
-        /*
-                        for(int i = 0; i < 5; i++)
-                        {
-
-                            buscado = retornarLibroXid(arregloListas[i]->listaLibros, idBuscado);
-
-                            if(buscado != NULL){
-                                break;
-                            }
-
-                        }
-        */
         switch(opSw)
         {
         case 1: //Actualizar Nombre
@@ -270,13 +287,12 @@ void actualizarLibro(estanteria arregloListas[])
         case 4: // Actualizar Descripción
             buscado = modificarDescripcionLibro(buscado);
             break;
-        case 5:
-            // Actualizar Estado
+        case 5: // Actualizar Estado
             buscado = modificarEstadoLibro(buscado);
             break;
-        case 6:
-            // Actualizar Cantidad de Copias
+        case 6: // Actualizar Cantidad de Copias
             buscado = modificarCantidadDeCopias(buscado);
+            break;
         case 7:
             opCont='n';
             limpiarPantalla();
@@ -328,10 +344,10 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             //buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
-            //buscarLibrosXEstado(arregloEstanterias);
+            buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            //buscarLibrosXCopias(arregloEstanterias);
+            buscarLibrosXCopias(arregloEstanterias);
             break;
         case 7:
             opCont='n';
@@ -420,8 +436,8 @@ void menuBuscarMiembros()
     char opCont='s';
     do
     {
-    opcionesMenuBuscarMiembros();
-    opSw=preguntarDatoEntero();
+        opcionesMenuBuscarMiembros();
+        opSw=preguntarDatoEntero();
 
         switch(opSw)
         {
@@ -492,8 +508,8 @@ void mostrarUnaEstanteria(estanteria unaEstanteriaSola)
 
 void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo)
 {
-    // si el genero actual que esta en X estanteria es igual al genero del libro del nuevo nodo,
-    // se va a agregar al final en el genero correspondiente
+    /// si el genero actual que esta en X estanteria es igual al genero del libro del nuevo nodo,
+    /// se va a agregar al final en el genero correspondiente
 
     if(strcmp(arregloEstanterias[0].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {

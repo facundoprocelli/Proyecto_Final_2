@@ -185,11 +185,13 @@ int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 {
     nodoSimple*aux=NULL;
-    while(listaSimple != NULL && listaSimple->datoLibro.idLibro != idBuscar)
+    nodoSimple* seg = listaSimple;
+
+    while(seg != NULL && seg->datoLibro.idLibro != idBuscar)
     {
-        listaSimple=listaSimple->siguiente;
+        seg =seg ->siguiente;
     }
-    if(listaSimple == NULL) // si llegue al final no encontre el dato
+    if(seg == NULL) // si llegue al final no encontre el dato
     {
         puts("Libro no encontrado");
     }
@@ -582,84 +584,90 @@ void mostrarArchivoLibros()
 void cargarLibrosPredeterminados()
 {
 
-    FILE* archi = fopen(ARCHIVO_LIBROS, "wb");
+    nodoSimple* aux = inicListaSimple();
 
     stLibro libro1;
     libro1.idLibro = 1;
-    strcpy(libro1.autorLibro, "John Jackson Miller");
-    strcpy(libro1.generoLibro, "Ciencia Ficción");
     strcpy(libro1.nombreDeLibro, "Kenobi");
-    strcpy(libro1.descripcionLibro, "Una historia que contribuye a la caracterización general de Obi-Wan Kenobi.");
+    strcpy(libro1.generoLibro, "Ciencia Ficcion");
+    strcpy(libro1.autorLibro, "John Jackson Miller");
+    strcpy(libro1.descripcionLibro, "Una historia que contribuye a la caracterizacion general de Obi-Wan Kenobi.");
     libro1.estado = 1;
     libro1.vecesPrestadoLibro = 0;
+    strcpy(libro1.cantidadDeCopias, "5");
+nodoSimple* NN1 = crearNodoSimple(libro1);
 
 
-    fwrite(&libro1, sizeof(stLibro), 1, archi);
+
+
 
     stLibro libro2;
     libro2.idLibro = 2;
-    strcpy(libro2.autorLibro, "Makoto Mizobuchi");
+    strcpy(libro2.nombreDeLibro, "Pokemon Mystery Dungeon: Ginjis Rescue Team");
     strcpy(libro2.generoLibro, "Aventura");
-    strcpy(libro2.nombreDeLibro, "Pokémon Mystery Dungeon: Ginji's Rescue Team");
-    strcpy(libro2.descripcionLibro, "Una emocionante historia de aventuras en el universo de Pokémon.");
+    strcpy(libro2.autorLibro, "Makoto Mizobuchi");
+    strcpy(libro2.descripcionLibro, "Una emocionante historia de aventuras en el universo de Pokemon.");
     libro2.estado = 1;
     libro2.vecesPrestadoLibro = 0;
+    strcpy(libro2.cantidadDeCopias, "3");
 
+nodoSimple* NN2 = crearNodoSimple(libro2);
 
-    fwrite(&libro2, sizeof(stLibro), 1, archi);
 
 
     stLibro libro3;
     libro3.idLibro = 3;
+    strcpy(libro3.nombreDeLibro, "Harry Potter and the Philosophers Stone");
+    strcpy(libro3.generoLibro, "Fantasia");
     strcpy(libro3.autorLibro, "J.K. Rowling");
-    strcpy(libro3.generoLibro, "Fantasía");
-    strcpy(libro3.nombreDeLibro, "Harry Potter and the Philosopher’s Stone");
-    strcpy(libro3.descripcionLibro, "La historia de un niño que descubre que es un mago en su 11 cumpleaños.");
+    strcpy(libro3.descripcionLibro, "La historia de un nino que descubre que es un mago en su 11 cumpleaños.");
     libro3.estado = 1;
     libro3.vecesPrestadoLibro = 0;
+    strcpy(libro3.cantidadDeCopias, "6");
+nodoSimple* NN3 = crearNodoSimple(libro3);
 
 
-    fwrite(&libro3, sizeof(stLibro), 1, archi);
 
 
 
     stLibro libro4;
     libro4.idLibro = 4;
-    strcpy(libro4.autorLibro, "Jane Austen");
-    strcpy(libro4.generoLibro, "Romance");
     strcpy(libro4.nombreDeLibro, "Pride and Prejudice");
+    strcpy(libro4.generoLibro, "Romance");
+    strcpy(libro4.autorLibro, "Jane Austen");
     strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el señor Darcy.");
     libro4.estado = 1;
     libro4.vecesPrestadoLibro = 0;
-
-    fwrite(&libro4, sizeof(stLibro), 1, archi);
+    strcpy(libro4.cantidadDeCopias, "5");
+nodoSimple* NN4 = crearNodoSimple(libro4);
 
 
     stLibro libro5;
     libro5.idLibro = 5;
-    strcpy(libro5.autorLibro, "George Orwell");
-    strcpy(libro5.generoLibro, "Terror");
     strcpy(libro5.nombreDeLibro, "1984");
-    strcpy(libro5.descripcionLibro, "Una novela distópica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
+    strcpy(libro5.generoLibro, "Terror");
+    strcpy(libro5.autorLibro, "George Orwell");
+    strcpy(libro5.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
     libro5.estado = 1;
     libro5.vecesPrestadoLibro = 0;
+    strcpy(libro5.cantidadDeCopias, "8");
+nodoSimple* NN5 = crearNodoSimple(libro5);
 
-    fwrite(&libro5, sizeof(stLibro), 1, archi);
 
-    fclose(archi);
+
+    aux = agregarAlFinalSimple(aux, NN1);
+    aux = agregarAlFinalSimple(aux, NN2);
+    aux = agregarAlFinalSimple(aux, NN3);
+    aux = agregarAlFinalSimple(aux, NN4);
+    aux = agregarAlFinalSimple(aux, NN5);
+
+    listaSimpleAlArchivo(aux);
+
+
 }
 
 
 //cargar todos los libros al archivo
-
-void librosAlArchivo(estanteria arregloEstanterias[])
-{
-    int dim=5;
-    for(int i=0; i < dim; i++)
-    {
-        listaSimpleAlArchivo(arregloEstanterias[i].listaLibro);
-    }
-}
 
 //cargar una listaSimple de libros al archivo
 
@@ -673,11 +681,21 @@ void listaSimpleAlArchivo(nodoSimple*listaSimple)
         {
             aux=listaSimple->datoLibro;
             fwrite(&aux,sizeof(stLibro),1,buffer);
+            listaSimple = listaSimple->siguiente;
         }
 
         fclose(buffer);
     }
 
+}
+
+void librosAlArchivo(estanteria arregloEstanterias[])
+{
+    int dim=5;
+    for(int i=0; i < dim; i++)
+    {
+        listaSimpleAlArchivo(arregloEstanterias[i].listaLibro);
+    }
 }
 
 
@@ -689,13 +707,10 @@ void archivoAEstanteria(estanteria arregloEstanterias[])
     stLibro aux;
     if(buffer != NULL)
     {
-
         while(fread(&aux,sizeof(stLibro),1,buffer) > 0 )
         {
             cargarEstanteriaOrdenada(arregloEstanterias,crearNodoSimple(aux));
         }
-
-
         fclose(buffer);
     }
 
