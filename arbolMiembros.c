@@ -26,21 +26,23 @@ stPersona crearUnaPersona(nodoArbol * raiz)
         scanf("%s",&aux.nombre);
     }
     while(validarDigitosEnStrings(aux.nombre)== 1 || validarRangoDeNombre(aux.nombre)== 1);
-
+    mostrarArbolInorden(raiz);
     do
     {
+
         printf("DNI: ");
         fflush(stdin);
         scanf("%s", &aux.dni);
+
     }
-    while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0||verificarDniExistente(raiz,aux.dni)== 1);
+    while(verificarDniExistente(raiz,aux.dni)== 1||validarCaracteresEnEnteros(aux.dni)== 0||validarRangoDNI(aux.dni)== 0);
     do
     {
         printf("Nro de telefono: ");
         fflush(stdin);
         scanf("%s", &aux.numeroDeTelefono);
     }
-    while(validarRangoTelefono(aux.numeroDeTelefono)== 0 || validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0||verificarNroExistente(raiz,aux.numeroDeTelefono)== 1);
+    while(verificarNroExistente(raiz,aux.numeroDeTelefono)== 1|| validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0||validarRangoTelefono(aux.numeroDeTelefono)== 0);
 
     printf("Direccion: ");
     fflush(stdin);
@@ -456,12 +458,16 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
 
     if(raiz!= NULL)
     {
+
         if(strcmpi(raiz->dato.datosPersonales.dni,dniAbuscar)== 0)
         {
             flag = 1;
         }
-        flag += verificarDniExistente(raiz->derecha,dniAbuscar);
-        flag += verificarDniExistente(raiz->izquierda,dniAbuscar);
+        else
+        {
+        flag = verificarDniExistente(raiz->derecha,dniAbuscar);
+        flag = verificarDniExistente(raiz->izquierda,dniAbuscar);
+        }
     }
 
     if(flag == 1)
@@ -481,8 +487,11 @@ int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
         {
             flag = 1;
         }
-        flag += verificarDniExistente(raiz->derecha,nroExistente);
-        flag += verificarDniExistente(raiz->izquierda,nroExistente);
+        else
+        {
+        flag = verificarDniExistente(raiz->derecha,nroExistente);
+        flag = verificarDniExistente(raiz->izquierda,nroExistente);
+        }
     }
     if(flag == 1)
     {
@@ -573,7 +582,6 @@ void escribirArchivoArbol(nodoArbol * raiz,FILE * buffer)
 
 }
 
-
 void mostrarArchivoDeMiembros()
 {
 
@@ -597,8 +605,6 @@ void mostrarArchivoDeMiembros()
 }
 
 ///modificaciones
-
-
 nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
 {
     int  opSw = 0,min = 1,max = 3;
@@ -641,7 +647,6 @@ nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
 
     return raiz;
 }
-
 
 void opcionesMenuActualizarMiembros()
 {

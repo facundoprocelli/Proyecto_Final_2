@@ -278,10 +278,10 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             //buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
-            buscarLibrosXEstado(arregloEstanterias);
+            //buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            buscarLibrosXCopias(arregloEstanterias);
+            //buscarLibrosXCopias(arregloEstanterias);
             break;
         case 7:
             opCont='n';
@@ -357,8 +357,8 @@ void opcionesMenuBuscarMiembros()
     printf("[1] Buscar por Nombre\n");
     printf("[2] Buscar por DNI\n");
     printf("[3] Buscar por Estado\n");
-    printf("[4] Buscar por saldo\n "); //mayor o menor al dato buscado
-    printf("[5] Buscar por Nro de prestamos activos");
+    printf("[4] Buscar por saldo\n"); //mayor o menor al dato buscado
+    printf("[5] Buscar por Nro de prestamos activos\n");
     printf("[6] Buscar por Limite de prestamos\n");
     printf("[7] Volver al menu de miembros \n");
     puts("------------------------------------------");
@@ -368,10 +368,10 @@ void menuBuscarMiembros()
 {
     int opSw=0;
     char opCont='s';
-    opcionesMenuBuscarMiembros();
-    opSw=preguntarDatoEntero();
     do
     {
+    opcionesMenuBuscarMiembros();
+    opSw=preguntarDatoEntero();
 
         switch(opSw)
         {
