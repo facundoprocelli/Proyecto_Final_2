@@ -282,19 +282,22 @@ void actualizarLibro(estanteria arregloListas[])
         opcionesMenuActualizarLibros();
 
         opSw = preguntarDatoEntero();
-        int idBuscado = preguntarID(arregloListas);
 
         limpiarPantalla();
 
-        for(int i = 0; i < 5; i++)
+        if(opSw != 7)
         {
-            buscado = retornarNodoSimpleXid(arregloListas[i].listaLibro, idBuscado);
-            if(buscado != NULL)
+            int idBuscado = preguntarID(arregloListas);
+
+            for(int i = 0; i < 5; i++)
             {
-                break;
+                buscado = retornarNodoSimpleXid(arregloListas[i].listaLibro, idBuscado);
+                if(buscado != NULL)
+                {
+                    break;
+                }
             }
         }
-
         switch(opSw)
         {
         case 1: //Actualizar Nombre
@@ -366,10 +369,10 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             //buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
-            //buscarLibrosXEstado(arregloEstanterias);
+            buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            //buscarLibrosXCopias(arregloEstanterias);
+            buscarLibrosXCopias(arregloEstanterias);
             break;
         case 7:
             opCont='n';

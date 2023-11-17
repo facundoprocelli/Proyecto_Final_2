@@ -184,21 +184,16 @@ int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
 
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 {
-    nodoSimple*aux=NULL;
+    nodoSimple* aux =NULL;
     nodoSimple* seg = listaSimple;
 
     while(seg != NULL && seg->datoLibro.idLibro != idBuscar)
     {
         seg =seg ->siguiente;
     }
-    if(seg == NULL) // si llegue al final no encontre el dato
-    {
-        puts("Libro no encontrado");
-    }
-    else // si no es null entonces se corto el bucle porque encontre el dato
-    {
-        aux=listaSimple;
-    }
+
+        aux=seg;
+
     return aux;
 }
 
