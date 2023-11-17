@@ -34,7 +34,8 @@ int convertirStringsDeNumerosAEntero(char aux[])
     return atoi(aux);
 }
 
-///menues
+
+///todos los menu con sus respectivas funcionalidades
 void biblioteca()
 {
 
@@ -81,6 +82,55 @@ void biblioteca()
     prestamosAlArchivo(arregloEstanterias);
 
 }
+
+void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
+{
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuario();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+            menuBuscarLibros();
+            break;
+        case 2:
+            mostrarTodasLasEstanterias(arregloEstanterias);
+            break;
+        case 3:
+            menuBuscarMiembros();
+            break;
+        case 4:
+            ///mostrar informes genereales
+
+            break;
+        case 5:
+            opContinuarMenuPrin = 'n';
+
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+
+}
+void opcionesMenuUsuario()
+{
+    puts("----------------------------------");
+    printf("[1]Buscar libro\n");
+    printf("[2]Mostrar todos los libros\n");
+    printf("[3]Buscar miembro\n");
+    printf("[4]Ver informes\n");
+    printf("[5]Volver al menu principal\n");
+    puts("----------------------------------");
+}
+
+
 void menuDeAccionesPrincipales()
 {
     printf("Por favor, seleccione que accion desea realizar \n");

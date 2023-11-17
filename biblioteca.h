@@ -18,6 +18,9 @@ void limpiarPantalla();
 void biblioteca();
 void menuDeAccionesPrincipales();
 
+void menuUsuario();
+void opcionesMenuUsuario();
+
 void opcionesMenuGestionarLibros();
 void menuLibros(estanteria arregloEstanterias[]);
 
