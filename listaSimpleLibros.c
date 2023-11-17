@@ -50,7 +50,7 @@ stLibro crearUnLibro(estanteria arregloEstanterias[])
     }
     while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || (aux.cantidadDeCopias < 100));
 
-    printf("Descripcion: Para ingresar palabras clave recurde usar el caracter # antes de la palabra, sin ");
+    printf("Descripcion: ");
     fflush(stdin);
     gets(aux.descripcionLibro);
 
@@ -250,6 +250,7 @@ nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[])
     return aux;
 }
 
+
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[])
 {
 
@@ -382,8 +383,6 @@ nodoSimple* modificarDescripcionLibro(nodoSimple* aux)
 nodoSimple* modificarEstadoLibro(nodoSimple* aux)
 {
 
-
-    char opSw[1];
     int op = 0;
     menuEstados();
     do
@@ -401,7 +400,6 @@ nodoSimple* modificarEstadoLibro(nodoSimple* aux)
 
 void menuEstados()
 {
-
     printf("Seleccione una opcion\n");
     printf("[0] Dar de Baja\n");
     printf("[1] Dar de Alta\n");
@@ -547,7 +545,7 @@ void opcionesGenero()
 
 void cargarUnLibroAlArchivo(stLibro aux) //cuando se cree un nuevo libro se utiliza esta funcion
 {
-    FILE*buffer=fopen(ARCHIVO_LIBROS,"ab");
+    FILE*buffer=fopen(ARCHIVO_LIBROS,"wb");
     if(buffer != NULL)
     {
         fwrite(&aux,sizeof(stLibro),1,buffer);
@@ -754,27 +752,34 @@ void buscarLibroXAutor(estanteria arregloEstanterias[])
 void buscarEstanteriaParaAutor(estanteria arregloEstanterias[], char autor[])
 {
 
-    int flag = 0;
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
 
-    for (int i= 0; i < MAX_GEN; i++)
+    while ((i < MAX_GEN))
     {
+        aux = retornarNodosLibroXAutor(arregloEstanterias[i].listaLibro, autor);
 
-        nodoSimple* aux = retornarNodosLibroXAutor(arregloEstanterias[i].listaLibro, autor);
-
-        if (strcmpi(aux->datoLibro.autorLibro, autor) == 0)
+        if ( aux != NULL)
         {
-
-            mostrarListaSimple(aux);
-            flag = 1;
+            if (strcmpi(aux->datoLibro.autorLibro, autor) == 0)
+            {
+                mostrarListaSimple(aux);
+                flag = 1;
+            }
         }
+
+        i++;
     }
 
-    if(!flag)
+    if (flag == -1)
     {
-        printf("\nNo se encontro ningun libro de ese Autor\n");
+        printf("\nNo se encontro nungun Libro de ese Autor\n");
     }
 
 }
+
+
 
 
 /// Buscar e imprimir libros por Genero
@@ -820,83 +825,181 @@ void buscarLibroXTitulo(estanteria arregloEstanterias[])
 
 void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[])
 {
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
 
-    int flag = 0;
-
-    for (int i= 0; i < MAX_GEN; i++)
+    while ((i < MAX_GEN))
     {
 
-        nodoSimple* aux = retornarNodosLibroXTitulo(arregloEstanterias[i].listaLibro, titulo);
+        aux = retornarNodosLibroXTitulo(arregloEstanterias[i].listaLibro, titulo);
 
-        if (strcmpi(aux->datoLibro.nombreDeLibro, titulo) == 0)
+        if ( aux != NULL)
         {
 
-            mostrarListaSimple(aux);
-            flag =1;
+            if (strcmpi(aux->datoLibro.nombreDeLibro, titulo) == 0)
+            {
+                mostrarListaSimple(aux);
+                flag = 1;
+            }
         }
+        i++;
     }
 
-    if (!flag)
+    if (flag == -1)
     {
         printf("\nNo se encontro nungun Libro con ese Titulo\n");
     }
 
 }
 
-
-/// Buscar e imprimir libros por Clave
-
-/// Este codigo esta roto, no anda del todo.
-/// El porbelma que me tira es que me da un bucle infinito sin que yo le llegue a escribir nada, a pesar de que tenga el fflush.
-// ver que onda eso
-void buscarLibroXClave( estanteria arregloEstanterias[])
+void buscarLibrosXEstado(estanteria arregloEstanterias[])
 {
 
-    char claves[MAX_DIM];
+    int opcion;
 
-    do
+
+
+    menuOpcionesDisponibilidad();
+    opcion = preguntarDatoEntero();
+
+    buscarEstanteriaParaEstado(arregloEstanterias, opcion);
+
+
+}
+
+
+void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
+{
+
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
+
+    while ((i < MAX_GEN))
     {
-        printf("Ingrese las palabras clave \n");
-        fflush(stdin);
-        fgets(claves, MAX_DIM, stdin);
+
+        aux = retornarNodosLibroXEstado(arregloEstanterias[i].listaLibro, opcion);
+
+        if ( aux != NULL)
+        {
+            if (aux->datoLibro.estado == opcion)
+            {
+                mostrarListaSimple(aux);
+                flag = 1;
+            }
+        }
+        i++;
     }
-    while(validarDigitosEnStrings(claves)== 1||validarRangoDeNombre(claves)== 1);
 
-
-    for (int i = 0; i < MAX_DIM; i++)
+    if (flag == -1)
     {
-
-
-        buscarPalabrasClaves(arregloEstanterias[i].listaLibro, claves);
-
+        printf("\nNo se encontro nungun Libro con ese Estado\n");
     }
 
 }
 
 
 
-void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[])
+
+void menuOpcionesDisponibilidad()
 {
+    printf("\n[0] Titulo de baja");
+    printf("\n[1] Titulo en alta");
+    printf("\n[2] Titulo Prestados");
 
+}
+
+
+void buscarLibrosXCopias(estanteria arregloEstanterias[]){
+
+    int opcion;
+
+    menuOpcionesCopias();
+    opcion = preguntarDatoEntero();
+
+    switch(opcion){
+
+case 1:
+    buscarEstanteriaParaCopias(arregloEstanterias, 0, 0);
+    break;
+case 2:
+    buscarEstanteriaParaCopias(arregloEstanterias, 0, 10);
+    break;
+case 3:
+    buscarEstanteriaParaCopias(arregloEstanterias,10, 30);
+    break;
+case 4:
+    buscarEstanteriaParaCopias(arregloEstanterias, 30, 50);
+    break;
+case 5:
+    buscarEstanteriaParaCopias(arregloEstanterias, 50, 100 );
+    break;
+default:
+    puts("\n Opcion invalida");
+
+
+
+    }
+}
+
+void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias){
+
+    int flag = -1;
+    int i = 0;
     nodoSimple* aux = inicListaSimple();
-    char delimitador[] = "#";
 
-    char *token = strtok(claves, delimitador);
-
-    while (token != NULL)
+    while ((i < MAX_GEN))
     {
 
-        if (strstr(token, delimitador) != NULL)
-        {
-            aux = retornarNodosLibroXClave(listaSimple, token);
-        }
-        mostrarListaSimple(aux);
+        aux = retornarNodosLibrosXCopias(arregloEstanterias[i].listaLibro,minCopias, maxCopias);
 
-        token = strtok(NULL, delimitador);
+        if ( aux != NULL)
+        {
+                mostrarListaSimple(aux);
+                flag = 1;
         }
+        i++;
     }
 
+    if (flag == -1)
+    {
+        printf("\nNo se encontro nungun Libro entre esos parametros\n");
+    }
+
+}
+
+nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista, int minCopias, int maxCopias){
 
 
+nodoSimple* aux = inicListaSimple();
 
-/// Esto queda a definir
+while (lista != NULL){
+
+int copias = convertirStringsDeNumerosAEntero(lista->datoLibro.cantidadDeCopias);
+
+    if(copias >= minCopias && copias <= maxCopias){
+
+        nodoSimple* NN = crearNodoSimple(lista->datoLibro);
+        aux = agregarAlFinalSimple(aux, NN);
+    }
+
+    lista = lista->siguiente;
+}
+
+
+return aux;
+}
+
+
+void menuOpcionesCopias(){
+
+printf("\n[1] 0 Copias disponibles");
+printf("\n[2] Menos de 10 copias disponibles");
+printf("\n[3] Entre 30 y 10 copias disponibles");
+printf("\n[4] Entre 30 y 50 copias disponibles");
+printf("\n[5] Mas de 50 copias disponibles");
+
+}
+
+

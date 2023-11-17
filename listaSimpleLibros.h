@@ -79,10 +79,8 @@ void buscarLibroXTitulo(estanteria arregloEstanterias[]);
 void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[]);
 void buscarLibroXClave( estanteria arregloEstanterias[]);
 void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[]);
-
-
-
-
+void buscarLibrosXEstado(estanteria arregloEstanterias[]);
+void buscarLibrosXCopias(estanteria arregloEstanterias[]);
 
 
 //funciones buscar
@@ -97,6 +95,8 @@ int retornarIDMasGrandeEnLista(nodoSimple*listaSimple);
 int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[]);
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
+nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista,int minCopias, int maxCopias);
+
 
 ///validaciones
 //Se utilizaron validaciones ya hechas en otras librerias para modularizar

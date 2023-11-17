@@ -7,6 +7,8 @@
 
 //funciones clasicas
 int preguntarDatoEntero();
+
+
 void limpiarPantalla();
 
 
@@ -35,12 +37,13 @@ void opcionesMenuPrestamos();
 void menuPrestamos();
 
 
+
 void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 
 ///funciones de estanteria
 void inicEstanterias(estanteria arregloEstanterias[]);
 void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
-void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo);
+
 
 #endif // BIBLIOTECA_H_INCLUDED

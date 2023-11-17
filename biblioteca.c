@@ -37,12 +37,13 @@ int convertirStringsDeNumerosAEntero(char aux[])
 ///menues
 void biblioteca()
 {
+
     estanteria arregloEstanterias[5];
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
     nodoArbol * arbolMiembros=inicArbol();
 
-    arbolMiembros=archivoAlArbol(arbolMiembros);
-    archivoAEstanteria(arregloEstanterias); /// o capaz aca podemos leer el archivo de reservas tmb
+    //arbolMiembros=archivoAlArbol(arbolMiembros);
+    //archivoAEstanteria(arregloEstanterias); /// o capaz aca podemos leer el archivo de reservas tmb
 
 
     int opMenuPrin=0;
@@ -248,8 +249,8 @@ void opcionesMenuBuscarLibros()
     printf("[2] Buscar por Autor \n");
     printf("[3] Buscar por Genero \n");
     printf("[4] Buscar Palabra Clave \n");
-    printf("[5] Buscar libros disponibles \n"); //cuando la cantidad de copias es mayor a 0
-    printf("[6] Buscar libros que todas sus copias estan prestadas \n"); //cuando la cant de copias es 0
+    printf("[5] Buscar por Estado \n");
+    printf("[6] Buscar por Copias \n"); //cuando la cant de copias es 0
     printf("[7] Volver al menu de libros \n");
     puts("-----------------------------------------");
 }
@@ -274,11 +275,13 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibroXgenero(arregloEstanterias);
             break;
         case 4:
-            buscarLibroXClave(arregloEstanterias);
+            //buscarLibroXClave(arregloEstanterias);
             break;
         case 5:
+            buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
+            buscarLibrosXCopias(arregloEstanterias);
             break;
         case 7:
             opCont='n';
