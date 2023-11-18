@@ -70,15 +70,29 @@ int main()
 
     opSw=preguntarDatoEntero();
 
+
+    /// Cargar Estanterias
+    cargarLibrosPredeterminados(); // se cargan los libros automaticamente
+    estanteria arregloEstanterias[5];
+    inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
+    archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
+
+    /// Cargar Arbol Miembros
+    nodoArbol * arbolMiembros=inicArbol();
+    arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
+
+
+
     switch(opSw)
     {
     case 1:
-        biblioteca();
+        biblioteca(arregloEstanterias, arbolMiembros);
         break;
     case 2:
-        menuUsuario();
+        menuUsuario(arregloEstanterias, arbolMiembros);
         break;
     default:
+
         break;
     }
     return 0;

@@ -96,6 +96,7 @@ int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[]);
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista,int minCopias, int maxCopias);
+nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista);
 
 
 ///validaciones

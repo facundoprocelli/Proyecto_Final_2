@@ -192,7 +192,7 @@ nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
         seg =seg ->siguiente;
     }
 
-        aux=seg;
+    aux=seg;
 
     return aux;
 }
@@ -488,6 +488,7 @@ void validarGenero(char auxGenero[])
 
         op = convertirStringsDeNumerosAEntero(opSw);
 
+
         switch(op)
         {
         case 1:
@@ -519,7 +520,6 @@ void validarGenero(char auxGenero[])
         }
 
     }
-
     while(flag == 0);
 
 }
@@ -590,7 +590,7 @@ void cargarLibrosPredeterminados()
     libro1.estado = 1;
     libro1.vecesPrestadoLibro = 0;
     strcpy(libro1.cantidadDeCopias, "5");
-nodoSimple* NN1 = crearNodoSimple(libro1);
+    nodoSimple* NN1 = crearNodoSimple(libro1);
 
 
 
@@ -606,7 +606,7 @@ nodoSimple* NN1 = crearNodoSimple(libro1);
     libro2.vecesPrestadoLibro = 0;
     strcpy(libro2.cantidadDeCopias, "3");
 
-nodoSimple* NN2 = crearNodoSimple(libro2);
+    nodoSimple* NN2 = crearNodoSimple(libro2);
 
 
 
@@ -619,7 +619,7 @@ nodoSimple* NN2 = crearNodoSimple(libro2);
     libro3.estado = 1;
     libro3.vecesPrestadoLibro = 0;
     strcpy(libro3.cantidadDeCopias, "6");
-nodoSimple* NN3 = crearNodoSimple(libro3);
+    nodoSimple* NN3 = crearNodoSimple(libro3);
 
 
 
@@ -634,7 +634,7 @@ nodoSimple* NN3 = crearNodoSimple(libro3);
     libro4.estado = 1;
     libro4.vecesPrestadoLibro = 0;
     strcpy(libro4.cantidadDeCopias, "5");
-nodoSimple* NN4 = crearNodoSimple(libro4);
+    nodoSimple* NN4 = crearNodoSimple(libro4);
 
 
     stLibro libro5;
@@ -646,7 +646,7 @@ nodoSimple* NN4 = crearNodoSimple(libro4);
     libro5.estado = 1;
     libro5.vecesPrestadoLibro = 0;
     strcpy(libro5.cantidadDeCopias, "8");
-nodoSimple* NN5 = crearNodoSimple(libro5);
+    nodoSimple* NN5 = crearNodoSimple(libro5);
 
 
 
@@ -789,6 +789,16 @@ void buscarEstanteriaParaAutor(estanteria arregloEstanterias[], char autor[])
 
 }
 
+void mostrarMenuLibrosPopularidad()
+{
+
+    puts("[1] Top 3 libros mas Populares");
+    puts("[2] Top 3 libros menos Populares");
+    puts("-----------------------------------------");
+
+
+}
+
 
 
 
@@ -800,12 +810,14 @@ void buscarLibroXgenero(estanteria arregloEstanterias[])
 
     nodoSimple* aux = inicListaSimple();
 
+    char genero[MAX_DIM];
+
     printf("Elije una opcion\n");
-    validarGenero(aux->datoLibro.generoLibro);
+    validarGenero(genero);
 
     for (int i = 0; i < MAX_GEN; i++)
     {
-        if (strcmpi(aux->datoLibro.generoLibro, arregloEstanterias[i].generoEstanteria) == 0)
+        if (strcmpi(genero, arregloEstanterias[i].generoEstanteria) == 0)
         {
             mostrarListaSimple(arregloEstanterias[i].listaLibro);
         }
@@ -921,39 +933,42 @@ void menuOpcionesDisponibilidad()
 }
 
 
-void buscarLibrosXCopias(estanteria arregloEstanterias[]){
+void buscarLibrosXCopias(estanteria arregloEstanterias[])
+{
 
     int opcion;
 
     menuOpcionesCopias();
     opcion = preguntarDatoEntero();
 
-    switch(opcion){
+    switch(opcion)
+    {
 
-case 1:
-    buscarEstanteriaParaCopias(arregloEstanterias, 0, 0);
-    break;
-case 2:
-    buscarEstanteriaParaCopias(arregloEstanterias, 0, 10);
-    break;
-case 3:
-    buscarEstanteriaParaCopias(arregloEstanterias,10, 30);
-    break;
-case 4:
-    buscarEstanteriaParaCopias(arregloEstanterias, 30, 50);
-    break;
-case 5:
-    buscarEstanteriaParaCopias(arregloEstanterias, 50, 100 );
-    break;
-default:
-    puts("\n Opcion invalida");
+    case 1:
+        buscarEstanteriaParaCopias(arregloEstanterias, 0, 0);
+        break;
+    case 2:
+        buscarEstanteriaParaCopias(arregloEstanterias, 0, 10);
+        break;
+    case 3:
+        buscarEstanteriaParaCopias(arregloEstanterias,10, 30);
+        break;
+    case 4:
+        buscarEstanteriaParaCopias(arregloEstanterias, 30, 50);
+        break;
+    case 5:
+        buscarEstanteriaParaCopias(arregloEstanterias, 50, 100 );
+        break;
+    default:
+        puts("\n Opcion invalida");
 
 
 
     }
 }
 
-void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias){
+void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias)
+{
 
     int flag = -1;
     int i = 0;
@@ -966,8 +981,8 @@ void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, 
 
         if ( aux != NULL)
         {
-                mostrarListaSimple(aux);
-                flag = 1;
+            mostrarListaSimple(aux);
+            flag = 1;
         }
         i++;
     }
@@ -979,37 +994,170 @@ void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, 
 
 }
 
-nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista, int minCopias, int maxCopias){
+nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista, int minCopias, int maxCopias)
+{
 
+
+    nodoSimple* aux = inicListaSimple();
+
+    while (lista != NULL)
+    {
+
+        int copias = convertirStringsDeNumerosAEntero(lista->datoLibro.cantidadDeCopias);
+
+        if(copias >= minCopias && copias <= maxCopias)
+        {
+
+            nodoSimple* NN = crearNodoSimple(lista->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN);
+        }
+
+        lista = lista->siguiente;
+    }
+
+
+    return aux;
+}
+
+
+
+
+
+void menuOpcionesCopias()
+{
+
+    printf("\n[1] 0 Copias disponibles");
+    printf("\n[2] Menos de 10 copias disponibles");
+    printf("\n[3] Entre 30 y 10 copias disponibles");
+    printf("\n[4] Entre 30 y 50 copias disponibles");
+    printf("\n[5] Mas de 50 copias disponibles");
+
+}
+
+
+
+
+
+
+void buscarLibrosUsuario(estanteria arregloEstanterias[])
+{
+
+    int opSw=0;
+    char opCont='s';
+    do
+    {
+        opcionesMenuBuscarLibrosUsuario();
+        opSw=preguntarDatoEntero();
+        switch(opSw)
+        {
+        case 1:
+            buscarLibroXTitulo(arregloEstanterias);
+            break;
+        case 2:
+            buscarLibroXAutor(arregloEstanterias);
+            break;
+        case 3:
+            buscarLibroXgenero(arregloEstanterias);
+            break;
+        case 4:
+            //buscarLibrosXPopularidad(arregloEstanterias);
+            break;
+        case 5:
+            //buscarLibroXClave(arregloEstanterias);
+            break;
+        case 6:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        //limpiarPantalla();
+    }
+    while(opCont!='n');
+}
+
+void opcionesMenuBuscarLibrosUsuario()
+{
+
+    puts("[1] Buscar libro por Titulo");
+    puts("[2] Buscar libro por Autor");
+    puts("[3] Buscar libro por Genero");
+    puts("[4] Buscar libro por Popularidad");
+    puts("[5] Buscar libro por palabra Clave");
+    puts("[6] Volver al menu principal");
+    puts("-------------------------------------------");
+
+
+}
+
+
+void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
+{
+
+
+
+    nodoSimple* aux = inicListaSimple();
+
+
+    aux = buscarEstanteriaParaDisponiblidad(arregloEstanterias);
+
+    mostrarListaSimple(aux);
+
+
+}
+
+
+
+
+
+nodoSimple*  retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
+{
 
 nodoSimple* aux = inicListaSimple();
 
-while (lista != NULL){
+    while (lista != NULL)
+    {
 
-int copias = convertirStringsDeNumerosAEntero(lista->datoLibro.cantidadDeCopias);
+        if ( lista->datoLibro.estado == 1)
+        {
+            nodoSimple* NN =  crearNodoSimple(lista->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN);
+        }
 
-    if(copias >= minCopias && copias <= maxCopias){
-
-        nodoSimple* NN = crearNodoSimple(lista->datoLibro);
-        aux = agregarAlFinalSimple(aux, NN);
+        lista = lista->siguiente;
     }
-
-    lista = lista->siguiente;
-}
 
 
 return aux;
 }
 
+void buscarEstanteriaParaDisponiblidad(estanteria arregloEstanterias[])
+{
 
-void menuOpcionesCopias(){
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
 
-printf("\n[1] 0 Copias disponibles");
-printf("\n[2] Menos de 10 copias disponibles");
-printf("\n[3] Entre 30 y 10 copias disponibles");
-printf("\n[4] Entre 30 y 50 copias disponibles");
-printf("\n[5] Mas de 50 copias disponibles");
+    while ((i < MAX_GEN))
+    {
+        aux = retornarNodosLibrosXDisponibilidad(arregloEstanterias[i].listaLibro);
+
+        if ( aux != NULL)
+        {
+            if(aux->datoLibro.estado == 1){
+                mostrarListaSimple(aux);
+                flag = 1;
+        }
+        }
+
+        i++;
+    }
+
+    if (flag == -1)
+    {
+        printf("\nNo se encontro nungun Libro disponible\n");
+    }
 
 }
-
-

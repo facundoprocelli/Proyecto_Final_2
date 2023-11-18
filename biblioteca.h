@@ -15,10 +15,10 @@ void limpiarPantalla();
 ///funciones biblioteca
 
 
-void biblioteca();
+void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
 void menuDeAccionesPrincipales();
 
-void menuUsuario();
+void menuUsuario(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
 
 void menuLibrosUsuario();
 void opcionesMenuUsuarioLibros();

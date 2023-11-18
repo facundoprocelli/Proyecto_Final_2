@@ -32,13 +32,10 @@ int convertirStringsDeNumerosAEntero(char aux[])
 
 
 ///todos los menu con sus respectivas funcionalidades
-void biblioteca()
+void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 {
 
-    cargarLibrosPredeterminados(); // se cargan los libros automaticamente
-    estanteria arregloEstanterias[5];
-    inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
+    //cargarLibrosPredeterminados(); // se cargan los libros automaticamente
 
 
     /*
@@ -52,8 +49,6 @@ void biblioteca()
 
 
 
-    nodoArbol * arbolMiembros=inicArbol();
-    arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
 
     int opMenuPrin=0;
@@ -76,7 +71,7 @@ void biblioteca()
             break;
         case 4:
             puts("Adios");
-            informeFinal(arbolMiembros,arregloEstanterias);
+            //informeFinal(arbolMiembros,arregloEstanterias);
             opContinuarMenuPrin = 'n';
             break;
         default:
@@ -86,9 +81,9 @@ void biblioteca()
     }
     while(opContinuarMenuPrin != 'n');
 
-    arbolAlArchivo(arbolMiembros);
+   // arbolAlArchivo(arbolMiembros);
     librosAlArchivo(arregloEstanterias);
-    prestamosAlArchivo(arregloEstanterias);
+    //prestamosAlArchivo(arregloEstanterias);
 
 }
 
@@ -107,7 +102,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
         switch(opMenuPrin)
         {
         case 1:
-            menuLibrosUsuario();
+            menuLibrosUsuario(arregloEstanterias);
             break;
         case 2:
             menuMiembroUsuario();
@@ -160,7 +155,7 @@ void opcionesMenuUsuarioMiembro()
     puts("---------------------------------------");
 }
 
-void menuLibrosUsuario()
+void menuLibrosUsuario(estanteria arregloEstanterias[])
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -172,14 +167,19 @@ void menuLibrosUsuario()
         switch(opMenuPrin)
         {
         case 1:
+            //devolverPrestamoUsuario();
             break;
         case 2:
+            //pedirPrestamoUsuario();
             break;
         case 3:
+            buscarLibrosUsuario(arregloEstanterias);
             break;
         case 4:
+            verLibrosDisponiblesUsuario(arregloEstanterias);
             break;
         case 5:
+            //verLibrosConEsperaUsuario();
             break;
         case 6:
             opContinuarMenuPrin = 'n';
@@ -280,9 +280,8 @@ void opcionesMenuGestionarLibros()
     printf("[4] Devolver Libro\n");
     printf("[5] Reservar Libro\n");
     printf("[6] Actualizar Libro \n");
-    printf("[7] Eliminar Libro\n");
-    printf("[8] Mostrar todos los libros \n");
-    printf("[9] Volver al menu principal \n");
+    printf("[7] Mostrar todos los libros \n");
+    printf("[8] Volver al menu principal \n");
     puts("---------------------------------------------------");
 }
 
@@ -320,12 +319,10 @@ void menuLibros(estanteria arregloEstanterias[])
         case 6: // menu actualizar un libro
             actualizarLibro(arregloEstanterias);
             break;
-        case 7: // eliminar un libro
-            break;
-        case 8:
+        case 7:// Muestra todas las estanterias
             mostrarTodasLasEstanterias(arregloEstanterias);
             break;
-        case 9:
+        case 8:
             opCont='n';
             limpiarPantalla();
             break;
