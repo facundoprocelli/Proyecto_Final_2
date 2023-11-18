@@ -19,7 +19,15 @@ void biblioteca();
 void menuDeAccionesPrincipales();
 
 void menuUsuario();
-void opcionesMenuUsuario();
+
+void menuLibrosUsuario();
+void opcionesMenuUsuarioLibros();
+
+void menuPrestamosUsuario();
+void opcionesMenuUsuarioPrestamos();
+
+void menuMiembroUsuario();
+void opcionesMenuUsuarioMiembro();
 
 void opcionesMenuGestionarLibros();
 void menuLibros(estanteria arregloEstanterias[]);

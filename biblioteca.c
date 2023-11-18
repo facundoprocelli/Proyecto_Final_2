@@ -9,11 +9,6 @@
 #define ARCHIVO_LIBROS "archivoLibros.bin"
 
 
-
-//la biblioteca va a tener el arreglo de listas simples de los libros
-
-
-
 ///funciones generales
 
 int preguntarDatoEntero()
@@ -99,37 +94,28 @@ void biblioteca()
 
 void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
 {
+    //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
+
+
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
     {
-        opcionesMenuUsuario();
+        menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
         switch(opMenuPrin)
         {
         case 1:
-            /// si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
-
+            menuLibrosUsuario();
             break;
         case 2:
-            menuBuscarLibros();
+            menuMiembroUsuario();
             break;
         case 3:
-            mostrarTodasLasEstanterias(arregloEstanterias);
+            menuPrestamosUsuario();
             break;
         case 4:
-            menuBuscarMiembros();
-
-            break;
-        case 5:
-            ///mostrar informes genereales
-
-            break;
-        case 6:
-
-            break;
-        case 7:
             opContinuarMenuPrin = 'n';
             break;
         default:
@@ -140,29 +126,147 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
     while(opContinuarMenuPrin != 'n');
 
 }
-void opcionesMenuUsuario()
-{
-    //aca va todo lo que puede hacer un usuario ningun menu libros ni nada debido a que eso es del admin
 
-    puts("----------------------------------");
-    printf("[1] Pedir un libro \n"); //es crear un prestamo
-    printf("[2] Buscar un libro\n");
-    printf("[3] Mostrar todos los libros\n");
-    printf("[4] Buscar miembro\n");
-    printf("[5] Consultar prestamos"); //Menu: cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    printf("[6] Devolver un libro"); //aumentar el contador de cantcopias +1
-    printf("[7]Volver al menu principal\n");
-    puts("----------------------------------");
+void opcionesMenuUsuarioLibros()
+{
+
+    puts("[1] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[2] Pedir un libro"); //es crear un prestamo, si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
+    puts("[3] Buscar un libro"); //tenemos un menu
+    puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
+    puts("[5] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
+    puts("[6] Volver al menu principal");
+    puts("----------------------------------------------------------------");
 }
+
+void opcionesMenuUsuarioPrestamos()
+{
+
+    puts("[1] Ver mis prestamos activos");
+    puts("[2] Ver limite de prestamos");
+    puts("[3] Ver todo el historial de prestamos");
+    puts("[4] Volver al menu principal");
+    puts("-------------------------------------------");
+}
+
+void opcionesMenuUsuarioMiembro()
+{
+    puts("[1] Cambiar nombre");
+    puts("[2] Cambiar numero de telefono");
+    puts("[3] Ingresar saldo a la cuenta");
+    puts("[4] Ver mi usuario");
+    puts("[5] Darse Alta o Baja");
+    puts("[6] Volver al menu principal");
+    puts("---------------------------------------");
+}
+
+void menuLibrosUsuario()
+{
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuarioLibros();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
+void menuMiembroUsuario()
+{
+        int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuarioMiembro();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
+void menuPrestamosUsuario()
+{
+        int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuarioPrestamos();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
 
 
 void menuDeAccionesPrincipales()
 {
     printf("Por favor, seleccione que accion desea realizar \n");
-    printf("[1] Gestionar Libros\n");
-    printf("[2] Gestionar Miembros\n");
-    printf("[3] Gestionar Prestamos \n");
-    printf("[4] Finalizar programa \n");
+    printf("[1] Opciones Libros\n");
+    printf("[2] Opciones Miembros\n");
+    printf("[3] Opciones Prestamos \n");
+    printf("[4] Salir \n");
     puts("-------------------------------------");
 }
 

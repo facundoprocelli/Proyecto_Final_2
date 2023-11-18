@@ -458,6 +458,8 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
 {
     int flag = 0;
 
+
+
     if(raiz!= NULL)
     {
 
@@ -467,6 +469,8 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
         }
         else
         {
+
+
         flag = verificarDniExistente(raiz->derecha,dniAbuscar);
         flag = verificarDniExistente(raiz->izquierda,dniAbuscar);
         }
