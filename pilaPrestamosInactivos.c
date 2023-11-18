@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pilaPrestamosInactivos.h"
-#define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
+#define ARCHIVO_PRESTAMOS_INACTIVOS "archivoPrestamosInactivos.bin"
 
 void inicPila(pilaPrestamos * pila)
 {
     pila->prestamoInactivo = inicListaDoble();
 }
 
-void apilar(pilaPrestamos * pila)
+void cargaPila(pilaPrestamos * pila)
 {
     stPrestamo aux;
-    FILE * buffer = fopen(ARCHIVO_PRESTAMOS,"rb");
+    FILE * buffer = fopen(ARCHIVO_PRESTAMOS_INACTIVOS,"rb");
     if(buffer != NULL)
     {
         while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
@@ -29,9 +29,39 @@ void apilar(pilaPrestamos * pila)
     }
 }
 
+void apilar(pilaPrestamos * pila,stPrestamo aux)
+{
+    if(aux.estado == 0)
+    {
+        pila->prestamoInactivo = agregarAlFinalDoble(pila->prestamoInactivo,crearNodoDoble(aux));
+
+    }
+}
+
 void mostrar(pilaPrestamos * pila)
 {
 
 mostrarListaDoble(pila->prestamoInactivo);
+
+}
+
+
+void cargarPilaAlArchivo(pilaPrestamos * pila)
+{
+
+    FILE * buffer = fopen(ARCHIVO_PRESTAMOS_INACTIVOS,"wb");
+    if(buffer != NULL)
+    {
+        while(pila->prestamoInactivo != NULL)
+        {
+            fwrite(&pila->prestamoInactivo,sizeof(stPrestamo),1,buffer);
+            pila->prestamoInactivo = pila->prestamoInactivo->siguiente;
+        }
+
+    }
+    else
+    {
+        puts("Archivo de prestamos inactivos vacio");
+    }
 
 }

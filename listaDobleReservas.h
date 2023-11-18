@@ -42,8 +42,8 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[]);
 void mostrarUnaFecha(stFecha aux);
 void mostrarUnPrestamo(stPrestamo aux);
 
-
-
+void asignarTiempo(stFecha * aux,struct tm * info_tiempo);
+void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPrestamo);
 
 ///funciones lista doble
 
@@ -65,6 +65,7 @@ nodoDoble*borrarPrimerNodoDoble(nodoDoble*listaDoble);
 
 
 //validaciones
+int validarDias(int dias);
 int validarPrecioPrestamo(char aux[]);
 
 ///Funciones archivo
