@@ -59,6 +59,7 @@ nodoSimple*agregarAlPpioSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo);
 
+void cargarLibrosPredeterminados(estanteria arregloEstanteria[]);
 //funciones de verificar
 int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
 

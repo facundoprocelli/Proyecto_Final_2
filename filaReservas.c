@@ -90,14 +90,15 @@ stPrestamo extraerUnPrestamoFila(filaReservas reservas)
 
 void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer)
 {
-    nodoDoble*auxNodo=reservasLibro.primero;
+
     stPrestamo auxPrestamo;
-    while(auxNodo != NULL)
+    while(reservasLibro.primero != NULL)
     {
-        auxPrestamo=auxNodo->datoPrestamo;
+        auxPrestamo=reservasLibro.primero->datoPrestamo;
         fwrite(&auxPrestamo,sizeof(stPrestamo),1,buffer);
-        auxNodo=auxNodo->siguiente;
+        reservasLibro.primero=reservasLibro.primero->siguiente;
     }
+
 }
 
 

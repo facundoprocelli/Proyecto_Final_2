@@ -32,10 +32,79 @@ int convertirStringsDeNumerosAEntero(char aux[])
 
 
 ///todos los menu con sus respectivas funcionalidades
-void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
+
+void menuGeneral()
+{
+    int opSw=0;
+    char continuar = 's';
+
+
+    /// Cargar Estanterias
+    estanteria arregloEstanterias[5];
+    inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
+    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
+    archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
+
+
+    /// Cargar Arbol Miembros
+    nodoArbol * arbolMiembros=inicArbol();
+    arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
+
+    /// Pila prestamos inactivos
+    pilaPrestamos prestamosInactivos;
+    inicPila(&prestamosInactivos);
+    archivoAPila(&prestamosInactivos);
+    printf("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
+    printf("\t\t      =============================================\n\n");
+
+    do
+    {
+        opcionesMenuGeneral();
+        opSw=preguntarDatoEntero();
+
+        switch(opSw)
+        {
+        case 1:
+            biblioteca(arregloEstanterias, arbolMiembros);
+            limpiarPantalla();
+            break;
+        case 2:
+            menuUsuario(arregloEstanterias, arbolMiembros);
+            limpiarPantalla();
+
+            break;
+        case 3:
+            informeFinal(arbolMiembros,arregloEstanterias);
+            puts("HA FINALIZADO CORRECTAMENTE EL PROGRAMA...");
+            continuar = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(continuar != 'n');
+
+    arbolAlArchivo(arbolMiembros);
+    librosAlArchivo(arregloEstanterias);
+    prestamosAlArchivo(arregloEstanterias);
+    cargarPilaAlArchivo(&prestamosInactivos);
+}
+
+void opcionesMenuGeneral()
 {
 
-    //cargarLibrosPredeterminados(); // se cargan los libros automaticamente
+    puts("[1] Admin");
+    puts("[2] Usuario");
+    puts("[3] Finalizar programa");
+
+
+}
+
+
+void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
+{
 
 
     /*
@@ -70,8 +139,7 @@ void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             menuPrestamos();
             break;
         case 4:
-            puts("Adios");
-            //informeFinal(arbolMiembros,arregloEstanterias);
+
             opContinuarMenuPrin = 'n';
             break;
         default:
@@ -192,7 +260,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
 
 void menuMiembroUsuario()
 {
-        int opMenuPrin=0;
+    int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
     {
@@ -227,7 +295,7 @@ void menuMiembroUsuario()
 
 void menuPrestamosUsuario()
 {
-        int opMenuPrin=0;
+    int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
     {
@@ -268,20 +336,6 @@ void menuDeAccionesPrincipales()
     puts("-------------------------------------");
 }
 
-void opcionesMenuGestionarLibros()
-{
-    printf("Seleccione una opcion\n");
-
-    printf("[1] Ingresar Nuevo Libro \n");
-    printf("[2] Buscar libros\n");
-    printf("[3] Prestar Libro\n");
-    printf("[4] Devolver Libro\n");
-    printf("[5] Reservar Libro\n");
-    printf("[6] Actualizar Libro \n");
-    printf("[7] Mostrar todos los libros \n");
-    printf("[8] Volver al menu principal \n");
-    puts("---------------------------------------------------");
-}
 
 
 
@@ -339,14 +393,24 @@ void opcionesMenuBuscarLibrosUsuario()
 }
 
 
+void opcionesMenuGestionarLibros()
+{
+    printf("Seleccione una opcion\n");
+
+    printf("[1] Ingresar Nuevo Libro \n");
+    printf("[2] Buscar libros\n");
+    printf("[3] Pedir Libro\n");
+    printf("[4] Actualizar Libro\n");
+    printf("[5] Mostrar todos los libros\n");
+    printf("[6] Volver al menu principal\n");
+    puts("---------------------------------------------------");
+}
 
 void menuLibros(estanteria arregloEstanterias[])
 {
     int opSw=0;
     char opCont='s';
     stLibro aux;
-
-
     do
     {
         puts("---------------------------------------------------");
@@ -360,24 +424,20 @@ void menuLibros(estanteria arregloEstanterias[])
             cargarEstanteriaOrdenada(arregloEstanterias,crearNodoSimple(aux));
             mostrarUnLibro(aux);
             break;
-        case 2: //menu buscar libro
+        case 2:
             menuBuscarLibros(arregloEstanterias);
             break;
-        case 3: // prestar un libro
+        case 3:
+                    ///pedir libro o añadir a la fila
+            break;
+        case 4:
 
-            break;
-        case 4: // devolver un libro
-
-            break;
-        case 5: // reservar un libro
-            break;
-        case 6: // menu actualizar un libro
             actualizarLibro(arregloEstanterias);
             break;
-        case 7:// Muestra todas las estanterias
+        case 5:
             mostrarTodasLasEstanterias(arregloEstanterias);
             break;
-        case 8:
+        case 6:
             opCont='n';
             limpiarPantalla();
             break;
@@ -385,7 +445,7 @@ void menuLibros(estanteria arregloEstanterias[])
             puts("Ingrese una opcion valida");
             break;
         }
-        //limpiarPantalla();
+
     }
     while(opCont != 'n');
 

@@ -575,7 +575,7 @@ void mostrarArchivoLibros()
 
 //cargar un par de libros para comenzar
 
-void cargarLibrosPredeterminados()
+void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
 {
 
     nodoSimple* aux = inicListaSimple();
@@ -589,10 +589,8 @@ void cargarLibrosPredeterminados()
     libro1.estado = 1;
     libro1.vecesPrestadoLibro = 0;
     strcpy(libro1.cantidadDeCopias, "5");
-    nodoSimple* NN1 = crearNodoSimple(libro1);
-
-
-
+    inicFila(&libro1.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro1));
 
 
     stLibro libro2;
@@ -604,8 +602,8 @@ void cargarLibrosPredeterminados()
     libro2.estado = 1;
     libro2.vecesPrestadoLibro = 0;
     strcpy(libro2.cantidadDeCopias, "3");
-
-    nodoSimple* NN2 = crearNodoSimple(libro2);
+    inicFila(&libro2.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro2));
 
 
 
@@ -618,7 +616,8 @@ void cargarLibrosPredeterminados()
     libro3.estado = 1;
     libro3.vecesPrestadoLibro = 0;
     strcpy(libro3.cantidadDeCopias, "6");
-    nodoSimple* NN3 = crearNodoSimple(libro3);
+    inicFila(&libro3.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro3));
 
 
 
@@ -633,7 +632,8 @@ void cargarLibrosPredeterminados()
     libro4.estado = 1;
     libro4.vecesPrestadoLibro = 0;
     strcpy(libro4.cantidadDeCopias, "5");
-    nodoSimple* NN4 = crearNodoSimple(libro4);
+    inicFila(&libro4.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro4));
 
 
     stLibro libro5;
@@ -645,17 +645,9 @@ void cargarLibrosPredeterminados()
     libro5.estado = 1;
     libro5.vecesPrestadoLibro = 0;
     strcpy(libro5.cantidadDeCopias, "8");
-    nodoSimple* NN5 = crearNodoSimple(libro5);
+    inicFila(&libro5.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro5));
 
-
-
-    aux = agregarAlFinalSimple(aux, NN1);
-    aux = agregarAlFinalSimple(aux, NN2);
-    aux = agregarAlFinalSimple(aux, NN3);
-    aux = agregarAlFinalSimple(aux, NN4);
-    aux = agregarAlFinalSimple(aux, NN5);
-
-    listaSimpleAlArchivo(aux);
 
 
 }
@@ -716,13 +708,18 @@ void archivoAEstanteria(estanteria arregloEstanterias[])
 void prestamosAlArchivo(estanteria arregloEstanterias[])
 {
     FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"wb");
+    stPrestamo aux;
+
     if(buffer != NULL)
     {
+
         for(int i=0 ; i < MAX_GEN; i++)
         {
             recorrerLibrosParaFila(arregloEstanterias[i].listaLibro,buffer);
         }
         fclose(buffer);
+    }else{
+    puts("Archivo prestamos vacio");
     }
 
 }
@@ -732,6 +729,7 @@ void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
     while(listaSimpleLibros != NULL)
     {
         recorrerFilaParaArchivarPrestamos(listaSimpleLibros->datoLibro.reservasLibro,buffer);
+        listaSimpleLibros = listaSimpleLibros->siguiente;
     }
 }
 
@@ -896,7 +894,7 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
     int i = 0;
     nodoSimple* aux = inicListaSimple();
 
-    while ((i < MAX_GEN))
+    while (i < MAX_GEN)
     {
 
         aux = retornarNodosLibroXEstado(arregloEstanterias[i].listaLibro, opcion);

@@ -14,6 +14,7 @@ void limpiarPantalla();
 
 ///funciones biblioteca
 
+void opcionesMenuGeneral();
 
 void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
 void menuDeAccionesPrincipales();

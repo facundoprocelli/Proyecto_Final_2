@@ -23,6 +23,6 @@ stPrestamo extraerUnPrestamoFila(filaReservas reservas);
 
 ///funciones para el archivo de prestamos
 void recorrerFilaParaPrestamos(filaReservas reservasLibro,FILE*buffer);
-
+void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer);
 
 #endif // FILARESERVAS_H_INCLUDED
