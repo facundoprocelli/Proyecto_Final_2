@@ -7,7 +7,7 @@
 
 //funciones clasicas
 int preguntarDatoEntero();
-
+int convertirStringsDeNumerosAEntero(char aux[]);
 
 void limpiarPantalla();
 
@@ -28,6 +28,9 @@ void opcionesMenuUsuarioPrestamos();
 
 void menuMiembroUsuario();
 void opcionesMenuUsuarioMiembro();
+
+void opcionesMenuBuscarLibrosUsuario();
+void buscarLibrosUsuario(estanteria arregloEstanterias[]);
 
 void opcionesMenuGestionarLibros();
 void menuLibros(estanteria arregloEstanterias[]);

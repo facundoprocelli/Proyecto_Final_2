@@ -76,10 +76,17 @@ int main()
     estanteria arregloEstanterias[5];
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
+    archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
+
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
+
+    /// Pila prestamos inactivos
+    pilaPrestamos prestamosInactivos;
+    inicPila(&prestamosInactivos);
+    archivoAPila(&prestamosInactivos);
 
 
 
@@ -92,9 +99,17 @@ int main()
         menuUsuario(arregloEstanterias, arbolMiembros);
         break;
     default:
-
+        puts("Ingrese una opcion valida");
         break;
     }
+
+
+    arbolAlArchivo(arbolMiembros);
+    librosAlArchivo(arregloEstanterias);
+    prestamosAlArchivo(arregloEstanterias);
+    cargarPilaAlArchivo(&prestamosInactivos);
+
+
     return 0;
 }
 

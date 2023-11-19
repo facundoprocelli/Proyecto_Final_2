@@ -57,6 +57,7 @@ void mostrarListaSimple(nodoSimple*listaSimple);
 nodoSimple*crearNodoSimple(stLibro aux);
 nodoSimple*agregarAlPpioSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
 nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo);
+void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNodo);
 
 //funciones de verificar
 int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
@@ -81,6 +82,10 @@ void buscarLibroXClave( estanteria arregloEstanterias[]);
 void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[]);
 void buscarLibrosXEstado(estanteria arregloEstanterias[]);
 void buscarLibrosXCopias(estanteria arregloEstanterias[]);
+void buscarLibrosUsuario(estanteria arregloEstanterias[]);
+void menuOpcionesCopias();
+void menuOpcionesDisponibilidad();
+void menuEstados();
 
 
 //funciones buscar
@@ -97,6 +102,9 @@ nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista,int minCopias, int maxCopias);
 nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista);
+void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[]);
+void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias);
+void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
 
 
 ///validaciones
@@ -114,5 +122,9 @@ void archivoAEstanteria(estanteria arregloEstanterias[]);
 /// funciones del archivo de prestamos
 void prestamosAlArchivo(estanteria arregloEstanterias[]);
 void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer);
+void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer);
+void archivoAFilasPrestamos(estanteria arregloEstanterias[]);
+void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo);
+int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

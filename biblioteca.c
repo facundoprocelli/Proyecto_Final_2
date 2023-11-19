@@ -81,9 +81,7 @@ void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
     }
     while(opContinuarMenuPrin != 'n');
 
-   // arbolAlArchivo(arbolMiembros);
-    librosAlArchivo(arregloEstanterias);
-    //prestamosAlArchivo(arregloEstanterias);
+
 
 }
 
@@ -284,6 +282,63 @@ void opcionesMenuGestionarLibros()
     printf("[8] Volver al menu principal \n");
     puts("---------------------------------------------------");
 }
+
+
+
+void buscarLibrosUsuario(estanteria arregloEstanterias[])
+{
+
+    int opSw=0;
+    char opCont='s';
+    do
+    {
+        opcionesMenuBuscarLibrosUsuario();
+        opSw=preguntarDatoEntero();
+        switch(opSw)
+        {
+        case 1:
+            buscarLibroXTitulo(arregloEstanterias);
+            break;
+        case 2:
+            buscarLibroXAutor(arregloEstanterias);
+            break;
+        case 3:
+            buscarLibroXgenero(arregloEstanterias);
+            break;
+        case 4:
+            //buscarLibrosXPopularidad(arregloEstanterias);
+            break;
+        case 5:
+            //buscarLibroXClave(arregloEstanterias);
+            break;
+        case 6:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        //limpiarPantalla();
+    }
+    while(opCont!='n');
+}
+
+void opcionesMenuBuscarLibrosUsuario()
+{
+
+    puts("[1] Buscar libro por Titulo");
+    puts("[2] Buscar libro por Autor");
+    puts("[3] Buscar libro por Genero");
+    puts("[4] Buscar libro por Popularidad");
+    puts("[5] Buscar libro por palabra Clave");
+    puts("[6] Volver al menu principal");
+    puts("-------------------------------------------");
+
+
+}
+
+
 
 void menuLibros(estanteria arregloEstanterias[])
 {

@@ -185,14 +185,13 @@ int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 {
     nodoSimple* aux =NULL;
-    nodoSimple* seg = listaSimple;
 
-    while(seg != NULL && seg->datoLibro.idLibro != idBuscar)
+    while(listaSimple != NULL && listaSimple->datoLibro.idLibro != idBuscar)
     {
-        seg =seg ->siguiente;
+        listaSimple =listaSimple ->siguiente;
     }
 
-    aux=seg;
+    aux=listaSimple;
 
     return aux;
 }
@@ -732,7 +731,7 @@ void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
 {
     while(listaSimpleLibros != NULL)
     {
-        recorrerFilaParaPrestamos(listaSimpleLibros->datoLibro.reservasLibro,buffer);
+        recorrerFilaParaArchivarPrestamos(listaSimpleLibros->datoLibro.reservasLibro,buffer);
     }
 }
 
@@ -808,11 +807,10 @@ void mostrarMenuLibrosPopularidad()
 void buscarLibroXgenero(estanteria arregloEstanterias[])
 {
 
-    nodoSimple* aux = inicListaSimple();
 
     char genero[MAX_DIM];
 
-    printf("Elije una opcion\n");
+    printf("Elija una opcion\n");
     validarGenero(genero);
 
     for (int i = 0; i < MAX_GEN; i++)
@@ -1036,86 +1034,10 @@ void menuOpcionesCopias()
 
 
 
-
-
-
-void buscarLibrosUsuario(estanteria arregloEstanterias[])
-{
-
-    int opSw=0;
-    char opCont='s';
-    do
-    {
-        opcionesMenuBuscarLibrosUsuario();
-        opSw=preguntarDatoEntero();
-        switch(opSw)
-        {
-        case 1:
-            buscarLibroXTitulo(arregloEstanterias);
-            break;
-        case 2:
-            buscarLibroXAutor(arregloEstanterias);
-            break;
-        case 3:
-            buscarLibroXgenero(arregloEstanterias);
-            break;
-        case 4:
-            //buscarLibrosXPopularidad(arregloEstanterias);
-            break;
-        case 5:
-            //buscarLibroXClave(arregloEstanterias);
-            break;
-        case 6:
-            opCont='n';
-            limpiarPantalla();
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-        //limpiarPantalla();
-    }
-    while(opCont!='n');
-}
-
-void opcionesMenuBuscarLibrosUsuario()
-{
-
-    puts("[1] Buscar libro por Titulo");
-    puts("[2] Buscar libro por Autor");
-    puts("[3] Buscar libro por Genero");
-    puts("[4] Buscar libro por Popularidad");
-    puts("[5] Buscar libro por palabra Clave");
-    puts("[6] Volver al menu principal");
-    puts("-------------------------------------------");
-
-
-}
-
-
-void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
-{
-
-
-
-    nodoSimple* aux = inicListaSimple();
-
-
-    aux = buscarEstanteriaParaDisponiblidad(arregloEstanterias);
-
-    mostrarListaSimple(aux);
-
-
-}
-
-
-
-
-
 nodoSimple*  retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
 {
 
-nodoSimple* aux = inicListaSimple();
+    nodoSimple* aux = inicListaSimple();
 
     while (lista != NULL)
     {
@@ -1130,10 +1052,10 @@ nodoSimple* aux = inicListaSimple();
     }
 
 
-return aux;
+    return aux;
 }
 
-void buscarEstanteriaParaDisponiblidad(estanteria arregloEstanterias[])
+void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
 {
 
     int flag = -1;
@@ -1146,10 +1068,11 @@ void buscarEstanteriaParaDisponiblidad(estanteria arregloEstanterias[])
 
         if ( aux != NULL)
         {
-            if(aux->datoLibro.estado == 1){
+            if(aux->datoLibro.estado == 1)
+            {
                 mostrarListaSimple(aux);
                 flag = 1;
-        }
+            }
         }
 
         i++;
@@ -1161,3 +1084,58 @@ void buscarEstanteriaParaDisponiblidad(estanteria arregloEstanterias[])
     }
 
 }
+
+// funcion que pasa el prestamo leido del archivo de prestamos a la fila correspondiente
+void archivoAFilasPrestamos(estanteria arregloEstanterias[])
+{
+    FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"rb");
+    stPrestamo aux;
+
+
+    if(buffer != NULL)
+    {
+        while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
+        {
+
+            recorrerEstanteriasParaAgregarAFilaPrestamo(arregloEstanterias,aux);
+
+        }
+
+        fclose(buffer);
+    }
+}
+
+//busco la estanteria del prestamo correspondiente
+void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo)
+{
+    int flag=0, i=0;
+    while(flag)
+    {
+        flag=recorrerLibrosParaAgregarAFilaPrestamo(arregloEstanterias[i].listaLibro,datoPrestamo);
+        if(flag==0)
+        {
+            i++;
+        }
+    }
+}
+
+//busco el idLibro que tiene el prestamo, si coinciden lo agrego a la fila y retorno 1, si no, retorno 0
+int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo)
+{
+    int flag=0;
+    while(listaS != NULL && listaS->datoLibro.idLibro != datoPrestamo.idLibro)
+    {
+        listaS= listaS->siguiente;
+    }
+
+    if(listaS->datoLibro.idLibro == datoPrestamo.idLibro)
+    {
+        agregarAlFinalFila(&listaS->datoLibro.reservasLibro,datoPrestamo);
+        flag=1;
+    }
+    return flag;
+}
+
+
+
+

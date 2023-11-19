@@ -8,7 +8,7 @@ void inicPila(pilaPrestamos * pila)
     pila->prestamoInactivo = inicListaDoble();
 }
 
-void cargaPila(pilaPrestamos * pila)
+void archivoAPila(pilaPrestamos * pila)
 {
     stPrestamo aux;
     FILE * buffer = fopen(ARCHIVO_PRESTAMOS_INACTIVOS,"rb");
@@ -16,10 +16,7 @@ void cargaPila(pilaPrestamos * pila)
     {
         while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
         {
-            if(aux.estado == 0)///si el prestamo esta inactivo lo apilo
-            {
-                pila->prestamoInactivo = agregarAlFinalDoble(pila->prestamoInactivo,crearNodoDoble(aux));
-            }
+            pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
 
         }
     }
@@ -31,18 +28,14 @@ void cargaPila(pilaPrestamos * pila)
 
 void apilar(pilaPrestamos * pila,stPrestamo aux)
 {
-    if(aux.estado == 0)
-    {
-        pila->prestamoInactivo = agregarAlFinalDoble(pila->prestamoInactivo,crearNodoDoble(aux));
-
-    }
+    pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
 }
 
-void mostrar(pilaPrestamos * pila)
+
+
+void mostrarPila(pilaPrestamos pila)
 {
-
-mostrarListaDoble(pila->prestamoInactivo);
-
+    mostrarListaDoble(pila.prestamoInactivo);
 }
 
 
