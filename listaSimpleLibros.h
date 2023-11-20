@@ -112,6 +112,7 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
 //Se utilizaron validaciones ya hechas en otras librerias para modularizar
 void validarGenero(char auxGenero[]);
 void opcionesGenero();
+int verificarSiHayCopiasEnUnLibro(stLibro datoLibro);
 
 
 /// funciones del archivo de libros

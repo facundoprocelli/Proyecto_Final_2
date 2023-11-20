@@ -2,125 +2,73 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="main.c" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="arbolMiembros.c" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="66" topLine="0" />
+			<Cursor1 position="909" topLine="470" />
 		</Cursor>
 	</File>
-	<File name="arbolMiembros.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="85" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="listaSimpleLibros.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="4038" topLine="96" />
+		</Cursor>
+	</File>
+	<File name="biblioteca.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="498" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="arbolMiembros.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="703" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="listaSimpleLibros.c" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="filaReservas.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="11932" topLine="0" />
+			<Cursor1 position="968" topLine="30" />
+		</Cursor>
+	</File>
+	<File name="biblioteca.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="18103" topLine="636" />
+		</Cursor>
+	</File>
+	<File name="listaDobleReservas.c" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1224" topLine="10" />
 		</Cursor>
 		<Folding>
-			<Collapse line="14" />
-			<Collapse line="61" />
-			<Collapse line="76" />
-			<Collapse line="93" />
-			<Collapse line="111" />
-			<Collapse line="117" />
-			<Collapse line="542" />
-			<Collapse line="558" />
-			<Collapse line="578" />
-			<Collapse line="660" />
-			<Collapse line="678" />
-			<Collapse line="690" />
-			<Collapse line="708" />
-			<Collapse line="727" />
-			<Collapse line="743" />
-			<Collapse line="759" />
-			<Collapse line="789" />
-			<Collapse line="805" />
+			<Collapse line="64" />
+			<Collapse line="70" />
 		</Folding>
 	</File>
-	<File name="listaSimpleLibros.h" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1380" topLine="85" />
-		</Cursor>
-	</File>
-	<File name="listaDobleReservas.c" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="464" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="biblioteca.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2366" topLine="3" />
-		</Cursor>
-		<Folding>
-			<Collapse line="14" />
-			<Collapse line="23" />
-			<Collapse line="28" />
-			<Collapse line="36" />
-			<Collapse line="95" />
-			<Collapse line="106" />
-			<Collapse line="156" />
-			<Collapse line="191" />
-			<Collapse line="203" />
-			<Collapse line="213" />
-			<Collapse line="224" />
-			<Collapse line="261" />
-			<Collapse line="296" />
-			<Collapse line="329" />
-			<Collapse line="342" />
-			<Collapse line="381" />
-			<Collapse line="396" />
-			<Collapse line="409" />
-			<Collapse line="455" />
-			<Collapse line="470" />
-			<Collapse line="490" />
-			<Collapse line="550" />
-			<Collapse line="565" />
-			<Collapse line="607" />
-			<Collapse line="621" />
-			<Collapse line="659" />
-			<Collapse line="674" />
-			<Collapse line="714" />
-			<Collapse line="725" />
-			<Collapse line="734" />
-			<Collapse line="750" />
-			<Collapse line="787" />
-			<Collapse line="797" />
-			<Collapse line="833" />
-		</Folding>
-	</File>
-	<File name="filaReservas.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1883" topLine="72" />
-		</Cursor>
-	</File>
-	<File name="biblioteca.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="277" topLine="4" />
-		</Cursor>
-	</File>
-	<File name="arbolMiembros.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1000" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="filaReservas.h" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="716" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="pilaPrestamosInactivos.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="104" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="pilaPrestamosInactivos.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="pilaPrestamosInactivos.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="41" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="listaDobleReservas.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="listaDobleReservas.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="633" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="pilaPrestamosInactivos.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="104" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="filaReservas.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="716" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="listaSimpleLibros.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="9490" topLine="534" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

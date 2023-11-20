@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include "filaReservas.h"
-
 #define MAX_DIM 26
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"

@@ -26,9 +26,13 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
 
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
-    ///funciones para calcular inicio y fin del prestamo(automatico)
+    //funciones para calcular inicio y fin del prestamo(automatico)
     time_t tiempo_actual;time(&tiempo_actual);struct tm *info_tiempo = localtime(&tiempo_actual);
     asignarTiempo(&aux.inicioPrestamo,info_tiempo);
+
+    ///aux.idLibro
+
+    //funcion que verifique el estado del libro y tambien si le quedan copias, si cantCopias==0 no podes hacer el prestamo
 
     do
     {
@@ -41,6 +45,8 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
     calcularVencimiento(&aux.vencimientoPrestamo,aux.inicioPrestamo,duracionVencimiento);
     return aux;
 }
+
+
 int validarDias(int dias)
 {
     int flag = 0;
@@ -89,9 +95,7 @@ void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPresta
 //mostrar una fecha
 void mostrarUnaFecha(stFecha aux)
 {
-    printf("[Dia]....: %i \n",aux.diaTiempo);
-    printf("[Mes]....: %i \n",aux.mesTiempo);
-    printf("[Anio]...: %i \n",aux.anioTiempo);
+    printf("Fecha: %02d-%02d-%04d \n", aux.diaTiempo, aux.mesTiempo, aux.anioTiempo);
 }
 
 
@@ -218,7 +222,7 @@ int validarPrecioPrestamo(char aux[])
 
 ///funciones archivo
 
-int retornarUltimoIDPrestamo()
+int retornarUltimoIDPrestamo() //vamos a tener que modificarla, y buscar el ultimo id de otra forma
 {
     FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"rb");
     stPrestamo aux;

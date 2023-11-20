@@ -33,6 +33,8 @@ int convertirStringsDeNumerosAEntero(char aux[])
 
 ///todos los menu con sus respectivas funcionalidades
 
+
+/// menu general
 void menuGeneral()
 {
     int opSw=0;
@@ -70,6 +72,10 @@ void menuGeneral()
             limpiarPantalla();
             break;
         case 2:
+
+            printf("Ingrese su DNI si tiene una cuenta, sino le crearemos una: ");
+
+
             menuUsuario(arregloEstanterias, arbolMiembros);
             limpiarPantalla();
 
@@ -102,7 +108,7 @@ void opcionesMenuGeneral()
 
 }
 
-
+///menu admin
 void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 {
 
@@ -153,179 +159,6 @@ void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 
 }
 
-void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
-{
-    //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
-
-
-    int opMenuPrin=0;
-    char opContinuarMenuPrin='s';
-    do
-    {
-        menuDeAccionesPrincipales();
-        opMenuPrin=preguntarDatoEntero();
-        limpiarPantalla();
-        switch(opMenuPrin)
-        {
-        case 1:
-            menuLibrosUsuario(arregloEstanterias);
-            break;
-        case 2:
-            menuMiembroUsuario();
-            break;
-        case 3:
-            menuPrestamosUsuario();
-            break;
-        case 4:
-            opContinuarMenuPrin = 'n';
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-    }
-    while(opContinuarMenuPrin != 'n');
-
-}
-
-void opcionesMenuUsuarioLibros()
-{
-
-    puts("[1] Devolver un libro"); //aumentar el contador de cantcopias +1
-    puts("[2] Pedir un libro"); //es crear un prestamo, si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
-    puts("[3] Buscar un libro"); //tenemos un menu
-    puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
-    puts("[5] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
-    puts("[6] Volver al menu principal");
-    puts("----------------------------------------------------------------");
-}
-
-void opcionesMenuUsuarioPrestamos()
-{
-
-    puts("[1] Ver mis prestamos activos");
-    puts("[2] Ver limite de prestamos");
-    puts("[3] Ver todo el historial de prestamos");
-    puts("[4] Volver al menu principal");
-    puts("-------------------------------------------");
-}
-
-void opcionesMenuUsuarioMiembro()
-{
-    puts("[1] Cambiar nombre");
-    puts("[2] Cambiar numero de telefono");
-    puts("[3] Ingresar saldo a la cuenta");
-    puts("[4] Ver mi usuario");
-    puts("[5] Darse Alta o Baja");
-    puts("[6] Volver al menu principal");
-    puts("---------------------------------------");
-}
-
-void menuLibrosUsuario(estanteria arregloEstanterias[])
-{
-    int opMenuPrin=0;
-    char opContinuarMenuPrin='s';
-    do
-    {
-        opcionesMenuUsuarioLibros();
-        opMenuPrin=preguntarDatoEntero();
-        limpiarPantalla();
-        switch(opMenuPrin)
-        {
-        case 1:
-            //devolverPrestamoUsuario();
-            break;
-        case 2:
-            //pedirPrestamoUsuario();
-            break;
-        case 3:
-            buscarLibrosUsuario(arregloEstanterias);
-            break;
-        case 4:
-            verLibrosDisponiblesUsuario(arregloEstanterias);
-            break;
-        case 5:
-            //verLibrosConEsperaUsuario();
-            break;
-        case 6:
-            opContinuarMenuPrin = 'n';
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-    }
-    while(opContinuarMenuPrin != 'n');
-}
-
-void menuMiembroUsuario()
-{
-    int opMenuPrin=0;
-    char opContinuarMenuPrin='s';
-    do
-    {
-        opcionesMenuUsuarioMiembro();
-        opMenuPrin=preguntarDatoEntero();
-        limpiarPantalla();
-        switch(opMenuPrin)
-        {
-        case 1:
-
-            break;
-        case 2:
-
-            break;
-        case 3:
-
-            break;
-        case 4:
-            break;
-        case 5:
-            break;
-        case 6:
-            opContinuarMenuPrin = 'n';
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-    }
-    while(opContinuarMenuPrin != 'n');
-}
-
-void menuPrestamosUsuario()
-{
-    int opMenuPrin=0;
-    char opContinuarMenuPrin='s';
-    do
-    {
-        opcionesMenuUsuarioPrestamos();
-        opMenuPrin=preguntarDatoEntero();
-        limpiarPantalla();
-        switch(opMenuPrin)
-        {
-        case 1:
-
-            break;
-        case 2:
-
-            break;
-        case 3:
-
-            break;
-        case 4:
-            opContinuarMenuPrin = 'n';
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-    }
-    while(opContinuarMenuPrin != 'n');
-}
-
-
-
 void menuDeAccionesPrincipales()
 {
     printf("Por favor, seleccione que accion desea realizar \n");
@@ -335,63 +168,6 @@ void menuDeAccionesPrincipales()
     printf("[4] Salir \n");
     puts("-------------------------------------");
 }
-
-
-
-
-void buscarLibrosUsuario(estanteria arregloEstanterias[])
-{
-
-    int opSw=0;
-    char opCont='s';
-    do
-    {
-        opcionesMenuBuscarLibrosUsuario();
-        opSw=preguntarDatoEntero();
-        switch(opSw)
-        {
-        case 1:
-            buscarLibroXTitulo(arregloEstanterias);
-            break;
-        case 2:
-            buscarLibroXAutor(arregloEstanterias);
-            break;
-        case 3:
-            buscarLibroXgenero(arregloEstanterias);
-            break;
-        case 4:
-            //buscarLibrosXPopularidad(arregloEstanterias);
-            break;
-        case 5:
-            //buscarLibroXClave(arregloEstanterias);
-            break;
-        case 6:
-            opCont='n';
-            limpiarPantalla();
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-        //limpiarPantalla();
-    }
-    while(opCont!='n');
-}
-
-void opcionesMenuBuscarLibrosUsuario()
-{
-
-    puts("[1] Buscar libro por Titulo");
-    puts("[2] Buscar libro por Autor");
-    puts("[3] Buscar libro por Genero");
-    puts("[4] Buscar libro por Popularidad");
-    puts("[5] Buscar libro por palabra Clave");
-    puts("[6] Volver al menu principal");
-    puts("-------------------------------------------");
-
-
-}
-
 
 void opcionesMenuGestionarLibros()
 {
@@ -428,7 +204,7 @@ void menuLibros(estanteria arregloEstanterias[])
             menuBuscarLibros(arregloEstanterias);
             break;
         case 3:
-                    ///pedir libro o añadir a la fila
+            ///pedir libro o añadir a la fila
             break;
         case 4:
 
@@ -465,26 +241,6 @@ void opcionesMenuActualizarLibros()
     printf("[6] Actualizar Cantiadad de Copias\n");
     printf("[7] Volver al menu de libros \n");
     puts("------------------------------------");
-}
-
-int preguntarID(estanteria arregloEstanterias[])
-{
-
-    char idBuscado[MAX_DIM];
-    int idConvertido;
-    int ultimoID;
-    do
-    {
-        printf("Ingrese el ID que desea buscar");
-        fflush(stdin);
-        gets(idBuscado);
-
-        ultimoID = retornarUltimoIDLibro(arregloEstanterias);
-        idConvertido = convertirStringsDeNumerosAEntero(idBuscado);
-    }
-    while (validarCaracteresEnEnteros(idBuscado) == 0 || idConvertido > ultimoID);
-
-    return idConvertido;
 }
 
 void actualizarLibro(estanteria arregloListas[])
@@ -709,6 +465,351 @@ void menuBuscarMiembros()
 }
 
 
+void opcionesMenuPrestamos()
+{
+    puts("[1] Pedir un libro"); //es crear un prestamo
+    puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
+    puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[4] Modificar fecha de vencimiento de un prestamo");
+    puts("[5] Volver al menu principal");
+    puts("-------------------------------------------------------");
+}
+
+void menuPrestamos()
+{
+
+    int opSw=0;
+    char opCont='s';
+    opcionesMenuPrestamos();
+    opSw=preguntarDatoEntero();
+    do
+    {
+
+        switch(opSw)
+        {
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            limpiarPantalla();
+            opCont='n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+
+    }
+    while(opCont != 'n');
+
+}
+
+///menu usuario
+
+void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
+{
+    //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
+
+
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        menuDeAccionesPrincipales();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+            menuLibrosUsuario(arregloEstanterias);
+            break;
+        case 2:
+            menuMiembroUsuario();
+            break;
+        case 3:
+            menuPrestamosUsuario();
+            break;
+        case 4:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+
+}
+
+void opcionesMenuUsuarioLibros()
+{
+
+    puts("[1] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[2] Pedir un libro"); //es crear un prestamo, si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
+    puts("[3] Buscar un libro"); //tenemos un menu
+    puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
+    puts("[5] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
+    puts("[6] Volver al menu principal");
+    puts("----------------------------------------------------------------");
+}
+
+void opcionesMenuUsuarioPrestamos()
+{
+
+    puts("[1] Ver mis prestamos activos");
+    puts("[2] Ver limite de prestamos");
+    puts("[3] Ver todo el historial de prestamos");
+    puts("[4] Volver al menu principal");
+    puts("-------------------------------------------");
+}
+
+void opcionesMenuUsuarioMiembro()
+{
+    puts("[1] Cambiar nombre");
+    puts("[2] Cambiar numero de telefono");
+    puts("[3] Ingresar saldo a la cuenta");
+    puts("[4] Ver mi usuario");
+    puts("[5] Darse Alta o Baja");
+    puts("[6] Volver al menu principal");
+    puts("---------------------------------------");
+}
+
+void menuLibrosUsuario(estanteria arregloEstanterias[])
+{
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    char auxString[MAX_DIM];
+
+
+
+    char opSeguirBuscando;
+    int flag=0,i=0,continuarBucle=1;
+    stLibro datoLibro;
+    stMiembro datoMiembro;
+
+
+    do
+    {
+        opcionesMenuUsuarioLibros();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+            //devolverPrestamoUsuario();
+            break;
+        case 2: //pedir un libro
+
+            do
+            {
+                mostrarTodasLasEstanterias(arregloEstanterias);
+                printf("Ingrese el nombre del libro que quiere: ");
+                fflush(stdin);
+                gets(auxString);
+
+                while(i < 5 && flag==0)
+                {
+                    flag=verificarSiExisteLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
+                    if(flag==0) //verifico la flag debido a que quiero la posicion del arreglo tmb, y esto me lo hace
+                    {
+                        i++;
+                    }
+                }
+
+                if(flag==0) // si no existe
+                {
+                    puts("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
+                    fflush(stdin);
+
+                    scanf("%c",&opSeguirBuscando);
+                    if(opSeguirBuscando != 's')
+                    {
+                        continuarBucle=0; // si no desea seguir buscando corto el bucle
+                    }
+                }
+                else // si lo encuentro corto el bucle
+                {
+                    continuarBucle=0;
+                }
+
+
+            }
+            while(continuarBucle);
+
+
+
+            if(flag) // si encontre el libro
+            {
+
+                datoLibro=retornarLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
+
+                // tercero verifico si tengo copias disponibles osea cantCopias != 0, si tengo se le da el libro al usuario de manera inmediata, se disminye la cantCopias en 1, se guarda en prestamosActivosID del miembro y se aumenta las vecesPrestado
+                // cuarto retorno el libro y habra que modificarle sus stats
+                if(verificarSiHayCopiasEnUnLibro(datoLibro)) //funcion verificar si tengo copias
+                {
+
+                    crearUnPrestamo(datoMiembro.datosPersonales.dni);
+                    datoMiembro.prestamosActivosID[datoMiembro.validosPrestamosActivosID]=datoLibro.idLibro;
+                    //datoLibro.cantidadDeCopias-=1;
+                    datoLibro.vecesPrestadoLibro+=1;
+
+                    //poner el libro modificado en la estructura de nuevi
+
+                }
+                else //si no tengo copias
+                {
+                    //funcion agregar a la fila
+                    puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
+                }
+
+            }
+
+            break;
+        case 3:
+            buscarLibrosUsuario(arregloEstanterias);
+            break;
+        case 4:
+            verLibrosDisponiblesUsuario(arregloEstanterias);
+            break;
+        case 5:
+            //verLibrosConEsperaUsuario();
+            break;
+        case 6:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
+void menuMiembroUsuario()
+{
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuarioMiembro();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
+        case 6:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
+void menuPrestamosUsuario()
+{
+    int opMenuPrin=0;
+    char opContinuarMenuPrin='s';
+    do
+    {
+        opcionesMenuUsuarioPrestamos();
+        opMenuPrin=preguntarDatoEntero();
+        limpiarPantalla();
+        switch(opMenuPrin)
+        {
+        case 1:
+
+            break;
+        case 2:
+
+            break;
+        case 3:
+
+            break;
+        case 4:
+            opContinuarMenuPrin = 'n';
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+    }
+    while(opContinuarMenuPrin != 'n');
+}
+
+void buscarLibrosUsuario(estanteria arregloEstanterias[])
+{
+
+    int opSw=0;
+    char opCont='s';
+    do
+    {
+        opcionesMenuBuscarLibrosUsuario();
+        opSw=preguntarDatoEntero();
+        switch(opSw)
+        {
+        case 1:
+            buscarLibroXTitulo(arregloEstanterias);
+            break;
+        case 2:
+            buscarLibroXAutor(arregloEstanterias);
+            break;
+        case 3:
+            buscarLibroXgenero(arregloEstanterias);
+            break;
+        case 4:
+            //buscarLibrosXPopularidad(arregloEstanterias);
+            break;
+        case 5:
+            //buscarLibroXClave(arregloEstanterias);
+            break;
+        case 6:
+            opCont='n';
+            limpiarPantalla();
+            break;
+        default:
+            puts("Ingrese una opcion valida");
+            break;
+        }
+        //limpiarPantalla();
+    }
+    while(opCont!='n');
+}
+
+void opcionesMenuBuscarLibrosUsuario()
+{
+
+    puts("[1] Buscar libro por Titulo");
+    puts("[2] Buscar libro por Autor");
+    puts("[3] Buscar libro por Genero");
+    puts("[4] Buscar libro por Popularidad");
+    puts("[5] Buscar libro por palabra Clave");
+    puts("[6] Volver al menu principal");
+    puts("-------------------------------------------");
+
+
+}
+
+
 /// funciones estanteria
 
 void inicEstanterias(estanteria arregloEstanterias[])
@@ -784,51 +885,27 @@ void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNo
 
 }
 
-void opcionesMenuPrestamos()
-{
-    puts("[1] Pedir un libro"); //es crear un prestamo
-    puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
-    puts("[4] Modificar fecha de vencimiento de un prestamo");
-    puts("[5] Volver al menu principal");
-    puts("-------------------------------------------------------");
-}
-
-void menuPrestamos()
+int preguntarID(estanteria arregloEstanterias[])
 {
 
-    int opSw=0;
-    char opCont='s';
-    opcionesMenuPrestamos();
-    opSw=preguntarDatoEntero();
+    char idBuscado[MAX_DIM];
+    int idConvertido;
+    int ultimoID;
     do
     {
+        printf("Ingrese el ID que desea buscar");
+        fflush(stdin);
+        gets(idBuscado);
 
-        switch(opSw)
-        {
-        case 1:
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        case 4:
-            break;
-        case 5:
-            limpiarPantalla();
-            opCont='n';
-            break;
-        default:
-            puts("Ingrese una opcion valida");
-            break;
-        }
-
+        ultimoID = retornarUltimoIDLibro(arregloEstanterias);
+        idConvertido = convertirStringsDeNumerosAEntero(idBuscado);
     }
-    while(opCont != 'n');
+    while (validarCaracteresEnEnteros(idBuscado) == 0 || idConvertido > ultimoID);
 
+    return idConvertido;
 }
 
-
+///informe final funciones
 
 void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
 {

@@ -86,9 +86,12 @@ void mostrarUnMiembro(stMiembro aux)
     mostrarUnaPersona(aux.datosPersonales);
 
 
-    //printf("Prestamos activos...........: %i\n", aux.historialDelPrestamo); /// for para poder ver todos
-
-
+    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
+    printf("ID de los prestamos activos: ");
+    for(int i=0; i < aux.validosPrestamosActivosID; i++)
+    {
+        printf("[%i] ",aux.prestamosActivosID[i]);
+    }
     printf("Estado......................: %i \n", aux.estado);
     printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);

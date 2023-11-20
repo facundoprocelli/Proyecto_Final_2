@@ -99,9 +99,11 @@ void mostrarUnLibro(stLibro aux)
     printf("Autor.................: %s \n",aux.autorLibro);
     printf("Estado................: %i \n",aux.estado);
     printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
-    printf("Descripcion...........: %s \n", aux.descripcionLibro);
-    printf("Copias................: %s \n", aux.cantidadDeCopias);
-    ///printf("",aux.reservasLibro); ///mostrar fila de reservas de este libro
+    printf("Descripcion...........: %s \n",aux.descripcionLibro);
+    printf("Copias................: %s \n",aux.cantidadDeCopias);
+
+    mostrarFila(aux.reservasLibro);
+
     puts("---------------------------------------------");
 }
 
@@ -387,6 +389,8 @@ nodoSimple* modificarEstadoLibro(nodoSimple* aux)
     }
     while (op != 0 && op != 1  );
 
+
+
     aux->datoLibro.estado = op;
 
 
@@ -401,6 +405,10 @@ void menuEstados()
     printf("[1] Dar de Alta\n");
 
 }
+
+
+
+
 
 //funciones de buscar para retornar un libro
 
@@ -441,7 +449,6 @@ stLibro retornarLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
     }
     return aux;
 }
-
 
 
 stLibro retornarLibroXAutor(nodoSimple*listaSimple,char autorBuscar[])
@@ -535,6 +542,21 @@ void opcionesGenero()
 
 }
 
+// verifico si hay copias disponibles de un determinado libro
+
+int verificarSiHayCopiasEnUnLibro(stLibro datoLibro)
+{
+    int flag=0;
+
+    if(datoLibro.cantidadDeCopias != 0)
+    {
+        flag=1;
+    }
+
+    return flag; // si flag= 1 hay copias sino 0
+}
+
+
 ///archivos
 
 // cargar un libro a un archivo
@@ -591,6 +613,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro1.cantidadDeCopias, "5");
     inicFila(&libro1.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro1));
+
 
 
     stLibro libro2;
@@ -808,7 +831,7 @@ void buscarLibroXgenero(estanteria arregloEstanterias[])
 
     char genero[MAX_DIM];
 
-    printf("Elija una opcion\n");
+    printf("Que genero quiere buscar?\n");
     validarGenero(genero);
 
     for (int i = 0; i < MAX_GEN; i++)
