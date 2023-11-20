@@ -16,7 +16,7 @@ void limpiarPantalla();
 
 void opcionesMenuGeneral();
 
-void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
+nodoArbol*  biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
 void menuDeAccionesPrincipales();
 
 void menuUsuario(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
@@ -42,7 +42,7 @@ void opcionesMenuActualizarLibros();
 void opcionesMenuBuscarLibros();
 void menuBuscarLibros();
 
-void menuMiembros(nodoArbol * raiz);
+nodoArbol* menuMiembros(nodoArbol * raiz);
 void opcionesMenuMiembros();
 
 void opcionesMenuBuscarMiembros();

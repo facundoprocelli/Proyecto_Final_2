@@ -457,6 +457,8 @@ int validarLimitePrestamoMiembro(int limiteAux)
     return flag;
 }
 //verifica si ya existe el DNI en otro miembro
+
+
 int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
 {
     int flag = 0;
@@ -473,7 +475,6 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
         else
         {
 
-
         flag = verificarDniExistente(raiz->derecha,dniAbuscar);
         flag = verificarDniExistente(raiz->izquierda,dniAbuscar);
         }
@@ -485,6 +486,38 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
     }
 return flag;
 }
+
+
+
+/*
+
+int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
+{
+    int flag = 0;
+
+    if(raiz != NULL)
+    {
+        if(strcmpi(raiz->dato.datosPersonales.dni, dniAbuscar) == 0)
+        {
+            puts("Ingrese un DNI que no este en la base de datos");
+            flag = 1;
+        }
+        else
+        {
+            flag = verificarDniExistente(raiz->derecha, dniAbuscar);
+
+            if(flag == 0)
+            {
+                flag = verificarDniExistente(raiz->izquierda, dniAbuscar);
+            }
+        }
+    }
+
+    return flag;
+}
+
+*/
+
 //verifica si ya existe el nro de telefono en otro miembro
 int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
 {

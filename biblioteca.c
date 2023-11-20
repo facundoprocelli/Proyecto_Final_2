@@ -63,20 +63,28 @@ void menuGeneral()
     {
         opcionesMenuGeneral();
         opSw=preguntarDatoEntero();
-
+        int i = 0;
         switch(opSw)
         {
         case 1:
-            biblioteca(arregloEstanterias, arbolMiembros);
+            arbolMiembros = biblioteca(arregloEstanterias, arbolMiembros);
             limpiarPantalla();
             break;
         case 2:
 
-            printf("Ingrese su DNI si tiene una cuenta, sino le crearemos una: ");
+            while ((i < 3 )|| validarIngresoUsuario(arbolMiembros, arregloEstanterias) == 1)
+            {
 
 
-            menuUsuario(arregloEstanterias, arbolMiembros);
-            limpiarPantalla();
+
+
+            }
+
+
+
+
+            // menuUsuario(arregloEstanterias, arbolMiembros);
+
 
             break;
         case 3:
@@ -97,6 +105,35 @@ void menuGeneral()
     cargarPilaAlArchivo(&prestamosInactivos);
 }
 
+
+int validarIngresoUsuario(nodoArbol* raiz, estanteria arregloEstanterias[])
+{
+
+    stPersona aux;
+    int flag = 0;
+
+    printf("\nIngrese su DNI si tiene una cuenta, sino le crearemos una:  \n");
+
+    do{
+        printf("DNI: ");
+        fflush(stdin);
+        scanf("%s", &aux.dni);
+
+    if (verificarDniExistente(raiz,aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0 || validarRangoDNI(aux.dni)== 0)
+    {
+        flag = 1;
+    }
+
+    }while ( flag == 0);
+
+
+    //  menuUsuario(arregloEstanterias, arbolMiembros);
+
+
+    return flag;
+}
+
+
 void opcionesMenuGeneral()
 {
 
@@ -108,7 +145,7 @@ void opcionesMenuGeneral()
 }
 
 ///menu admin
-void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
+nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 {
 
 
@@ -138,7 +175,8 @@ void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             menuLibros(arregloEstanterias);
             break;
         case 2:
-            menuMiembros(arbolMiembros);
+            arbolMiembros =  menuMiembros(arbolMiembros);
+            mostrarArbolInorden(arbolMiembros);
             break;
         case 3:
             menuPrestamos();
@@ -151,11 +189,12 @@ void biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             puts("Ingrese una opcion valida");
             break;
         }
+
     }
     while(opContinuarMenuPrin != 'n');
 
 
-
+    return arbolMiembros;
 }
 
 void menuDeAccionesPrincipales()
@@ -368,7 +407,7 @@ void opcionesMenuMiembros()
     puts("----------------------------------------------------");
 }
 
-void menuMiembros(nodoArbol * raiz)
+nodoArbol* menuMiembros(nodoArbol * raiz)
 {
     int opSw=0;
     char opCont='s';
@@ -403,6 +442,7 @@ void menuMiembros(nodoArbol * raiz)
     }
     while(opCont != 'n');
 
+    return raiz;
 }
 
 
@@ -509,7 +549,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
 
-
+    mostrarArbolInorden(raiz);
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
