@@ -86,8 +86,11 @@ int validarRangoTelefono(char telefono[]);
 int validarDentroDeUnRango(int dato,int minimo,int maximo);
 int validarEstadoMiembro(int estadoAux);
 int validarLimitePrestamoMiembro(int limiteAux);
-int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[]);
-int verificarNroExistente(nodoArbol * raiz,char nroExistente[]);
+int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[]);
+int validarNroRepetido(nodoArbol * raiz,char nroExistente[]);
+
+int validarIngresoUsuario(nodoArbol* raiz);
+
 ///archivos
 void cargarUnMiembroAlArchivo(stMiembro aux);
 nodoArbol * archivoAlArbol(nodoArbol * raiz);

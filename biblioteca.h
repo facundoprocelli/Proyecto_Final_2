@@ -53,12 +53,12 @@ void menuPrestamos();
 
 
 
-void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 
 ///funciones de estanteria
 void inicEstanterias(estanteria arregloEstanterias[]);
 void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
 
+void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 
 #endif // BIBLIOTECA_H_INCLUDED

@@ -26,7 +26,7 @@ stPersona crearUnaPersona(nodoArbol * raiz)
         scanf("%s",&aux.nombre);
     }
     while(validarDigitosEnStrings(aux.nombre)== 1 || validarRangoDeNombre(aux.nombre)== 1);
-    mostrarArbolInorden(raiz);
+
     do
     {
 
@@ -35,14 +35,14 @@ stPersona crearUnaPersona(nodoArbol * raiz)
         scanf("%s", &aux.dni);
 
     }
-    while(verificarDniExistente(raiz,aux.dni)== 1||validarCaracteresEnEnteros(aux.dni)== 0||validarRangoDNI(aux.dni)== 0);
+    while(validarDniRepetido(raiz,aux.dni)== 1||validarCaracteresEnEnteros(aux.dni)== 0||validarRangoDNI(aux.dni)== 0);
     do
     {
         printf("Nro de telefono: ");
         fflush(stdin);
         scanf("%s", &aux.numeroDeTelefono);
     }
-    while(verificarNroExistente(raiz,aux.numeroDeTelefono)== 1|| validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0||validarRangoTelefono(aux.numeroDeTelefono)== 0);
+    while(validarNroRepetido(raiz,aux.numeroDeTelefono)== 1|| validarCaracteresEnEnteros(aux.numeroDeTelefono)== 0||validarRangoTelefono(aux.numeroDeTelefono)== 0);
 
     printf("Direccion: ");
     fflush(stdin);
@@ -347,7 +347,7 @@ int validarRangoDeNombre(char nombreAux[])
 
     if(longitud >= MAX_DIM||longitud < 3)
     {
-        printf("\nIngrese un nombre entre 3 y 25 caracteres\n");
+        puts("Ingrese un nombre entre 3 y 25 caracteres\n");
         flag = 1;
     }
 
@@ -369,7 +369,7 @@ int validarDigitosEnStrings(char nombreAux[])
         }
         else
         {
-            printf("\nError, hay datos numericos en el nombre...\n");
+            puts("Error, hay datos numericos en el nombre...\n");
             flag = 1;
         }
     }
@@ -387,7 +387,7 @@ int validarRangoDNI(char dniAux[])
     }
     else
     {
-        printf("\nIngrese un DNI entre 7 y 8 digitos.\n");
+        puts("Ingrese un DNI entre 7 y 8 digitos.\n");
     }
     return flag;
 }
@@ -418,7 +418,7 @@ int validarRangoTelefono(char telefono[])
     }
     else
     {
-        printf("\nIngrese un Nro de telefono entre 8 y 10 digitos(ej:2235762462).\n");
+        puts("Ingrese un Nro de telefono entre 8 y 10 digitos(ej:2235762462).\n");
     }
     return flag;
 }
@@ -427,7 +427,7 @@ int validarEstadoMiembro(int estadoAux)
     int flag = 0;
     if(estadoAux <0||estadoAux >1)
     {
-        printf("Ingrese un estado valido\n");
+        puts("Ingrese un estado valido\n");
         flag = 1;
     }
 
@@ -438,7 +438,7 @@ int validarDentroDeUnRango(int dato,int minimo,int maximo)
 {
     if(dato < minimo ||dato >maximo)
     {
-        printf("Ingrese una opcion o rango valido\n");
+        puts("Ingrese una opcion o rango valido\n");
         return 1;
     }
 
@@ -450,7 +450,7 @@ int validarLimitePrestamoMiembro(int limiteAux)
 
     if(limiteAux<0 || limiteAux>3)
     {
-        printf("Ingrese un limite valido\n");
+        puts("Ingrese un limite valido\n");
         flag = 1;
     }
 
@@ -459,24 +459,29 @@ int validarLimitePrestamoMiembro(int limiteAux)
 //verifica si ya existe el DNI en otro miembro
 
 
-int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
+int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[])
 {
     int flag = 0;
-
-
 
     if(raiz!= NULL)
     {
 
-        if(strcmpi(raiz->dato.datosPersonales.dni,dniAbuscar)== 0)
+
+        if(strcmp(raiz->dato.datosPersonales.dni,dniAbuscar)==0)
         {
             flag = 1;
         }
         else
         {
+            if(strcmp(raiz->dato.datosPersonales.dni,dniAbuscar)>0)
+            {
 
-        flag = verificarDniExistente(raiz->derecha,dniAbuscar);
-        flag = verificarDniExistente(raiz->izquierda,dniAbuscar);
+                flag= validarDniRepetido(raiz->izquierda,dniAbuscar);
+            }
+            else
+            {
+                flag = validarDniRepetido(raiz->derecha,dniAbuscar);
+            }
         }
     }
 
@@ -484,42 +489,49 @@ int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
     {
         puts("Ingrese un DNI que no este en la base de datos");
     }
-return flag;
+    return flag;
 }
 
 
+//valida si existe un dni en el arbol
 
-/*
-
-int verificarDniExistente(nodoArbol * raiz,char dniAbuscar[])
+int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
 {
-    int flag = 0;
+       int flag = 0;
 
-    if(raiz != NULL)
+    if(raiz!= NULL)
     {
-        if(strcmpi(raiz->dato.datosPersonales.dni, dniAbuscar) == 0)
+
+
+        if(strcmp(raiz->dato.datosPersonales.dni,dniAux)==0)
         {
-            puts("Ingrese un DNI que no este en la base de datos");
             flag = 1;
         }
         else
         {
-            flag = verificarDniExistente(raiz->derecha, dniAbuscar);
-
-            if(flag == 0)
+            if(strcmp(raiz->dato.datosPersonales.dni,dniAux)>0)
             {
-                flag = verificarDniExistente(raiz->izquierda, dniAbuscar);
+
+                flag= validarDniRepetido(raiz->izquierda,dniAux);
+            }
+            else
+            {
+                flag = validarDniRepetido(raiz->derecha,dniAux);
             }
         }
     }
 
+    if(flag == 1)
+    {
+        puts("Ingrese un DNI que no este en la base de datos");
+    }
     return flag;
 }
 
-*/
-
 //verifica si ya existe el nro de telefono en otro miembro
-int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
+
+
+int validarNroRepetido(nodoArbol * raiz,char nroExistente[])
 {
     int flag = 0;
 
@@ -531,8 +543,8 @@ int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
         }
         else
         {
-        flag = verificarDniExistente(raiz->derecha,nroExistente);
-        flag = verificarDniExistente(raiz->izquierda,nroExistente);
+            flag = validarNroRepetido(raiz->derecha,nroExistente);
+            flag = validarNroRepetido(raiz->izquierda,nroExistente);
         }
     }
     if(flag == 1)
@@ -540,8 +552,10 @@ int verificarNroExistente(nodoArbol * raiz,char nroExistente[])
         puts("Ingrese un numero de telefono que no este repetido en la base de datos");
     }
 
-return flag;
+    return flag;
 }
+
+
 
 ///archivos
 

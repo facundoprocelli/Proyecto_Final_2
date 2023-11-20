@@ -38,8 +38,11 @@ int convertirStringsDeNumerosAEntero(char aux[])
 void menuGeneral()
 {
     int opSw=0;
-    char continuar = 's';
+    char continuarBucle = 's';
 
+    char contraseniaAdmin[MAX_DIM];
+    int flag=0;
+    char opCrearCuenta;
     /// Cargar Estanterias
     estanteria arregloEstanterias[5];
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
@@ -61,73 +64,101 @@ void menuGeneral()
 
     do
     {
+        puts("Menu general");
         opcionesMenuGeneral();
         opSw=preguntarDatoEntero();
-        int i = 0;
+        limpiarPantalla();
         switch(opSw)
         {
         case 1:
+
+            printf("Ingrese la contrasenia del admin: ");
+            fflush(stdin);
+            gets(contraseniaAdmin);
+            if(strcmp(contraseniaAdmin,"Book Maze")==0)
+            {
+
             arbolMiembros = biblioteca(arregloEstanterias, arbolMiembros);
-            limpiarPantalla();
+            }
+            else
+            {
+                puts("Contrasenia incorrecta");
+            }
             break;
         case 2:
 
-            while ((i < 3 )|| validarIngresoUsuario(arbolMiembros, arregloEstanterias) == 1)
+
+
+            if(validarIngresoUsuario(arbolMiembros)) //si no existe retorno 1
             {
+                printf("Ese Dni no existe, desea crear una cuenta? s/n: ");
+                fflush(stdin);
+                scanf("%c",&opCrearCuenta);
 
-
-
-
+                if(opCrearCuenta== 's')
+                {
+                    //si el usuario desea crearse una cuenta, la creamos y ya le activamos el menu
+                    flag=0;
+                    arbolMiembros=insertarPorDni(arbolMiembros,crearNodoArbol(crearUnMiembro(arbolMiembros)));
+                }
+                else
+                {
+                    flag=1; // cambio el valor del flag asi no entra al menu
+                }
             }
 
+            if(flag==0)
+            {
+                limpiarPantalla();
+                menuUsuario(arregloEstanterias, arbolMiembros);
+            }
 
-
-
-            // menuUsuario(arregloEstanterias, arbolMiembros);
 
 
             break;
         case 3:
             informeFinal(arbolMiembros,arregloEstanterias);
             puts("HA FINALIZADO CORRECTAMENTE EL PROGRAMA...");
-            continuar = 'n';
+            continuarBucle = 'n';
             break;
         default:
             puts("Ingrese una opcion valida");
             break;
         }
     }
-    while(continuar != 'n');
+    while(continuarBucle != 'n');
 
     arbolAlArchivo(arbolMiembros);
-    librosAlArchivo(arregloEstanterias);
+    estanteriaAlArchivo(arregloEstanterias);
     prestamosAlArchivo(arregloEstanterias);
     cargarPilaAlArchivo(&prestamosInactivos);
+
+
 }
 
 
-int validarIngresoUsuario(nodoArbol* raiz, estanteria arregloEstanterias[])
+int validarIngresoUsuario(nodoArbol* raiz)
 {
 
     stPersona aux;
     int flag = 0;
 
-    printf("\nIngrese su DNI si tiene una cuenta, sino le crearemos una:  \n");
+    printf("Ingrese su DNI si tiene una cuenta, sino le crearemos una:  \n");
 
-    do{
-        printf("DNI: ");
-        fflush(stdin);
-        scanf("%s", &aux.dni);
-
-    if (verificarDniExistente(raiz,aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0 || validarRangoDNI(aux.dni)== 0)
+    do
     {
+    printf("DNI: ");
+    fflush(stdin);
+    scanf("%s", &aux.dni);
+
+    }while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0);
+
+
+    if(validarSiExisteDniArbol(raiz,aux.dni)== 0)
+    {
+        // si no existe el dni del miembro buscado activo el flag
         flag = 1;
     }
-
-    }while ( flag == 0);
-
-
-    //  menuUsuario(arregloEstanterias, arbolMiembros);
 
 
     return flag;
@@ -166,6 +197,7 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
     char opContinuarMenuPrin='s';
     do
     {
+        puts("Menu admin:");
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -176,7 +208,6 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             break;
         case 2:
             arbolMiembros =  menuMiembros(arbolMiembros);
-            mostrarArbolInorden(arbolMiembros);
             break;
         case 3:
             menuPrestamos();
@@ -549,11 +580,11 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
 
-    mostrarArbolInorden(raiz);
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
     {
+        puts("Menu usuario");
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -911,10 +942,13 @@ void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNo
         arregloEstanterias[3].listaLibro=agregarAlFinalSimple(arregloEstanterias[3].listaLibro,nuevoNodo);
 
     }
-    else
+    else if(strcmp(arregloEstanterias[4].generoEstanteria,nuevoNodo->datoLibro.generoLibro) == 0)
     {
         arregloEstanterias[4].listaLibro=agregarAlFinalSimple(arregloEstanterias[4].listaLibro,nuevoNodo);
-
+    }
+    else
+    {
+        puts("ERROR cargar estanteria ordenada");
     }
 
 }
