@@ -300,8 +300,7 @@ void opcionesMenuActualizarLibros()
     printf("[3] Actualizar Autor \n");
     printf("[4] Actualizar Descripcion\n");
     printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
-    printf("[6] Actualizar Cantiadad de Copias\n");
-    printf("[7] Volver al menu de libros \n");
+    printf("[6] Volver al menu de libros \n");
     puts("============================================================");
 
 }
@@ -351,10 +350,7 @@ void actualizarLibro(estanteria arregloListas[])
         case 5: // Actualizar Estado
             buscado = modificarEstadoLibro(buscado);
             break;
-        case 6: // Actualizar Cantidad de Copias
-            buscado = modificarCantidadDeCopias(buscado);
-            break;
-        case 7:
+        case 6:
             opCont='n';
             limpiarPantalla();
             break;
@@ -377,8 +373,7 @@ void opcionesMenuBuscarLibros()
     printf("[3] Buscar por Genero \n");
     printf("[4] Buscar Palabra Clave \n");
     printf("[5] Buscar por Estado \n");
-    printf("[6] Buscar por Copias \n"); //cuando la cant de copias es 0
-    printf("[7] Volver al menu de libros \n");
+    printf("[6] Volver al menu de libros \n");
     puts("============================================================");
 
 }
@@ -409,9 +404,6 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            buscarLibrosXCopias(arregloEstanterias);
-            break;
-        case 7:
             opCont='n';
             limpiarPantalla();
             break;
@@ -537,7 +529,7 @@ void opcionesMenuPrestamos()
 {
     puts("[1] Pedir un libro"); //es crear un prestamo
     puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[3] Devolver un libro");
     puts("[4] Modificar fecha de vencimiento de un prestamo");
     puts("[5] Volver al menu principal");
     puts("============================================================");
@@ -618,7 +610,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
 void opcionesMenuUsuarioLibros()
 {
 
-    puts("[1] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[1] Devolver un libro");
     puts("[2] Pedir un libro"); //es crear un prestamo, si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
     puts("[3] Buscar un libro"); //tenemos un menu
     puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
@@ -710,33 +702,6 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
             }
             while(continuarBucle);
 
-
-
-            if(flag) // si encontre el libro
-            {
-
-                datoLibro=retornarLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
-
-                // tercero verifico si tengo copias disponibles osea cantCopias != 0, si tengo se le da el libro al usuario de manera inmediata, se disminye la cantCopias en 1, se guarda en prestamosActivosID del miembro y se aumenta las vecesPrestado
-                // cuarto retorno el libro y habra que modificarle sus stats
-                if(verificarSiHayCopiasEnUnLibro(datoLibro)) //funcion verificar si tengo copias
-                {
-
-                    crearUnPrestamo(datoMiembro.datosPersonales.dni);
-                    datoMiembro.prestamosActivosID[datoMiembro.validosPrestamosActivosID]=datoLibro.idLibro;
-                    //datoLibro.cantidadDeCopias-=1;
-                    datoLibro.vecesPrestadoLibro+=1;
-
-                    //poner el libro modificado en la estructura de nuevi
-
-                }
-                else //si no tengo copias
-                {
-                    //funcion agregar a la fila
-                    puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
-                }
-
-            }
 
             break;
         case 3:
