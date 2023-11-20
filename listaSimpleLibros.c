@@ -1155,5 +1155,77 @@ int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPre
 }
 
 
+/// funciones prestamos
+
+//faltan probarlas
+int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
+{
+    int dim=5, i=0;
+
+     nodoDoble* listaD=NULL;
+    nodoSimple* listaS=NULL;
+    int flag=0;
+    while(i < dim && flag==0) //recorro las estanterias
+    {
+        listaS=arregloEstanterias[i].listaLibro;
+        while(listaS != NULL && flag==0) //recorro cada libro
+        {
+            while(listaD != NULL && flag==0) //recorro cada fila de un libro
+            {
+                if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
+                {
+                    flag=1;
+                }
+                else
+                {
+                    listaD=listaD->siguiente;
+                }
+
+            }
+        }
+    }
+
+    if(flag == 0)
+    {
+        puts("Error prestamo no encontrado");
+    }
+    return flag;
+}
+
+stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
+{
+    int dim=5, i=0;
+    stPrestamo auxPrestamo;
+
+    nodoDoble* listaD=NULL;
+    nodoSimple* listaS=NULL;
+    int flag=0;
+    while(i < dim && flag==0) //recorro las estanterias
+    {
+        listaS=arregloEstanterias[i].listaLibro;
+        while(listaS != NULL && flag==0) //recorro cada libro
+        {
+            while(listaD != NULL && flag==0) //recorro cada fila de un libro
+            {
+                if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
+                {
+                    auxPrestamo=listaD->datoPrestamo;
+                    flag=1;
+                }
+                else
+                {
+                    listaD=listaD->siguiente;
+                }
+
+            }
+        }
+    }
+
+    if(flag == 0)
+    {
+        puts("Error prestamo no encontrado");
+    }
+    return auxPrestamo;
+}
 
 

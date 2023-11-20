@@ -40,18 +40,14 @@ void menuGeneral()
     int opSw=0;
     char continuarBucle = 's';
 
-    //menu admin
     char contraseniaAdmin[MAX_DIM];
-
-    //menu usuario
     int flag=0;
     char opCrearCuenta;
-    stMiembro miembroAux;
-
     /// Cargar Estanterias
     estanteria arregloEstanterias[5];
+
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+   // cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
     archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
@@ -101,8 +97,7 @@ void menuGeneral()
                 {
                     //si el usuario desea crearse una cuenta, la creamos y ya le activamos el menu
                     flag=0;
-                    miembroAux=crearUnMiembro(arbolMiembros);
-                    arbolMiembros=insertarPorDni(arbolMiembros,crearNodoArbol(miembroAux));
+                    arbolMiembros=insertarPorDni(arbolMiembros,crearNodoArbol(crearUnMiembro(arbolMiembros)));
                 }
                 else
                 {
@@ -461,7 +456,7 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
             raiz=insertarPorDni(raiz,crearNodoArbol(crearUnMiembro(raiz)));
             break;
         case 2: //buscar un determinado miembro
-            menuBuscarMiembros();
+            menuBuscarMiembros(raiz);
             break;
         case 3: //calcular multas
             break;
@@ -493,15 +488,15 @@ void opcionesMenuBuscarMiembros()
     printf("[1] Buscar por Nombre\n");
     printf("[2] Buscar por DNI\n");
     printf("[3] Buscar por Estado\n");
-    printf("[4] Buscar por saldo\n"); //mayor o menor al dato buscado
-    printf("[5] Buscar por Nro de prestamos activos\n");
-    printf("[6] Buscar por Limite de prestamos\n");
+    printf("[4] Buscar por Saldo\n"); //mayor o menor al dato buscado
+    printf("[5] Buscar por Prestamos\n");
+    printf("[6] Buscar por Estado\n");
     printf("[7] Volver al menu de miembros \n");
     puts("============================================================");
 
 }
 
-void menuBuscarMiembros()
+void menuBuscarMiembros(nodoArbol* raiz)
 {
     int opSw=0;
     char opCont='s';
@@ -513,16 +508,22 @@ void menuBuscarMiembros()
         switch(opSw)
         {
         case 1:
+            buscarMiembroXNombre(raiz); // Hay que corregir
             break;
         case 2:
+           // buscarMiembroXDNI(raiz); Esta hecha hya que corregir
             break;
         case 3:
+          //  buscarMiembroXEstado(raiz); Hacer
             break;
         case 4:
+           // buscarMiembroXSaldo(raiz); Hacer
             break;
         case 5:
+           // buscarMiembroXPrestamos(raiz); Hacer
             break;
         case 6:
+           // buscarMiembroXEstado(raiz); Hacer
             break;
         case 7:
             limpiarPantalla();
@@ -588,7 +589,7 @@ void menuPrestamos()
 
 void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
 {
-    stMiembro miembroActual;
+    //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
 
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -654,7 +655,6 @@ void opcionesMenuUsuarioMiembro()
     puts("=======================================");
 }
 
-
 void menuLibrosUsuario(estanteria arregloEstanterias[])
 {
     int opMenuPrin=0;
@@ -681,69 +681,69 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
             break;
         case 2: //pedir un libro
 
-//            do
-//            {
-//                mostrarTodasLasEstanterias(arregloEstanterias);
-//                printf("Ingrese el nombre del libro que quiere: ");
-//                fflush(stdin);
-//                gets(auxString);
-//
-//                while(i < 5 && flag==0)
-//                {
-//                    flag=verificarSiExisteLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
-//                    if(flag==0) //verifico la flag debido a que quiero la posicion del arreglo tmb, y esto me lo hace
-//                    {
-//                        i++;
-//                    }
-//                }
-//
-//                if(flag==0) // si no existe
-//                {
-//                    imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
-//                    fflush(stdin);
-//
-//                    scanf("%c",&opSeguirBuscando);
-//                    if(opSeguirBuscando != 's')
-//                    {
-//                        continuarBucle=0; // si no desea seguir buscando corto el bucle
-//                    }
-//                }
-//                else // si lo encuentro corto el bucle
-//                {
-//                    continuarBucle=0;
-//                }
-//
-//
-//            }
-//            while(continuarBucle);
-//
-//
-//
-//            if(flag) // si encontre el libro
-//            {
-//
-//                datoLibro=retornarLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
-//
-//                // tercero verifico si tengo copias disponibles osea cantCopias != 0, si tengo se le da el libro al usuario de manera inmediata, se disminye la cantCopias en 1, se guarda en prestamosActivosID del miembro y se aumenta las vecesPrestado
-//                // cuarto retorno el libro y habra que modificarle sus stats
-//                if(verificarSiHayCopiasEnUnLibro(datoLibro)) //funcion verificar si tengo copias
-//                {
-//
-//                    crearUnPrestamo(datoMiembro.datosPersonales.dni);
-//                    datoMiembro.prestamosActivosID[datoMiembro.validosPrestamosActivosID]=datoLibro.idLibro;
-//                    //datoLibro.cantidadDeCopias-=1;
-//                    datoLibro.vecesPrestadoLibro+=1;
-//
-//                    //poner el libro modificado en la estructura de nuevi
-//
-//                }
-//                else //si no tengo copias
-//                {
-//                    //funcion agregar a la fila
-//                    puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
-//                }
-//
-//            }
+            do
+            {
+                mostrarTodasLasEstanterias(arregloEstanterias);
+                printf("Ingrese el nombre del libro que quiere: ");
+                fflush(stdin);
+                gets(auxString);
+
+                while(i < 5 && flag==0)
+                {
+                    flag=verificarSiExisteLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
+                    if(flag==0) //verifico la flag debido a que quiero la posicion del arreglo tmb, y esto me lo hace
+                    {
+                        i++;
+                    }
+                }
+
+                if(flag==0) // si no existe
+                {
+                    imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
+                    fflush(stdin);
+
+                    scanf("%c",&opSeguirBuscando);
+                    if(opSeguirBuscando != 's')
+                    {
+                        continuarBucle=0; // si no desea seguir buscando corto el bucle
+                    }
+                }
+                else // si lo encuentro corto el bucle
+                {
+                    continuarBucle=0;
+                }
+
+
+            }
+            while(continuarBucle);
+
+
+
+            if(flag) // si encontre el libro
+            {
+
+                datoLibro=retornarLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
+
+                // tercero verifico si tengo copias disponibles osea cantCopias != 0, si tengo se le da el libro al usuario de manera inmediata, se disminye la cantCopias en 1, se guarda en prestamosActivosID del miembro y se aumenta las vecesPrestado
+                // cuarto retorno el libro y habra que modificarle sus stats
+                if(verificarSiHayCopiasEnUnLibro(datoLibro)) //funcion verificar si tengo copias
+                {
+
+                    crearUnPrestamo(datoMiembro.datosPersonales.dni);
+                    datoMiembro.prestamosActivosID[datoMiembro.validosPrestamosActivosID]=datoLibro.idLibro;
+                    //datoLibro.cantidadDeCopias-=1;
+                    datoLibro.vecesPrestadoLibro+=1;
+
+                    //poner el libro modificado en la estructura de nuevi
+
+                }
+                else //si no tengo copias
+                {
+                    //funcion agregar a la fila
+                    puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
+                }
+
+            }
 
             break;
         case 3:
@@ -996,7 +996,7 @@ void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
     printf("Cantidad de miembros activos.......[%i]\n",contarMiembrosActivos(raiz));
     printf("Cantidad de miembros dados de baja:[%i]\n",contarMiembrosInactivos(raiz));
     printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
-    printf("Total de prestamos.................[%i]\n");///hacer
+    printf("Total de prestamos.................[%i]\n",contarLibrosPrestados(arregloEstanterias));
     printf("Libro mas prestado.................[%i]\n");///hacer
     printf("Miembro con mayor sueldo...........[%i]\n");///hacer
     printf("Prestamo mas costoso...............[%i]\n");///hacer
@@ -1065,18 +1065,44 @@ int contarCantidadDeLibros(estanteria arregloEstanterias[])///me devuelve la can
     return cantidadLibros;
 }
 
-void devolverPrestamoUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos)
+
+
+int contarLibrosPrestados(estanteria arregloEstanterias[]){
+
+int librosPrestados = 0;
+
+nodoSimple* aux = inicListaSimple();
+
+for (int i = 0; i < 5; i++){
+
+
+    aux = arregloEstanterias[i].listaLibro;
+    while (aux != NULL)
+    {
+        if (aux->datoLibro.estado == 2){
+
+            librosPrestados++;
+        }
+        aux = aux->siguiente;
+
+    }
+}
+
+return librosPrestados;
+}
+
+
+
+
+/// Esta es del fabrixxxxxxxxxxxxx
+/*
+
+void devolverLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos)
 {
-
-
-
-
-
-
-
-
-
+    stPrestamo auxPrestamo=retornarPrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID);
+    puts("Este es su prestamo activo: ");
+    mostrarUnPrestamo(auxPrestamo);
 
 
 }
-
+*/

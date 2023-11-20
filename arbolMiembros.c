@@ -60,11 +60,11 @@ stMiembro crearUnMiembro(nodoArbol * raiz)
 
     auxMiembro.estado = 1; // 1.activo o 0.dado de baja, comienza activo
 
-    auxMiembro.prestamoActivoID=0;
+    auxMiembro.validosPrestamosActivosID=0; // por el momento tiene 0 validos debido a que se inician sin ningun prestamo
 
     auxMiembro.saldo=0; // comienza con saldo 0 y lo podra ir modificando
 
-    //auxMiembro.limitePrestamos = 5; // predeterminado, si se penaliza puede disminuir o si paga puede aumentar
+    auxMiembro.limitePrestamos = 5; // predeterminado, si se penaliza puede disminuir o si paga puede aumentar
 
     return auxMiembro;
 }
@@ -86,15 +86,14 @@ void mostrarUnMiembro(stMiembro aux)
     mostrarUnaPersona(aux.datosPersonales);
 
 
-//    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
-//    printf("ID de los prestamos activos: ");
-//    for(int i=0; i < aux.validosPrestamosActivosID; i++)
-//    {
-//        printf("[%i] ",aux.prestamosActivosID[i]);
-//    }
-    //printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
-    printf("ID del prestamo activo......: %i",aux.prestamoActivoID);
+    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
+    printf("ID de los prestamos activos: ");
+    for(int i=0; i < aux.validosPrestamosActivosID; i++)
+    {
+        printf("[%i] ",aux.prestamosActivosID[i]);
+    }
     printf("Estado......................: %i \n", aux.estado);
+    printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
     puts("============================================================");
 
@@ -499,7 +498,7 @@ int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[])
 
 int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
 {
-       int flag = 0;
+    int flag = 0;
 
     if(raiz!= NULL)
     {
@@ -827,8 +826,16 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
             while(validarDentroDeUnRango(aux->dato.saldo,0,100000)== 1);
             break;
         case 3:
+            do
+            {
+                printf("Ingrese el nuevo limite de prestamo: ");
+                fflush(stdin);
+                scanf("%i",&aux->dato.limitePrestamos);
+            }
+            while(validarLimitePrestamoMiembro(aux->dato.limitePrestamos)== 1);
+            break;
+        case 4:
             op = 'n';
-
             break;
         default:
             imprimirMensajeRojo("Ingrese una opcion valida");
@@ -850,8 +857,104 @@ void opcionesActualizarUnMiembroCampos()
     puts("============================================================");
     printf("[1]Actualizar estado\n");
     printf("[2]Actualizar saldo\n");
-    printf("[3]Volver al menu de miembros\n");
+    printf("[3]Actualizar limites de prestamos \n");
+    printf("[4]Volver al menu de miembros\n");
     puts("============================================================");
 
 }
+
+
+
+
+/// Funciones de busqueda de miembros
+
+void buscarMiembroXNombre(nodoArbol* raiz)
+{
+    nodoArbol* aux = inicArbol();
+    char miembro[MAX_DIM];
+
+    do
+    {
+        printf("Ingrese el nombre");
+        fflush(stdin);
+        gets(miembro);
+    }
+    while(validarDigitosEnStrings(miembro)== 1||validarRangoDeNombre(miembro)== 1);
+    aux = retornarMiembroXNombre(raiz, miembro);
+
+    mostrarUnMiembro(aux->dato);
+}
+
+
+nodoArbol* retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
+{
+
+nodoArbol* encontrado;
+    if(raiz != NULL)
+    {
+
+        if (strcmpi(raiz->dato.datosPersonales.nombre, nombreBuscado) == 0)
+        {
+            encontrado = raiz;
+        }
+        else
+        {
+            encontrado = retornarMiembroXNombre(raiz->derecha, nombreBuscado);
+            if (encontrado == NULL)
+            {
+                encontrado = retornarMiembroXNombre(raiz->izquierda, nombreBuscado);
+            }
+        }
+    }
+    return encontrado;
+}
+
+
+void buscarMiembroXDNI(nodoArbol* raiz)
+{
+    nodoArbol* aux = inicArbol();
+    char dni[MAX_DIM];
+
+    do
+    {
+
+        printf("DNI: ");
+        fflush(stdin);
+        scanf("%s", &dni);
+
+    }
+    while(validarDniRepetido(raiz,dni)== 1||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0);
+    aux = retornarMiembroXDNI(raiz, dni);
+
+    mostrarUnMiembro(aux->dato);
+}
+
+
+nodoArbol* retornarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
+{
+
+nodoArbol* encontrado;
+    if(raiz != NULL)
+    {
+
+        if (strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) == 0)
+        {
+            encontrado = raiz;
+        }
+        else
+        {
+            if(strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) > 0)
+            {
+            encontrado = retornarMiembroXDNI(raiz->derecha, dniBuscado);
+
+            }else{
+
+            encontrado = retornarMiembroXDNI(raiz->izquierda, dniBuscado);
+            }
+        }
+    }
+    return encontrado;
+}
+
+
 

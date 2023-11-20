@@ -129,5 +129,6 @@ void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer);
 void archivoAFilasPrestamos(estanteria arregloEstanterias[]);
 void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo);
 int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo);
+stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED
