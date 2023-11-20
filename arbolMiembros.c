@@ -87,10 +87,10 @@ void mostrarUnMiembro(stMiembro aux)
 
 
     printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
-    printf("ID de los prestamos activos: ");
+    printf("ID de los prestamos activos: \n");
     for(int i=0; i < aux.validosPrestamosActivosID; i++)
     {
-        printf("[%i] ",aux.prestamosActivosID[i]);
+        printf("[%i] \n",aux.prestamosActivosID[i]);
     }
     printf("Estado......................: %i \n", aux.estado);
     printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
@@ -502,8 +502,6 @@ int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
 
     if(raiz!= NULL)
     {
-
-
         if(strcmp(raiz->dato.datosPersonales.dni,dniAux)==0)
         {
             flag = 1;
@@ -522,9 +520,9 @@ int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
         }
     }
 
-    if(flag == 1)
+    if(flag == 0)
     {
-        imprimirMensajeRojo("Ingrese un DNI que no este en la base de datos");
+        imprimirMensajeRojo("El DNI no fue encontrado en la base de datos");
     }
     return flag;
 }
@@ -875,38 +873,34 @@ void buscarMiembroXNombre(nodoArbol* raiz)
 
     do
     {
-        printf("Ingrese el nombre");
+        printf("Ingrese el nombre: ");
         fflush(stdin);
         gets(miembro);
     }
     while(validarDigitosEnStrings(miembro)== 1||validarRangoDeNombre(miembro)== 1);
-    aux = retornarMiembroXNombre(raiz, miembro);
+    retornarMiembroXNombre(raiz, miembro);
 
-    mostrarUnMiembro(aux->dato);
+
 }
 
 
-nodoArbol* retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
+void retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
 {
 
-nodoArbol* encontrado;
+
     if(raiz != NULL)
     {
 
         if (strcmpi(raiz->dato.datosPersonales.nombre, nombreBuscado) == 0)
         {
-            encontrado = raiz;
+            mostrarUnMiembro(raiz->dato);
         }
-        else
-        {
-            encontrado = retornarMiembroXNombre(raiz->derecha, nombreBuscado);
-            if (encontrado == NULL)
-            {
-                encontrado = retornarMiembroXNombre(raiz->izquierda, nombreBuscado);
-            }
-        }
+
+            retornarMiembroXNombre(raiz->derecha, nombreBuscado);
+            retornarMiembroXNombre(raiz->izquierda, nombreBuscado);
+
+
     }
-    return encontrado;
 }
 
 
@@ -914,6 +908,7 @@ void buscarMiembroXDNI(nodoArbol* raiz)
 {
     nodoArbol* aux = inicArbol();
     char dni[MAX_DIM];
+    int i = 0;
 
     do
     {
@@ -921,19 +916,22 @@ void buscarMiembroXDNI(nodoArbol* raiz)
         printf("DNI: ");
         fflush(stdin);
         scanf("%s", &dni);
-
+        i++;
     }
-    while(validarDniRepetido(raiz,dni)== 1||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0);
-    aux = retornarMiembroXDNI(raiz, dni);
+    while((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0) && i < 3);
+    if ((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0))
+    {
 
-    mostrarUnMiembro(aux->dato);
+        aux = retornarMiembroXDNI(raiz, dni);
+        mostrarUnMiembro(aux->dato);
+    }
 }
 
 
 nodoArbol* retornarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
 {
-
-nodoArbol* encontrado;
+    printf("%s", dniBuscado);
+    nodoArbol* encontrado;
     if(raiz != NULL)
     {
 
@@ -945,11 +943,13 @@ nodoArbol* encontrado;
         {
             if(strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) > 0)
             {
-            encontrado = retornarMiembroXDNI(raiz->derecha, dniBuscado);
+                encontrado = retornarMiembroXDNI(raiz->derecha, dniBuscado);
 
-            }else{
+            }
+            else
+            {
 
-            encontrado = retornarMiembroXDNI(raiz->izquierda, dniBuscado);
+                encontrado = retornarMiembroXDNI(raiz->izquierda, dniBuscado);
             }
         }
     }

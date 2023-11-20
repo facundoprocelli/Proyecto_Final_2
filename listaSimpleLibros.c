@@ -42,13 +42,7 @@ stLibro crearUnLibro(estanteria arregloEstanterias[])
 
     aux.vecesPrestadoLibro=0;
 
-    do
-    {
-        printf("Copias: ");
-        fflush(stdin);
-        gets(aux.cantidadDeCopias);
-    }
-    while(validarCaracteresEnEnteros(aux.cantidadDeCopias)== 0 || (aux.cantidadDeCopias < 100));
+
 
     printf("Descripcion: ");
     fflush(stdin);
@@ -100,7 +94,7 @@ void mostrarUnLibro(stLibro aux)
     printf("Estado................: %i \n",aux.estado);
     printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
     printf("Descripcion...........: %s \n",aux.descripcionLibro);
-    printf("Copias................: %s \n",aux.cantidadDeCopias);
+
 
     mostrarFila(aux.reservasLibro);
 
@@ -321,23 +315,6 @@ nodoSimple* modificarNombreLibro(nodoSimple* aux)
     return aux;
 }
 
-nodoSimple* modificarCantidadDeCopias(nodoSimple* aux)
-{
-
-    do
-    {
-        printf("Ingrese la nueva cantiadad de copias ");
-        printf("Copias: ");
-        fflush(stdin);
-        gets(aux->datoLibro.cantidadDeCopias);
-    }
-    while(validarCaracteresEnEnteros(aux->datoLibro.cantidadDeCopias)== 0|| aux->datoLibro.cantidadDeCopias < 100);
-
-
-
-    return aux;
-}
-
 nodoSimple* modificarGeneroLibro(nodoSimple* aux)
 {
 
@@ -542,19 +519,7 @@ void opcionesGenero()
 
 }
 
-// verifico si hay copias disponibles de un determinado libro
 
-int verificarSiHayCopiasEnUnLibro(stLibro datoLibro)
-{
-    int flag=0;
-
-    if(datoLibro.cantidadDeCopias != 0)
-    {
-        flag=1;
-    }
-
-    return flag; // si flag= 1 hay copias sino 0
-}
 
 
 ///archivos
@@ -610,7 +575,6 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro1.descripcionLibro, "Una historia que contribuye a la caracterizacion general de Obi-Wan Kenobi.");
     libro1.estado = 1;
     libro1.vecesPrestadoLibro = 0;
-    strcpy(libro1.cantidadDeCopias, "5");
     inicFila(&libro1.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro1));
 
@@ -624,7 +588,6 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro2.descripcionLibro, "Una emocionante historia de aventuras en el universo de Pokemon.");
     libro2.estado = 1;
     libro2.vecesPrestadoLibro = 0;
-    strcpy(libro2.cantidadDeCopias, "3");
     inicFila(&libro2.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro2));
 
@@ -638,7 +601,6 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro3.descripcionLibro, "La historia de un nino que descubre que es un mago en su 11 cumpleaños.");
     libro3.estado = 1;
     libro3.vecesPrestadoLibro = 0;
-    strcpy(libro3.cantidadDeCopias, "6");
     inicFila(&libro3.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro3));
 
@@ -654,7 +616,6 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el señor Darcy.");
     libro4.estado = 1;
     libro4.vecesPrestadoLibro = 0;
-    strcpy(libro4.cantidadDeCopias, "5");
     inicFila(&libro4.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro4));
 
@@ -667,7 +628,6 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro5.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
     libro5.estado = 1;
     libro5.vecesPrestadoLibro = 0;
-    strcpy(libro5.cantidadDeCopias, "8");
     inicFila(&libro5.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro5));
 
@@ -945,108 +905,6 @@ void menuOpcionesDisponibilidad()
     printf("\n[0] Titulo de baja");
     printf("\n[1] Titulo en alta");
     printf("\n[2] Titulo Prestados");
-
-}
-
-
-void buscarLibrosXCopias(estanteria arregloEstanterias[])
-{
-
-    int opcion;
-
-    menuOpcionesCopias();
-    opcion = preguntarDatoEntero();
-
-    switch(opcion)
-    {
-
-    case 1:
-        buscarEstanteriaParaCopias(arregloEstanterias, 0, 0);
-        break;
-    case 2:
-        buscarEstanteriaParaCopias(arregloEstanterias, 0, 10);
-        break;
-    case 3:
-        buscarEstanteriaParaCopias(arregloEstanterias,10, 30);
-        break;
-    case 4:
-        buscarEstanteriaParaCopias(arregloEstanterias, 30, 50);
-        break;
-    case 5:
-        buscarEstanteriaParaCopias(arregloEstanterias, 50, 100 );
-        break;
-    default:
-        puts("\n Opcion invalida");
-
-
-
-    }
-}
-
-void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias)
-{
-
-    int flag = -1;
-    int i = 0;
-    nodoSimple* aux = inicListaSimple();
-
-    while ((i < MAX_GEN))
-    {
-
-        aux = retornarNodosLibrosXCopias(arregloEstanterias[i].listaLibro,minCopias, maxCopias);
-
-        if ( aux != NULL)
-        {
-            mostrarListaSimple(aux);
-            flag = 1;
-        }
-        i++;
-    }
-
-    if (flag == -1)
-    {
-        printf("\nNo se encontro nungun Libro entre esos parametros\n");
-    }
-
-}
-
-nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista, int minCopias, int maxCopias)
-{
-
-
-    nodoSimple* aux = inicListaSimple();
-
-    while (lista != NULL)
-    {
-
-        int copias = convertirStringsDeNumerosAEntero(lista->datoLibro.cantidadDeCopias);
-
-        if(copias >= minCopias && copias <= maxCopias)
-        {
-
-            nodoSimple* NN = crearNodoSimple(lista->datoLibro);
-            aux = agregarAlFinalSimple(aux, NN);
-        }
-
-        lista = lista->siguiente;
-    }
-
-
-    return aux;
-}
-
-
-
-
-
-void menuOpcionesCopias()
-{
-
-    printf("\n[1] 0 Copias disponibles");
-    printf("\n[2] Menos de 10 copias disponibles");
-    printf("\n[3] Entre 30 y 10 copias disponibles");
-    printf("\n[4] Entre 30 y 50 copias disponibles");
-    printf("\n[5] Mas de 50 copias disponibles");
 
 }
 

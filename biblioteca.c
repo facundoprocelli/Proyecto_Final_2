@@ -47,7 +47,7 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-   // cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
     archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
@@ -301,8 +301,7 @@ void opcionesMenuActualizarLibros()
     printf("[3] Actualizar Autor \n");
     printf("[4] Actualizar Descripcion\n");
     printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
-    printf("[6] Actualizar Cantiadad de Copias\n");
-    printf("[7] Volver al menu de libros \n");
+    printf("[6] Volver al menu de libros \n");
     puts("============================================================");
 
 }
@@ -352,10 +351,7 @@ void actualizarLibro(estanteria arregloListas[])
         case 5: // Actualizar Estado
             buscado = modificarEstadoLibro(buscado);
             break;
-        case 6: // Actualizar Cantidad de Copias
-            buscado = modificarCantidadDeCopias(buscado);
-            break;
-        case 7:
+        case 6:
             opCont='n';
             limpiarPantalla();
             break;
@@ -378,8 +374,7 @@ void opcionesMenuBuscarLibros()
     printf("[3] Buscar por Genero \n");
     printf("[4] Buscar Palabra Clave \n");
     printf("[5] Buscar por Estado \n");
-    printf("[6] Buscar por Copias \n"); //cuando la cant de copias es 0
-    printf("[7] Volver al menu de libros \n");
+    printf("[6] Volver al menu de libros \n");
     puts("============================================================");
 
 }
@@ -410,9 +405,6 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
-            buscarLibrosXCopias(arregloEstanterias);
-            break;
-        case 7:
             opCont='n';
             limpiarPantalla();
             break;
@@ -435,7 +427,7 @@ void opcionesMenuMiembros()
     printf("[2] Buscar Miembros \n");
     printf("[3] Calcular Multas \n");
     printf("[4] Generar Informes  \n");
-    printf("[5] Modificar limite de prestamo a un miembro\n");
+    printf("[5] Mostrar todos los Miembros\n");
     printf("[6] Volver al menu principal \n");
     puts("============================================================");
 
@@ -462,7 +454,8 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
             break;
         case 4: ///informes sobre miembros (hacer un menu)
             break;
-        case 5: //modificar el limite de prestamos en un miembro
+        case 5:
+            mostrarArbolInorden(raiz);
             break;
         case 6:
             opCont='n';
@@ -508,10 +501,11 @@ void menuBuscarMiembros(nodoArbol* raiz)
         switch(opSw)
         {
         case 1:
-            buscarMiembroXNombre(raiz); // Hay que corregir
+            buscarMiembroXNombre(raiz);
+
             break;
         case 2:
-           // buscarMiembroXDNI(raiz); Esta hecha hya que corregir
+            buscarMiembroXDNI(raiz);
             break;
         case 3:
           //  buscarMiembroXEstado(raiz); Hacer
@@ -544,7 +538,7 @@ void opcionesMenuPrestamos()
 {
     puts("[1] Pedir un libro"); //es crear un prestamo
     puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
+    puts("[3] Devolver un libro");
     puts("[4] Modificar fecha de vencimiento de un prestamo");
     puts("[5] Volver al menu principal");
     puts("============================================================");
@@ -718,7 +712,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
             while(continuarBucle);
 
 
-
+/*
             if(flag) // si encontre el libro
             {
 
@@ -742,8 +736,8 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
                     //funcion agregar a la fila
                     puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
                 }
-
             }
+*/
 
             break;
         case 3:
@@ -997,10 +991,10 @@ void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
     printf("Cantidad de miembros dados de baja:[%i]\n",contarMiembrosInactivos(raiz));
     printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
     printf("Total de prestamos.................[%i]\n",contarLibrosPrestados(arregloEstanterias));
-    printf("Libro mas prestado.................[%i]\n");///hacer
-    printf("Miembro con mayor sueldo...........[%i]\n");///hacer
-    printf("Prestamo mas costoso...............[%i]\n");///hacer
-    printf("Miembro con mas prestamos..........[%i]\n");///hacer
+    printf("Libro mas prestado.................[%i]\n");///Mostrar el titulo
+    printf("Miembro con mayor sueldo...........[%i]\n");///Mostrar el DNI
+    printf("Prestamo mas costoso...............[%i]\n");///Mostrar el ID
+    printf("Miembro con mas prestamos..........[%i]\n");///Mostrar el DNI
     puts("============================================================");
 
 

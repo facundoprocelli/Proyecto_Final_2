@@ -46,6 +46,7 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
     return aux;
 }
 
+
 int validarDias(int dias)
 {
     int flag = 0;
@@ -59,14 +60,13 @@ int validarDias(int dias)
 }
 
 
+
 void asignarTiempo(stFecha * aux,struct tm * info_tiempo)
 {
     aux->diaTiempo = info_tiempo->tm_mday;
     aux->mesTiempo = info_tiempo->tm_mon+1;
     aux->anioTiempo = info_tiempo->tm_year+1900;
 }
-
-
 void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPrestamo)
 {
     // Convertir la fecha de inicio a una estructura de tiempo
@@ -91,6 +91,7 @@ void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPresta
 }
 
 
+
 //mostrar una fecha
 void mostrarUnaFecha(stFecha aux)
 {
@@ -111,16 +112,6 @@ void mostrarUnPrestamo(stPrestamo aux)
     mostrarUnaFecha(aux.vencimientoPrestamo);
     puts("--------------------------------------------------");
 }
-
-///funciones devolver un prestamo
-
-// primero tengo que ver todos los libros que tiene activo el miembro
-// segundo le pregunto cual libro quiere devolver
-// tercero hago todas las validaciones sobre q si el libro existe
-// cuarto le modifico las stats al libro, le aumento las veces prestado, si no tiene nadie en la fila le cambio el estado, sino sigue el mismo estado
-// quinto muevo el prestamo a la pila de prestamos inactivos
-
-
 
 ///funciones lista doble
 

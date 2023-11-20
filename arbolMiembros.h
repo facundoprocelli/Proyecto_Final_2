@@ -109,7 +109,7 @@ void opcionesActualizarUnMiembroCampos();
 
 ///Muestra
 
-nodoArbol* retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[]);
+void retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[]);
 nodoArbol* retornarMiembroXDNI(nodoArbol* raiz, char dniBuscado[]);
 
 void buscarMiembroXDNI(nodoArbol* raiz);

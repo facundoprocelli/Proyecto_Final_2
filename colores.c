@@ -14,6 +14,7 @@ void imprimirMensajeVerde(const char *mensaje) {
     printf("%s\n", mensaje);
     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 }
+
 void imprimirMensajeMarronOscuro(const char *mensaje) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
