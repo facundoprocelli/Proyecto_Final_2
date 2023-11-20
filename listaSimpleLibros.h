@@ -1,6 +1,7 @@
 #ifndef LISTASIMPLELIBROS_H_INCLUDED
 #define LISTASIMPLELIBROS_H_INCLUDED
 #define MAX_DIM 26
+#define MAX_DIM_TITULO 50
 #define MAX_DIM_DESC 300
 #include "filaReservas.h"
 #include "arbolMiembros.h"
@@ -11,7 +12,7 @@ typedef struct
 {
 
     int idLibro; //id autoincremental
-    char nombreDeLibro[MAX_DIM];
+    char nombreDeLibro[MAX_DIM_TITULO];
     char generoLibro[MAX_DIM];
     char autorLibro[MAX_DIM];
     char descripcionLibro[MAX_DIM_DESC];
@@ -117,8 +118,8 @@ int verificarSiHayCopiasEnUnLibro(stLibro datoLibro);
 
 /// funciones del archivo de libros
 void cargarUnLibroAlArchivo(stLibro aux);
-void librosAlArchivo(estanteria arregloEstanterias[]);
-void listaSimpleAlArchivo(nodoSimple*listaSimple);
+
+void estanteriaAlArchivo(estanteria arregloEstanterias[]);
 void archivoAEstanteria(estanteria arregloEstanterias[]);
 
 /// funciones del archivo de prestamos

@@ -680,33 +680,28 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
 
 //cargar una listaSimple de libros al archivo
 
-void listaSimpleAlArchivo(nodoSimple*listaSimple)
+void estanteriaAlArchivo(estanteria arregloEstanterias[])
 {
+    int dim=5;
     FILE*buffer=fopen(ARCHIVO_LIBROS,"wb");
     stLibro aux;
     if(buffer != NULL)
     {
-        while(listaSimple != NULL)
+
+        for(int i=0; i < dim; i++)
         {
-            aux=listaSimple->datoLibro;
-            fwrite(&aux,sizeof(stLibro),1,buffer);
-            listaSimple = listaSimple->siguiente;
+            while(arregloEstanterias[i].listaLibro != NULL)
+            {
+                aux=arregloEstanterias[i].listaLibro->datoLibro;
+                fwrite(&aux,sizeof(stLibro),1,buffer);
+                arregloEstanterias[i].listaLibro = arregloEstanterias[i].listaLibro->siguiente;
+            }
         }
 
         fclose(buffer);
     }
 
 }
-
-void librosAlArchivo(estanteria arregloEstanterias[])
-{
-    int dim=5;
-    for(int i=0; i < dim; i++)
-    {
-        listaSimpleAlArchivo(arregloEstanterias[i].listaLibro);
-    }
-}
-
 
 //cargar estanterias del archivo
 
@@ -741,8 +736,10 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
             recorrerLibrosParaFila(arregloEstanterias[i].listaLibro,buffer);
         }
         fclose(buffer);
-    }else{
-    puts("Archivo prestamos vacio");
+    }
+    else
+    {
+        puts("Archivo prestamos vacio");
     }
 
 }
