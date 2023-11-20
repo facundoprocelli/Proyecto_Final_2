@@ -50,7 +50,6 @@ void menuGeneral()
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
     archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
-
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
@@ -59,12 +58,12 @@ void menuGeneral()
     pilaPrestamos prestamosInactivos;
     inicPila(&prestamosInactivos);
     archivoAPila(&prestamosInactivos);
-    printf("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
-    printf("\t\t      =============================================\n\n");
-
     do
     {
-        puts("Menu general");
+        imprimirMensajeMarronOscuro("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
+        imprimirMensajeMarronOscuro("\t\t      =============================================\n\n");
+
+        puts("=============Menu general===============");
         opcionesMenuGeneral();
         opSw=preguntarDatoEntero();
         limpiarPantalla();
@@ -77,21 +76,19 @@ void menuGeneral()
             gets(contraseniaAdmin);
             if(strcmp(contraseniaAdmin,"Book Maze")==0)
             {
-
-            arbolMiembros = biblioteca(arregloEstanterias, arbolMiembros);
+                imprimirMensajeVerde("Ha ingresado correctamente");
+                arbolMiembros = biblioteca(arregloEstanterias, arbolMiembros);
             }
             else
             {
-                puts("Contrasenia incorrecta");
+                imprimirMensajeRojo("Contrasenia incorrecta,Reintente\n");
             }
             break;
         case 2:
 
-
-
             if(validarIngresoUsuario(arbolMiembros)) //si no existe retorno 1
             {
-                printf("Ese Dni no existe, desea crear una cuenta? s/n: ");
+                imprimirMensajeRojo("Ese Dni no existe, desea crear una cuenta? s/n: ");
                 fflush(stdin);
                 scanf("%c",&opCrearCuenta);
 
@@ -118,19 +115,21 @@ void menuGeneral()
             break;
         case 3:
             informeFinal(arbolMiembros,arregloEstanterias);
-            puts("HA FINALIZADO CORRECTAMENTE EL PROGRAMA...");
+            imprimirMensajeVerde("HA FINALIZADO CORRECTAMENTE EL PROGRAMA...");
             continuarBucle = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
     }
     while(continuarBucle != 'n');
 
+
+
     arbolAlArchivo(arbolMiembros);
-    estanteriaAlArchivo(arregloEstanterias);
     prestamosAlArchivo(arregloEstanterias);
+    estanteriaAlArchivo(arregloEstanterias);
     cargarPilaAlArchivo(&prestamosInactivos);
 
 
@@ -147,11 +146,12 @@ int validarIngresoUsuario(nodoArbol* raiz)
 
     do
     {
-    printf("DNI: ");
-    fflush(stdin);
-    scanf("%s", &aux.dni);
+        printf("DNI: ");
+        fflush(stdin);
+        scanf("%s", &aux.dni);
 
-    }while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0);
+    }
+    while(validarRangoDNI(aux.dni)== 0 || validarCaracteresEnEnteros(aux.dni)== 0);
 
 
     if(validarSiExisteDniArbol(raiz,aux.dni)== 0)
@@ -171,7 +171,7 @@ void opcionesMenuGeneral()
     puts("[1] Admin");
     puts("[2] Usuario");
     puts("[3] Finalizar programa");
-
+    puts("========================================");
 
 }
 
@@ -189,15 +189,11 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 
     */
 
-
-
-
-
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
     {
-        puts("Menu admin:");
+        puts("=============Menu admin===============");
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -207,7 +203,7 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             menuLibros(arregloEstanterias);
             break;
         case 2:
-            arbolMiembros =  menuMiembros(arbolMiembros);
+            arbolMiembros = menuMiembros(arbolMiembros);
             break;
         case 3:
             menuPrestamos();
@@ -217,37 +213,38 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             opContinuarMenuPrin = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
 
     }
     while(opContinuarMenuPrin != 'n');
-
-
-    return arbolMiembros;
+return arbolMiembros;
 }
 
 void menuDeAccionesPrincipales()
 {
-    printf("Por favor, seleccione que accion desea realizar \n");
+    printf("Por favor, seleccione que accion desea realizar \n\n");
+
     printf("[1] Opciones Libros\n");
     printf("[2] Opciones Miembros\n");
     printf("[3] Opciones Prestamos \n");
     printf("[4] Salir \n");
-    puts("-------------------------------------");
+    puts("============================================================");
+
 }
 
 void opcionesMenuGestionarLibros()
 {
     printf("Seleccione una opcion\n");
-
+    puts("============================================================");
     printf("[1] Ingresar Nuevo Libro \n");
     printf("[2] Buscar libros\n");
     printf("[3] Actualizar Libro\n");
     printf("[4] Mostrar todos los libros\n");
     printf("[5] Volver al menu principal\n");
-    puts("---------------------------------------------------");
+    puts("============================================================");
+
 }
 
 void menuLibros(estanteria arregloEstanterias[])
@@ -257,7 +254,8 @@ void menuLibros(estanteria arregloEstanterias[])
     stLibro aux;
     do
     {
-        puts("---------------------------------------------------");
+        puts("============================================================");
+
         opcionesMenuGestionarLibros();
         opSw=preguntarDatoEntero();
         limpiarPantalla();
@@ -282,7 +280,7 @@ void menuLibros(estanteria arregloEstanterias[])
             limpiarPantalla();
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
 
@@ -304,7 +302,8 @@ void opcionesMenuActualizarLibros()
     printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
     printf("[6] Actualizar Cantiadad de Copias\n");
     printf("[7] Volver al menu de libros \n");
-    puts("------------------------------------");
+    puts("============================================================");
+
 }
 
 void actualizarLibro(estanteria arregloListas[])
@@ -314,7 +313,8 @@ void actualizarLibro(estanteria arregloListas[])
     nodoSimple* buscado = inicListaSimple();
     do
     {
-        puts("---------------------------------------------------");
+        puts("============================================================");
+
         opcionesMenuActualizarLibros();
 
         opSw = preguntarDatoEntero();
@@ -359,7 +359,7 @@ void actualizarLibro(estanteria arregloListas[])
             limpiarPantalla();
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
         limpiarPantalla();
@@ -379,7 +379,8 @@ void opcionesMenuBuscarLibros()
     printf("[5] Buscar por Estado \n");
     printf("[6] Buscar por Copias \n"); //cuando la cant de copias es 0
     printf("[7] Volver al menu de libros \n");
-    puts("-----------------------------------------");
+    puts("============================================================");
+
 }
 
 void menuBuscarLibros(estanteria arregloEstanterias[])
@@ -415,7 +416,7 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             limpiarPantalla();
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
         //limpiarPantalla();
@@ -427,7 +428,7 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
 void opcionesMenuMiembros()
 {
 
-    puts("----------------------------------------------------");
+
     printf("Seleccione una opcion\n");
     printf("[1] Registrar Miembros \n");
     printf("[2] Buscar Miembros \n");
@@ -435,7 +436,8 @@ void opcionesMenuMiembros()
     printf("[4] Generar Informes  \n");
     printf("[5] Modificar limite de prestamo a un miembro\n");
     printf("[6] Volver al menu principal \n");
-    puts("----------------------------------------------------");
+    puts("============================================================");
+
 }
 
 nodoArbol* menuMiembros(nodoArbol * raiz)
@@ -466,7 +468,7 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
             limpiarPantalla();
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
         //limpiarPantalla();
@@ -480,7 +482,7 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
 void opcionesMenuBuscarMiembros()
 {
 
-    puts("------------------------------------------");
+
     printf("Seleccione una opcion \n");
     printf("[1] Buscar por Nombre\n");
     printf("[2] Buscar por DNI\n");
@@ -489,7 +491,8 @@ void opcionesMenuBuscarMiembros()
     printf("[5] Buscar por Nro de prestamos activos\n");
     printf("[6] Buscar por Limite de prestamos\n");
     printf("[7] Volver al menu de miembros \n");
-    puts("------------------------------------------");
+    puts("============================================================");
+
 }
 
 void menuBuscarMiembros()
@@ -520,7 +523,7 @@ void menuBuscarMiembros()
             opCont='n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
 
@@ -537,7 +540,8 @@ void opcionesMenuPrestamos()
     puts("[3] Devolver un libro"); //aumentar el contador de cantcopias +1
     puts("[4] Modificar fecha de vencimiento de un prestamo");
     puts("[5] Volver al menu principal");
-    puts("-------------------------------------------------------");
+    puts("============================================================");
+
 }
 
 void menuPrestamos()
@@ -565,7 +569,7 @@ void menuPrestamos()
             opCont='n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
 
@@ -584,7 +588,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
     char opContinuarMenuPrin='s';
     do
     {
-        puts("Menu usuario");
+        puts("=============Menu usuario===============");
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -603,7 +607,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
             opContinuarMenuPrin = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
     }
@@ -620,7 +624,7 @@ void opcionesMenuUsuarioLibros()
     puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
     puts("[5] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
     puts("[6] Volver al menu principal");
-    puts("----------------------------------------------------------------");
+    puts("================================================================");
 }
 
 void opcionesMenuUsuarioPrestamos()
@@ -630,7 +634,7 @@ void opcionesMenuUsuarioPrestamos()
     puts("[2] Ver limite de prestamos");
     puts("[3] Ver todo el historial de prestamos");
     puts("[4] Volver al menu principal");
-    puts("-------------------------------------------");
+    puts("===============================================");
 }
 
 void opcionesMenuUsuarioMiembro()
@@ -641,7 +645,7 @@ void opcionesMenuUsuarioMiembro()
     puts("[4] Ver mi usuario");
     puts("[5] Darse Alta o Baja");
     puts("[6] Volver al menu principal");
-    puts("---------------------------------------");
+    puts("=======================================");
 }
 
 void menuLibrosUsuario(estanteria arregloEstanterias[])
@@ -688,7 +692,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
 
                 if(flag==0) // si no existe
                 {
-                    puts("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
+                    imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
                     fflush(stdin);
 
                     scanf("%c",&opSeguirBuscando);
@@ -748,7 +752,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[])
             opContinuarMenuPrin = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
     }
@@ -783,7 +787,7 @@ void menuMiembroUsuario()
             opContinuarMenuPrin = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
     }
@@ -814,7 +818,7 @@ void menuPrestamosUsuario()
             opContinuarMenuPrin = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
     }
@@ -852,7 +856,7 @@ void buscarLibrosUsuario(estanteria arregloEstanterias[])
             limpiarPantalla();
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
         //limpiarPantalla();
@@ -869,7 +873,7 @@ void opcionesMenuBuscarLibrosUsuario()
     puts("[4] Buscar libro por Popularidad");
     puts("[5] Buscar libro por palabra Clave");
     puts("[6] Volver al menu principal");
-    puts("-------------------------------------------");
+    puts("======================================");
 
 
 }
@@ -879,7 +883,7 @@ void opcionesMenuBuscarLibrosUsuario()
 
 void inicEstanterias(estanteria arregloEstanterias[])
 {
-    char*generos[]= {"Fantasia","Ciencia Ficcion","Romance","Terror","Aventura"};
+    char *generos[]= {"Fantasia","Ciencia Ficcion","Romance","Terror","Aventura"};
     int dim=5;
     for(int i=0; i < dim; i++)
     {
@@ -899,8 +903,9 @@ void mostrarTodasLasEstanterias(estanteria arregloEstanterias[])
 
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola)
 {
-    puts("\n-----------------------------------------");
-    printf("\nGENERO DE LA ESTANTERIA: %s \n",unaEstanteriaSola.generoEstanteria);
+    imprimirMensajeMarronOscuro("======================================================");
+    printf("\nGENERO DE LA ESTANTERIA[%s]\n",unaEstanteriaSola.generoEstanteria);
+
 
     if(unaEstanteriaSola.listaLibro != NULL)
     {
@@ -909,7 +914,7 @@ void mostrarUnaEstanteria(estanteria unaEstanteriaSola)
     }
     else
     {
-        puts("Estanteria vacia :(");
+        imprimirMensajeRojo("Estanteria vacia :(");
     }
 }
 
@@ -948,7 +953,7 @@ void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNo
     }
     else
     {
-        puts("ERROR cargar estanteria ordenada");
+        imprimirMensajeRojo("ERROR cargar estanteria ordenada");
     }
 
 }
@@ -979,21 +984,78 @@ void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
 {
 
     ///aca tenemos que hacer muchas funciones que cumplan con los requerimientos del informe
+    puts("============================================================");
+    printf("Total de miembros................. [%i]\n",contarMiembrosArbol(raiz));
+    printf("Cantidad de miembros activos.......[%i]\n",contarMiembrosActivos(raiz));
+    printf("Cantidad de miembros dados de baja:[%i]\n",contarMiembrosInactivos(raiz));
+    printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
+    printf("Total de prestamos.................[%i]\n");///hacer
+    printf("Libro mas prestado.................[%i]\n");///hacer
+    printf("Miembro con mayor sueldo...........[%i]\n");///hacer
+    printf("Prestamo mas costoso...............[%i]\n");///hacer
+    printf("Miembro con mas prestamos..........[%i]\n");///hacer
+    puts("============================================================");
 
-    puts("-----------------------------------------------------------");
-    printf("Total de miembros: \n");
-    printf("Cantidad de miembros activos: \n");
-    printf("Cantidad de miembros dados de baja: \n");
-    printf("Total de libros: \n");
-    printf("Total de prestamos: \n");
-    printf("Libro mas prestado: \n");
-    printf("Miembro con mayor sueldo: \n");
-    printf("Libro con mayor cantidad de copias: \n");
-    printf("Prestamo mas costoso: \n");
-    printf("Miembro con mas prestamos: \n");
-    puts("-----------------------------------------------------------");
 
 }
 
+///funciones de informes
+
+//contarmiembros ya existe
+int contarMiembrosActivos(nodoArbol * raiz)///me devuelve los miembros activos en el arbol
+{
+    int cantidadActivos = 0;
+
+    if(raiz != NULL)
+    {
+        if(raiz->dato.estado == 1)
+        {
+
+            cantidadActivos=1;
+        }
+        cantidadActivos+= contarMiembrosActivos(raiz->izquierda);
+        cantidadActivos+= contarMiembrosActivos(raiz->derecha);
+
+    }
+
+    return cantidadActivos;
+}
+int contarMiembrosInactivos(nodoArbol * raiz)///me devuelve los miembros que esten inactivos o dados de baja en el sistema
+{
+    int cantidadInactivos = 0;
+
+    if(raiz != NULL)
+    {
+        if(raiz->dato.estado == 0)
+        {
+
+            cantidadInactivos=1;
+        }
+        cantidadInactivos+= contarMiembrosInactivos(raiz->izquierda);
+        cantidadInactivos+= contarMiembrosInactivos(raiz->derecha);
+
+    }
+
+    return cantidadInactivos;
+}
+
+int contarCantidadDeLibros(estanteria arregloEstanterias[])///me devuelve la cantidad de libros que haya en todo el sistema
+{
+    int dim = 5;///cantidad de estanterias por genero
+    int cantidadLibros = 0;
+
+    nodoSimple*aux=NULL;
+
+    for(int i = 0;i<dim;i++)
+    {
+        aux= arregloEstanterias[i].listaLibro;
+        while(aux != NULL)
+        {
+            cantidadLibros++;
+            aux=aux->siguiente;
+        }
+    }
+    return cantidadLibros;
+}
 
 

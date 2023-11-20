@@ -1,9 +1,8 @@
 #ifndef PILAPRESTAMOSINACTIVOS_H_INCLUDED
 #define PILAPRESTAMOSINACTIVOS_H_INCLUDED
 #define MAX_DIM 26
-#include "colores.h"
-///Estructura prestamos
 
+///Estructura prestamos
 typedef struct{
 
     int diaTiempo;
@@ -11,6 +10,7 @@ typedef struct{
     int anioTiempo;
 
 } stFecha;
+
 
 typedef struct{
 
@@ -41,6 +41,7 @@ typedef struct
     nodoDoble * prestamoInactivo;//lista doble
 
 } pilaPrestamos;
+
 
 
 ///funciones de pilas

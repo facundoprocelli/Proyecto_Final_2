@@ -684,17 +684,17 @@ void estanteriaAlArchivo(estanteria arregloEstanterias[])
 {
     int dim=5;
     FILE*buffer=fopen(ARCHIVO_LIBROS,"wb");
-    stLibro aux;
+    nodoSimple * aux = inicListaSimple();
+
     if(buffer != NULL)
     {
-
         for(int i=0; i < dim; i++)
         {
-            while(arregloEstanterias[i].listaLibro != NULL)
+            aux = arregloEstanterias[i].listaLibro;
+            while(aux != NULL)
             {
-                aux=arregloEstanterias[i].listaLibro->datoLibro;
-                fwrite(&aux,sizeof(stLibro),1,buffer);
-                arregloEstanterias[i].listaLibro = arregloEstanterias[i].listaLibro->siguiente;
+                fwrite(&aux->datoLibro,sizeof(stLibro),1,buffer);
+                aux = aux->siguiente;
             }
         }
 

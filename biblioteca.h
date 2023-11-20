@@ -60,5 +60,11 @@ void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
 
 void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
+///funciones de informes
+
+//contarmiembros ya existe
+int contarMiembrosActivos(nodoArbol * raiz);
+int contarMiembrosInactivos(nodoArbol * raiz);
+int contarCantidadDeLibros(estanteria arregloEstanterias[]);
 
 #endif // BIBLIOTECA_H_INCLUDED

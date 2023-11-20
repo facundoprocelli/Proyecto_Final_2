@@ -82,7 +82,7 @@ void mostrarUnaPersona(stPersona aux)
 
 void mostrarUnMiembro(stMiembro aux)
 {
-    puts("--------------------------Miembro-----------------------");
+    puts("===========================Miembro=================================");
     mostrarUnaPersona(aux.datosPersonales);
 
 
@@ -95,7 +95,8 @@ void mostrarUnMiembro(stMiembro aux)
     printf("Estado......................: %i \n", aux.estado);
     printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
-    puts("--------------------------------------------------------");
+    puts("============================================================");
+
 }
 
 ///funciones arbol
@@ -347,7 +348,7 @@ int validarRangoDeNombre(char nombreAux[])
 
     if(longitud >= MAX_DIM||longitud < 3)
     {
-        puts("Ingrese un nombre entre 3 y 25 caracteres\n");
+        imprimirMensajeRojo("Ingrese un nombre entre 3 y 25 caracteres\n");
         flag = 1;
     }
 
@@ -369,7 +370,7 @@ int validarDigitosEnStrings(char nombreAux[])
         }
         else
         {
-            puts("Error, hay datos numericos en el nombre...\n");
+            imprimirMensajeRojo("Error, hay datos numericos en el nombre...\n");
             flag = 1;
         }
     }
@@ -387,7 +388,7 @@ int validarRangoDNI(char dniAux[])
     }
     else
     {
-        puts("Ingrese un DNI entre 7 y 8 digitos.\n");
+        imprimirMensajeRojo("Ingrese un DNI entre 7 y 8 digitos.\n");
     }
     return flag;
 }
@@ -400,7 +401,7 @@ int validarCaracteresEnEnteros(char aux[])
     {
         if(!isdigit(aux[i]))  // Si el carácter actual no es un dígito
         {
-            puts("No puede ingresar caracteres... \n");
+            imprimirMensajeRojo("No puede ingresar caracteres... \n");
             flag = 0;
         }
     }
@@ -418,7 +419,7 @@ int validarRangoTelefono(char telefono[])
     }
     else
     {
-        puts("Ingrese un Nro de telefono entre 8 y 10 digitos(ej:2235762462).\n");
+        imprimirMensajeRojo("Ingrese un Nro de telefono entre 8 y 10 digitos(ej:2235762462).\n");
     }
     return flag;
 }
@@ -427,7 +428,7 @@ int validarEstadoMiembro(int estadoAux)
     int flag = 0;
     if(estadoAux <0||estadoAux >1)
     {
-        puts("Ingrese un estado valido\n");
+        imprimirMensajeRojo("Ingrese un estado valido\n");
         flag = 1;
     }
 
@@ -438,7 +439,7 @@ int validarDentroDeUnRango(int dato,int minimo,int maximo)
 {
     if(dato < minimo ||dato >maximo)
     {
-        puts("Ingrese una opcion o rango valido\n");
+        imprimirMensajeRojo("Ingrese una opcion o rango valido\n");
         return 1;
     }
 
@@ -450,7 +451,7 @@ int validarLimitePrestamoMiembro(int limiteAux)
 
     if(limiteAux<0 || limiteAux>3)
     {
-        puts("Ingrese un limite valido\n");
+        imprimirMensajeRojo("Ingrese un limite valido\n");
         flag = 1;
     }
 
@@ -487,7 +488,7 @@ int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[])
 
     if(flag == 1)
     {
-        puts("Ingrese un DNI que no este en la base de datos");
+        imprimirMensajeRojo("Ingrese un DNI que no este en la base de datos");
     }
     return flag;
 }
@@ -523,7 +524,7 @@ int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
 
     if(flag == 1)
     {
-        puts("Ingrese un DNI que no este en la base de datos");
+        imprimirMensajeRojo("Ingrese un DNI que no este en la base de datos");
     }
     return flag;
 }
@@ -549,7 +550,7 @@ int validarNroRepetido(nodoArbol * raiz,char nroExistente[])
     }
     if(flag == 1)
     {
-        puts("Ingrese un numero de telefono que no este repetido en la base de datos");
+        imprimirMensajeRojo("Ingrese un numero de telefono que no este repetido en la base de datos");
     }
 
     return flag;
@@ -571,7 +572,7 @@ void cargarUnMiembroAlArchivo(stMiembro aux)
     }
     else
     {
-        puts("Archivo vacio");
+        imprimirMensajeRojo("Archivo de miembro vacio");
     }
 
 }
@@ -592,7 +593,7 @@ nodoArbol * archivoAlArbol(nodoArbol * raiz)
     }
     else
     {
-        puts("Archivo vacio");
+        imprimirMensajeRojo("Archivo de miembro vacio");
     }
 
     return raiz;
@@ -615,7 +616,7 @@ void arbolAlArchivo(nodoArbol * raiz)
         }
         else
         {
-            puts("Archivo vacio");
+            imprimirMensajeRojo("Archivo de miembro vacio");
         }
     }
 
@@ -655,7 +656,7 @@ void mostrarArchivoDeMiembros()
     }
     else
     {
-        puts("Archivo vacio");
+        imprimirMensajeRojo("Archivo de miembro vacio");
     }
 
 }
@@ -692,7 +693,7 @@ nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
                 op = 'n';
                 break;
             default:
-                puts("Ingrese una opcion valida\n");
+                imprimirMensajeRojo("Ingrese una opcion valida\n");
                 break;
             }
 
@@ -706,11 +707,11 @@ nodoArbol * menuDeModificaciones(nodoArbol * raiz,char dniAModificar[])
 
 void opcionesMenuActualizarMiembros()
 {
-    puts(".....................................................");
+    puts("============================================================");
     printf("[1]Actualizar datos personales\n");
     printf("[2]Actualizar saldo|estado|cantidad de prestamos\n");
     printf("[3]Volver al menu de miembros\n");
-    puts(".....................................................");
+    puts("============================================================");
 
 }
 nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux)
@@ -769,7 +770,7 @@ nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux)
             op = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
 
         }
@@ -781,14 +782,14 @@ nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux)
 
 void opcionesActualizarUnMiembro()
 {
-    puts(".....................................................");
+    puts("============================================================");
     printf("[1]Actualizar nombre\n");
     printf("[2]Actualizar DNI\n");
     printf("[3]Actualizar Numero de telefono\n");
     printf("[4]Actualizar direccion\n");
     printf("[5]Actualizar todo el miembro\n");
     printf("[6]Volver al menu de miembros\n");
-    puts(".....................................................");
+    puts("============================================================");
 
 }
 
@@ -837,7 +838,7 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
             op = 'n';
             break;
         default:
-            puts("Ingrese una opcion valida");
+            imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
 
@@ -853,12 +854,12 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
 
 void opcionesActualizarUnMiembroCampos()
 {
-    puts(".....................................................");
+    puts("============================================================");
     printf("[1]Actualizar estado\n");
     printf("[2]Actualizar saldo\n");
     printf("[3]Actualizar limites de prestamos \n");
     printf("[4]Volver al menu de miembros\n");
-    puts(".....................................................");
+    puts("============================================================");
 
 }
 
