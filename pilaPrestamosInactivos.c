@@ -22,7 +22,7 @@ void archivoAPila(pilaPrestamos * pila)
     }
     else
     {
-        puts("Archivo prestamos vacio");
+        imprimirMensajeRojo("Archivo prestamos vacio");
     }
 }
 
@@ -54,7 +54,7 @@ void cargarPilaAlArchivo(pilaPrestamos * pila)
     }
     else
     {
-        puts("Archivo de prestamos inactivos vacio");
+        imprimirMensajeRojo("Archivo de prestamos inactivos vacio");
     }
 
 }

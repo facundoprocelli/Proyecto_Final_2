@@ -1,6 +1,7 @@
 #ifndef PILAPRESTAMOSINACTIVOS_H_INCLUDED
 #define PILAPRESTAMOSINACTIVOS_H_INCLUDED
 #define MAX_DIM 26
+#include "colores.h"
 ///Estructura prestamos
 
 typedef struct{

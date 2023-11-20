@@ -48,7 +48,7 @@ void mostrarFila(filaReservas reservas)
     }
     else
     {
-        puts("Fila vacia");
+        imprimirMensajeRojo("Fila vacia");
     }
 }
 

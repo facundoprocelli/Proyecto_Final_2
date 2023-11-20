@@ -213,7 +213,7 @@ int validarPrecioPrestamo(char aux[])
 
     if(dato < min || dato > max)
     {
-        puts("Ingrese un precio valido \n");
+        imprimirMensajeRojo("Ingrese un precio valido \n");
         flag=1;
     }
 
