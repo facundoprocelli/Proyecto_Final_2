@@ -18,6 +18,7 @@ typedef struct
     char descripcionLibro[MAX_DIM_DESC];
     int estado; // si esta activo,eliminado o prestado
     int vecesPrestadoLibro;
+    char cantidadDeCopias[MAX_DIM];
     filaReservas reservasLibro;
 
 } stLibro;
@@ -70,6 +71,7 @@ nodoSimple* modificarGeneroLibro(nodoSimple* aux);
 nodoSimple* modificarAutorLibro(nodoSimple* aux);
 nodoSimple* modificarDescripcionLibro(nodoSimple* aux);
 nodoSimple* modificarEstadoLibro(nodoSimple* aux);
+nodoSimple* modificarCantidadDeCopias(nodoSimple* aux);
 
 // funciones de mostrar
 
@@ -81,7 +83,9 @@ void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[]);
 void buscarLibroXClave( estanteria arregloEstanterias[]);
 void buscarPalabrasClaves(nodoSimple* listaSimple, char claves[]);
 void buscarLibrosXEstado(estanteria arregloEstanterias[]);
+void buscarLibrosXCopias(estanteria arregloEstanterias[]);
 void buscarLibrosUsuario(estanteria arregloEstanterias[]);
+void menuOpcionesCopias();
 void menuOpcionesDisponibilidad();
 void menuEstados();
 
@@ -98,8 +102,10 @@ int retornarIDMasGrandeEnLista(nodoSimple*listaSimple);
 int retornarUltimoIDLibro(estanteria arregloEstanterias[]);
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[]);
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
+nodoSimple* retornarNodosLibrosXCopias(nodoSimple* lista,int minCopias, int maxCopias);
 nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista);
 void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[]);
+void buscarEstanteriaParaCopias(estanteria arregloEstanterias[], int minCopias, int maxCopias);
 void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
 
 
@@ -107,6 +113,7 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
 //Se utilizaron validaciones ya hechas en otras librerias para modularizar
 void validarGenero(char auxGenero[]);
 void opcionesGenero();
+int verificarSiHayCopiasEnUnLibro(stLibro datoLibro);
 
 
 /// funciones del archivo de libros

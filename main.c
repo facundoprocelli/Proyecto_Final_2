@@ -5,9 +5,7 @@
 int main()
 {
 
-menuGeneral();
-
-
+    menuGeneral();
 
 return 0;
 }

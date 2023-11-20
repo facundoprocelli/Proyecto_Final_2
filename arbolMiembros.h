@@ -20,11 +20,9 @@ typedef struct
 
     int estado; //activo o de baja
     int saldo;// es el dinero que el miembro ingreso a la cuenta, se debera utilizar dinero para los prestamos, si no tiene, no puede pagar un prestamo
-    int prestamosActivosID[30]; // id de los prestamos que tiene activos, los inactivos van al archivo
+    int prestamoActivoID; // id de los prestamos que tiene activos, los inactivos van al archivo
 
-    int validosPrestamosActivosID; // los validos del arreglo de prestamos Activos
-
-    int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
+    //int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
 
 }stMiembro;
 

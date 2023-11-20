@@ -60,11 +60,11 @@ stMiembro crearUnMiembro(nodoArbol * raiz)
 
     auxMiembro.estado = 1; // 1.activo o 0.dado de baja, comienza activo
 
-    auxMiembro.validosPrestamosActivosID=0; // por el momento tiene 0 validos debido a que se inician sin ningun prestamo
+    auxMiembro.prestamoActivoID=0;
 
     auxMiembro.saldo=0; // comienza con saldo 0 y lo podra ir modificando
 
-    auxMiembro.limitePrestamos = 5; // predeterminado, si se penaliza puede disminuir o si paga puede aumentar
+    //auxMiembro.limitePrestamos = 5; // predeterminado, si se penaliza puede disminuir o si paga puede aumentar
 
     return auxMiembro;
 }
@@ -86,14 +86,15 @@ void mostrarUnMiembro(stMiembro aux)
     mostrarUnaPersona(aux.datosPersonales);
 
 
-    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
-    printf("ID de los prestamos activos: ");
-    for(int i=0; i < aux.validosPrestamosActivosID; i++)
-    {
-        printf("[%i] ",aux.prestamosActivosID[i]);
-    }
+//    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
+//    printf("ID de los prestamos activos: ");
+//    for(int i=0; i < aux.validosPrestamosActivosID; i++)
+//    {
+//        printf("[%i] ",aux.prestamosActivosID[i]);
+//    }
+    //printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
+    printf("ID del prestamo activo......: %i",aux.prestamoActivoID);
     printf("Estado......................: %i \n", aux.estado);
-    printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
     puts("============================================================");
 
@@ -826,16 +827,8 @@ nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
             while(validarDentroDeUnRango(aux->dato.saldo,0,100000)== 1);
             break;
         case 3:
-            do
-            {
-                printf("Ingrese el nuevo limite de prestamo: ");
-                fflush(stdin);
-                scanf("%i",&aux->dato.limitePrestamos);
-            }
-            while(validarLimitePrestamoMiembro(aux->dato.limitePrestamos)== 1);
-            break;
-        case 4:
             op = 'n';
+
             break;
         default:
             imprimirMensajeRojo("Ingrese una opcion valida");
@@ -857,8 +850,7 @@ void opcionesActualizarUnMiembroCampos()
     puts("============================================================");
     printf("[1]Actualizar estado\n");
     printf("[2]Actualizar saldo\n");
-    printf("[3]Actualizar limites de prestamos \n");
-    printf("[4]Volver al menu de miembros\n");
+    printf("[3]Volver al menu de miembros\n");
     puts("============================================================");
 
 }
