@@ -40,7 +40,6 @@ void menuGeneral()
     int opSw=0;
     char continuar = 's';
 
-
     /// Cargar Estanterias
     estanteria arregloEstanterias[5];
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
@@ -175,10 +174,9 @@ void opcionesMenuGestionarLibros()
 
     printf("[1] Ingresar Nuevo Libro \n");
     printf("[2] Buscar libros\n");
-    printf("[3] Pedir Libro\n");
-    printf("[4] Actualizar Libro\n");
-    printf("[5] Mostrar todos los libros\n");
-    printf("[6] Volver al menu principal\n");
+    printf("[3] Actualizar Libro\n");
+    printf("[4] Mostrar todos los libros\n");
+    printf("[5] Volver al menu principal\n");
     puts("---------------------------------------------------");
 }
 
@@ -204,16 +202,12 @@ void menuLibros(estanteria arregloEstanterias[])
             menuBuscarLibros(arregloEstanterias);
             break;
         case 3:
-            ///pedir libro o añadir a la fila
-            break;
-        case 4:
-
             actualizarLibro(arregloEstanterias);
             break;
-        case 5:
+        case 4:
             mostrarTodasLasEstanterias(arregloEstanterias);
             break;
-        case 6:
+        case 5:
             opCont='n';
             limpiarPantalla();
             break;
@@ -338,7 +332,7 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibroXgenero(arregloEstanterias);
             break;
         case 4:
-            //buscarLibroXClave(arregloEstanterias);
+            //buscarLibroXClave(arregloEstanterias); // Esto esta en duda ( yo lo dejaria para el final final )
             break;
         case 5:
             buscarLibrosXEstado(arregloEstanterias);

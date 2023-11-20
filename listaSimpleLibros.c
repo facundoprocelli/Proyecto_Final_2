@@ -671,6 +671,17 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     inicFila(&libro5.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro5));
 
+    stLibro libro6;
+    libro6.idLibro = 6;
+    strcpy(libro6.nombreDeLibro, "1984");
+    strcpy(libro6.generoLibro, "Terror");
+    strcpy(libro6.autorLibro, "George Orwell");
+    strcpy(libro6.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
+    libro6.estado = 1;
+    libro6.vecesPrestadoLibro = 0;
+    strcpy(libro6.cantidadDeCopias, "8");
+    inicFila(&libro6.reservasLibro);
+    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro6));
 
 
 }
