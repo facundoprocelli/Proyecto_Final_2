@@ -635,7 +635,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro3.nombreDeLibro, "Harry Potter and the Philosophers Stone");
     strcpy(libro3.generoLibro, "Fantasia");
     strcpy(libro3.autorLibro, "J.K. Rowling");
-    strcpy(libro3.descripcionLibro, "La historia de un nino que descubre que es un mago en su 11 cumpleaÒos.");
+    strcpy(libro3.descripcionLibro, "La historia de un nino que descubre que es un mago en su 11 cumplea√±os.");
     libro3.estado = 1;
     libro3.vecesPrestadoLibro = 0;
     strcpy(libro3.cantidadDeCopias, "6");
@@ -651,7 +651,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro4.nombreDeLibro, "Pride and Prejudice");
     strcpy(libro4.generoLibro, "Romance");
     strcpy(libro4.autorLibro, "Jane Austen");
-    strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el seÒor Darcy.");
+    strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el se√±or Darcy.");
     libro4.estado = 1;
     libro4.vecesPrestadoLibro = 0;
     strcpy(libro4.cantidadDeCopias, "5");
@@ -664,24 +664,13 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro5.nombreDeLibro, "1984");
     strcpy(libro5.generoLibro, "Terror");
     strcpy(libro5.autorLibro, "George Orwell");
-    strcpy(libro5.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad est·n severamente restringidas.");
+    strcpy(libro5.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad est√°n severamente restringidas.");
     libro5.estado = 1;
     libro5.vecesPrestadoLibro = 0;
     strcpy(libro5.cantidadDeCopias, "8");
     inicFila(&libro5.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro5));
 
-    stLibro libro6;
-    libro6.idLibro = 6;
-    strcpy(libro6.nombreDeLibro, "1984");
-    strcpy(libro6.generoLibro, "Terror");
-    strcpy(libro6.autorLibro, "George Orwell");
-    strcpy(libro6.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad est·n severamente restringidas.");
-    libro6.estado = 1;
-    libro6.vecesPrestadoLibro = 0;
-    strcpy(libro6.cantidadDeCopias, "8");
-    inicFila(&libro6.reservasLibro);
-    cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro6));
 
 
 }
