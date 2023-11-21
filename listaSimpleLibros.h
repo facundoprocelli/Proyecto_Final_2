@@ -126,4 +126,7 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 
 
+///funciones de prestamos
+void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto);
+
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

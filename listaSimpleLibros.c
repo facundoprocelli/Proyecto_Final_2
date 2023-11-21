@@ -688,12 +688,31 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
     FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"wb");
     stPrestamo aux;
 
+
+    nodoSimple*listaSimple=inicListaSimple();
+    nodoDoble*listaDoble=inicListaDoble();
+
+
     if(buffer != NULL)
     {
 
-        for(int i=0 ; i < MAX_GEN; i++)
+        for(int i=0 ; i < 5; i++)
         {
-            recorrerLibrosParaFila(arregloEstanterias[i].listaLibro,buffer);
+            listaSimple=arregloEstanterias[i].listaLibro;
+            while(listaSimple != NULL)
+            {
+                listaDoble=listaSimple->datoLibro.reservasLibro.primero;
+                while(listaDoble != NULL)
+                {
+                    aux=listaDoble->datoPrestamo;
+                    fwrite(&aux,sizeof(stPrestamo),1,buffer);
+                    borrarPrimerNodoDoble(&listaDoble);
+
+                }
+                listaSimple=listaSimple->siguiente;
+            }
+
+            i++;
         }
         fclose(buffer);
     }

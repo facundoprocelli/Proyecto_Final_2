@@ -41,6 +41,7 @@ typedef struct
 
 typedef struct
 {
+
     nodoDoble * prestamoInactivo;//lista doble
 
 } pilaPrestamos;

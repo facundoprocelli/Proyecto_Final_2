@@ -19,9 +19,9 @@ void opcionesMenuGeneral();
 nodoArbol*  biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
 void menuDeAccionesPrincipales();
 
-void menuUsuario(estanteria arregloEstanterias[], nodoArbol* arbolMiembros);
+void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, stMiembro miembroActual, pilaPrestamos*prestamosInactivos);
 
-void menuLibrosUsuario();
+void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros);
 void opcionesMenuUsuarioLibros();
 
 void menuPrestamosUsuario();
@@ -68,7 +68,7 @@ int contarMiembrosInactivos(nodoArbol * raiz);
 int contarCantidadDeLibros(estanteria arregloEstanterias[]);
 /// funciones de prestamos
 
-void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos);
+void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros);
 int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBuscar[]);
 
 #endif // BIBLIOTECA_H_INCLUDED

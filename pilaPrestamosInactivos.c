@@ -28,6 +28,7 @@ void archivoAPila(pilaPrestamos * pila)
 
 void apilar(pilaPrestamos * pila,stPrestamo aux)
 {
+    mostrarUnPrestamo(aux);
     pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
 }
 
@@ -35,7 +36,16 @@ void apilar(pilaPrestamos * pila,stPrestamo aux)
 
 void mostrarPila(pilaPrestamos pila)
 {
-    mostrarListaDoble(pila.prestamoInactivo);
+    if(pila.prestamoInactivo != NULL)
+    {
+        mostrarListaDoble(pila.prestamoInactivo);
+
+    }
+    else
+    {
+        imprimirMensajeRojo("Pila vacia");
+    }
+
 }
 
 

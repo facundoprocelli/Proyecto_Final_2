@@ -72,7 +72,7 @@ stPrestamo extraerUnPrestamoFila(filaReservas*reservas)
 
         prestamo=reservas->primero->datoPrestamo;
 
-        borrarPrimerNodoDoble(reservas->primero);
+        borrarPrimerNodoDoble(&reservas->primero);
 
         if(reservas->primero == NULL)
         {

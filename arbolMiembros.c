@@ -174,6 +174,11 @@ nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
     return nuevo;
 }
 
+
+
+
+
+
 //mostrar arbol
 
 void mostrarArbolPreorden(nodoArbol *raiz)
@@ -288,9 +293,6 @@ nodoArbol* borrarUnNodoPorDni(nodoArbol* raiz, char dniMiembro[])
 
     return raiz;
 }
-
-
-
 
 nodoArbol* nodoMasDerechaArbol(nodoArbol*raiz)
 {
@@ -855,10 +857,32 @@ void opcionesActualizarUnMiembroCampos()
 }
 
 
+void modificarPrestamoActivoIDMiembroEnArbol(nodoArbol*raiz, char dniMiembro[], int idNuevoPrestamo)
+{
+    if(raiz != NULL)
+    {
+        if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)==0)
+        {
+            raiz->dato.prestamoActivoID=idNuevoPrestamo;
+        }
+        else
+        {
+            if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)>0)
+            {
+
+                modificarPrestamoActivoIDMiembroEnArbol(raiz->izquierda,dniMiembro,idNuevoPrestamo);
+            }
+            else
+            {
+                modificarPrestamoActivoIDMiembroEnArbol(raiz->derecha,dniMiembro,idNuevoPrestamo);
+            }
+        }
+    }
+
+}
 
 
-
-/// Funciones de busqueda de miembros
+/// Funciones de mostrar miembros
 
 void buscarMiembroXNombre(nodoArbol* raiz)
 {
@@ -949,25 +973,6 @@ void mostrarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void   buscarMiembroXEstado(nodoArbol* raiz)
 {
 
@@ -981,12 +986,11 @@ void   buscarMiembroXEstado(nodoArbol* raiz)
         op =convertirStringsDeNumerosAEntero(dato);
     }
     while ( validarCaracteresEnEnteros(dato) == 0 || (op != 1 &&  op != 0) );
-//
+
 
     mostrarMiembroXEstado(raiz, op);
 
 }
-
 
 
 void mostrarMiembroXEstado(nodoArbol* raiz, int estado)
@@ -1007,9 +1011,6 @@ void mostrarMiembroXEstado(nodoArbol* raiz, int estado)
 
     }
 }
-
-
-
 
 
 void menuOpcionesSaldoMiembro()
@@ -1085,6 +1086,5 @@ void mostrarMiembrosParaSaldo(nodoArbol* raiz, int minSaldo, int maxSaldo)
 
     }
 }
-
 
 

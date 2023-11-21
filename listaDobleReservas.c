@@ -10,11 +10,14 @@
 
 ///funciones estructura prestamo
 
-stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
+stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[])
 {
     stPrestamo aux;
     int duracionVencimiento = 0;
     aux.idPrestamo= retornarUltimoIDPrestamo() +1;
+    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
+    strcpy(aux.generoEstanteria,generoDelPrestamo);
+    aux.idLibro=idLibroPrestado;
 
     do
     {
@@ -24,15 +27,12 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[])
     }
     while(validarPrecioPrestamo(aux.precioPrestamo) || validarCaracteresEnEnteros(aux.precioPrestamo) ==0);
 
-    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
     //funciones para calcular inicio y fin del prestamo(automatico)
     time_t tiempo_actual;time(&tiempo_actual);struct tm *info_tiempo = localtime(&tiempo_actual);
     asignarTiempo(&aux.inicioPrestamo,info_tiempo);
 
-    ///aux.idLibro
 
-    //funcion que verifique el estado del libro y tambien si le quedan copias, si cantCopias==0 no podes hacer el prestamo
 
     do
     {
@@ -105,7 +105,9 @@ void mostrarUnPrestamo(stPrestamo aux)
     puts("---------------------Prestamo---------------------");
     printf("[ID Prestamo]...............: %i \n",aux.idPrestamo);
     printf("[DNI del miembro]...........: %s \n",aux.dniUsuarioPrestado);
-    printf("[Precio del prestamo].......: %s \n",aux.precioPrestamo);
+    printf("[Precio]....................: %s \n",aux.precioPrestamo);
+    printf("[Genero]....................: %s \n",aux.generoEstanteria);
+    printf("[Estado]....................: %i \n",aux.estado);
     printf(".......[Inicio del prestamo].......\n");
     mostrarUnaFecha(aux.inicioPrestamo);
     printf("....[Vencimiento del prestamo].... \n");

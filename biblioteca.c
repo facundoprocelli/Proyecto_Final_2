@@ -45,7 +45,7 @@ void menuGeneral()
     //menu usuario
     int flag=0;
     char opCrearCuenta;
-    stMiembro auxMiembro;
+    nodoArbol* auxNodoMiembro;
     char auxString[MAX_DIM];
 
 
@@ -65,6 +65,10 @@ void menuGeneral()
     pilaPrestamos prestamosInactivos;
     inicPila(&prestamosInactivos);
     archivoAPila(&prestamosInactivos);
+
+
+    //agregarAlFinalFila(&arregloEstanterias[0].listaLibro->datoLibro.reservasLibro,crearUnPrestamo("12345678",3,"Fantasia"));
+
     do
     {
         imprimirMensajeMarronOscuro("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
@@ -105,9 +109,9 @@ void menuGeneral()
             }
             while(validarRangoDNI(auxString)== 0 || validarCaracteresEnEnteros(auxString)== 0);
 
-            flag=validarSiExisteDniArbol(arbolMiembros,auxString);
-            //retornarMiembroXDNI()
-            if(flag == 0) //si no existe retorno 0
+            auxNodoMiembro=buscarNodoPorDniArbol(arbolMiembros,auxString);
+
+            if(auxNodoMiembro == NULL) //si no existe retorno 0
             {
                 imprimirMensajeRojo("Ese Dni no existe, desea crear una cuenta? s/n: ");
                 fflush(stdin);
@@ -116,20 +120,16 @@ void menuGeneral()
                 if(opCrearCuenta== 's')
                 {
                     //si el usuario desea crearse una cuenta, la creamos y ya le activamos el menu
-                    flag=1;
-                    auxMiembro=crearUnMiembro(arbolMiembros);
-                    arbolMiembros=insertarPorDni(arbolMiembros,crearNodoArbol(auxMiembro));
-                }
-                else
-                {
-                    flag=0; // cambio el valor del flag asi no entra al menu
+
+                    auxNodoMiembro=crearNodoArbol(crearUnMiembro(arbolMiembros));
+                    arbolMiembros=insertarPorDni(arbolMiembros,auxNodoMiembro);
                 }
             }
 
-            if(flag==1)
+            limpiarPantalla();
+            if(auxNodoMiembro != NULL)
             {
-                limpiarPantalla();
-                menuUsuario(arregloEstanterias, arbolMiembros);
+                menuUsuario(arregloEstanterias, arbolMiembros,auxNodoMiembro->dato,&prestamosInactivos);
             }
 
 
@@ -147,7 +147,7 @@ void menuGeneral()
     }
     while(continuarBucle != 'n');
 
-
+    mostrarPila(prestamosInactivos);
 
     arbolAlArchivo(arbolMiembros);
     prestamosAlArchivo(arregloEstanterias);
@@ -575,7 +575,7 @@ void menuPrestamos()
 
 ///menu usuario
 
-void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar si faltan alguna estructura mas...
+void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, stMiembro miembroActual, pilaPrestamos*prestamosInactivos)///verificar si faltan alguna estructura mas...
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
 
@@ -584,13 +584,14 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * raiz)///verificar s
     do
     {
         puts("=============Menu usuario===============");
+        printf("Bienvenido %s \n",miembroActual.datosPersonales.nombre);
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
         switch(opMenuPrin)
         {
         case 1:
-            menuLibrosUsuario(arregloEstanterias);
+            menuLibrosUsuario(arregloEstanterias,miembroActual,prestamosInactivos,arbolMiembro);
             break;
         case 2:
             menuMiembroUsuario();
@@ -643,7 +644,7 @@ void opcionesMenuUsuarioMiembro()
     puts("=======================================");
 }
 
-void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,pilaPrestamos*prestamosInactivos)
+void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -665,7 +666,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
         switch(opMenuPrin)
         {
         case 1:
-            devolverUnLibroUsuario(miembroActual,arregloEstanterias,prestamosInactivos);
+            devolverUnLibroUsuario(miembroActual,arregloEstanterias,prestamosInactivos,arbolMiembros);
             break;
         case 2: //pedir un libro
 
@@ -1095,11 +1096,12 @@ int contarLibrosPrestados(estanteria arregloEstanterias[])
 // quinto muevo el prestamo a la pila de prestamos inactivos
 
 
-void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos)
+void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
 {
     char opDevolver;
-    if(validarSiExistePrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID))
-    {
+    miembroActual.prestamoActivoID=1;
+//    if(validarSiExistePrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID) != 0)
+//    {
 
         stPrestamo auxPrestamo=retornarPrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID);
         puts("Este es su prestamo activo: ");
@@ -1110,16 +1112,19 @@ void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanteria
         if(opDevolver == 's')
         {
 
-            auxPrestamo.estado=0;
-            apilar(prestamosInactivos,auxPrestamo);
+            modificarPrestamoActivoIDMiembroEnArbol(arbolMiembros,miembroActual.datosPersonales.dni,0);//modificar el prestamo activo a 0 ya que devolvio el libro
+
+            auxPrestamo.estado=0; //tambien modifico el estado del prestamo a 0
+            apilar(prestamosInactivos,auxPrestamo); // y lo guardo en la pila
+
             libroDevuelto(arregloEstanterias,auxPrestamo);
 
         }
-    }
-    else
-    {
-        puts("Usted no tiene ningun libro prestado");
-    }
+//    }
+//    else
+//    {
+//        puts("Usted no tiene ningun libro prestado");
+//    }
 
 }
 
