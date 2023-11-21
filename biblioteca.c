@@ -315,7 +315,7 @@ void actualizarLibro(estanteria arregloListas[])
 
         limpiarPantalla();
 
-        if(opSw != 7)
+        if(opSw != 6)
         {
             int idBuscado = preguntarID(arregloListas);
 
@@ -393,7 +393,7 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             buscarLibroXgenero(arregloEstanterias);
             break;
         case 4:
-            //buscarLibroXClave(arregloEstanterias); // Esto esta en duda ( yo lo dejaria para el final final )
+            buscarLibroXClave(arregloEstanterias); // Esto esta en duda ( yo lo dejaria para el final final )
             break;
         case 5:
             buscarLibrosXEstado(arregloEstanterias);
@@ -807,7 +807,7 @@ void buscarLibrosUsuario(estanteria arregloEstanterias[])
             //buscarLibrosXPopularidad(arregloEstanterias);
             break;
         case 5:
-            //buscarLibroXClave(arregloEstanterias);
+            buscarLibroXClave(arregloEstanterias);
             break;
         case 6:
             opCont='n';

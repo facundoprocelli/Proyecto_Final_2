@@ -237,31 +237,7 @@ nodoSimple* retornarNodosLibroXAutor(nodoSimple* listaSimple, char autorBuscar[]
 }
 
 
-///Retorna los nodos que coincidan con una palabra clave
-nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[])
-{
 
-    nodoSimple* aux = inicListaSimple();
-    char claveConDelimitador[MAX_DIM];
-    strcpy(claveConDelimitador, "#");
-    strcat(claveConDelimitador, clave);
-
-    printf("%s", claveConDelimitador);
-
-    while (listaSimple != NULL)
-    {
-
-
-        if (strstr(listaSimple->datoLibro.descripcionLibro, clave) == 0)
-        {
-
-            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
-            aux = agregarAlFinalSimple(aux, NN );
-        }
-        listaSimple = listaSimple->siguiente;
-    }
-    return aux;
-}
 
 
 nodoSimple* retornarNodosLibroXTitulo(nodoSimple* listaSimple, char tituloBuscar[])
@@ -862,42 +838,6 @@ void buscarLibroXgenero(estanteria arregloEstanterias[])
 }
 
 
-/*
-void buscarLibroXClave(estanteria arregloEstanterias[]){
-
-char clave[MAX_DIM];
-
-do
-{
-    printf("\nIngrese una palabra clave");
-    fflush(stdin);
-    fgets(clave, MAX_DIM, stdin);
-}
-while(validarDigitosEnStrings(clave) == 1 || validarRangoDeNombre(clave));
-
-buscarEstanteriasParaClave(arregloEstanterias, clave);
-
-
-
-}
-
-/*
-void buscarEstanteriasParaClave(estanteria arregloEstnaterias[], char clave[]){
-
-
-for (int i = 0; i < MAX_GEN; i++){
-
-
-
-
-
-}
-
-
-
-
-}
-*/
 
 /// Buscar e imprimir libros por Titulo
 
@@ -966,6 +906,82 @@ void buscarLibrosXEstado(estanteria arregloEstanterias[])
 
 
 
+void buscarLibroXClave(estanteria arregloEstanterias[])
+{
+
+    char clave[MAX_DIM];
+
+    do
+    {
+        printf("\nIngrese una palabra clave");
+        printf("\nPalabra Clave: ");
+        fflush(stdin);
+        gets(clave);
+    }
+    while(validarDigitosEnStrings(clave) == 1 || validarRangoDeNombre(clave) == 1);
+
+    buscarEstanteriasParaClave(arregloEstanterias, clave);
+
+
+
+}
+
+
+void buscarEstanteriasParaClave(estanteria arregloEstanterias[], char clave[])
+{
+
+
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
+
+    while ((i < MAX_GEN))
+    {
+
+        aux = retornarNodosLibroXClave(arregloEstanterias[i].listaLibro, clave);
+
+        if ( aux != NULL)
+        {
+            mostrarListaSimple(aux);
+            flag = 1;
+        }
+
+        i++;
+    }
+
+    if (flag == -1)
+    {
+        printf("\nNo se encontro nungun Libro con esa palabra clave\n");
+    }
+
+
+
+
+}
+
+nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[])
+{
+
+    nodoSimple* aux = inicListaSimple();
+    char descripcion[MAX_DIM_DESC];
+
+    while (listaSimple != NULL)
+    {
+
+        strcpy(descripcion, listaSimple->datoLibro.descripcionLibro);
+
+
+        if (strstr(descripcion, clave) != NULL)
+        {
+            nodoSimple* NN = crearNodoSimple(listaSimple->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN );
+        }
+
+        listaSimple = listaSimple->siguiente;
+    }
+
+    return aux;
+}
 
 
 

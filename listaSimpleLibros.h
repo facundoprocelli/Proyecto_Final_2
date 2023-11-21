@@ -106,6 +106,8 @@ nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista);
 void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[]);
 void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
+nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
+
 
 
 ///validaciones
