@@ -123,5 +123,7 @@ void archivoAFilasPrestamos(estanteria arregloEstanterias[]);
 void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo);
 int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo);
 stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
+int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
+
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

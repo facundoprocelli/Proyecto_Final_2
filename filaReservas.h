@@ -17,8 +17,7 @@ typedef struct{
 void inicFila(filaReservas*reservas);
 void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux);
 void mostrarFila(filaReservas reservas);
-stPrestamo retornarPrimerPrestamoFila(filaReservas reservas);
-stPrestamo extraerUnPrestamoFila(filaReservas reservas);
+stPrestamo extraerUnPrestamoFila(filaReservas*reservas);
 
 
 ///funciones para el archivo de prestamos

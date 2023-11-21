@@ -1015,13 +1015,13 @@ int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPre
 
 /// funciones prestamos
 
-//faltan probarlas
+
 int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
 {
     int dim=5, i=0;
 
-     nodoDoble* listaD=NULL;
-    nodoSimple* listaS=NULL;
+    nodoDoble*listaD=NULL;
+    nodoSimple*listaS=NULL;
     int flag=0;
     while(i < dim && flag==0) //recorro las estanterias
     {
@@ -1030,6 +1030,7 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
         {
             while(listaD != NULL && flag==0) //recorro cada fila de un libro
             {
+                 listaD=listaS->datoLibro.reservasLibro.primero;
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
                 {
                     flag=1;
@@ -1040,7 +1041,9 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
                 }
 
             }
+            listaS=listaS->siguiente;
         }
+        i++;
     }
 
     if(flag == 0)
@@ -1055,14 +1058,17 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
     int dim=5, i=0;
     stPrestamo auxPrestamo;
 
-    nodoDoble* listaD=NULL;
-    nodoSimple* listaS=NULL;
+    nodoDoble*listaD=NULL;
+    nodoSimple*listaS=NULL;
     int flag=0;
+
+
     while(i < dim && flag==0) //recorro las estanterias
     {
         listaS=arregloEstanterias[i].listaLibro;
         while(listaS != NULL && flag==0) //recorro cada libro
         {
+            listaD=listaS->datoLibro.reservasLibro.primero;
             while(listaD != NULL && flag==0) //recorro cada fila de un libro
             {
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
@@ -1076,7 +1082,9 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
                 }
 
             }
+            listaS=listaS->siguiente;
         }
+        i++;
     }
 
     if(flag == 0)
@@ -1084,6 +1092,41 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
         puts("Error prestamo no encontrado");
     }
     return auxPrestamo;
+}
+
+void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto)
+{
+    int i=retornarPosEstanteriaXGenero(arregloEstanterias,prestamoDevuelto.generoEstanteria);
+
+    if(i != -1)
+    {
+        nodoSimple*listaSimple= arregloEstanterias[i].listaLibro;
+
+        while(listaSimple != NULL && listaSimple->datoLibro.idLibro != prestamoDevuelto.idLibro)
+        {
+            //me muevo mientras no lo encuentro
+            listaSimple=listaSimple->siguiente;
+        }
+
+        if(listaSimple->datoLibro.idLibro == prestamoDevuelto.idLibro) // si lo encontre
+        {
+            //si el ID del prestamo devuelto es igual al id del primero (que es obvio que si)
+
+            if(listaSimple->datoLibro.reservasLibro.primero->datoPrestamo.idPrestamo == prestamoDevuelto.idPrestamo)
+            {
+                listaSimple->datoLibro.vecesPrestadoLibro+=1; // aumento las veces que se presto el libro
+                extraerUnPrestamoFila(&listaSimple->datoLibro.reservasLibro); //saco el prestamo actual
+                if(listaSimple->datoLibro.reservasLibro.primero==NULL) // si no hay ningun prestamo mas, cambio el estado del libro
+                {
+                    listaSimple->datoLibro.estado=1;
+                }
+            }
+        }
+
+    }
+
+
+
 }
 
 

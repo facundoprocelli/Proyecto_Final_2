@@ -16,14 +16,13 @@ typedef struct
 typedef struct
 {
 
-    stPersona datosPersonales;
+      stPersona datosPersonales;
 
     int estado; //activo o de baja
     int saldo;// es el dinero que el miembro ingreso a la cuenta, se debera utilizar dinero para los prestamos, si no tiene, no puede pagar un prestamo
-    int prestamosActivosID[30]; // id de los prestamos que tiene activos, los inactivos van al archivo
-    int validosPrestamosActivosID; // los validos del arreglo de prestamos Activos
-    int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
+    int prestamoActivoID; // id de los prestamos que tiene activos, los inactivos van al archivo
 
+    //int limitePrestamos; // el usuario decide el limite de prestamos que tendra esta persona
 }stMiembro;
 
 // Estrutura Arbol
@@ -88,7 +87,6 @@ int validarLimitePrestamoMiembro(int limiteAux);
 int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[]);
 int validarNroRepetido(nodoArbol * raiz,char nroExistente[]);
 
-int validarIngresoUsuario(nodoArbol* raiz);
 
 ///archivos
 void cargarUnMiembroAlArchivo(stMiembro aux);

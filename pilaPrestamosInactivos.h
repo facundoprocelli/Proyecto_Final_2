@@ -17,11 +17,14 @@ typedef struct{
     int idPrestamo; //id propio
     int idLibro; //id del libro prestado
     int estado; // 0 inactivo y 1 activo
+
+    char generoEstanteria[MAX_DIM]; //el genero de la estanteria
+
     char dniUsuarioPrestado[MAX_DIM]; //dni del miembro al que le prestamos el libro
     char precioPrestamo[MAX_DIM];
-
     stFecha inicioPrestamo;
     stFecha vencimientoPrestamo;
+
 
 } stPrestamo;
 

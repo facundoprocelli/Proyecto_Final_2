@@ -62,9 +62,13 @@ void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
 void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 ///funciones de informes
 
-//contarmiembros ya existe
+//contar miembros ya existe
 int contarMiembrosActivos(nodoArbol * raiz);
 int contarMiembrosInactivos(nodoArbol * raiz);
 int contarCantidadDeLibros(estanteria arregloEstanterias[]);
+/// funciones de prestamos
+
+void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos);
+int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBuscar[]);
 
 #endif // BIBLIOTECA_H_INCLUDED

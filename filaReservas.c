@@ -63,20 +63,20 @@ stPrestamo retornarPrimerPrestamoFila(filaReservas reservas)
 
 }
 
-stPrestamo extraerUnPrestamoFila(filaReservas reservas)
+stPrestamo extraerUnPrestamoFila(filaReservas*reservas)
 {
 
     stPrestamo prestamo;
-    if(reservas.primero != NULL)
+    if(reservas->primero != NULL)
     {
 
-        prestamo=reservas.primero->datoPrestamo;
+        prestamo=reservas->primero->datoPrestamo;
 
-        reservas.primero=borrarPrimerNodoDoble(reservas.primero);
+        borrarPrimerNodoDoble(reservas->primero);
 
-        if(reservas.primero == NULL)
+        if(reservas->primero == NULL)
         {
-            reservas.ultimo= NULL;
+            reservas->ultimo= NULL;
         }
 
     }
