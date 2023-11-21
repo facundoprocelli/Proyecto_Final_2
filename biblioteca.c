@@ -55,19 +55,19 @@ void menuGeneral()
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
     //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
-    archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
+
+    /// Cargar Filas de prestamos
+    archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
     /// Pila prestamos inactivos
     pilaPrestamos prestamosInactivos;
     inicPila(&prestamosInactivos);
     archivoAPila(&prestamosInactivos);
 
-
-    //agregarAlFinalFila(&arregloEstanterias[0].listaLibro->datoLibro.reservasLibro,crearUnPrestamo("12345678",3,"Fantasia"));
 
     do
     {
@@ -664,41 +664,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
             break;
         case 2: //pedir un libro
 
-            do
-            {
-                mostrarTodasLasEstanterias(arregloEstanterias);
-                printf("Ingrese el nombre del libro que quiere: ");
-                fflush(stdin);
-                gets(auxString);
-
-                while(i < 5 && flag==0)
-                {
-                    flag=verificarSiExisteLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
-                    if(flag==0) //verifico la flag debido a que quiero la posicion del arreglo tmb, y esto me lo hace
-                    {
-                        i++;
-                    }
-                }
-
-                if(flag==0) // si no existe
-                {
-                    imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
-                    fflush(stdin);
-
-                    scanf("%c",&opSeguirBuscando);
-                    if(opSeguirBuscando != 's')
-                    {
-                        continuarBucle=0; // si no desea seguir buscando corto el bucle
-                    }
-                }
-                else // si lo encuentro corto el bucle
-                {
-                    continuarBucle=0;
-                }
-
-
-            }
-            while(continuarBucle);
+        pedirUnLibro(arregloEstanterias);
 
 
             /*
@@ -1095,11 +1061,14 @@ int contarLibrosPrestados(estanteria arregloEstanterias[])
 void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
 {
     char opDevolver;
-    miembroActual.prestamoActivoID=1;
-//    if(validarSiExistePrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID) != 0)
-//    {
 
-        stPrestamo auxPrestamo=retornarPrestamoXId(arregloEstanterias,miembroActual.prestamoActivoID);
+    nodoArbol*nodoMiembroActual=inicArbol();
+    nodoMiembroActual=retornarNodoMiembroXDNI(arbolMiembros,miembroActual.datosPersonales.dni);
+
+    if(validarSiExistePrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID) == 1)
+    {
+
+        stPrestamo auxPrestamo=retornarPrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID);
         puts("Este es su prestamo activo: ");
         mostrarUnPrestamo(auxPrestamo);
         printf("Desea devolver el libro actual? s/n: ");
@@ -1107,8 +1076,7 @@ void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanteria
         scanf("%c",&opDevolver);
         if(opDevolver == 's')
         {
-
-            modificarPrestamoActivoIDMiembroEnArbol(arbolMiembros,miembroActual.datosPersonales.dni,0);//modificar el prestamo activo a 0 ya que devolvio el libro
+            nodoMiembroActual->dato.prestamoActivoID=0;
 
             auxPrestamo.estado=0; //tambien modifico el estado del prestamo a 0
             apilar(prestamosInactivos,auxPrestamo); // y lo guardo en la pila
@@ -1116,11 +1084,11 @@ void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanteria
             libroDevuelto(arregloEstanterias,auxPrestamo);
 
         }
-//    }
-//    else
-//    {
-//        puts("Usted no tiene ningun libro prestado");
-//    }
+    }
+    else
+    {
+        puts("Usted no tiene ningun libro prestado");
+    }
 
 }
 

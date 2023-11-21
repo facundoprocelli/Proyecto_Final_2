@@ -857,28 +857,29 @@ void opcionesActualizarUnMiembroCampos()
 }
 
 
-void modificarPrestamoActivoIDMiembroEnArbol(nodoArbol*raiz, char dniMiembro[], int idNuevoPrestamo)
+nodoArbol* retornarNodoMiembroXDNI(nodoArbol*raiz, char dniMiembro[])
 {
+    nodoArbol*encontrado=inicArbol();
     if(raiz != NULL)
     {
         if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)==0)
         {
-            raiz->dato.prestamoActivoID=idNuevoPrestamo;
+            encontrado=raiz;
         }
         else
         {
             if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)>0)
             {
 
-                modificarPrestamoActivoIDMiembroEnArbol(raiz->izquierda,dniMiembro,idNuevoPrestamo);
+                encontrado= retornarNodoMiembroXDNI(raiz->izquierda,dniMiembro);
             }
             else
             {
-                modificarPrestamoActivoIDMiembroEnArbol(raiz->derecha,dniMiembro,idNuevoPrestamo);
+                encontrado= retornarNodoMiembroXDNI(raiz->derecha,dniMiembro);
             }
         }
     }
-
+    return encontrado;
 }
 
 

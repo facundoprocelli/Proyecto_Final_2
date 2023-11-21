@@ -83,7 +83,15 @@ stPrestamo extraerUnPrestamoFila(filaReservas*reservas)
     return prestamo;
 }
 
-
+int filaVacia(filaReservas filaAux)
+{
+    int flag=0;
+    if(filaAux.primero == NULL)
+    {
+        flag=1;
+    }
+    return flag;
+}
 
 ///funciones para el archivo de prestamos
 

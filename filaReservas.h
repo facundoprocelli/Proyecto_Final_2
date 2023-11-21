@@ -18,6 +18,7 @@ void inicFila(filaReservas*reservas);
 void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux);
 void mostrarFila(filaReservas reservas);
 stPrestamo extraerUnPrestamoFila(filaReservas*reservas);
+int filaVacia(filaReservas filaAux);
 
 
 ///funciones para el archivo de prestamos

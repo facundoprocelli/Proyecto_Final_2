@@ -61,7 +61,9 @@ void cargarEstanteriaOrdenada(estanteria arregloEstanterias[],nodoSimple*nuevoNo
 
 void cargarLibrosPredeterminados(estanteria arregloEstanteria[]);
 //funciones de verificar
-int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[]);
+
+int verificarSiExisteLibroXNombreEnEstanterias(estanteria arregloEstanterias[],char nombreBuscar[]);
+int verificarSiExisteLibroXNombreEnListaSimple(nodoSimple*listaSimple,char nombreBuscar[]);
 
 //Funciones de modificar
 
@@ -87,6 +89,9 @@ void menuEstados();
 
 
 //funciones buscar
+
+
+nodoSimple* retornarLibroXIDEnEstanterias(estanteria arregloEstanterias[], int idLibroBuscado);
 
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar);
 nodoSimple* retornarNodosLibrosXAutor(nodoSimple* listaSimple, char autorBuscar[]);
@@ -128,5 +133,7 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 
 ///funciones de prestamos
 void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto);
+int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[]);
+void pedirUnLibro(estanteria arregloEstanterias[]);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

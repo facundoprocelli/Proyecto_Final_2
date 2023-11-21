@@ -159,19 +159,37 @@ nodoSimple*agregarAlFinalSimple(nodoSimple*listaSimple,nodoSimple*nuevoNodo)
 
 
 
-//verificar si existe el libro
+//verificar si existe el libro en un lista simple
 
-int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
+int verificarSiExisteLibroXNombreEnEstanterias(estanteria arregloEstanterias[],char nombreBuscar[])
+{
+    int flag=0,i=0;
+    while(i < 5 && flag==0)
+    {
+        flag=verificarSiExisteLibroXNombreEnListaSimple(arregloEstanterias[i].listaLibro,nombreBuscar);
+        if(flag==0)
+        {
+            i++;
+        }
+    }
+    return flag;
+}
+
+int verificarSiExisteLibroXNombreEnListaSimple(nodoSimple*listaSimple,char nombreBuscar[])
 {
     int flag=0;
 
-    while(listaSimple != NULL && strcmpi(listaSimple->datoLibro.nombreDeLibro,nombreBuscar) != 0)
+    while(listaSimple != NULL && flag==0)
     {
+        if(strcmpi(listaSimple->datoLibro.nombreDeLibro,nombreBuscar) == 0)
+        {
+            flag=1;
+        }
+        else
+        {
         listaSimple=listaSimple->siguiente;
-    }
-    if(listaSimple == NULL)
-    {
-        flag=1;
+
+        }
     }
     return flag;
 }
@@ -180,13 +198,16 @@ int verificarSiExisteLibroXNombre(nodoSimple*listaSimple,char nombreBuscar[])
 
 nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
 {
-    nodoSimple* aux =NULL;
+    nodoSimple* aux = inicListaSimple();
 
     while(listaSimple != NULL && listaSimple->datoLibro.idLibro != idBuscar)
     {
-        listaSimple =listaSimple ->siguiente;
+        listaSimple= listaSimple->siguiente;
     }
-
+    if(aux == NULL)
+    {
+        puts("ID libro no encontrado");
+    }
     aux=listaSimple;
 
     return aux;
@@ -735,7 +756,28 @@ void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
 
 /// Funciones para buscar libros
 
+nodoSimple* retornarLibroXIDEnEstanterias(estanteria arregloEstanterias[], int idLibroBuscado)
+{
+    nodoSimple*encontrado=inicListaSimple();
+    int flag=0,i=0;
 
+    while(i < 5 && flag==0)
+    {
+        encontrado=retornarNodoSimpleXid(arregloEstanterias[i].listaLibro,idLibroBuscado);
+        if(encontrado != NULL)
+        {
+            flag=1;
+        }
+        else
+        {
+            i++;
+
+        }
+
+    }
+
+    return encontrado;
+}
 
 
 /// Buscar e imprimir libros por autor
@@ -976,7 +1018,7 @@ void menuOpcionesDisponibilidad()
 
 
 
-nodoSimple*  retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
+nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
 {
 
     nodoSimple* aux = inicListaSimple();
@@ -984,7 +1026,7 @@ nodoSimple*  retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
     while (lista != NULL)
     {
 
-        if ( lista->datoLibro.estado == 1)
+        if (filaVacia(lista->datoLibro.reservasLibro)==0)
         {
             nodoSimple* NN =  crearNodoSimple(lista->datoLibro);
             aux = agregarAlFinalSimple(aux, NN);
@@ -1096,7 +1138,7 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
         {
             while(listaD != NULL && flag==0) //recorro cada fila de un libro
             {
-                 listaD=listaS->datoLibro.reservasLibro.primero;
+                listaD=listaS->datoLibro.reservasLibro.primero;
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
                 {
                     flag=1;
@@ -1166,33 +1208,74 @@ void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto)
 
     if(i != -1)
     {
-        nodoSimple*listaSimple= arregloEstanterias[i].listaLibro;
+        nodoSimple*auxNodoLibro= retornarNodoSimpleXid(arregloEstanterias[i].listaLibro,prestamoDevuelto.idLibro);
 
-        while(listaSimple != NULL && listaSimple->datoLibro.idLibro != prestamoDevuelto.idLibro)
-        {
-            //me muevo mientras no lo encuentro
-            listaSimple=listaSimple->siguiente;
-        }
-
-        if(listaSimple->datoLibro.idLibro == prestamoDevuelto.idLibro) // si lo encontre
+        if(auxNodoLibro->datoLibro.reservasLibro.primero->datoPrestamo.idLibro)
         {
             //si el ID del prestamo devuelto es igual al id del primero (que es obvio que si)
 
-            if(listaSimple->datoLibro.reservasLibro.primero->datoPrestamo.idPrestamo == prestamoDevuelto.idPrestamo)
+            auxNodoLibro->datoLibro.vecesPrestadoLibro+=1; // aumento las veces que se presto el libro
+            extraerUnPrestamoFila(&auxNodoLibro->datoLibro.reservasLibro); //saco el prestamo actual
+            if(auxNodoLibro->datoLibro.reservasLibro.primero == NULL)
             {
-                listaSimple->datoLibro.vecesPrestadoLibro+=1; // aumento las veces que se presto el libro
-                extraerUnPrestamoFila(&listaSimple->datoLibro.reservasLibro); //saco el prestamo actual
-                if(listaSimple->datoLibro.reservasLibro.primero==NULL) // si no hay ningun prestamo mas, cambio el estado del libro
-                {
-                    listaSimple->datoLibro.estado=1;
-                }
+                // si no hay ningun prestamo mas, cambio el estado del libro
+                auxNodoLibro->datoLibro.estado=1;
             }
         }
-
     }
-
-
 
 }
 
 
+
+int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[])
+{
+    char auxString[MAX_DIM];
+    int existeLibro=0;
+    int continuarBucle=0;
+    char opSeguirBuscando;
+    do
+    {
+
+            mostrarTodasLasEstanterias(arregloEstanterias);
+            printf("Ingrese el nombre del libro que quiere: ");
+            fflush(stdin);
+            gets(auxString);
+
+        existeLibro=verificarSiExisteLibroXNombreEnEstanterias(arregloEstanterias,auxString);
+
+        if(existeLibro == 0) // si no existe
+        {
+            imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
+            fflush(stdin);
+            scanf("%c",&opSeguirBuscando);
+
+            if(opSeguirBuscando == 's')
+            {
+                continuarBucle=1; // si desea seguir buscando continuo el bucle
+            }
+        }
+        else // si lo encuentro corto el bucle
+        {
+            continuarBucle=0;
+        }
+
+
+    }
+    while(continuarBucle);
+
+    return existeLibro; // lo uso como flag, si el usuario no quiere buscar mas retorno 0, si encontro un libro retorno 1
+}
+
+void pedirUnLibro(estanteria arregloEstanterias[])
+{
+    char nombreLibro[MAX_DIM];
+    int flag=0;
+    flag= preguntarNombreLibroParaPedir(arregloEstanterias);
+
+    if(flag) // si el usuario quiere pedir un libro
+    {
+
+    }
+
+}

@@ -103,7 +103,7 @@ nodoArbol * actualizarUnMiembroDatosPersonales(nodoArbol *raiz,nodoArbol * aux);
 void opcionesActualizarUnMiembro();
 nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux);
 void opcionesActualizarUnMiembroCampos();
-void modificarPrestamoActivoIDMiembroEnArbol(nodoArbol*raiz, char dniMiembro[], int idNuevoPrestamo);
+nodoArbol* retornarNodoMiembroXDNI(nodoArbol*raiz, char dniMiembro[]);
 
 nodoArbol* cambiarNombreMiembro(nodoArbol* aux);
 nodoArbol* cambiarNumeroDeTelefonoMiembro(nodoArbol * aux, nodoArbol* raiz);

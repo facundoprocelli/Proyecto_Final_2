@@ -67,43 +67,43 @@
 	<time.h>
 	"biblioteca.h"
 
-1700536023 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
+1700587732 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1700529868 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
+1700577502 c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 
-1700533646 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
+1700578283 source:c:\users\fabri\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1700534968 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
+1700577783 source:c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1700535907 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
+1700587651 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1700533744 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
+1700587714 source:c:\users\fabri\desktop\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
 
-1700529868 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
+1700581690 source:c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -111,15 +111,15 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1700529868 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
+1700581690 c:\users\fabri\desktop\proyecto_final_2-main\arbolmiembros.h
 
-1700525957 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
+1700578277 c:\users\fabri\desktop\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1700530270 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
+1700577502 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
 	"pilaPrestamosInactivos.h"
 
-1700529878 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
+1700588273 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 
@@ -291,12 +291,12 @@
 	<stdlib.h>
 	"biblioteca.h"
 
-1700535155 source:c:\users\fabri\desktop\proyecto_final_2-main\pilaprestamosinactivos.c
+1700577783 source:c:\users\fabri\desktop\proyecto_final_2-main\pilaprestamosinactivos.c
 	<stdio.h>
 	<stdlib.h>
 	"pilaPrestamosInactivos.h"
 
-1700534907 c:\users\fabri\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
+1700577502 c:\users\fabri\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
 
 1700499216 c:\users\gc\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
 
@@ -448,7 +448,7 @@
 	<time.h>
 	"listaSimpleLibros.h"
 
-1700525957 source:c:\users\fabri\desktop\proyecto_final_2-main\colores.c
+1700577502 source:c:\users\fabri\desktop\proyecto_final_2-main\colores.c
 	<stdio.h>
 	<stdlib.h>
 	"windows.h"
