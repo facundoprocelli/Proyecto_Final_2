@@ -5,7 +5,7 @@
 #include <ctype.h>
 #include "arbolMiembros.h"
 #define MAX_DIM 26
-#define MAX_SALDO 50000
+#define MAX_SALDO 100000
 
 
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
@@ -95,7 +95,7 @@ void mostrarUnMiembro(stMiembro aux)
 //        printf("[%i] ",aux.prestamosActivosID[i]);
 //    }
     //printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
-    printf("ID del prestamo activo......: %i",aux.prestamoActivoID);
+    printf("ID del prestamo activo......: %i \n",aux.prestamoActivoID);
     printf("Estado......................: %i \n", aux.estado);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
     puts("============================================================");
@@ -938,8 +938,10 @@ void buscarMiembroXDNI(nodoArbol* raiz)
     }
     while((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0) && i < 3);
 
-    if ((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0))
+
+    if ((validarSiExisteDniArbol(raiz,dni)== 1||validarCaracteresEnEnteros(dni)== 1||validarRangoDNI(dni)== 1))
     {
+
         aux = mostrarMiembroXDNI(raiz, dni);
     }
 }
@@ -980,7 +982,7 @@ void   buscarMiembroXEstado(nodoArbol* raiz)
     int op;
     do
     {
-        menuEstados();
+        menuEstadoMiembro();
         fflush(stdin);
         scanf("%s", &dato);
         op =convertirStringsDeNumerosAEntero(dato);
@@ -990,6 +992,13 @@ void   buscarMiembroXEstado(nodoArbol* raiz)
 
     mostrarMiembroXEstado(raiz, op);
 
+}
+
+void menuEstadoMiembro()
+{
+
+    printf("\n[0] Miembros inactivos");
+    printf("\n[1] Miembros activos");
 }
 
 
@@ -1086,5 +1095,165 @@ void mostrarMiembrosParaSaldo(nodoArbol* raiz, int minSaldo, int maxSaldo)
 
     }
 }
+
+
+void buscarMiembroXPrestamos(nodoArbol* raiz)
+{
+
+
+    char dato[MAX_DIM];
+    int op;
+    do
+    {
+        menuPrestadosBuscar();
+        fflush(stdin);
+        scanf("%s", &dato);
+        op =convertirStringsDeNumerosAEntero(dato);
+    }
+    while ( validarCaracteresEnEnteros(dato) == 0 || (op != 1 &&  op != 2) );
+
+    if (op == 1)
+    {
+        mostrarMiembrosXPrestamosActivos(raiz);
+    }
+    else if (op == 2)
+    {
+        mostrarMiembrosSinPrestamos(raiz);
+    }
+}
+
+
+void mostrarMiembrosXPrestamosActivos(nodoArbol* raiz)
+{
+
+    if (raiz != NULL)
+    {
+
+        if(raiz->dato.prestamoActivoID != 0)
+        {
+
+            mostrarUnMiembro(raiz->dato);
+        }
+
+        mostrarMiembrosXPrestamosActivos(raiz->derecha);
+        mostrarMiembrosXPrestamosActivos(raiz->izquierda);
+    }
+
+}
+
+void mostrarMiembrosSinPrestamos(nodoArbol* raiz)
+{
+
+    if (raiz != NULL)
+    {
+
+        if(raiz->dato.prestamoActivoID == 0)
+        {
+
+            mostrarUnMiembro(raiz->dato);
+        }
+
+        mostrarMiembrosSinPrestamos(raiz->derecha);
+        mostrarMiembrosSinPrestamos(raiz->izquierda);
+    }
+
+}
+
+
+void menuPrestadosBuscar()
+{
+
+
+    printf("\n[1] Mostrar Miembros con prestamos");
+    printf("\n[2] Mostrar Miembros sin prestamos");
+    printf("\nIngrese un dato: ");
+
+}
+
+
+
+
+
+/// Modificar Mimebros Usuario
+
+
+nodoArbol* cambiarNombreMiembro(nodoArbol* aux)
+{
+
+    do
+    {
+
+        printf("\nIngrese el nuevo nombre");
+        printf("\nNombre: ");
+        fflush(stdin);
+        gets(aux->dato.datosPersonales.nombre);
+    }
+    while (validarDigitosEnStrings(aux->dato.datosPersonales.nombre) == 1 || validarRangoDeNombre(aux->dato.datosPersonales.nombre) == 1);
+
+
+    return aux;
+}
+
+
+nodoArbol* cambiarNumeroDeTelefonoMiembro(nodoArbol * aux, nodoArbol* raiz)
+{
+
+    char nroTelefono[MAX_DIM];
+
+    do
+    {
+        printf("\nIngrese el nuevo numero de Telefono");
+        printf("\nNro de telefono: ");
+        fflush(stdin);
+        gets(nroTelefono);
+    }
+    while(validarNroRepetido(raiz, nroTelefono)== 1|| validarCaracteresEnEnteros(nroTelefono)== 0||validarRangoTelefono(nroTelefono)== 0);
+
+    strcpy(aux->dato.datosPersonales.numeroDeTelefono, nroTelefono);
+
+
+    return aux;
+}
+
+
+
+nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux)
+{
+
+    char saldo[MAX_DIM];
+    int saldoNuevo = -1;
+    if(aux->dato.saldo == MAX_SALDO)
+    {
+
+        imprimirMensajeRojo("\nLlego al limite de saldo\n");
+    }
+    else
+    {
+        do
+        {
+            printf("\nSaldo actual...: $%i",aux->dato.saldo);
+            printf("\nCuanto saldo desea agregar?");
+            printf("\nSaldo: ");
+            fflush(stdin);
+            gets(saldo);
+
+            if (validarCaracteresEnEnteros(saldo) == 1)
+            {
+
+                saldoNuevo = convertirStringsDeNumerosAEntero(saldo);
+                saldoNuevo = saldoNuevo + aux->dato.saldo;
+
+            }
+
+        }
+        while(validarDentroDeUnRango(saldoNuevo,0,MAX_SALDO)== 1 || validarCaracteresEnEnteros(saldo) == 0);
+
+        aux->dato.saldo = saldoNuevo;
+    }
+    return aux;
+
+}
+
+
 
 

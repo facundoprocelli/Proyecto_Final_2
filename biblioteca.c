@@ -476,9 +476,8 @@ void opcionesMenuBuscarMiembros()
     printf("[2] Buscar por DNI\n");
     printf("[3] Buscar por Estado\n");
     printf("[4] Buscar por Saldo\n"); //mayor o menor al dato buscado
-    printf("[5] Buscar por Prestamos\n");
-    printf("[6] Buscar por Estado\n");
-    printf("[7] Volver al menu de miembros \n");
+    printf("[5] Buscar por Prestamos\n"); // Todos aquellos que tengan un libro prestado
+    printf("[6] Volver al menu de miembros \n");
     puts("============================================================");
 
 }
@@ -496,7 +495,6 @@ void menuBuscarMiembros(nodoArbol* raiz)
         {
         case 1:
             buscarMiembroXNombre(raiz);
-
             break;
         case 2:
             buscarMiembroXDNI(raiz);
@@ -508,12 +506,9 @@ void menuBuscarMiembros(nodoArbol* raiz)
             buscarMiembroXSaldo(raiz);
             break;
         case 5:
-            // buscarMiembroXPrestamos(raiz); Hacer
+            buscarMiembroXPrestamos(raiz);
             break;
         case 6:
-            // buscarMiembroXEstado(raiz); Hacer
-            break;
-        case 7:
             limpiarPantalla();
             opCont='n';
             break;
@@ -594,7 +589,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, stMie
             menuLibrosUsuario(arregloEstanterias,miembroActual,prestamosInactivos,arbolMiembro);
             break;
         case 2:
-            menuMiembroUsuario();
+            menuMiembroUsuario(miembroActual,arbolMiembro);
             break;
         case 3:
             menuPrestamosUsuario();
@@ -637,10 +632,9 @@ void opcionesMenuUsuarioMiembro()
 {
     puts("[1] Cambiar nombre");
     puts("[2] Cambiar numero de telefono");
-    puts("[3] Ingresar saldo a la cuenta");
+    puts("[3] Agregar saldo a la cuenta");
     puts("[4] Ver mi usuario");
-    puts("[5] Darse Alta o Baja");
-    puts("[6] Volver al menu principal");
+    puts("[5] Volver al menu principal");
     puts("=======================================");
 }
 
@@ -755,7 +749,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
     while(opContinuarMenuPrin != 'n');
 }
 
-void menuMiembroUsuario()
+void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -764,22 +758,24 @@ void menuMiembroUsuario()
         opcionesMenuUsuarioMiembro();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
+
+        nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual.datosPersonales.dni);
+
         switch(opMenuPrin)
         {
         case 1:
-
+            miembroModifcable = cambiarNombreMiembro(miembroModifcable);
             break;
         case 2:
-
+            miembroModifcable = cambiarNumeroDeTelefonoMiembro(miembroModifcable, arbolMiembro);
             break;
         case 3:
-
+            miembroModifcable = cambiarSaldoDeCuentaMiembro(miembroModifcable);
             break;
         case 4:
+            mostrarUnMiembro(miembroModifcable->dato);
             break;
         case 5:
-            break;
-        case 6:
             opContinuarMenuPrin = 'n';
             break;
         default:

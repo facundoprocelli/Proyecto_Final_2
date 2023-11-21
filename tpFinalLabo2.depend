@@ -179,54 +179,55 @@
 	<stdlib.h>
 	"biblioteca.h"
 
-1700232645 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
+1700577422 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1700232056 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.h
+1700536523 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 
-1699987328 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.c
+1700569962 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1699987328 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.h
+1700536523 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1699987328 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.c
+1700569962 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1699987328 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.h
+1700536523 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listadoblereservas.h
+	"pilaPrestamosInactivos.h"
 
-1700231905 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.c
+1700577430 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1700232056 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.h
+1700536523 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 
-1699987328 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\main.c
+1700569962 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
 
-1699987328 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
+1700575846 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
 
-1699987328 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
+1700576609 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -451,4 +452,16 @@
 	<stdio.h>
 	<stdlib.h>
 	"windows.h"
+
+1700536523 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\pilaprestamosinactivos.h
+
+1700536523 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\colores.c
+	<stdio.h>
+	<stdlib.h>
+	"windows.h"
+
+1700569962 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\pilaprestamosinactivos.c
+	<stdio.h>
+	<stdlib.h>
+	"pilaPrestamosInactivos.h"
 

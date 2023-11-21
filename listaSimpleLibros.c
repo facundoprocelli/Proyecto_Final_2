@@ -820,6 +820,42 @@ void buscarLibroXgenero(estanteria arregloEstanterias[])
 }
 
 
+/*
+void buscarLibroXClave(estanteria arregloEstanterias[]){
+
+char clave[MAX_DIM];
+
+do
+{
+    printf("\nIngrese una palabra clave");
+    fflush(stdin);
+    fgets(clave, MAX_DIM, stdin);
+}
+while(validarDigitosEnStrings(clave) == 1 || validarRangoDeNombre(clave));
+
+buscarEstanteriasParaClave(arregloEstanterias, clave);
+
+
+
+}
+
+/*
+void buscarEstanteriasParaClave(estanteria arregloEstnaterias[], char clave[]){
+
+
+for (int i = 0; i < MAX_GEN; i++){
+
+
+
+
+
+}
+
+
+
+
+}
+*/
 
 /// Buscar e imprimir libros por Titulo
 
@@ -886,6 +922,15 @@ void buscarLibrosXEstado(estanteria arregloEstanterias[])
 }
 
 
+
+
+
+
+
+
+
+
+
 void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
 {
 
@@ -915,6 +960,8 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
     }
 
 }
+
+
 
 
 
