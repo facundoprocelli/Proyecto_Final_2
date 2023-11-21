@@ -187,7 +187,7 @@ int verificarSiExisteLibroXNombreEnListaSimple(nodoSimple*listaSimple,char nombr
         }
         else
         {
-        listaSimple=listaSimple->siguiente;
+            listaSimple=listaSimple->siguiente;
 
         }
     }
@@ -571,7 +571,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro1.autorLibro, "John Jackson Miller");
     strcpy(libro1.descripcionLibro, "Una historia que contribuye a la caracterizacion general de Obi-Wan Kenobi.");
     libro1.estado = 1;
-    libro1.vecesPrestadoLibro = 0;
+    libro1.vecesPrestadoLibro = 3;
     inicFila(&libro1.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro1));
 
@@ -584,7 +584,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro2.autorLibro, "Makoto Mizobuchi");
     strcpy(libro2.descripcionLibro, "Una emocionante historia de aventuras en el universo de Pokemon.");
     libro2.estado = 1;
-    libro2.vecesPrestadoLibro = 0;
+    libro2.vecesPrestadoLibro = 7;
     inicFila(&libro2.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro2));
 
@@ -597,7 +597,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro3.autorLibro, "J.K. Rowling");
     strcpy(libro3.descripcionLibro, "La historia de un nino que descubre que es un mago en su 11 cumpleaños.");
     libro3.estado = 1;
-    libro3.vecesPrestadoLibro = 0;
+    libro3.vecesPrestadoLibro = 12;
     inicFila(&libro3.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro3));
 
@@ -612,7 +612,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro4.autorLibro, "Jane Austen");
     strcpy(libro4.descripcionLibro, "Una historia de amor y malentendidos entre Elizabeth Bennet y el señor Darcy.");
     libro4.estado = 1;
-    libro4.vecesPrestadoLibro = 0;
+    libro4.vecesPrestadoLibro = 1;
     inicFila(&libro4.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro4));
 
@@ -624,7 +624,7 @@ void cargarLibrosPredeterminados(estanteria arregloEstanteria[])
     strcpy(libro5.autorLibro, "George Orwell");
     strcpy(libro5.descripcionLibro, "Una novela distopica sobre un futuro totalitario donde la libertad y la privacidad están severamente restringidas.");
     libro5.estado = 1;
-    libro5.vecesPrestadoLibro = 0;
+    libro5.vecesPrestadoLibro = 5;
     inicFila(&libro5.reservasLibro);
     cargarEstanteriaOrdenada(arregloEstanteria,crearNodoSimple(libro5));
 
@@ -1028,7 +1028,7 @@ void menuOpcionesDisponibilidad()
 {
     printf("\n[0] Titulo de baja");
     printf("\n[1] Titulo en alta");
-    printf("\n[2] Titulo Prestados");
+    printf("\n[2] Titulo Prestados\n");
 
 }
 
@@ -1042,7 +1042,7 @@ nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
     while (lista != NULL)
     {
 
-        if (filaVacia(lista->datoLibro.reservasLibro)==0)
+        if (lista->datoLibro.estado == 1)
         {
             nodoSimple* NN =  crearNodoSimple(lista->datoLibro);
             aux = agregarAlFinalSimple(aux, NN);
@@ -1054,6 +1054,80 @@ nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
 
     return aux;
 }
+
+/// Mostrar libros X popularidad
+
+
+
+void buscarLibroXPopularidad(estanteria arregloEstanterias[])
+{
+
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
+
+    int max = buscarLibroMasPrestado(arregloEstanterias, 0);
+
+
+    while ((i < MAX_GEN))
+    {
+
+        aux = retornarNodosLibroXMasPopularidad(arregloEstanterias[i].listaLibro, max);
+
+        if ( aux != NULL)
+        {
+            mostrarListaSimple(aux);
+
+        }
+
+        i++;
+    }
+
+
+}
+
+
+int buscarLibroMasPrestado(estanteria arregloEstanteria[], int mayor)
+{
+
+
+    for (int i = 0; i < MAX_GEN; i++)
+    {
+
+        nodoSimple* aux = arregloEstanteria[i].listaLibro;
+        while (aux != NULL)
+        {
+            if(aux->datoLibro.vecesPrestadoLibro > mayor)
+            {
+                mayor = aux->datoLibro.vecesPrestadoLibro;
+            }
+            aux = aux->siguiente;
+        }
+    }
+
+    return mayor;
+}
+
+nodoSimple* retornarNodosLibroXMasPopularidad(nodoSimple* listaSimple, int mayor)
+{
+
+    nodoSimple* aux = listaSimple;
+    nodoSimple* maxNodos = inicListaSimple();
+
+
+    while (aux != NULL)
+    {
+        if (aux->datoLibro.vecesPrestadoLibro == mayor)
+        {
+            nodoSimple* NN = crearNodoSimple(aux->datoLibro);
+            maxNodos = agregarAlFinalSimple(maxNodos, NN);
+        }
+        aux = aux->siguiente;
+    }
+
+    return maxNodos;
+}
+
+
 
 void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
 {
@@ -1084,6 +1158,62 @@ void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
     }
 
 }
+
+
+
+void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
+
+
+
+    int flag = -1;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
+
+    while ((i < MAX_GEN))
+    {
+        aux = retornarNodosLibrosXEspera(arregloEstanteria[i].listaLibro);
+
+        if ( aux != NULL)
+        {
+                mostrarListaSimple(aux);
+                flag = 1;
+        }
+
+        i++;
+    }
+
+    if (flag == -1)
+    {
+        printf("\nNo se encontro nungun Libro con lista de espera\n");
+    }
+}
+
+
+nodoSimple* retornarNodosLibrosXEspera(nodoSimple* lista){
+
+
+    nodoSimple* aux = inicListaSimple();
+
+    while (lista != NULL)
+    {
+
+        if (filaVacia(lista->datoLibro.reservasLibro) == 0)
+        {
+            nodoSimple* NN =  crearNodoSimple(lista->datoLibro);
+            aux = agregarAlFinalSimple(aux, NN);
+        }
+
+        lista = lista->siguiente;
+    }
+
+
+    return aux;
+
+
+
+
+}
+
 
 // funcion que pasa el prestamo leido del archivo de prestamos a la fila correspondiente
 void archivoAFilasPrestamos(estanteria arregloEstanterias[])
@@ -1253,10 +1383,10 @@ int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[])
     do
     {
 
-            mostrarTodasLasEstanterias(arregloEstanterias);
-            printf("Ingrese el nombre del libro que quiere: ");
-            fflush(stdin);
-            gets(auxString);
+        mostrarTodasLasEstanterias(arregloEstanterias);
+        printf("Ingrese el nombre del libro que quiere: ");
+        fflush(stdin);
+        gets(auxString);
 
         existeLibro=verificarSiExisteLibroXNombreEnEstanterias(arregloEstanterias,auxString);
 

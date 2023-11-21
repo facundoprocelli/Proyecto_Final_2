@@ -104,6 +104,7 @@ void opcionesActualizarUnMiembro();
 nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux);
 void opcionesActualizarUnMiembroCampos();
 nodoArbol* retornarNodoMiembroXDNI(nodoArbol*raiz, char dniMiembro[]);
+nodoArbol* buscarMiembroMayorSaldo(nodoArbol* raiz);
 
 nodoArbol* cambiarNombreMiembro(nodoArbol* aux);
 nodoArbol* cambiarNumeroDeTelefonoMiembro(nodoArbol * aux, nodoArbol* raiz);

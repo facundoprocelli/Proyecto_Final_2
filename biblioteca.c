@@ -525,11 +525,10 @@ void menuBuscarMiembros(nodoArbol* raiz)
 
 void opcionesMenuPrestamos()
 {
-    puts("[1] Pedir un libro"); //es crear un prestamo
-    puts("[2] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    puts("[3] Devolver un libro");
-    puts("[4] Modificar fecha de vencimiento de un prestamo");
-    puts("[5] Volver al menu principal");
+    puts("[1] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
+    puts("[2] Devolver un libro");
+    puts("[3] Modificar fecha de vencimiento de un prestamo");
+    puts("[4] Volver al menu principal");
     puts("============================================================");
 
 }
@@ -664,7 +663,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
             break;
         case 2: //pedir un libro
 
-        pedirUnLibro(arregloEstanterias);
+            pedirUnLibro(arregloEstanterias);
 
 
             /*
@@ -702,7 +701,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
             verLibrosDisponiblesUsuario(arregloEstanterias);
             break;
         case 5:
-            //verLibrosConEsperaUsuario();
+            verLibrosConEsperaUsuario(arregloEstanterias);
             break;
         case 6:
             opContinuarMenuPrin = 'n';
@@ -804,7 +803,7 @@ void buscarLibrosUsuario(estanteria arregloEstanterias[])
             buscarLibroXgenero(arregloEstanterias);
             break;
         case 4:
-            //buscarLibrosXPopularidad(arregloEstanterias);
+            buscarLibroXPopularidad(arregloEstanterias);
             break;
         case 5:
             buscarLibroXClave(arregloEstanterias);
@@ -828,7 +827,7 @@ void opcionesMenuBuscarLibrosUsuario()
     puts("[1] Buscar libro por Titulo");
     puts("[2] Buscar libro por Autor");
     puts("[3] Buscar libro por Genero");
-    puts("[4] Buscar libro por Popularidad");
+    puts("[4] Buscar libro mas popular");
     puts("[5] Buscar libro por palabra Clave");
     puts("[6] Volver al menu principal");
     puts("======================================");
@@ -948,8 +947,8 @@ void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
     printf("Cantidad de miembros dados de baja:[%i]\n",contarMiembrosInactivos(raiz));
     printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
     printf("Total de prestamos.................[%i]\n",contarLibrosPrestados(arregloEstanterias));
-    printf("Libro mas prestado.................[%i]\n");///Mostrar el titulo
-    printf("Miembro con mayor sueldo...........[%i]\n");///Mostrar el DNI
+    printf("Libro mas prestado.................[%i]\n",idLibroMasPrestado(arregloEstanterias));// Lo que se impime en esta funcion se pasa a los cosos de abajo
+    printf("Miembro con mayor saldo............[%i]\n"); /*dniMiembroMayorSaldo(raiz));///Mostrar el DNI Estas funciones no andan del todo*/
     printf("Prestamo mas costoso...............[%i]\n");///Mostrar el ID
     printf("Miembro con mas prestamos..........[%i]\n");///Mostrar el DNI
     puts("============================================================");
@@ -1115,4 +1114,72 @@ int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBusc
     }
 
     return i;
+}
+
+int idLibroMasPrestado(estanteria arregloEstanteria[])
+{
+
+    int mayor = 0;
+    int i = 0;
+    nodoSimple* aux = inicListaSimple();
+    nodoSimple* maxNodo = inicListaSimple();
+
+    int max = buscarLibroMasPrestado(arregloEstanteria, 0);
+
+
+    while ((i < 5))
+    {
+
+        aux = retornarNodosLibroXMasPopularidad(arregloEstanteria[i].listaLibro, max);
+        if (aux != NULL)
+        {
+            maxNodo = aux;
+        }
+        i++;
+    }
+
+    mayor = maxNodo->datoLibro.idLibro;
+
+    return mayor ;
+
+}
+
+
+/// Esats funicones no funcionan del todo pero me quede sin BING por hoy
+int dniMiembroMayorSaldo(nodoArbol* raiz)
+{
+    int dniEncontrado = -1;
+    nodoArbol* aux = buscarMiembroMayorSaldo(raiz);
+    if (aux != NULL)
+    {
+        dniEncontrado = aux->dato.datosPersonales.dni;
+    }
+
+    return dniEncontrado;
+}
+
+nodoArbol* buscarMiembroMayorSaldo(nodoArbol* raiz)
+{
+    nodoArbol* personaMayorSaldo = raiz;
+
+    if (raiz == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        nodoArbol* personaMayorSaldoIzq = buscarMiembroMayorSaldo(raiz->izquierda);
+        nodoArbol* personaMayorSaldoDer = buscarMiembroMayorSaldo(raiz->derecha);
+
+
+        if (personaMayorSaldoIzq != NULL && personaMayorSaldoIzq->dato.saldo > personaMayorSaldo->dato.saldo)
+        {
+            personaMayorSaldo = personaMayorSaldoIzq;
+        }
+        if (personaMayorSaldoDer != NULL && personaMayorSaldoDer->dato.saldo > personaMayorSaldo->dato.saldo)
+        {
+            personaMayorSaldo = personaMayorSaldoDer;
+        }
+    }
+    return personaMayorSaldo;
 }
