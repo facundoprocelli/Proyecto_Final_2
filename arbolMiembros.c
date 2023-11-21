@@ -5,6 +5,8 @@
 #include <ctype.h>
 #include "arbolMiembros.h"
 #define MAX_DIM 26
+#define MAX_SALDO 50000
+
 
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
@@ -855,6 +857,7 @@ void opcionesActualizarUnMiembroCampos()
 
 
 
+
 /// Funciones de busqueda de miembros
 
 void buscarMiembroXNombre(nodoArbol* raiz)
@@ -869,13 +872,13 @@ void buscarMiembroXNombre(nodoArbol* raiz)
         gets(miembro);
     }
     while(validarDigitosEnStrings(miembro)== 1||validarRangoDeNombre(miembro)== 1);
-    retornarMiembroXNombre(raiz, miembro);
+    mostrarMiembroXNombre(raiz, miembro);
 
 
 }
 
 
-void retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
+void mostrarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
 {
 
 
@@ -887,8 +890,8 @@ void retornarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
             mostrarUnMiembro(raiz->dato);
         }
 
-            retornarMiembroXNombre(raiz->derecha, nombreBuscado);
-            retornarMiembroXNombre(raiz->izquierda, nombreBuscado);
+        mostrarMiembroXNombre(raiz->derecha, nombreBuscado);
+        mostrarMiembroXNombre(raiz->izquierda, nombreBuscado);
 
 
     }
@@ -910,41 +913,177 @@ void buscarMiembroXDNI(nodoArbol* raiz)
         i++;
     }
     while((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0) && i < 3);
+
     if ((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0))
     {
-
-        aux = retornarMiembroXDNI(raiz, dni);
-        mostrarUnMiembro(aux->dato);
+        aux = mostrarMiembroXDNI(raiz, dni);
     }
 }
 
 
-nodoArbol* retornarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
+void mostrarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
 {
-
-    nodoArbol* encontrado=NULL;
     if(raiz != NULL)
     {
 
         if (strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) == 0)
         {
-            encontrado = raiz;
+            mostrarUnMiembro(raiz->dato);
+
         }
         else
         {
             if(strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) > 0)
             {
-                encontrado = retornarMiembroXDNI(raiz->derecha, dniBuscado);
+                mostrarMiembroXDNI(raiz->derecha, dniBuscado);
 
             }
             else
             {
 
-                encontrado = retornarMiembroXDNI(raiz->izquierda, dniBuscado);
+                mostrarMiembroXDNI(raiz->izquierda, dniBuscado);
             }
         }
     }
-    return encontrado;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void   buscarMiembroXEstado(nodoArbol* raiz)
+{
+
+    char dato[MAX_DIM];
+    int op;
+    do
+    {
+        menuEstados();
+        fflush(stdin);
+        scanf("%s", &dato);
+        op =convertirStringsDeNumerosAEntero(dato);
+    }
+    while ( validarCaracteresEnEnteros(dato) == 0 || (op != 1 &&  op != 0) );
+//
+
+    mostrarMiembroXEstado(raiz, op);
+
+}
+
+
+
+void mostrarMiembroXEstado(nodoArbol* raiz, int estado)
+{
+
+
+    if(raiz != NULL)
+    {
+
+        if (raiz->dato.estado == estado)
+        {
+            mostrarUnMiembro(raiz->dato);
+        }
+
+        mostrarMiembroXEstado(raiz->derecha, estado);
+        mostrarMiembroXEstado(raiz->izquierda, estado);
+
+
+    }
+}
+
+
+
+
+
+void menuOpcionesSaldoMiembro()
+{
+
+    printf("\n[1] $0");
+    printf("\n[2] Menos de $1000");
+    printf("\n[3] Entre $1000 y $5000");
+    printf("\n[4] Entre $5000 y $10000");
+    printf("\n[5] Mas de $10000\n");
+
+}
+
+void buscarMiembroXSaldo(nodoArbol* raiz)
+{
+
+    char dato[MAX_DIM];
+    int opcion;
+
+    do
+    {
+
+        menuOpcionesSaldoMiembro();
+        fflush(stdin);
+        scanf("%s", &dato);
+
+
+    }
+    while ( validarCaracteresEnEnteros(dato) == 0);
+
+    opcion =convertirStringsDeNumerosAEntero(dato);
+
+    switch(opcion)
+    {
+
+    case 1:
+        mostrarMiembrosParaSaldo(raiz, 0, 0);
+        break;
+    case 2:
+        mostrarMiembrosParaSaldo(raiz, 0, 1000);
+        break;
+    case 3:
+        mostrarMiembrosParaSaldo(raiz,1000, 5000);
+        break;
+    case 4:
+        mostrarMiembrosParaSaldo(raiz, 5000, 10000);
+        break;
+    case 5:
+        mostrarMiembrosParaSaldo(raiz, 10000, MAX_SALDO);
+        break;
+    default:
+        puts("\n Opcion invalida");
+
+    }
+}
+
+
+void mostrarMiembrosParaSaldo(nodoArbol* raiz, int minSaldo, int maxSaldo)
+{
+
+
+    if (raiz != NULL)
+    {
+
+        if(raiz->dato.saldo >= minSaldo && raiz->dato.saldo <= maxSaldo)
+        {
+
+            mostrarUnMiembro(raiz->dato);
+        }
+
+        mostrarMiembrosParaSaldo(raiz->derecha, minSaldo, maxSaldo);
+        mostrarMiembrosParaSaldo(raiz->izquierda, minSaldo, maxSaldo);
+
+    }
 }
 
 

@@ -53,7 +53,7 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-   // cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
     archivoAFilasPrestamos(arregloEstanterias); // se pasan los prestamos a los respectivos libros
 
@@ -502,10 +502,10 @@ void menuBuscarMiembros(nodoArbol* raiz)
             buscarMiembroXDNI(raiz);
             break;
         case 3:
-            //  buscarMiembroXEstado(raiz); Hacer
+            buscarMiembroXEstado(raiz);
             break;
         case 4:
-            // buscarMiembroXSaldo(raiz); Hacer
+            buscarMiembroXSaldo(raiz);
             break;
         case 5:
             // buscarMiembroXPrestamos(raiz); Hacer
