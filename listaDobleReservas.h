@@ -15,7 +15,7 @@ void mostrarUnPrestamo(stPrestamo aux);
 
 void asignarTiempo(stFecha * aux,struct tm * info_tiempo);
 void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPrestamo);
-
+int generarMulta(stFecha fechaFinDelPrestamo);///falta terminar
 ///funciones lista doble
 
 //basicas

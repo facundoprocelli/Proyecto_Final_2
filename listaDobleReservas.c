@@ -18,6 +18,7 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
     strcpy(aux.generoEstanteria,generoDelPrestamo);
     aux.idLibro=idLibroPrestado;
+    aux.estado = 1;
 
     do
     {
@@ -29,8 +30,10 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
 
 
     //funciones para calcular inicio y fin del prestamo(automatico)
-    time_t tiempo_actual;time(&tiempo_actual);struct tm *info_tiempo = localtime(&tiempo_actual);
-    asignarTiempo(&aux.inicioPrestamo,info_tiempo);
+    time_t tiempoActual;
+    time(&tiempoActual);
+    struct tm *infoTiempo = localtime(&tiempoActual);
+    asignarTiempo(&aux.inicioPrestamo,infoTiempo);
 
 
 
@@ -53,7 +56,7 @@ int validarDias(int dias)
     if(dias< 1 || dias> 31)
     {
         flag = 1;
-        puts("Ingrese un dia entre 1 y 31");
+        imprimirMensajeRojo("Ingrese un dia entre 1 y 31");
     }
 
     return flag;
@@ -97,6 +100,33 @@ void mostrarUnaFecha(stFecha aux)
 {
     printf("Fecha: %02d-%02d-%04d \n", aux.diaTiempo, aux.mesTiempo, aux.anioTiempo);
 }
+
+//generar multas por retraso
+int generarMulta(stFecha fechaFinDelPrestamo)///falta terminar
+{
+    int multa = 0;
+    time_t tiempoActual;
+    time(&tiempoActual);
+    struct tm *infoTiempo = localtime(&tiempoActual);///me da la hora actual del sistema
+//    fechaFinDelPrestamo.diaTiempo = 9;
+//    fechaFinDelPrestamo.mesTiempo = infoTiempo->tm_mon;     //esto evalua sin funciona una multa
+//    fechaFinDelPrestamo.anioTiempo = 2023;
+
+    if (infoTiempo->tm_mon == fechaFinDelPrestamo.mesTiempo)
+    {
+        if(infoTiempo->tm_mday >fechaFinDelPrestamo.diaTiempo)
+        {
+            multa = rand() % 5000 + 100;
+        }
+    }
+    else if(infoTiempo->tm_mon > fechaFinDelPrestamo.mesTiempo)
+    {
+        multa = rand() % 5000 + 100;
+    }
+
+    return multa;
+}
+
 
 
 //mostra un prestamo
