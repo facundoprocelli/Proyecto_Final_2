@@ -167,8 +167,20 @@ nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
             nuevo->izquierda = NULL;
             nuevo->derecha = NULL;
         }
-        raiz->izquierda = buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
-        raiz->derecha = buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
+        else
+        {
+            if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)>0)
+            {
+                nuevo= buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
+
+            }
+            else
+            {
+
+               nuevo= buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
+            }
+        }
+
     }
 
     return nuevo;
@@ -1263,70 +1275,71 @@ nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux)
 
 /// Cargar miembros predeterminados
 
-nodoArbol* cargarMiembrosPredetermiandos(nodoArbol* raiz){
+nodoArbol* cargarMiembrosPredetermiandos(nodoArbol* raiz)
+{
 
 /// Miembro 1
 
-stPersona aux;
-stMiembro miembro;
-nodoArbol* nodo1 = inicArbol();
+    stPersona aux;
+    stMiembro miembro;
+    nodoArbol* nodo1 = inicArbol();
 
-strcpy(aux.nombre, "Juan");
-strcpy(aux.dni, "34897463");
-strcpy(aux.direccion, "Jovellanos");
-strcpy(aux.numeroDeTelefono, "2235672435");
+    strcpy(aux.nombre, "Juan");
+    strcpy(aux.dni, "34897463");
+    strcpy(aux.direccion, "Jovellanos");
+    strcpy(aux.numeroDeTelefono, "2235672435");
 
-miembro.datosPersonales = aux;
-miembro.estado = 1;
-miembro.prestamoActivoID = 0;
-miembro.saldo = 70000;
-nodo1 = crearNodoArbol(miembro);
+    miembro.datosPersonales = aux;
+    miembro.estado = 1;
+    miembro.prestamoActivoID = 0;
+    miembro.saldo = 70000;
+    nodo1 = crearNodoArbol(miembro);
 
-raiz = insertarPorDni(raiz, nodo1);
+    raiz = insertarPorDni(raiz, nodo1);
 
 
 
 /// Mimebro 2
 
-stPersona aux2;
-stMiembro miembro2;
-nodoArbol* nodo2 = inicArbol();
+    stPersona aux2;
+    stMiembro miembro2;
+    nodoArbol* nodo2 = inicArbol();
 
-strcpy(aux2.nombre, "Carlos");
-strcpy(aux2.dni, "4236873");
-strcpy(aux2.direccion, "Ingenieros");
-strcpy(aux2.numeroDeTelefono, "2239835273");
+    strcpy(aux2.nombre, "Carlos");
+    strcpy(aux2.dni, "4236873");
+    strcpy(aux2.direccion, "Ingenieros");
+    strcpy(aux2.numeroDeTelefono, "2239835273");
 
-miembro2.datosPersonales = aux2;
-miembro2.estado = 1;
-miembro2.prestamoActivoID = 0;
-miembro2.saldo = 5000;
-nodo2 = crearNodoArbol(miembro2);
+    miembro2.datosPersonales = aux2;
+    miembro2.estado = 1;
+    miembro2.prestamoActivoID = 0;
+    miembro2.saldo = 5000;
+    nodo2 = crearNodoArbol(miembro2);
 
-raiz = insertarPorDni(raiz, nodo2);
+    raiz = insertarPorDni(raiz, nodo2);
 
 
 
 /// Mimebro 3
-stPersona aux3;
-stMiembro miembro3;
-nodoArbol* nodo3 = inicArbol();
+    stPersona aux3;
+    stMiembro miembro3;
+    nodoArbol* nodo3 = inicArbol();
 
-strcpy(aux3.nombre, "Pablo");
-strcpy(aux3.dni, "39126738");
-strcpy(aux3.direccion, "Aragon");
-strcpy(aux3.numeroDeTelefono, "2237362837");
+    strcpy(aux3.nombre, "Pablo");
+    strcpy(aux3.dni, "39126738");
+    strcpy(aux3.direccion, "Aragon");
+    strcpy(aux3.numeroDeTelefono, "2237362837");
 
-miembro3.datosPersonales = aux3;
-miembro3.estado = 1;
-miembro3.prestamoActivoID = 0;
-miembro3.saldo = 9000;
-nodo3 = crearNodoArbol(miembro3);
+    miembro3.datosPersonales = aux3;
+    miembro3.estado = 1;
+    miembro3.prestamoActivoID = 0;
+    miembro3.saldo = 9000;
+    nodo3 = crearNodoArbol(miembro3);
 
-raiz = insertarPorDni(raiz, nodo3);
+    raiz = insertarPorDni(raiz, nodo3);
 
 
-return raiz;
+    return raiz;
 }
 
 

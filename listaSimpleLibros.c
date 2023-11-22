@@ -34,6 +34,8 @@ stLibro crearUnLibro(estanteria arregloEstanterias[])
         gets(aux.autorLibro);
     }
     while(validarDigitosEnStrings(aux.autorLibro)== 1||validarRangoDeNombre(aux.autorLibro)==1);
+
+
     aux.estado=1; // 0.dado de baja, 1.disponible, 2. prestado
 
     aux.idLibro=retornarUltimoIDLibro(arregloEstanterias)+ 1;
@@ -42,11 +44,10 @@ stLibro crearUnLibro(estanteria arregloEstanterias[])
 
     aux.vecesPrestadoLibro=0;
 
-
-
     printf("Descripcion: ");
     fflush(stdin);
     gets(aux.descripcionLibro);
+
 
     return aux;
 }
@@ -94,7 +95,6 @@ void mostrarUnLibro(stLibro aux)
     printf("Estado................: %i \n",aux.estado);
     printf("Veces prestado........: %i \n",aux.vecesPrestadoLibro);
     printf("Descripcion...........: %s \n",aux.descripcionLibro);
-
 
     mostrarFila(aux.reservasLibro);
 
@@ -1156,7 +1156,8 @@ void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
 
 
 /// Ver libros con lista de espera
-void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
+void verLibrosConEsperaUsuario(estanteria arregloEstanteria[])
+{
 
 
 
@@ -1170,8 +1171,8 @@ void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
 
         if ( aux != NULL)
         {
-                mostrarListaSimple(aux);
-                flag = 1;
+            mostrarListaSimple(aux);
+            flag = 1;
         }
 
         i++;
@@ -1184,7 +1185,8 @@ void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
 }
 
 
-nodoSimple* retornarNodosLibrosXEspera(nodoSimple* lista){
+nodoSimple* retornarNodosLibrosXEspera(nodoSimple* lista)
+{
 
 
     nodoSimple* aux = inicListaSimple();
@@ -1302,13 +1304,13 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
     return flag;
 }
 
-stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
+nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
 {
     int dim=5, i=0;
-    stPrestamo auxPrestamo;
+    nodoDoble* auxPrestamo=inicListaDoble();
 
-    nodoDoble*listaD=NULL;
-    nodoSimple*listaS=NULL;
+    nodoDoble*listaD=inicListaDoble();
+    nodoSimple*listaS=inicListaSimple();
     int flag=0;
 
 
@@ -1322,7 +1324,7 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
             {
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
                 {
-                    auxPrestamo=listaD->datoPrestamo;
+                    auxPrestamo=listaD;
                     flag=1;
                 }
                 else
@@ -1343,49 +1345,51 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
     return auxPrestamo;
 }
 
-void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto)
+void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos)
 {
-    int i=retornarPosEstanteriaXGenero(arregloEstanterias,prestamoDevuelto.generoEstanteria);
 
-    if(i != -1)
+    if(miembroActual->dato.prestamoActivoID != 0)
     {
-        nodoSimple*auxNodoLibro= retornarNodoSimpleXid(arregloEstanterias[i].listaLibro,prestamoDevuelto.idLibro);
+        nodoSimple*nodoLibroPrestamo=retornarLibroXIDEnEstanterias(arregloEstanterias,miembroActual->dato.prestamoActivoID);
 
-        if(auxNodoLibro->datoLibro.reservasLibro.primero->datoPrestamo.idLibro)
+        nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.estado=0;
+        miembroActual->dato.prestamoActivoID=0;
+
+        apilar(prestamosInactivos,extraerUnPrestamoFila(&nodoLibroPrestamo->datoLibro.reservasLibro));
+
+        if(nodoLibroPrestamo->datoLibro.reservasLibro.primero == NULL)
         {
-            //si el ID del prestamo devuelto es igual al id del primero (que es obvio que si)
-
-            auxNodoLibro->datoLibro.vecesPrestadoLibro+=1; // aumento las veces que se presto el libro
-            extraerUnPrestamoFila(&auxNodoLibro->datoLibro.reservasLibro); //saco el prestamo actual
-            if(auxNodoLibro->datoLibro.reservasLibro.primero == NULL)
-            {
-                // si no hay ningun prestamo mas, cambio el estado del libro
-                auxNodoLibro->datoLibro.estado=1;
-            }
+            nodoLibroPrestamo->datoLibro.estado=1;
         }
+
     }
+    else
+    {
+        puts("Usted no tiene ningun libro para devolver");
+    }
+
+
 
 }
 
 
 
-int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[])
+nodoSimple* preguntarIDLibroParaPedir(estanteria arregloEstanterias[])
 {
-    char auxString[MAX_DIM];
-    int existeLibro=0;
+    int auxID=0;
+    nodoSimple* existeLibro=inicListaSimple();
     int continuarBucle=0;
     char opSeguirBuscando;
     do
     {
 
         mostrarTodasLasEstanterias(arregloEstanterias);
-        printf("Ingrese el nombre del libro que quiere: ");
-        fflush(stdin);
-        gets(auxString);
+        printf("Ingrese el ID del libro que quiere: ");
+        scanf("%i",&auxID);
 
-        existeLibro=verificarSiExisteLibroXNombreEnEstanterias(arregloEstanterias,auxString);
+        existeLibro=retornarLibroXIDEnEstanterias(arregloEstanterias,auxID);
 
-        if(existeLibro == 0) // si no existe
+        if(existeLibro == NULL) // si no existe
         {
             imprimirMensajeRojo("El nombre de ese libro no existe, desea buscar otro libro?: s/n");
             fflush(stdin);
@@ -1394,6 +1398,10 @@ int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[])
             if(opSeguirBuscando == 's')
             {
                 continuarBucle=1; // si desea seguir buscando continuo el bucle
+            }
+            else
+            {
+                continuarBucle=0;
             }
         }
         else // si lo encuentro corto el bucle
@@ -1405,18 +1413,64 @@ int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[])
     }
     while(continuarBucle);
 
-    return existeLibro; // lo uso como flag, si el usuario no quiere buscar mas retorno 0, si encontro un libro retorno 1
+    return existeLibro;
 }
 
-void pedirUnLibro(estanteria arregloEstanterias[])
+void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 {
-    char nombreLibro[MAX_DIM];
-    int flag=0;
-    flag= preguntarNombreLibroParaPedir(arregloEstanterias);
-
-    if(flag) // si el usuario quiere pedir un libro
+    if(nodoMiembroActual->dato.prestamoActivoID != 0)
     {
+        puts("Usted ya tiene un prestamo no puede pedir otro libro: ");
+        nodoDoble*auxNodoPrestamo=retornarNodoPrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID);
+        mostrarUnPrestamo(auxNodoPrestamo->datoPrestamo);
+    }
+    else
+    {
+        nodoSimple*nodoLibroBuscado=inicListaSimple();
+        stPrestamo auxPrestamo;
+        char opPedir;
+        nodoLibroBuscado= preguntarIDLibroParaPedir(arregloEstanterias);
 
+        if(nodoLibroBuscado != NULL) // si el usuario quiere pedir un libro
+        {
+
+            if(nodoLibroBuscado->datoLibro.reservasLibro.primero != NULL) // si el libro tiene fila le pregunto si lo quiere de todas formas
+            {
+                imprimirMensajeRojo("Este libro tiene fila de espera desea pedirlo igual? s/n:");
+                fflush(stdin);
+                scanf("%c",&opPedir);
+
+                if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
+                {
+                    auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
+                    agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
+
+                    nodoMiembroActual->dato.prestamoActivoID=nodoLibroBuscado->datoLibro.idLibro;
+
+
+
+                    //falta poner que la fecha de inicio sea la de vencimiento del ultimo prestamo
+
+                    imprimirMensajeVerde("Su pedido se agrego a la fila de espera");
+                }
+
+            }
+            else //si no tiene fila le creamos el prestamo de una
+            {
+                auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
+                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
+
+                nodoMiembroActual->dato.prestamoActivoID=nodoLibroBuscado->datoLibro.idLibro;
+                nodoLibroBuscado->datoLibro.estado=2;
+
+
+                imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados sino tendra una multa");
+            }
+
+
+
+        }
     }
 
 }
+

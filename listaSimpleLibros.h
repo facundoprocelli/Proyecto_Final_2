@@ -16,10 +16,10 @@ typedef struct
     char generoLibro[MAX_DIM];
     char autorLibro[MAX_DIM];
     char descripcionLibro[MAX_DIM_DESC];
-    int estado; // si esta activo,eliminado o prestado
+    int estado; // si esta 0. De baja, 1. Activo y 2.Prestado
     int vecesPrestadoLibro;
-    filaReservas reservasLibro;
 
+    filaReservas reservasLibro;
 } stLibro;
 
 
@@ -131,13 +131,13 @@ void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer);
 void archivoAFilasPrestamos(estanteria arregloEstanterias[]);
 void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo);
 int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo);
-stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
+nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 
 
 ///funciones de prestamos
-void libroDevuelto(estanteria arregloEstanterias[],stPrestamo prestamoDevuelto);
-int preguntarNombreLibroParaPedir(estanteria arregloEstanterias[]);
-void pedirUnLibro(estanteria arregloEstanterias[]);
+void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos);
+nodoSimple* preguntarIDLibroParaPedir(estanteria arregloEstanterias[]);
+void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

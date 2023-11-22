@@ -112,7 +112,7 @@ void menuGeneral()
 
             auxNodoMiembro=buscarNodoPorDniArbol(arbolMiembros,auxString);
 
-            if(auxNodoMiembro == NULL) //si no existe retorno 0
+            if(auxNodoMiembro == NULL) //si no existe
             {
                 imprimirMensajeRojo("Ese Dni no existe, desea crear una cuenta? s/n: ");
                 fflush(stdin);
@@ -130,7 +130,7 @@ void menuGeneral()
             limpiarPantalla();
             if(auxNodoMiembro != NULL)
             {
-                menuUsuario(arregloEstanterias, arbolMiembros,auxNodoMiembro->dato,&prestamosInactivos);
+                menuUsuario(arregloEstanterias, arbolMiembros,auxNodoMiembro,&prestamosInactivos);
             }
 
 
@@ -572,7 +572,7 @@ void menuPrestamos()
 
 ///menu usuario
 
-void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, stMiembro miembroActual, pilaPrestamos*prestamosInactivos)///verificar si faltan alguna estructura mas...
+void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoArbol* miembroActual, pilaPrestamos*prestamosInactivos)///verificar si faltan alguna estructura mas...
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
 
@@ -581,7 +581,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, stMie
     do
     {
         puts("=============Menu usuario===============");
-        printf("Bienvenido %s \n",miembroActual.datosPersonales.nombre);
+        printf("Bienvenido %s \n",miembroActual->dato.datosPersonales.nombre);
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -640,7 +640,7 @@ void opcionesMenuUsuarioMiembro()
     puts("=======================================");
 }
 
-void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
+void menuLibrosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -650,8 +650,6 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
 
     char opSeguirBuscando;
     int flag=0,i=0,continuarBucle=1;
-    stLibro datoLibro;
-    stMiembro datoMiembro;
 
 
     do
@@ -662,11 +660,10 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
         switch(opMenuPrin)
         {
         case 1:
-            devolverUnLibroUsuario(miembroActual,arregloEstanterias,prestamosInactivos,arbolMiembros);
+            devolverUnLibroUsuario(arregloEstanterias,prestamosInactivos,miembroActual);
             break;
         case 2: //pedir un libro
-
-            pedirUnLibro(arregloEstanterias);
+            pedirUnLibro(arregloEstanterias,miembroActual);
 
             break;
         case 3:
@@ -1032,31 +1029,24 @@ int contarLibrosPrestados(estanteria arregloEstanterias[])
 // quinto muevo el prestamo a la pila de prestamos inactivos
 
 
-void devolverUnLibroUsuario(stMiembro miembroActual,estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
+void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual)
 {
     char opDevolver;
 
-    nodoArbol*nodoMiembroActual=inicArbol();
-    nodoMiembroActual=retornarNodoMiembroXDNI(arbolMiembros,miembroActual.datosPersonales.dni);
+    ///NO FUNCIONA TENGO SUENIO LA VOY A VER DESPUES
 
-    if(validarSiExistePrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID) == 1)
+    if(miembroActual->dato.prestamoActivoID !=0)
     {
 
-        stPrestamo auxPrestamo=retornarPrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID);
+        nodoDoble*auxPrestamo=retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
         puts("Este es su prestamo activo: ");
-        mostrarUnPrestamo(auxPrestamo);
+        mostrarUnPrestamo(auxPrestamo->datoPrestamo);
         printf("Desea devolver el libro actual? s/n: ");
         fflush(stdin);
         scanf("%c",&opDevolver);
         if(opDevolver == 's')
         {
-            nodoMiembroActual->dato.prestamoActivoID=0;
-
-            auxPrestamo.estado=0; //tambien modifico el estado del prestamo a 0
-            apilar(prestamosInactivos,auxPrestamo); // y lo guardo en la pila
-
-            libroDevuelto(arregloEstanterias,auxPrestamo);
-
+            libroDevuelto(arregloEstanterias,miembroActual,prestamosInactivos);
         }
     }
     else
