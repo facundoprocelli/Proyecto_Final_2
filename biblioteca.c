@@ -362,7 +362,7 @@ void actualizarLibro(estanteria arregloListas[])
 void opcionesMenuBuscarLibros()
 {
 
-    printf("Seleccione una opcion\n");
+    printf("Seleccione una opcion: \n");
 
     printf("[1] Buscar por Titulo \n");
     printf("[2] Buscar por Autor \n");
@@ -382,6 +382,7 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
     {
         opcionesMenuBuscarLibros();
         opSw=preguntarDatoEntero();
+        limpiarPantalla();
         switch(opSw)
         {
         case 1:// Buscar Libro por titulo
@@ -407,7 +408,6 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
             imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
-        //limpiarPantalla();
     }
     while(opCont!='n');
 

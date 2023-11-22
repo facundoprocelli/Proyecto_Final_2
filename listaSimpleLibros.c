@@ -710,7 +710,7 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
     }
     else
     {
-        puts("Archivo prestamos vacio");
+        imprimirMensajeRojo("Archivo prestamos vacio");
     }
 
 }
@@ -759,7 +759,7 @@ void buscarLibroXAutor(estanteria arregloEstanterias[])
 
     do
     {
-        printf("Ingrese el autor que desa buscar");
+        printf("Ingrese el autor que desa buscar: ");
         fflush(stdin);
         gets(autor);
     }
@@ -793,7 +793,7 @@ void buscarEstanteriaParaAutor(estanteria arregloEstanterias[], char autor[])
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro de ese Autor\n");
+        imprimirMensajeRojo("\nNo se encontro ningun Libro de ese Autor\n");
     }
 
 }
@@ -820,7 +820,7 @@ void buscarLibroXgenero(estanteria arregloEstanterias[])
 
     char genero[MAX_DIM];
 
-    printf("Que genero quiere buscar?\n");
+    printf("Que genero quiere buscar? \n");
     validarGenero(genero);
 
     for (int i = 0; i < MAX_GEN; i++)
@@ -843,11 +843,11 @@ void buscarLibroXTitulo(estanteria arregloEstanterias[])
 
     do
     {
-        printf("Ingrese el Titulo que desa buscar");
+        printf("Ingrese el Titulo que desea buscar: ");
         fflush(stdin);
         gets(titulo);
     }
-    while(validarDigitosEnStrings(titulo)== 1||validarRangoDeNombre(titulo)== 1);
+    while(validarRangoDeNombre(titulo)== 1);
 
     buscarEstanteriaParaTitulo(arregloEstanterias, titulo);
 
@@ -878,7 +878,7 @@ void buscarEstanteriaParaTitulo(estanteria arregloEstanterias[], char titulo[])
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro con ese Titulo\n");
+        imprimirMensajeRojo("\nNo se encontro ningun Libro con ese Titulo\n");
     }
 
 }
@@ -908,8 +908,8 @@ void buscarLibroXClave(estanteria arregloEstanterias[])
 
     do
     {
-        printf("\nIngrese una palabra clave");
-        printf("\nPalabra Clave: ");
+        puts("====Ingrese una palabra clave====");
+        printf("Palabra Clave: ");
         fflush(stdin);
         gets(clave);
     }
@@ -946,7 +946,7 @@ void buscarEstanteriasParaClave(estanteria arregloEstanterias[], char clave[])
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro con esa palabra clave\n");
+        imprimirMensajeRojo("\nNo se encontro ningun Libro con esa palabra clave\n");
     }
 
 
@@ -1009,7 +1009,7 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro con ese Estado\n");
+        imprimirMensajeRojo("\nNo se encontro ningun Libro con ese Estado\n");
     }
 
 }
@@ -1149,7 +1149,7 @@ void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro disponible\n");
+        imprimirMensajeRojo("\nNo se encontro nungun Libro disponible\n");
     }
 
 }
@@ -1179,7 +1179,7 @@ void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
 
     if (flag == -1)
     {
-        printf("\nNo se encontro nungun Libro con lista de espera\n");
+        imprimirMensajeRojo("\nNo se encontro nungun Libro con lista de espera\n");
     }
 }
 
@@ -1338,7 +1338,7 @@ stPrestamo retornarPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 
     if(flag == 0)
     {
-        puts("Error prestamo no encontrado");
+        imprimirMensajeRojo("Error prestamo no encontrado");
     }
     return auxPrestamo;
 }
