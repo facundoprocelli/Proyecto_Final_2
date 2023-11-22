@@ -134,7 +134,7 @@ int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPre
 nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar);
 
-
+void mostrarArchivoPrestamos();
 ///funciones de prestamos
 stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[]);
 int retornarUltimoIDPrestamo(estanteria arregloEstanterias[]);

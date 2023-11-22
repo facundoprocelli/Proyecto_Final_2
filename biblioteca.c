@@ -55,12 +55,12 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
-    //arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
+    arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos

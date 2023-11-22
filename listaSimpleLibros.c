@@ -697,14 +697,20 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
                 while(listaDoble != NULL) //recorro cada fila de los libros
                 {
                     aux=listaDoble->datoPrestamo;
+
                     fwrite(&aux,sizeof(stPrestamo),1,buffer);
+
                     borrarPrimerNodoDoble(&listaDoble);
+
                     listaDoble=listaDoble->siguiente;
+
 
                 }
                 listaSimple=listaSimple->siguiente;
+
             }
-            i++;
+
+
         }
         fclose(buffer);
     }
@@ -714,6 +720,28 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
     }
 
 }
+void mostrarArchivoPrestamos()
+{
+
+    stPrestamo aux;
+    FILE * buffer = fopen(ARCHIVO_PRESTAMOS,"rb");
+    if(buffer != NULL)
+    {
+
+        while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
+        {
+
+            mostrarUnPrestamo(aux);
+        }
+
+        fclose(buffer);
+    }
+    else
+    {
+        imprimirMensajeRojo("Archivo prestamos vacio");
+    }
+}
+
 
 void recorrerLibrosParaFila(nodoSimple*listaSimpleLibros,FILE*buffer)
 {

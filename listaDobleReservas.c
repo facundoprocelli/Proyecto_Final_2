@@ -193,7 +193,7 @@ void borrarPrimerNodoDoble(nodoDoble**listaDoble)
     if(aux != NULL)
     {
         liberar=aux;
-        *listaDoble=aux->siguiente;
+        aux=aux->siguiente;
         free(liberar);
     }
 
