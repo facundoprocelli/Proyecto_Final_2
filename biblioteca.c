@@ -528,10 +528,9 @@ void menuBuscarMiembros(nodoArbol* raiz)
 
 void opcionesMenuPrestamos()
 {
-    puts("[1] Consultar prestamos"); //cuantos libros quedan de un determinado titulo, precio de los prestamos, si hay cola en un libro, cuanto tiempo de espera hay
-    puts("[2] Devolver un libro");
-    puts("[3] Modificar fecha de vencimiento de un prestamo");
-    puts("[4] Volver al menu principal");
+    puts("[1] Ver todos los prestamos"); //Ver todos los prestamos activos
+    puts("[2] Informe de prestamos"); // Esto de aca anda a saber vos si lo hacemos
+    puts("[3] Volver al menu principal");
     puts("============================================================");
 
 }
@@ -549,14 +548,13 @@ void menuPrestamos()
         switch(opSw)
         {
         case 1:
+            /// Mostrar Prestamos Activos
             break;
         case 2:
+            ///  informe?
             break;
+
         case 3:
-            break;
-        case 4:
-            break;
-        case 5:
             limpiarPantalla();
             opCont='n';
             break;
@@ -594,7 +592,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
             menuMiembroUsuario(miembroActual,arbolMiembro);
             break;
         case 3:
-            menuPrestamosUsuario();
+            menuPrestamosUsuario(arregloEstanterias,miembroActual,prestamosInactivos,arbolMiembro);
             break;
         case 4:
             opContinuarMenuPrin = 'n';
@@ -610,25 +608,14 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
 
 void opcionesMenuUsuarioLibros()
 {
-
-    puts("[1] Devolver un libro"); //aumentar el contador de cantcopias +1
-    puts("[2] Pedir un libro"); //es crear un prestamo, si el libro esta libre darselo y generar un prestamo, si no, meterlo en la fila de espera
-    puts("[3] Buscar un libro"); //tenemos un menu
-    puts("[4] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
-    puts("[5] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
-    puts("[6] Volver al menu principal");
+    puts("[1] Buscar un libro"); //tenemos un menu
+    puts("[2] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
+    puts("[3] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
+    puts("[4] Volver al menu principal");
     puts("================================================================");
 }
 
-void opcionesMenuUsuarioPrestamos()
-{
 
-    puts("[1] Ver mis prestamos activos");
-    puts("[2] Ver limite de prestamos");
-    puts("[3] Ver todo el historial de prestamos");
-    puts("[4] Volver al menu principal");
-    puts("===============================================");
-}
 
 void opcionesMenuUsuarioMiembro()
 {
@@ -660,22 +647,15 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActual,
         switch(opMenuPrin)
         {
         case 1:
-            devolverUnLibroUsuario(arregloEstanterias,prestamosInactivos,miembroActual);
-            break;
-        case 2: //pedir un libro
-            pedirUnLibro(arregloEstanterias,miembroActual);
-
-            break;
-        case 3:
             buscarLibrosUsuario(arregloEstanterias);
             break;
-        case 4:// mostrar libros disponibles
+        case 2:// mostrar libros disponibles
             verLibrosDisponiblesUsuario(arregloEstanterias);
             break;
-        case 5:// mostrar libros con lista de espera
+        case 3:// mostrar libros con lista de espera
             verLibrosConEsperaUsuario(arregloEstanterias);
             break;
-        case 6:
+        case 4:
             opContinuarMenuPrin = 'n';
             break;
         default:
@@ -694,7 +674,8 @@ void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
     {
         opcionesMenuUsuarioMiembro();
         opMenuPrin=preguntarDatoEntero();
-        limpiarPantalla();
+        //limpiarPantalla();
+
 
         nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual.datosPersonales.dni);
 
@@ -723,7 +704,18 @@ void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
     while(opContinuarMenuPrin != 'n');
 }
 
-void menuPrestamosUsuario()
+
+void opcionesMenuUsuarioPrestamos()
+{
+    puts("[1] Pedir un libro");
+    puts("[2] Devolver un libro");
+    puts("[3] Ver mis prestamos activos");
+    puts("[4] Ver todo el historial de prestamos");
+    puts("[5] Volver al menu principal");
+    puts("===============================================");
+}
+
+void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -735,15 +727,19 @@ void menuPrestamosUsuario()
         switch(opMenuPrin)
         {
         case 1:
-
+            pedirUnLibro(arregloEstanterias,miembroActual);
             break;
         case 2:
-
+            devolverUnLibroUsuario(arregloEstanterias,prestamosInactivos,miembroActual);
             break;
         case 3:
+            /// Mostrar prestamo activo del usuario
 
             break;
         case 4:
+            /// Ver historial de prestamos
+            break;
+        case 5:
             opContinuarMenuPrin = 'n';
             break;
         default:
