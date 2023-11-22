@@ -136,24 +136,24 @@
 1700677951 c:\users\gc\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 
-1700680459 source:c:\users\gc\desktop\proyecto_final_2-main\biblioteca.c
+1700685311 source:c:\users\gc\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1700677951 source:c:\users\gc\desktop\proyecto_final_2-main\filareservas.c
+1700684933 source:c:\users\gc\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1700677951 c:\users\gc\desktop\proyecto_final_2-main\filareservas.h
+1700683542 c:\users\gc\desktop\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1700680322 source:c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.c
+1700684380 source:c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -163,7 +163,7 @@
 1700677951 c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.h
 	"pilaPrestamosInactivos.h"
 
-1700680499 source:c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.c
+1700685170 source:c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

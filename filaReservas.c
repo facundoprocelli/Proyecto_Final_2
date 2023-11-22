@@ -18,23 +18,19 @@ void inicFila(filaReservas*reservas)
 
 
 /// Funciones principales TDA fila
-void agregarAlFinalFila(filaReservas*reservas, nodoDoble* NN)
+void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux)
 {
+    nodoDoble * NN = crearNodoDoble(aux);
 
     if(reservas->primero != NULL)
     {
-
-
         reservas->ultimo->siguiente=NN;
 
         NN->anterior = reservas->ultimo;
-
         reservas->ultimo=NN;
-
     }
     else
     {
-
         reservas->primero = NN;
         reservas->ultimo = NN;
     }

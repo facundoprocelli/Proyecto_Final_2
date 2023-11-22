@@ -55,12 +55,12 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
-    arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
+    //arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos
@@ -120,7 +120,7 @@ void menuGeneral()
                 fflush(stdin);
                 scanf("%c",&opCrearCuenta);
 
-                if(opCrearCuenta== 's')
+                if(opCrearCuenta== 's'||opCrearCuenta == 'S')
                 {
                     //si el usuario desea crearse una cuenta, la creamos y ya le activamos el menu
 
@@ -1047,9 +1047,9 @@ void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*presta
 {
     char opDevolver = 's';
 
-
-    if(miembroActual->dato.prestamoActivoID !=0)
+    if(miembroActual->dato.prestamoActivoID !=0)/// 0 es prestamo inactivo
     {
+
         nodoDoble* auxPrestamo = retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
 
         puts("Este es su prestamo activo: ");
@@ -1057,16 +1057,16 @@ void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*presta
 
         printf("Desea devolver el libro actual? s/n: ");
         fflush(stdin);
-
         scanf("%c",&opDevolver);
-        if(opDevolver == 's')
+
+        if(opDevolver == 's'||opDevolver == 'S')
         {
             libroDevuelto(arregloEstanterias,miembroActual,prestamosInactivos, auxPrestamo);
         }
     }
     else
     {
-        puts("Usted no tiene ningun libro prestado");
+        imprimirMensajeRojo("Usted no tiene ningun libro prestado");
     }
 
 }

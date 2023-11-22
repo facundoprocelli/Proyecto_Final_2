@@ -98,12 +98,13 @@ int generarMulta(stFecha fechaFinDelPrestamo)///falta terminar
 void mostrarUnPrestamo(stPrestamo aux)
 {
     puts("---------------------Prestamo---------------------");
-    printf("[ID Prestamo]...............: %i \n",aux.idPrestamo);
-    printf("[DNI del miembro]...........: %s \n",aux.dniUsuarioPrestado);
-    printf("[Precio]....................: %s \n",aux.precioPrestamo);
-    printf("[Genero]....................: %s \n",aux.generoEstanteria);
-    printf("[Nombre]....................: %s \n",aux.nombreLibro);
-    printf("[Estado]....................: %i \n",aux.estado);
+    printf("[ID Prestamo]...............[%i] \n",aux.idPrestamo);
+    printf("[DNI del miembro]...........[%s] \n",aux.dniUsuarioPrestado);
+    printf("[Precio]....................[%s] \n",aux.precioPrestamo);
+    printf("[Genero]....................[%s]\n",aux.generoEstanteria);
+    printf("[ID libro]..................[%i] \n",aux.idLibro);
+    printf("[Nombre]....................[%s] \n",aux.nombreLibro);
+    printf("[Estado]....................[%i] \n",aux.estado);
     printf(".......[Inicio del prestamo].......\n");
     mostrarUnaFecha(aux.inicioPrestamo);
     printf("....[Vencimiento del prestamo].... \n");

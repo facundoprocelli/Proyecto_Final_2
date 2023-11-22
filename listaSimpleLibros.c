@@ -1244,56 +1244,71 @@ nodoSimple* retornarNodosLibrosXEspera(nodoSimple* lista)
 // funcion que pasa el prestamo leido del archivo de prestamos a la fila correspondiente
 void archivoAFilasPrestamos(estanteria arregloEstanterias[])
 {
+
     FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"rb");
     stPrestamo aux;
 
-
-    if(buffer != NULL)
+    if (buffer != NULL)
     {
-        while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
+        while (fread(&aux, sizeof(stPrestamo), 1, buffer) > 0)
         {
+            for (int i = 0; i < 5; i++)
+            {
+                nodoSimple* simple = arregloEstanterias[i].listaLibro;
+                inicFila(&simple->datoLibro.reservasLibro);
 
-            recorrerEstanteriasParaAgregarAFilaPrestamo(arregloEstanterias,aux);
-
+                while (simple != NULL)
+                {
+                    if (simple->datoLibro.idLibro == aux.idLibro)
+                    {
+                        agregarAlFinalFila(&simple->datoLibro.reservasLibro,aux);
+                    }
+                    simple = simple->siguiente;
+                }
+            }
         }
-
         fclose(buffer);
+    }
+    else
+    {
+        imprimirMensajeRojo("Archivo prestamos vacio");
     }
 }
 
 
 
 //busco la estanteria del prestamo correspondiente
-void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo)
-{
-    int flag=0, i=0;
-    while(flag)
-    {
-        flag=recorrerLibrosParaAgregarAFilaPrestamo(arregloEstanterias[i].listaLibro,datoPrestamo);
-        if(flag==0)
-        {
-            i++;
-        }
-    }
-}
-
-//busco el idLibro que tiene el prestamo, si coinciden lo agrego a la fila y retorno 1, si no, retorno 0
-int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo)
-{
-    int flag=0;
-    while(listaS != NULL && listaS->datoLibro.idLibro != datoPrestamo.idLibro)
-    {
-        listaS= listaS->siguiente;
-    }
-
-    if(listaS->datoLibro.idLibro == datoPrestamo.idLibro)
-    {
-        nodoDoble* NN = crearNodoDoble(datoPrestamo);
-        agregarAlFinalFila(&listaS->datoLibro.reservasLibro,NN);
-        flag=1;
-    }
-    return flag;
-}
+//void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo)
+//{
+//    int flag=0, i=0;
+//    while(flag)
+//    {
+//        flag=recorrerLibrosParaAgregarAFilaPrestamo(arregloEstanterias[i].listaLibro,datoPrestamo);
+//        if(flag == 0)
+//        {
+//            i++;
+//        }
+//
+//    }
+//}
+//
+////busco el idLibro que tiene el prestamo, si coinciden lo agrego a la fila y retorno 1, si no, retorno 0
+//int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPrestamo)
+//{
+//    int flag=0;
+//    while(listaS != NULL && listaS->datoLibro.idLibro != datoPrestamo.idLibro)
+//    {
+//        listaS= listaS->siguiente;
+//    }
+//    if(listaS->datoLibro.idLibro == datoPrestamo.idLibro)
+//    {
+//
+//        agregarAlFinalFila(&listaS->datoLibro.reservasLibro,datoPrestamo);
+//        flag=1;
+//    }
+//
+//    return flag;
+//}
 
 
 /// funciones prestamos
@@ -1421,34 +1436,52 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
     nodoSimple*listaS=inicListaSimple();
     int flag=0;
 
-    while(i < dim && flag==0) //recorro las estanterias
+//    while(i < dim && flag==0) //recorro las estanterias
+//    {
+//        listaS=arregloEstanterias[i].listaLibro;
+// printf("[1]ERROR\n");
+//
+//        //mostrarListaSimple(listaS);
+//        while(listaS != NULL && flag==0) //recorro cada libro
+//        {
+//            listaD=listaS->datoLibro.reservasLibro.primero;
+//             printf("[2]ERROR\n");
+//            while(listaD != NULL && flag==0) //recorro cada fila de un libro
+//            {
+//                if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
+//                {
+//             printf("[3]ERROR\n");
+//                    auxPrestamo=listaD;
+//                    flag=1;
+//                }
+//                    listaD=listaD->siguiente;
+//            }
+//            listaS=listaS->siguiente;
+//        }
+//        i++;
+//    }
+    while(i<dim && flag == 0)
     {
-        listaS=arregloEstanterias[i].listaLibro;
-
-        //mostrarListaSimple(listaS);
-        while(listaS != NULL && flag==0) //recorro cada libro
+        listaS = arregloEstanterias[i].listaLibro;
+        while(listaS!=NULL)
         {
-
-            listaD=listaS->datoLibro.reservasLibro.primero;
-            while(listaD != NULL && flag==0) //recorro cada fila de un libro
+            listaD = listaS->datoLibro.reservasLibro.primero;
+            while(listaD != NULL)
             {
-
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
                 {
-                    auxPrestamo=listaD;
-                    flag=1;
-                }
-                else
-                {
-                    listaD=listaD->siguiente;
+                    auxPrestamo = listaD;
+                    //mostrarUnPrestamo(listaD->datoPrestamo);
+                    flag = 1;
                 }
 
+                listaD=listaD->siguiente;
             }
-            listaS=listaS->siguiente;
+            listaS = listaS->siguiente;
         }
+
         i++;
     }
-
     if(flag == 0)
     {
         imprimirMensajeRojo("Error prestamo no encontrado");
@@ -1564,9 +1597,9 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
                     auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
 
 
-                    nodoDoble* NN = crearNodoDoble(auxPrestamo);
+                    //nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
-                    agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,NN);
+                    agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
                     nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
 
@@ -1580,9 +1613,9 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
                 limpiarPantalla();
                 auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
                 mostrarUnPrestamo(auxPrestamo);
-                nodoDoble* NN = crearNodoDoble(auxPrestamo);
+                //nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
-                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,NN);
+                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
                 nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
                 nodoLibroBuscado->datoLibro.estado=2;
