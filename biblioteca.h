@@ -75,4 +75,7 @@ int contarPrestamosInactivos(pilaPrestamos pilita);
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual);
 int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBuscar[]);
 
+
+
+
 #endif // BIBLIOTECA_H_INCLUDED

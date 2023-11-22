@@ -10,7 +10,6 @@
 
 ///funciones estructura prestamos
 
-stPrestamo crearUnPrestamo(stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[]);
 
 //mostrar
 void mostrarUnaFecha(stFecha aux);
@@ -43,6 +42,4 @@ int validarDias(int dias);
 int validarPrecioPrestamo(char aux[]);
 
 ///Funciones archivo
-int retornarUltimoIDPrestamo();
-
 #endif // LISTADOBLERESERVAS_H_INCLUDED

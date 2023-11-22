@@ -136,6 +136,9 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 
 
 ///funciones de prestamos
+stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[]);
+int retornarUltimoIDPrestamo(estanteria arregloEstanterias[]);
+
 void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos, nodoDoble* auxPrestamo);
 nodoSimple* preguntarIDLibroParaPedir(estanteria arregloEstanterias[]);
 void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual);

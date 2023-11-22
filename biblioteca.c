@@ -533,11 +533,11 @@ void menuPrestamos()
 
     int opSw=0;
     char opCont='s';
-    opcionesMenuPrestamos();
-    opSw=preguntarDatoEntero();
     do
     {
 
+        opcionesMenuPrestamos();
+        opSw=preguntarDatoEntero();
         switch(opSw)
         {
         case 1:
@@ -546,7 +546,6 @@ void menuPrestamos()
         case 2:
             ///  informe?
             break;
-
         case 3:
             limpiarPantalla();
             opCont='n';
@@ -596,6 +595,8 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
         }
     }
     while(opContinuarMenuPrin != 'n');
+
+
 
 }
 
@@ -1037,6 +1038,9 @@ int contarPrestamosInactivos(pilaPrestamos pilita)
 // tercero hago todas las validaciones sobre q si el libro existe
 // cuarto le modifico las stats al libro, le aumento las veces prestado, si no tiene nadie en la fila le cambio el estado, sino sigue el mismo estado
 // quinto muevo el prestamo a la pila de prestamos inactivos
+
+
+
 
 
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual)

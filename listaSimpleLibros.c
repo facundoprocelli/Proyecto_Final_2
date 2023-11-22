@@ -1271,6 +1271,82 @@ int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPre
 /// funciones prestamos
 
 
+///funciones crear un prestamo
+
+
+stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[])
+{
+    stPrestamo aux;
+    int duracionVencimiento = 0;
+    aux.idPrestamo= retornarUltimoIDPrestamo(arregloEstanterias) +1;
+
+    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
+
+    strcpy(aux.generoEstanteria,generoDelPrestamo);
+
+    aux.idLibro=idLibroPrestado;
+
+    aux.estado = 1;
+
+    strcpy(aux.nombreLibro,nombreLibro);
+
+
+    //asignarTiempo(&aux.inicioPrestamo,infoTiempo);
+    aux.inicioPrestamo = inicioFecha;///lo que hace es guardar la fecha de inicio del ultimo prestamo y dsp iniciarla
+    do
+    {
+        printf("Ingrese de cuantos dias quiere el prestamo: ");
+        fflush(stdin);
+        scanf("%i",&duracionVencimiento);
+    }
+    while(validarDias(duracionVencimiento)== 1);
+
+    int precio = duracionVencimiento * 1000;
+    char precioPrestamo[MAX_DIM];
+
+    sprintf(precioPrestamo, "%d", precio);
+
+    strcpy(aux.precioPrestamo, precioPrestamo);
+    printf("El precio del prestamos es: $%s\n", aux.precioPrestamo);
+
+
+    calcularVencimiento(&aux.vencimientoPrestamo,aux.inicioPrestamo,duracionVencimiento);
+    return aux;
+}
+
+
+int retornarUltimoIDPrestamo(estanteria arregloEstanterias[])
+{
+    int ultId=0;
+
+    nodoSimple*auxNodoSimple=inicListaSimple();
+    nodoDoble*auxNodoDoble=inicListaDoble();
+
+    for(int i=0; i < 5; i++)
+    {
+        auxNodoSimple=arregloEstanterias[i].listaLibro;
+        while(auxNodoSimple != NULL)
+        {
+            auxNodoDoble=auxNodoSimple->datoLibro.reservasLibro.primero;
+
+            while(auxNodoDoble != NULL)
+            {
+                if(auxNodoDoble->datoPrestamo.idPrestamo > ultId)
+                {
+                    ultId=auxNodoDoble->datoPrestamo.idPrestamo;
+                }
+                auxNodoDoble=auxNodoDoble->siguiente;
+            }
+            auxNodoSimple= auxNodoSimple->siguiente;
+        }
+    }
+
+
+    return ultId;
+}
+
+
+
 int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBuscar)
 {
     int dim=5, i=0;
@@ -1457,7 +1533,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 
                 if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
                 {
-                    auxPrestamo=crearUnPrestamo(auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
+                    auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
 
 
                     nodoDoble* NN = crearNodoDoble(auxPrestamo);
@@ -1474,7 +1550,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
             else //si no tiene fila le creamos el prestamo de una
             {
                 limpiarPantalla();
-                auxPrestamo=crearUnPrestamo(auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
+                auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
                 mostrarUnPrestamo(auxPrestamo);
                 nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
@@ -1491,3 +1567,6 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
     }
 
 }
+
+
+

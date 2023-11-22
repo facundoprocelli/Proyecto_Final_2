@@ -16,45 +16,7 @@
 
 
 
-stPrestamo crearUnPrestamo(stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[])
-{
-    stPrestamo aux;
-    int duracionVencimiento = 0;
-    aux.idPrestamo= retornarUltimoIDPrestamo() +1;
 
-    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
-
-    strcpy(aux.generoEstanteria,generoDelPrestamo);
-
-    aux.idLibro=idLibroPrestado;
-
-    aux.estado = 1;
-
-    strcpy(aux.nombreLibro,nombreLibro);
-
-
-    //asignarTiempo(&aux.inicioPrestamo,infoTiempo);
-    aux.inicioPrestamo = inicioFecha;///lo que hace es guardar la fecha de inicio del ultimo prestamo y dsp iniciarla
-    do
-    {
-        printf("Ingrese de cuantos dias quiere el prestamo: ");
-        fflush(stdin);
-        scanf("%i",&duracionVencimiento);
-    }
-    while(validarDias(duracionVencimiento)== 1);
-
-    int precio = duracionVencimiento * 1000;
-    char precioPrestamo[MAX_DIM];
-
-    sprintf(precioPrestamo, "%d", precio);
-
-    strcpy(aux.precioPrestamo, precioPrestamo);
-    printf("El precio del prestamos es: $%s\n", aux.precioPrestamo);
-
-
-    calcularVencimiento(&aux.vencimientoPrestamo,aux.inicioPrestamo,duracionVencimiento);
-    return aux;
-}
 
 
 int validarDias(int dias)
@@ -68,8 +30,6 @@ int validarDias(int dias)
 
     return flag;
 }
-
-
 
 void asignarTiempo(stFecha * aux,struct tm * info_tiempo)
 {
@@ -99,8 +59,6 @@ void calcularVencimiento(stFecha *vencimiento, stFecha inicio,int duracionPresta
     vencimiento->mesTiempo = info_vencimiento->tm_mon + 1;  // Sumar 1 al mes
     vencimiento->anioTiempo = info_vencimiento->tm_year + 1900;
 }
-
-
 
 //mostrar una fecha
 void mostrarUnaFecha(stFecha aux)
@@ -263,21 +221,4 @@ int validarPrecioPrestamo(char aux[])
 
 ///funciones archivo
 
-int retornarUltimoIDPrestamo() //vamos a tener que modificarla, y buscar el ultimo id de otra forma
-{
-    FILE*buffer=fopen(ARCHIVO_PRESTAMOS,"rb");
-    stPrestamo aux;
-    int ultId=0;
-    if(buffer != NULL)
-    {
-        while(fread(&aux,sizeof(stPrestamo),1,buffer) > 0)
-        {
-            if(aux.idPrestamo > ultId)
-            {
-                ultId=aux.idPrestamo;
-            }
-        }
-    }
-    return ultId;
-}
 
