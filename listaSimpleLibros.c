@@ -1442,7 +1442,9 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
         stPrestamo auxPrestamo;
         char opPedir;
         nodoLibroBuscado= preguntarIDLibroParaPedir(arregloEstanterias);
+
         stFecha auxFecha = retornarUltimaFecha(nodoLibroBuscado->datoLibro.reservasLibro);
+
 
         if(nodoLibroBuscado != NULL) // si el usuario quiere pedir un libro
         {
@@ -1464,7 +1466,6 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 
                     nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
 
-                    //falta poner que la fecha de inicio sea la de vencimiento del ultimo prestamo
 
                     imprimirMensajeVerde("Su pedido se agrego a la fila de espera");
                 }

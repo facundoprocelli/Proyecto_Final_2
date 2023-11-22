@@ -1275,7 +1275,7 @@ nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux)
 
 /// Cargar miembros predeterminados
 
-nodoArbol* cargarMiembrosPredetermiandos(nodoArbol* raiz)
+nodoArbol* cargarMiembrosPredeterminados(nodoArbol* raiz)
 {
 
 /// Miembro 1

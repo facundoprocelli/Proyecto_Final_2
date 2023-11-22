@@ -21,11 +21,18 @@ stPrestamo crearUnPrestamo(stFecha inicioFecha,char dniUsuarioPrestadoAux[],int 
     stPrestamo aux;
     int duracionVencimiento = 0;
     aux.idPrestamo= retornarUltimoIDPrestamo() +1;
+
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
+
     strcpy(aux.generoEstanteria,generoDelPrestamo);
+
     aux.idLibro=idLibroPrestado;
+
     aux.estado = 1;
+
     strcpy(aux.nombreLibro,nombreLibro);
+
+
     //asignarTiempo(&aux.inicioPrestamo,infoTiempo);
     aux.inicioPrestamo = inicioFecha;///lo que hace es guardar la fecha de inicio del ultimo prestamo y dsp iniciarla
     do

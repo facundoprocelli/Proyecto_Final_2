@@ -60,7 +60,7 @@ void menuGeneral()
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
-    //arbolMiembros = cargarMiembrosPredetermiandos(arbolMiembros);
+    //arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos
@@ -177,15 +177,6 @@ void opcionesMenuGeneral()
 nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 {
 
-
-    /*
-    Para solucionar el problema de los prestamos inactivos y seguirlos teniendo en el archivo pero no en las filas de los libros
-    propusimos, para implementar el TDA de pilas, guardar todos los prestamos inactivos en una pila y luego cuando se cierre el programa,
-    guardarlos en el archivo. por lo tanto nos quedarian los activos primeros y a lo ultimo los prestamos inactivos en el archivo
-
-    crear una libreria mas de pilas.
-
-    */
 
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -575,7 +566,7 @@ void menuPrestamos()
 void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoArbol* miembroActual, pilaPrestamos*prestamosInactivos)///verificar si faltan alguna estructura mas...
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
-mostrarUnMiembro(miembroActual->dato);
+    mostrarUnMiembro(miembroActual->dato);
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
@@ -742,6 +733,8 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
             break;
         case 3:
             /// Mostrar prestamo activo del usuario
+
+
 
             break;
         case 4:

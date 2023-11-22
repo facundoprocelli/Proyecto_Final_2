@@ -7,8 +7,6 @@ int main()
 
     menuGeneral();
 
-
-//stFecha aux = retornarUltimaFecha(filaReservas reservas)
     return 0;
 }
 
