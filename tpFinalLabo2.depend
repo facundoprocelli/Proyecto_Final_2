@@ -179,7 +179,7 @@
 	<stdlib.h>
 	"biblioteca.h"
 
-1700608341 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
+1700609774 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -220,14 +220,14 @@
 	"filaReservas.h"
 	"arbolMiembros.h"
 
-1700601470 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\main.c
+1700610930 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
 
-1700607996 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
+1700609774 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
 
-1700601470 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
+1700611001 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

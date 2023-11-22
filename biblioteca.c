@@ -58,6 +58,7 @@ void menuGeneral()
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
+    //arbolMiembros = cargarMiembrosPredetermiandos(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos
@@ -383,19 +384,19 @@ void menuBuscarLibros(estanteria arregloEstanterias[])
         opSw=preguntarDatoEntero();
         switch(opSw)
         {
-        case 1:
+        case 1:// Buscar Libro por titulo
             buscarLibroXTitulo(arregloEstanterias);
             break;
-        case 2:
+        case 2://Buscar libro por autor
             buscarLibroXAutor(arregloEstanterias);
             break;
-        case 3:
+        case 3://Buscar libro por genero
             buscarLibroXgenero(arregloEstanterias);
             break;
-        case 4:
+        case 4:// buscar libro por clave
             buscarLibroXClave(arregloEstanterias); // Esto esta en duda ( yo lo dejaria para el final final )
             break;
-        case 5:
+        case 5:// buscar libro por clave
             buscarLibrosXEstado(arregloEstanterias);
             break;
         case 6:
@@ -446,7 +447,7 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
             break;
         case 3: //calcular multas
             break;
-        case 4: ///informes sobre miembros (hacer un menu)
+        case 4: //informes sobre miembros (hacer un menu)
             break;
         case 5:
             mostrarArbolInorden(raiz);
@@ -482,6 +483,8 @@ void opcionesMenuBuscarMiembros()
 
 }
 
+
+///Buscar miembros por diferentes parametros
 void menuBuscarMiembros(nodoArbol* raiz)
 {
     int opSw=0;
@@ -493,19 +496,19 @@ void menuBuscarMiembros(nodoArbol* raiz)
 
         switch(opSw)
         {
-        case 1:
+        case 1:// Buscar miembro por nombre
             buscarMiembroXNombre(raiz);
             break;
-        case 2:
+        case 2:// buscar miembro por DNI
             buscarMiembroXDNI(raiz);
             break;
-        case 3:
+        case 3:// buscar miembro por Estado
             buscarMiembroXEstado(raiz);
             break;
-        case 4:
+        case 4:// buscar miembro por Saldo
             buscarMiembroXSaldo(raiz);
             break;
-        case 5:
+        case 5:// buscar miembro por Prestamos
             buscarMiembroXPrestamos(raiz);
             break;
         case 6:
@@ -665,42 +668,14 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],stMiembro miembroActual,p
 
             pedirUnLibro(arregloEstanterias);
 
-
-            /*
-                        if(flag) // si encontre el libro
-                        {
-
-                            datoLibro=retornarLibroXNombre(arregloEstanterias[i].listaLibro,auxString);
-
-                            // tercero verifico si tengo copias disponibles osea cantCopias != 0, si tengo se le da el libro al usuario de manera inmediata, se disminye la cantCopias en 1, se guarda en prestamosActivosID del miembro y se aumenta las vecesPrestado
-                            // cuarto retorno el libro y habra que modificarle sus stats
-                            if(verificarSiHayCopiasEnUnLibro(datoLibro)) //funcion verificar si tengo copias
-                            {
-
-                                crearUnPrestamo(datoMiembro.datosPersonales.dni);
-                                datoMiembro.prestamosActivosID[datoMiembro.validosPrestamosActivosID]=datoLibro.idLibro;
-                                //datoLibro.cantidadDeCopias-=1;
-                                datoLibro.vecesPrestadoLibro+=1;
-
-                                //poner el libro modificado en la estructura de nuevi
-
-                            }
-                            else //si no tengo copias
-                            {
-                                //funcion agregar a la fila
-                                puts("No hay copias disponibles en este momento, vas a ser ingresado a la fila de espera");
-                            }
-                        }
-            */
-
             break;
         case 3:
             buscarLibrosUsuario(arregloEstanterias);
             break;
-        case 4:
+        case 4:// mostrar libros disponibles
             verLibrosDisponiblesUsuario(arregloEstanterias);
             break;
-        case 5:
+        case 5:// mostrar libros con lista de espera
             verLibrosConEsperaUsuario(arregloEstanterias);
             break;
         case 6:
@@ -728,16 +703,16 @@ void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
 
         switch(opMenuPrin)
         {
-        case 1:
+        case 1://modificar nombre miembro
             miembroModifcable = cambiarNombreMiembro(miembroModifcable);
             break;
-        case 2:
+        case 2:// modificar numero de telefono miembro
             miembroModifcable = cambiarNumeroDeTelefonoMiembro(miembroModifcable, arbolMiembro);
             break;
-        case 3:
+        case 3:// modificar saldo de cuenta de miembro
             miembroModifcable = cambiarSaldoDeCuentaMiembro(miembroModifcable);
             break;
-        case 4:
+        case 4:// mostrarse a si mismo
             mostrarUnMiembro(miembroModifcable->dato);
             break;
         case 5:
@@ -793,19 +768,19 @@ void buscarLibrosUsuario(estanteria arregloEstanterias[])
         opSw=preguntarDatoEntero();
         switch(opSw)
         {
-        case 1:
+        case 1:// buscar libro por titulo
             buscarLibroXTitulo(arregloEstanterias);
             break;
-        case 2:
+        case 2:// Buscar libro por autor
             buscarLibroXAutor(arregloEstanterias);
             break;
-        case 3:
+        case 3:// buscar libro por genero
             buscarLibroXgenero(arregloEstanterias);
             break;
-        case 4:
+        case 4:// buscar libro por popularidad
             buscarLibroXPopularidad(arregloEstanterias);
             break;
-        case 5:
+        case 5:// buscar libro por palabra clave
             buscarLibroXClave(arregloEstanterias);
             break;
         case 6:

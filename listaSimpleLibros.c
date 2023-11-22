@@ -903,7 +903,7 @@ void buscarLibrosXEstado(estanteria arregloEstanterias[])
 
 }
 
-
+/// Buscar e impirmir libros por palabra clave
 
 
 void buscarLibroXClave(estanteria arregloEstanterias[])
@@ -987,7 +987,7 @@ nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[])
 
 
 
-
+/// Buscar e impirmir libros por estado
 
 void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion)
 {
@@ -1033,7 +1033,7 @@ void menuOpcionesDisponibilidad()
 }
 
 
-
+/// Buscar libros por disponibilidad
 nodoSimple* retornarNodosLibrosXDisponibilidad(nodoSimple* lista)
 {
 
@@ -1160,7 +1160,7 @@ void verLibrosDisponiblesUsuario(estanteria arregloEstanterias[])
 }
 
 
-
+/// Ver libros con lista de espera
 void verLibrosConEsperaUsuario(estanteria arregloEstanteria[]){
 
 

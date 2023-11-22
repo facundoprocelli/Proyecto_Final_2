@@ -117,6 +117,7 @@ void buscarMiembroXDNI(nodoArbol* raiz);
 void buscarMiembroXNombre(nodoArbol* raiz);
 
 
+nodoArbol* cargarMiembrosPredetermiandos(nodoArbol* raiz);
 
 
 

@@ -14,6 +14,8 @@ void inicFila(filaReservas*reservas)
     reservas->ultimo=inicListaDoble();
 }
 
+
+/// Funciones principales TDA fila
 void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux)
 {
     nodoDoble*nuevoNodo=crearNodoDoble(aux);

@@ -796,6 +796,8 @@ void opcionesActualizarUnMiembro()
 
 }
 
+
+// Actualizar datos prestamos
 nodoArbol * actualizarUnMiembroCampos(nodoArbol * aux)
 {
     int  opSw = 0,min = 1,max = 4;
@@ -856,7 +858,7 @@ void opcionesActualizarUnMiembroCampos()
 
 }
 
-
+// retornar nodos por DNI
 nodoArbol* retornarNodoMiembroXDNI(nodoArbol*raiz, char dniMiembro[])
 {
     nodoArbol*encontrado=inicArbol();
@@ -923,6 +925,8 @@ void mostrarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
 }
 
 
+/// Buscar y mostrar miembro X dni
+
 void buscarMiembroXDNI(nodoArbol* raiz)
 {
     nodoArbol* aux = inicArbol();
@@ -975,7 +979,7 @@ void mostrarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
 
 }
 
-
+/// buscar y mostrar miembro por estado
 void   buscarMiembroXEstado(nodoArbol* raiz)
 {
 
@@ -1022,15 +1026,15 @@ void mostrarMiembroXEstado(nodoArbol* raiz, int estado)
     }
 }
 
-
+/// Buscar y mostrar miembros por saldo
 void menuOpcionesSaldoMiembro()
 {
 
     printf("\n[1] $0");
-    printf("\n[2] Menos de $1000");
-    printf("\n[3] Entre $1000 y $5000");
-    printf("\n[4] Entre $5000 y $10000");
-    printf("\n[5] Mas de $10000\n");
+    printf("\n[2] Menos de $5000");
+    printf("\n[3] Entre $5000 y $10000");
+    printf("\n[4] Entre $10000 y $50000");
+    printf("\n[5] Mas de $50000\n");
 
 }
 
@@ -1060,16 +1064,16 @@ void buscarMiembroXSaldo(nodoArbol* raiz)
         mostrarMiembrosParaSaldo(raiz, 0, 0);
         break;
     case 2:
-        mostrarMiembrosParaSaldo(raiz, 0, 1000);
+        mostrarMiembrosParaSaldo(raiz, 0, 5000);
         break;
     case 3:
-        mostrarMiembrosParaSaldo(raiz,1000, 5000);
+        mostrarMiembrosParaSaldo(raiz,5000, 10000);
         break;
     case 4:
-        mostrarMiembrosParaSaldo(raiz, 5000, 10000);
+        mostrarMiembrosParaSaldo(raiz, 10000, 50000);
         break;
     case 5:
-        mostrarMiembrosParaSaldo(raiz, 10000, MAX_SALDO);
+        mostrarMiembrosParaSaldo(raiz, 50000, MAX_SALDO);
         break;
     default:
         puts("\n Opcion invalida");
@@ -1097,7 +1101,7 @@ void mostrarMiembrosParaSaldo(nodoArbol* raiz, int minSaldo, int maxSaldo)
     }
 }
 
-
+/// Buscar y mostrar miembros por prestamso
 void buscarMiembroXPrestamos(nodoArbol* raiz)
 {
 
@@ -1255,6 +1259,75 @@ nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux)
 
 }
 
+
+
+/// Cargar miembros predeterminados
+
+nodoArbol* cargarMiembrosPredetermiandos(nodoArbol* raiz){
+
+/// Miembro 1
+
+stPersona aux;
+stMiembro miembro;
+nodoArbol* nodo1 = inicArbol();
+
+strcpy(aux.nombre, "Juan");
+strcpy(aux.dni, "34897463");
+strcpy(aux.direccion, "Jovellanos");
+strcpy(aux.numeroDeTelefono, "2235672435");
+
+miembro.datosPersonales = aux;
+miembro.estado = 1;
+miembro.prestamoActivoID = 0;
+miembro.saldo = 70000;
+nodo1 = crearNodoArbol(miembro);
+
+raiz = insertarPorDni(raiz, nodo1);
+
+
+
+/// Mimebro 2
+
+stPersona aux2;
+stMiembro miembro2;
+nodoArbol* nodo2 = inicArbol();
+
+strcpy(aux2.nombre, "Carlos");
+strcpy(aux2.dni, "4236873");
+strcpy(aux2.direccion, "Ingenieros");
+strcpy(aux2.numeroDeTelefono, "2239835273");
+
+miembro2.datosPersonales = aux2;
+miembro2.estado = 1;
+miembro2.prestamoActivoID = 0;
+miembro2.saldo = 5000;
+nodo2 = crearNodoArbol(miembro2);
+
+raiz = insertarPorDni(raiz, nodo2);
+
+
+
+/// Mimebro 3
+stPersona aux3;
+stMiembro miembro3;
+nodoArbol* nodo3 = inicArbol();
+
+strcpy(aux3.nombre, "Pablo");
+strcpy(aux3.dni, "39126738");
+strcpy(aux3.direccion, "Aragon");
+strcpy(aux3.numeroDeTelefono, "2237362837");
+
+miembro3.datosPersonales = aux3;
+miembro3.estado = 1;
+miembro3.prestamoActivoID = 0;
+miembro3.saldo = 9000;
+nodo3 = crearNodoArbol(miembro3);
+
+raiz = insertarPorDni(raiz, nodo3);
+
+
+return raiz;
+}
 
 
 
