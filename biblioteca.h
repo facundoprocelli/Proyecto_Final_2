@@ -62,13 +62,14 @@ void inicEstanterias(estanteria arregloEstanterias[]);
 void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);
 void mostrarUnaEstanteria(estanteria unaEstanteriaSola);
 
-void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[]);
 ///funciones de informes
-
+void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[],pilaPrestamos pila);
 //contar miembros ya existe
 int contarMiembrosActivos(nodoArbol * raiz);
 int contarMiembrosInactivos(nodoArbol * raiz);
 int contarCantidadDeLibros(estanteria arregloEstanterias[]);
+int contarPrestamos(estanteria arregloEstanterias[]);
+int contarPrestamosInactivos(pilaPrestamos pilita);
 /// funciones de prestamos
 
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual);

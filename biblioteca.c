@@ -139,7 +139,7 @@ void menuGeneral()
 
             break;
         case 3:
-            informeFinal(arbolMiembros,arregloEstanterias);
+            informeFinal(arbolMiembros,arregloEstanterias,prestamosInactivos);
             imprimirMensajeVerde("HA FINALIZADO CORRECTAMENTE EL PROGRAMA...");
             continuarBucle = 'n';
             break;
@@ -150,7 +150,7 @@ void menuGeneral()
     }
     while(continuarBucle != 'n');
 
-    mostrarPila(prestamosInactivos);
+    //mostrarPila(prestamosInactivos);
 
     arbolAlArchivo(arbolMiembros);
     prestamosAlArchivo(arregloEstanterias);
@@ -906,21 +906,22 @@ int preguntarID(estanteria arregloEstanterias[])
 
 ///informe final funciones
 
-void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[])
+void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[],pilaPrestamos pila)
 {
 
     ///aca tenemos que hacer muchas funciones que cumplan con los requerimientos del informe
-    puts("============================================================");
+    puts("==========================INFORME==================================");
     printf("Total de miembros................. [%i]\n",contarMiembrosArbol(raiz));
     printf("Cantidad de miembros activos.......[%i]\n",contarMiembrosActivos(raiz));
     printf("Cantidad de miembros dados de baja:[%i]\n",contarMiembrosInactivos(raiz));
     printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
-    printf("Total de prestamos.................[%i]\n",contarLibrosPrestados(arregloEstanterias));
+    printf("Total de prestamos activos.........[%i]\n",contarPrestamos(arregloEstanterias));//activo
+    printf("Total de prestamos inactivos.......[%i]\n",contarPrestamosInactivos(pila));//inactivo
     printf("Libro mas prestado.................[%i]\n",idLibroMasPrestado(arregloEstanterias));// Lo que se impime en esta funcion se pasa a los cosos de abajo
     printf("Miembro con mayor saldo............[%i]\n"); /*dniMiembroMayorSaldo(raiz));///Mostrar el DNI Estas funciones no andan del todo*/
     printf("Prestamo mas costoso...............[%i]\n");///Mostrar el ID
     printf("Miembro con mas prestamos..........[%i]\n");///Mostrar el DNI
-    puts("============================================================");
+    puts("==================================================================");
 
 
 }
@@ -986,33 +987,45 @@ int contarCantidadDeLibros(estanteria arregloEstanterias[])///me devuelve la can
 
 
 
-int contarLibrosPrestados(estanteria arregloEstanterias[])
+int contarPrestamos(estanteria arregloEstanterias[])
 {
 
-    int librosPrestados = 0;
+    int librosPrestadosActivos = 0;
 
     nodoSimple* aux = inicListaSimple();
-
+    nodoDoble * auxDoble = inicListaDoble();
     for (int i = 0; i < 5; i++)
     {
-
-
         aux = arregloEstanterias[i].listaLibro;
         while (aux != NULL)
         {
-            if (aux->datoLibro.estado == 2)
-            {
-
-                librosPrestados++;
-            }
+            auxDoble = aux->datoLibro.reservasLibro.primero;
+            while(auxDoble != NULL)
+                {
+                    librosPrestadosActivos++;
+                    auxDoble = auxDoble->siguiente;
+                }
             aux = aux->siguiente;
-
         }
     }
-
-    return librosPrestados;
+    return librosPrestadosActivos;
 }
 
+int contarPrestamosInactivos(pilaPrestamos pilita)
+{
+    int contadorInactivos = 0;
+    nodoDoble * aux = pilita.prestamoInactivo;
+    if(aux!= NULL)
+    {
+        if(aux->datoPrestamo.estado == 0)
+        {
+            contadorInactivos++;
+        }
+        aux = aux->siguiente;
+    }
+
+    return contadorInactivos;
+}
 
 
 
