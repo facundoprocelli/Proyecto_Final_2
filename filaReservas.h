@@ -15,7 +15,7 @@ typedef struct{
 ///funciones fila
 
 void inicFila(filaReservas*reservas);
-void agregarAlFinalFila(filaReservas*reservas,stPrestamo aux);
+void agregarAlFinalFila(filaReservas*reservas, nodoDoble* NN);
 void mostrarFila(filaReservas reservas);
 stPrestamo extraerUnPrestamoFila(filaReservas*reservas);
 int filaVacia(filaReservas filaAux);

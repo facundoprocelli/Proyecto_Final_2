@@ -1031,22 +1031,23 @@ int contarLibrosPrestados(estanteria arregloEstanterias[])
 
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual)
 {
-    char opDevolver;
+    char opDevolver = 's';
 
-    ///NO FUNCIONA TENGO SUENIO LA VOY A VER DESPUES
 
     if(miembroActual->dato.prestamoActivoID !=0)
     {
+        nodoDoble* auxPrestamo = retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
 
-        nodoDoble*auxPrestamo=retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
         puts("Este es su prestamo activo: ");
         mostrarUnPrestamo(auxPrestamo->datoPrestamo);
+
         printf("Desea devolver el libro actual? s/n: ");
         fflush(stdin);
+
         scanf("%c",&opDevolver);
         if(opDevolver == 's')
         {
-            libroDevuelto(arregloEstanterias,miembroActual,prestamosInactivos);
+            libroDevuelto(arregloEstanterias,miembroActual,prestamosInactivos, auxPrestamo);
         }
     }
     else
@@ -1080,6 +1081,7 @@ int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBusc
 
     return i;
 }
+
 
 int idLibroMasPrestado(estanteria arregloEstanteria[])
 {

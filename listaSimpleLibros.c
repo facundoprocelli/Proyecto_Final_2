@@ -735,6 +735,7 @@ nodoSimple* retornarLibroXIDEnEstanterias(estanteria arregloEstanterias[], int i
     while(i < 5 && flag==0)
     {
         encontrado=retornarNodoSimpleXid(arregloEstanterias[i].listaLibro,idLibroBuscado);
+
         if(encontrado != NULL)
         {
             flag=1;
@@ -1257,7 +1258,8 @@ int recorrerLibrosParaAgregarAFilaPrestamo(nodoSimple*listaS, stPrestamo datoPre
 
     if(listaS->datoLibro.idLibro == datoPrestamo.idLibro)
     {
-        agregarAlFinalFila(&listaS->datoLibro.reservasLibro,datoPrestamo);
+        nodoDoble* NN = crearNodoDoble(datoPrestamo);
+        agregarAlFinalFila(&listaS->datoLibro.reservasLibro,NN);
         flag=1;
     }
     return flag;
@@ -1313,15 +1315,18 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
     nodoSimple*listaS=inicListaSimple();
     int flag=0;
 
-
     while(i < dim && flag==0) //recorro las estanterias
     {
         listaS=arregloEstanterias[i].listaLibro;
+
+        mostrarListaSimple(listaS);
         while(listaS != NULL && flag==0) //recorro cada libro
         {
+
             listaD=listaS->datoLibro.reservasLibro.primero;
             while(listaD != NULL && flag==0) //recorro cada fila de un libro
             {
+
                 if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
                 {
                     auxPrestamo=listaD;
@@ -1345,14 +1350,19 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
     return auxPrestamo;
 }
 
-void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos)
+void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos, nodoDoble* auxPrestamo)
 {
 
     if(miembroActual->dato.prestamoActivoID != 0)
     {
-        nodoSimple*nodoLibroPrestamo=retornarLibroXIDEnEstanterias(arregloEstanterias,miembroActual->dato.prestamoActivoID);
 
-        nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.estado=0;
+        nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias ,auxPrestamo->datoPrestamo.idLibro);
+
+        mostrarUnLibro(nodoLibroPrestamo->datoLibro);
+
+
+        nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.estado = 0;
+
         miembroActual->dato.prestamoActivoID=0;
 
         apilar(prestamosInactivos,extraerUnPrestamoFila(&nodoLibroPrestamo->datoLibro.reservasLibro));
@@ -1443,9 +1453,13 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
                 if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
                 {
                     auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
-                    agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
-                    nodoMiembroActual->dato.prestamoActivoID=nodoLibroBuscado->datoLibro.idLibro;
+
+                    nodoDoble* NN = crearNodoDoble(auxPrestamo);
+
+                    agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,NN);
+
+                    nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
 
 
 
@@ -1458,9 +1472,12 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
             else //si no tiene fila le creamos el prestamo de una
             {
                 auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
-                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
+                mostrarUnPrestamo(auxPrestamo);
+                nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
-                nodoMiembroActual->dato.prestamoActivoID=nodoLibroBuscado->datoLibro.idLibro;
+                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,NN);
+
+                nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
                 nodoLibroBuscado->datoLibro.estado=2;
 
 

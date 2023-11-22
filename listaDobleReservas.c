@@ -20,14 +20,6 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
     aux.idLibro=idLibroPrestado;
     aux.estado = 1;
 
-    do
-    {
-        printf("Ingrese el precio del prestamo: ");
-        fflush(stdin);
-        scanf("%s",&aux.precioPrestamo);
-    }
-    while(validarPrecioPrestamo(aux.precioPrestamo) || validarCaracteresEnEnteros(aux.precioPrestamo) ==0);
-
 
     //funciones para calcular inicio y fin del prestamo(automatico)
     time_t tiempoActual;
@@ -44,6 +36,17 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
         scanf("%i",&duracionVencimiento);
     }
     while(validarDias(duracionVencimiento)== 1);
+
+    int precio = duracionVencimiento * 1000;
+    char precioPrestamo[MAX_DIM];
+
+    sprintf(precioPrestamo, "%d", precio);
+
+
+
+    strcpy(aux.precioPrestamo, precioPrestamo);
+    printf("El precio del prestamos es: $%s\n", aux.precioPrestamo);
+
 
     calcularVencimiento(&aux.vencimientoPrestamo,aux.inicioPrestamo,duracionVencimiento);
     return aux;
