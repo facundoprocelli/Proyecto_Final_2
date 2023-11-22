@@ -22,7 +22,7 @@ typedef struct{
     int estado; // 0 inactivo y 1 activo
 
     char generoEstanteria[MAX_DIM]; //el genero de la estanteria
-
+    char nombreLibro[MAX_DIM];// El nombre del libro
     char dniUsuarioPrestado[MAX_DIM]; //dni del miembro al que le prestamos el libro
     char precioPrestamo[MAX_DIM];
     stFecha inicioPrestamo;

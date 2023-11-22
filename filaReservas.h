@@ -22,7 +22,7 @@ void agregarAlFinalFila(filaReservas*reservas, nodoDoble* NN);
 void mostrarFila(filaReservas reservas);
 stPrestamo extraerUnPrestamoFila(filaReservas*reservas);
 int filaVacia(filaReservas filaAux);
-
+stFecha retornarUltimaFecha(filaReservas reservas);
 
 ///funciones para el archivo de prestamos
 void recorrerFilaParaPrestamos(filaReservas reservasLibro,FILE*buffer);

@@ -8,11 +8,15 @@
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
 #define ARCHIVO_LIBROS "archivoLibros.bin"
 
+    //funciones para calcular inicio y fin del prestamo(automatico)
+//    time_t tiempoActual;
+//    time(&tiempoActual);
+//    struct tm *infoTiempo = localtime(&tiempoActual);
 ///funciones estructura prestamo
 
 
 
-stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[])
+stPrestamo crearUnPrestamo(stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[])
 {
     stPrestamo aux;
     int duracionVencimiento = 0;
@@ -21,16 +25,9 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
     strcpy(aux.generoEstanteria,generoDelPrestamo);
     aux.idLibro=idLibroPrestado;
     aux.estado = 1;
-
-
-    //funciones para calcular inicio y fin del prestamo(automatico)
-    time_t tiempoActual;
-    time(&tiempoActual);
-    struct tm *infoTiempo = localtime(&tiempoActual);
-    asignarTiempo(&aux.inicioPrestamo,infoTiempo);
-
-
-
+    strcpy(aux.nombreLibro,nombreLibro);
+    //asignarTiempo(&aux.inicioPrestamo,infoTiempo);
+    aux.inicioPrestamo = inicioFecha;///lo que hace es guardar la fecha de inicio del ultimo prestamo y dsp iniciarla
     do
     {
         printf("Ingrese de cuantos dias quiere el prestamo: ");
@@ -43,8 +40,6 @@ stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, cha
     char precioPrestamo[MAX_DIM];
 
     sprintf(precioPrestamo, "%d", precio);
-
-
 
     strcpy(aux.precioPrestamo, precioPrestamo);
     printf("El precio del prestamos es: $%s\n", aux.precioPrestamo);
@@ -142,6 +137,7 @@ void mostrarUnPrestamo(stPrestamo aux)
     printf("[DNI del miembro]...........: %s \n",aux.dniUsuarioPrestado);
     printf("[Precio]....................: %s \n",aux.precioPrestamo);
     printf("[Genero]....................: %s \n",aux.generoEstanteria);
+    printf("[Nombre]....................: %s \n",aux.nombreLibro);
     printf("[Estado]....................: %i \n",aux.estado);
     printf(".......[Inicio del prestamo].......\n");
     mostrarUnaFecha(aux.inicioPrestamo);
@@ -277,3 +273,4 @@ int retornarUltimoIDPrestamo() //vamos a tener que modificarla, y buscar el ulti
     }
     return ultId;
 }
+

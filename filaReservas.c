@@ -45,9 +45,9 @@ void mostrarFila(filaReservas reservas)
 {
     if(reservas.primero != NULL)
     {
-        printf("INICIO \n");
+        imprimirMensajeVerde("=======================INICIO======================= \n");
         mostrarListaDoble(reservas.primero);
-        printf("FIN \n");
+        imprimirMensajeVerde("=======================FIN=======================\n");
     }
     else
     {
@@ -111,5 +111,24 @@ void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer)
 
 }
 
+stFecha retornarUltimaFecha(filaReservas reservas)
+{
 
+
+    time_t tiempoActual;
+    time(&tiempoActual);
+    struct tm *infoTiempo = localtime(&tiempoActual);
+
+    stFecha fecha;
+    if(reservas.primero == NULL)
+    {
+        asignarTiempo(&fecha,infoTiempo);
+    }
+    else
+    {
+        fecha = reservas.ultimo->datoPrestamo.vencimientoPrestamo;
+    }
+
+    return fecha;
+}
 

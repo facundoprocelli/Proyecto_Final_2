@@ -1321,7 +1321,7 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
     {
         listaS=arregloEstanterias[i].listaLibro;
 
-        mostrarListaSimple(listaS);
+        //mostrarListaSimple(listaS);
         while(listaS != NULL && flag==0) //recorro cada libro
         {
 
@@ -1358,7 +1358,7 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
     if(miembroActual->dato.prestamoActivoID != 0)
     {
 
-        nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias ,auxPrestamo->datoPrestamo.idLibro);
+        nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias,auxPrestamo->datoPrestamo.idLibro);
 
         mostrarUnLibro(nodoLibroPrestamo->datoLibro);
 
@@ -1377,7 +1377,7 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
     }
     else
     {
-        puts("Usted no tiene ningun libro para devolver");
+        imprimirMensajeRojo("Usted no tiene ningun libro para devolver");
     }
 
 
@@ -1432,7 +1432,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 {
     if(nodoMiembroActual->dato.prestamoActivoID != 0)
     {
-        puts("Usted ya tiene un prestamo no puede pedir otro libro: ");
+        imprimirMensajeRojo("Usted ya tiene un prestamo no puede pedir otro libro: ");
         nodoDoble*auxNodoPrestamo=retornarNodoPrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID);
         mostrarUnPrestamo(auxNodoPrestamo->datoPrestamo);
     }
@@ -1442,6 +1442,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
         stPrestamo auxPrestamo;
         char opPedir;
         nodoLibroBuscado= preguntarIDLibroParaPedir(arregloEstanterias);
+        stFecha auxFecha = retornarUltimaFecha(nodoLibroBuscado->datoLibro.reservasLibro);
 
         if(nodoLibroBuscado != NULL) // si el usuario quiere pedir un libro
         {
@@ -1454,7 +1455,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 
                 if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
                 {
-                    auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
+                    auxPrestamo=crearUnPrestamo(auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
 
 
                     nodoDoble* NN = crearNodoDoble(auxPrestamo);
@@ -1462,8 +1463,6 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
                     agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,NN);
 
                     nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
-
-
 
                     //falta poner que la fecha de inicio sea la de vencimiento del ultimo prestamo
 
@@ -1473,7 +1472,8 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
             }
             else //si no tiene fila le creamos el prestamo de una
             {
-                auxPrestamo=crearUnPrestamo(nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro);
+                limpiarPantalla();
+                auxPrestamo=crearUnPrestamo(auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
                 mostrarUnPrestamo(auxPrestamo);
                 nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
@@ -1486,10 +1486,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
                 imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados sino tendra una multa");
             }
 
-
-
         }
     }
 
 }
-

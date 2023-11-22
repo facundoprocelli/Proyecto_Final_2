@@ -10,7 +10,7 @@
 
 ///funciones estructura prestamos
 
-stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[]);
+stPrestamo crearUnPrestamo(stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[]);
 
 //mostrar
 void mostrarUnaFecha(stFecha aux);
