@@ -2,6 +2,9 @@
 #define PILAPRESTAMOSINACTIVOS_H_INCLUDED
 #define MAX_DIM 26
 
+
+
+
 ///Estructura prestamos
 typedef struct{
 

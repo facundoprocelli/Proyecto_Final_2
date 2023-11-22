@@ -5,6 +5,9 @@
 
 
 
+
+
+
 ///funciones estructura prestamos
 
 stPrestamo crearUnPrestamo(char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[]);

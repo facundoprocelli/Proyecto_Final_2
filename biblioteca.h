@@ -54,6 +54,9 @@ void menuPrestamos();
 
 
 
+
+
+
 ///funciones de estanteria
 void inicEstanterias(estanteria arregloEstanterias[]);
 void mostrarTodasLasEstanterias(estanteria arregloEstanterias[]);

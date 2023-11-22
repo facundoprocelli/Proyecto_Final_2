@@ -1233,6 +1233,8 @@ void archivoAFilasPrestamos(estanteria arregloEstanterias[])
     }
 }
 
+
+
 //busco la estanteria del prestamo correspondiente
 void recorrerEstanteriasParaAgregarAFilaPrestamo(estanteria arregloEstanterias[], stPrestamo datoPrestamo)
 {

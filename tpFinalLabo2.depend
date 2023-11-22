@@ -179,7 +179,7 @@
 	<stdlib.h>
 	"biblioteca.h"
 
-1700663014 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
+1700663720 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -227,7 +227,7 @@
 
 1700630717 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.h
 
-1700652357 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
+1700663438 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -453,7 +453,7 @@
 	<stdlib.h>
 	"windows.h"
 
-1700630717 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\pilaprestamosinactivos.h
+1700664104 c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\pilaprestamosinactivos.h
 
 1700630717 source:c:\users\facun\onedrive\escritorio\proyecto nasheburger\proyecto_final_2-main\colores.c
 	<stdio.h>

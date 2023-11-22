@@ -169,15 +169,15 @@ nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
         }
         else
         {
-            if(strcmp(raiz->dato.datosPersonales.dni,dniMiembro)>0)
+            if(strcmp(dniMiembro, raiz->dato.datosPersonales.dni)>0)
             {
-                nuevo= buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
+                nuevo= buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
 
             }
             else
             {
 
-               nuevo= buscarNodoPorDniArbol(raiz->derecha,dniMiembro);
+               nuevo= buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
             }
         }
 

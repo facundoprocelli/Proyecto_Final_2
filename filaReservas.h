@@ -3,6 +3,9 @@
 #define MAX_DIM 26
 #include "listaDobleReservas.h"
 
+
+
+
 ///estructura fila
 
 typedef struct{

@@ -9,6 +9,8 @@
 #define ARCHIVO_LIBROS "archivoLibros.bin"
 
 
+
+
 ///funciones generales
 
 int preguntarDatoEntero()
@@ -573,7 +575,7 @@ void menuPrestamos()
 void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoArbol* miembroActual, pilaPrestamos*prestamosInactivos)///verificar si faltan alguna estructura mas...
 {
     //aca va todo lo que puede hacer un usuario y deberiamos retornar el miembro, asi solo puede modificar el suyo
-
+mostrarUnMiembro(miembroActual->dato);
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
     do
@@ -666,7 +668,7 @@ void menuLibrosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActual,
     while(opContinuarMenuPrin != 'n');
 }
 
-void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
+void menuMiembroUsuario(nodoArbol* miembroActual, nodoArbol* arbolMiembro)
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
@@ -675,9 +677,15 @@ void menuMiembroUsuario(stMiembro miembroActual, nodoArbol* arbolMiembro)
         opcionesMenuUsuarioMiembro();
         opMenuPrin=preguntarDatoEntero();
         //limpiarPantalla();
+mostrarUnMiembro(miembroActual->dato);
 
 
-        nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual.datosPersonales.dni);
+        nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual->dato.datosPersonales.dni);
+
+        if ( miembroModifcable == NULL){
+
+            printf("asdfggfds");
+        }
 
         switch(opMenuPrin)
         {
