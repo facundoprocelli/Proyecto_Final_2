@@ -86,15 +86,6 @@ void mostrarUnMiembro(stMiembro aux)
 {
     puts("===========================Miembro=================================");
     mostrarUnaPersona(aux.datosPersonales);
-
-
-//    printf("Nro de Prestamos activos....: %i \n", aux.validosPrestamosActivosID);
-//    printf("ID de los prestamos activos: ");
-//    for(int i=0; i < aux.validosPrestamosActivosID; i++)
-//    {
-//        printf("[%i] ",aux.prestamosActivosID[i]);
-//    }
-    //printf("Limite de prestamos.........: %i \n", aux.limitePrestamos);
     printf("ID del prestamo activo......: %i \n",aux.prestamoActivoID);
     printf("Estado......................: %i \n", aux.estado);
     printf("Saldo en cuenta.............: %i \n", aux.saldo);
@@ -177,7 +168,7 @@ nodoArbol * buscarNodoPorDniArbol(nodoArbol * raiz, char dniMiembro[])
             else
             {
 
-               nuevo= buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
+                nuevo= buscarNodoPorDniArbol(raiz->izquierda,dniMiembro);
             }
         }
 
@@ -488,13 +479,14 @@ int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[])
         if(strcmp(raiz->dato.datosPersonales.dni,dniAbuscar)==0)
         {
             flag = 1;
+            imprimirMensajeRojo("Ingrese un DNI que no este en la base de datos");
         }
         else
         {
             if(strcmp(raiz->dato.datosPersonales.dni,dniAbuscar)>0)
             {
 
-                flag= validarDniRepetido(raiz->izquierda,dniAbuscar);
+                flag = validarDniRepetido(raiz->izquierda,dniAbuscar);
             }
             else
             {
@@ -503,10 +495,7 @@ int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[])
         }
     }
 
-    if(flag == 1)
-    {
-        imprimirMensajeRojo("Ingrese un DNI que no este en la base de datos");
-    }
+
     return flag;
 }
 
@@ -522,25 +511,45 @@ int validarSiExisteDniArbol(nodoArbol*raiz,char dniAux[])
         if(strcmp(raiz->dato.datosPersonales.dni,dniAux)==0)
         {
             flag = 1;
+            imprimirMensajeRojo("El DNI no fue encontrado en la base de datos");
         }
         else
         {
             if(strcmp(raiz->dato.datosPersonales.dni,dniAux)>0)
             {
-
-                flag= validarDniRepetido(raiz->izquierda,dniAux);
+                flag= validarSiExisteDniArbol(raiz->izquierda,dniAux);
             }
             else
             {
-                flag = validarDniRepetido(raiz->derecha,dniAux);
+                flag = validarSiExisteDniArbol(raiz->derecha,dniAux);
+            }
+        }
+    }
+    return flag;
+}
+
+int validarDniExistente(nodoArbol * raiz,char dniAux[])
+{
+    int flag = 0;
+    if(raiz!= NULL)
+    {
+        if(strcmp(raiz->dato.datosPersonales.dni,dniAux)==0)
+        {
+            flag = 1;
+        }
+        else
+        {
+            if(strcmp(raiz->dato.datosPersonales.dni,dniAux)>0)
+            {
+                flag= validarDniExistente(raiz->izquierda,dniAux);
+            }
+            else
+            {
+                flag = validarDniExistente(raiz->derecha,dniAux);
             }
         }
     }
 
-    if(flag == 0)
-    {
-        imprimirMensajeRojo("El DNI no fue encontrado en la base de datos");
-    }
     return flag;
 }
 
@@ -556,18 +565,17 @@ int validarNroRepetido(nodoArbol * raiz,char nroExistente[])
         if(strcmpi(raiz->dato.datosPersonales.numeroDeTelefono,nroExistente)== 0)
         {
             flag = 1;
+            imprimirMensajeRojo("Ingrese un numero de telefono que no este repetido en la base de datos");
         }
         else
         {
-            flag = validarNroRepetido(raiz->derecha,nroExistente);
             flag = validarNroRepetido(raiz->izquierda,nroExistente);
+            if(flag == 0)
+            {
+                flag = validarNroRepetido(raiz->derecha,nroExistente);
+            }
         }
     }
-    if(flag == 1)
-    {
-        imprimirMensajeRojo("Ingrese un numero de telefono que no este repetido en la base de datos");
-    }
-
     return flag;
 }
 
@@ -911,29 +919,32 @@ void buscarMiembroXNombre(nodoArbol* raiz)
         gets(miembro);
     }
     while(validarDigitosEnStrings(miembro)== 1||validarRangoDeNombre(miembro)== 1);
-    mostrarMiembroXNombre(raiz, miembro);
 
+    int flag = mostrarMiembroXNombre(raiz, miembro);
+    if(flag == 0)
+    {
+        imprimirMensajeRojo("No se encontro ese nombre");
+    }
 
 }
 
 
-void mostrarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
+int  mostrarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[])
 {
-
-
+    int flag = 0;
     if(raiz != NULL)
     {
-
         if (strcmpi(raiz->dato.datosPersonales.nombre, nombreBuscado) == 0)
         {
+            flag = 1;
             mostrarUnMiembro(raiz->dato);
         }
 
-        mostrarMiembroXNombre(raiz->derecha, nombreBuscado);
-        mostrarMiembroXNombre(raiz->izquierda, nombreBuscado);
-
-
+        flag += mostrarMiembroXNombre(raiz->derecha, nombreBuscado);
+        flag += mostrarMiembroXNombre(raiz->izquierda, nombreBuscado);
     }
+
+    return flag;
 }
 
 
@@ -947,20 +958,18 @@ void buscarMiembroXDNI(nodoArbol* raiz)
 
     do
     {
-
         printf("DNI: ");
         fflush(stdin);
-        scanf("%s", &dni);
+        scanf("%s",&dni);
         i++;
     }
-    while((validarSiExisteDniArbol(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0) && i < 3);
+    while(i < 3&&(validarDniExistente(raiz,dni)== 0||validarCaracteresEnEnteros(dni)== 0||validarRangoDNI(dni)== 0));
 
-
-    if ((validarSiExisteDniArbol(raiz,dni)== 1||validarCaracteresEnEnteros(dni)== 1||validarRangoDNI(dni)== 1))
+    if (i<3)
     {
-
         aux = mostrarMiembroXDNI(raiz, dni);
     }
+
 }
 
 
@@ -972,23 +981,19 @@ void mostrarMiembroXDNI(nodoArbol* raiz, char dniBuscado[])
         if (strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) == 0)
         {
             mostrarUnMiembro(raiz->dato);
-
         }
         else
         {
-            if(strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) > 0)
+            if(strcmpi(raiz->dato.datosPersonales.dni, dniBuscado) < 0)
             {
                 mostrarMiembroXDNI(raiz->derecha, dniBuscado);
-
             }
             else
             {
-
                 mostrarMiembroXDNI(raiz->izquierda, dniBuscado);
             }
         }
     }
-
 }
 
 /// buscar y mostrar miembro por estado

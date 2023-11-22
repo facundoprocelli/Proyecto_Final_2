@@ -77,7 +77,6 @@ int esGradoUnoArbol(nodoArbol*raiz);
 int estaLlenoArbol(nodoArbol*raiz);
 int arbolVacio(nodoArbol*raiz);
 int contarMiembrosArbol(nodoArbol* raiz);
-
 ///validaciones
 int validarRangoDeNombre(char nombreAux[]);///tamaño del nombre
 int validarDigitosEnStrings(char nombreAux[]);///Que no se encuentren numeros en un nombre
@@ -89,7 +88,7 @@ int validarEstadoMiembro(int estadoAux);
 int validarLimitePrestamoMiembro(int limiteAux);
 int validarDniRepetido(nodoArbol * raiz,char dniAbuscar[]);
 int validarNroRepetido(nodoArbol * raiz,char nroExistente[]);
-
+int validarDniExistente(nodoArbol * raiz,char dniAux[]);
 
 ///archivos
 void cargarUnMiembroAlArchivo(stMiembro aux);
@@ -118,6 +117,7 @@ nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux);
 
 void buscarMiembroXDNI(nodoArbol* raiz);
 void buscarMiembroXNombre(nodoArbol* raiz);
+int  mostrarMiembroXNombre(nodoArbol* raiz, char nombreBuscado[]);
 
 
 nodoArbol* cargarMiembrosPredeterminados(nodoArbol* raiz);
