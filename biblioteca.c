@@ -719,6 +719,7 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
 {
     int opMenuPrin=0;
     char opContinuarMenuPrin='s';
+    nodoDoble *  prestamoActual = inicListaDoble();
     do
     {
         opcionesMenuUsuarioPrestamos();
@@ -727,16 +728,22 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
         switch(opMenuPrin)
         {
         case 1:
-            pedirUnLibro(arregloEstanterias,miembroActual);
+            pedirUnLibro(arregloEstanterias,miembroActual,*prestamosInactivos);
             break;
         case 2:
             devolverUnLibroUsuario(arregloEstanterias,prestamosInactivos,miembroActual);
             break;
         case 3:
             /// Mostrar prestamo activo del usuario
-
-
-
+            if(miembroActual->dato.prestamoActivoID != 0)
+            {
+                prestamoActual= retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
+                mostrarUnPrestamo(prestamoActual->datoPrestamo);
+            }
+            else
+            {
+                imprimirMensajeRojo("No tenes prestamos activos");
+            }
             break;
         case 4:
             /// Ver historial de prestamos
@@ -986,8 +993,6 @@ int contarCantidadDeLibros(estanteria arregloEstanterias[])///me devuelve la can
     return cantidadLibros;
 }
 
-
-
 int contarPrestamos(estanteria arregloEstanterias[])
 {
 
@@ -1028,9 +1033,6 @@ int contarPrestamosInactivos(pilaPrestamos pilita)
     return contadorInactivos;
 }
 
-
-
-
 /// funciones devolver un prestamo
 
 // primero tengo que ver todos los libros que tiene activo el miembro
@@ -1038,9 +1040,6 @@ int contarPrestamosInactivos(pilaPrestamos pilita)
 // tercero hago todas las validaciones sobre q si el libro existe
 // cuarto le modifico las stats al libro, le aumento las veces prestado, si no tiene nadie en la fila le cambio el estado, sino sigue el mismo estado
 // quinto muevo el prestamo a la pila de prestamos inactivos
-
-
-
 
 
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual)
@@ -1084,7 +1083,6 @@ int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBusc
         if(flag==0)
         {
             i++;
-
         }
     }
 

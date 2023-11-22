@@ -109,9 +109,6 @@ void buscarEstanteriaParaEstado(estanteria arregloEstanterias[], int opcion);
 nodoSimple* retornarNodosLibroXClave(nodoSimple* listaSimple, char clave[]);
 nodoSimple* retornarNodosLibroXMasPopularidad(nodoSimple* listaSimple, int mayor);
 nodoSimple* retornarNodosLibrosXEspera(nodoSimple* lista);
-
-
-
 ///validaciones
 //Se utilizaron validaciones ya hechas en otras librerias para modularizar
 void validarGenero(char auxGenero[]);
@@ -136,11 +133,14 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 
 void mostrarArchivoPrestamos();
 ///funciones de prestamos
-stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[]);
-int retornarUltimoIDPrestamo(estanteria arregloEstanterias[]);
+
+stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[],pilaPrestamos pila);
 
 void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos, nodoDoble* auxPrestamo);
 nodoSimple* preguntarIDLibroParaPedir(estanteria arregloEstanterias[]);
-void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual);
+void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pilaPrestamos pila);
+int retornarUltimoIDPrestamoEnFila(estanteria arregloEstanterias[]);
+int retornarUltimoIDPrestamoEnPila(pilaPrestamos pilita);
+int retornarUltimoIDPrestamo(estanteria arregloEstanteria[], pilaPrestamos prestamosInactivos);
 
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

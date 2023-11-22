@@ -17,7 +17,6 @@ void archivoAPila(pilaPrestamos * pila)
         while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
         {
             pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
-
         }
     }
     else
@@ -28,7 +27,7 @@ void archivoAPila(pilaPrestamos * pila)
 
 void apilar(pilaPrestamos * pila,stPrestamo aux)
 {
-    mostrarUnPrestamo(aux);
+    //mostrarUnPrestamo(aux);
     pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
 }
 

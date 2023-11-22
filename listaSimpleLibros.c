@@ -1317,11 +1317,11 @@ void archivoAFilasPrestamos(estanteria arregloEstanterias[])
 ///funciones crear un prestamo
 
 
-stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[])
+stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[],pilaPrestamos pila)
 {
     stPrestamo aux;
     int duracionVencimiento = 0;
-    aux.idPrestamo= retornarUltimoIDPrestamo(arregloEstanterias) +1;
+    aux.idPrestamo= retornarUltimoIDPrestamo(arregloEstanterias,pila)+1;
 
     strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
 
@@ -1357,36 +1357,6 @@ stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,c
     return aux;
 }
 
-
-int retornarUltimoIDPrestamo(estanteria arregloEstanterias[])
-{
-    int ultId=0;
-
-    nodoSimple*auxNodoSimple=inicListaSimple();
-    nodoDoble*auxNodoDoble=inicListaDoble();
-
-    for(int i=0; i < 5; i++)
-    {
-        auxNodoSimple=arregloEstanterias[i].listaLibro;
-        while(auxNodoSimple != NULL)
-        {
-            auxNodoDoble=auxNodoSimple->datoLibro.reservasLibro.primero;
-
-            while(auxNodoDoble != NULL)
-            {
-                if(auxNodoDoble->datoPrestamo.idPrestamo > ultId)
-                {
-                    ultId=auxNodoDoble->datoPrestamo.idPrestamo;
-                }
-                auxNodoDoble=auxNodoDoble->siguiente;
-            }
-            auxNodoSimple= auxNodoSimple->siguiente;
-        }
-    }
-
-
-    return ultId;
-}
 
 
 
@@ -1436,30 +1406,7 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
     nodoSimple*listaS=inicListaSimple();
     int flag=0;
 
-//    while(i < dim && flag==0) //recorro las estanterias
-//    {
-//        listaS=arregloEstanterias[i].listaLibro;
-// printf("[1]ERROR\n");
-//
-//        //mostrarListaSimple(listaS);
-//        while(listaS != NULL && flag==0) //recorro cada libro
-//        {
-//            listaD=listaS->datoLibro.reservasLibro.primero;
-//             printf("[2]ERROR\n");
-//            while(listaD != NULL && flag==0) //recorro cada fila de un libro
-//            {
-//                if(listaD->datoPrestamo.idPrestamo == idPrestamoBuscar)
-//                {
-//             printf("[3]ERROR\n");
-//                    auxPrestamo=listaD;
-//                    flag=1;
-//                }
-//                    listaD=listaD->siguiente;
-//            }
-//            listaS=listaS->siguiente;
-//        }
-//        i++;
-//    }
+
     while(i<dim && flag == 0)
     {
         listaS = arregloEstanterias[i].listaLibro;
@@ -1517,8 +1464,6 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
         imprimirMensajeRojo("Usted no tiene ningun libro para devolver");
     }
 
-
-
 }
 
 
@@ -1565,7 +1510,7 @@ nodoSimple* preguntarIDLibroParaPedir(estanteria arregloEstanterias[])
     return existeLibro;
 }
 
-void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
+void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pilaPrestamos pila)
 {
     if(nodoMiembroActual->dato.prestamoActivoID != 0)
     {
@@ -1594,7 +1539,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
 
                 if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
                 {
-                    auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
+                    auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro,pila);
 
 
                     //nodoDoble* NN = crearNodoDoble(auxPrestamo);
@@ -1611,7 +1556,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
             else //si no tiene fila le creamos el prestamo de una
             {
                 limpiarPantalla();
-                auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro);
+                auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro,pila);
                 mostrarUnPrestamo(auxPrestamo);
                 //nodoDoble* NN = crearNodoDoble(auxPrestamo);
 
@@ -1627,6 +1572,65 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual)
         }
     }
 
+}
+int retornarUltimoIDPrestamoEnFila(estanteria arregloEstanterias[])
+{
+    int ultId=0;
+
+    nodoSimple * auxNodoSimple=inicListaSimple();
+    nodoDoble * auxNodoDoble=inicListaDoble();
+
+    for(int i=0; i < 5; i++)
+    {
+        auxNodoSimple=arregloEstanterias[i].listaLibro;
+        while(auxNodoSimple != NULL)
+        {
+            auxNodoDoble=auxNodoSimple->datoLibro.reservasLibro.primero;
+
+            while(auxNodoDoble != NULL)
+            {
+                if(auxNodoDoble->datoPrestamo.idPrestamo > ultId)
+                {
+                    ultId=auxNodoDoble->datoPrestamo.idPrestamo;
+                }
+                auxNodoDoble=auxNodoDoble->siguiente;
+            }
+            auxNodoSimple= auxNodoSimple->siguiente;
+        }
+    }
+
+
+    return ultId;
+}
+
+int retornarUltimoIDPrestamoEnPila(pilaPrestamos pilita)
+{
+    int ultID=0;
+    nodoDoble*auxNodoDoble=pilita.prestamoInactivo;
+    while(auxNodoDoble != NULL)
+    {
+
+        if(auxNodoDoble->datoPrestamo.idPrestamo > ultID)
+        {
+            ultID=auxNodoDoble->datoPrestamo.idPrestamo;
+        }
+
+        auxNodoDoble=auxNodoDoble->siguiente;
+    }
+    return ultID;
+}
+
+int retornarUltimoIDPrestamo(estanteria arregloEstanteria[], pilaPrestamos prestamosInactivos)
+{
+    int ultimoIDfilas= retornarUltimoIDPrestamoEnFila(arregloEstanteria);
+    int ultimoIDpila= retornarUltimoIDPrestamoEnPila(prestamosInactivos);
+
+    if(ultimoIDfilas > ultimoIDpila)
+    {
+        return ultimoIDfilas;
+    }
+
+    return ultimoIDpila;
 }
 
 
