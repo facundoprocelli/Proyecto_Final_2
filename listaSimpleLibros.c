@@ -204,12 +204,7 @@ nodoSimple*retornarNodoSimpleXid(nodoSimple*listaSimple,int idBuscar)
     {
         listaSimple= listaSimple->siguiente;
     }
-    if(aux == NULL)
-    {
-        puts("ID libro no encontrado");
-    }
     aux=listaSimple;
-
     return aux;
 }
 

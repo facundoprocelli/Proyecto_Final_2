@@ -289,46 +289,41 @@ void menuLibros(estanteria arregloEstanterias[])
 void opcionesMenuActualizarLibros()
 {
 
-    printf("Seleccione una opcion\n");
+    printf("Seleccione una opcion: \n");
 
-    printf("[1] Actualizar Nombre \n");
+    printf("[1] Actualizar Nombre\n");
     printf("[2] Actualizar Genero\n");
-    printf("[3] Actualizar Autor \n");
+    printf("[3] Actualizar Autor\n");
     printf("[4] Actualizar Descripcion\n");
-    printf("[5] Actualizar Estado \n"); // Activo o inactivo- No permitir poner que este prestado.
-    printf("[6] Volver al menu de libros \n");
+    printf("[5] Actualizar Estado\n"); // Activo o inactivo- No permitir poner que este prestado.
+    printf("[6] Volver al menu de libros\n");
     puts("============================================================");
 
 }
 
 void actualizarLibro(estanteria arregloListas[])
 {
-    int opSw=0;
+    int opSw=0,flag = 0;
     char opCont='s';
     nodoSimple* buscado = inicListaSimple();
     do
     {
         puts("============================================================");
-
         opcionesMenuActualizarLibros();
-
         opSw = preguntarDatoEntero();
-
-        limpiarPantalla();
-
-        if(opSw != 6)
+        if(opSw != 6 && flag == 0)//agrego un flag para seleccione a un libro y si quiere modificar otro va a tener que volver al menu
         {
-            int idBuscado = preguntarID(arregloListas);
-
-            for(int i = 0; i < 5; i++)
-            {
-                buscado = retornarNodoSimpleXid(arregloListas[i].listaLibro, idBuscado);
-                if(buscado != NULL)
-                {
-                    break;
-                }
-            }
+        mostrarTodasLasEstanterias(arregloListas);
+        int idBuscado = preguntarID(arregloListas);
+        buscado = retornarLibroXIDEnEstanterias(arregloListas,idBuscado);
+        limpiarPantalla();
+        flag = 1;
         }
+        imprimirMensajeVerde("=========================LIBRO SELECTO==============================");
+        mostrarListaSimple(buscado);
+        if(buscado != NULL)
+        {
+
         switch(opSw)
         {
         case 1: //Actualizar Nombre
@@ -347,17 +342,22 @@ void actualizarLibro(estanteria arregloListas[])
             buscado = modificarEstadoLibro(buscado);
             break;
         case 6:
+            imprimirMensajeVerde("=========================MODIFICADO==============================");
+            mostrarListaSimple(buscado);
             opCont='n';
-            limpiarPantalla();
             break;
         default:
             imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
-        limpiarPantalla();
+
     }
-    while(opCont != 'n');
+
+    }while(opCont != 'n');
+
+
 }
+
 
 void opcionesMenuBuscarLibros()
 {
@@ -898,7 +898,7 @@ int preguntarID(estanteria arregloEstanterias[])
     int ultimoID;
     do
     {
-        printf("Ingrese el ID que desea buscar");
+        printf("Ingrese el ID que desea buscar: ");
         fflush(stdin);
         gets(idBuscado);
 
