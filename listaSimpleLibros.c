@@ -688,22 +688,22 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
     if(buffer != NULL)
     {
 
-        for(int i=0 ; i < 5; i++)
+        for(int i=0 ; i < 5; i++) //recorro la estanterias
         {
             listaSimple=arregloEstanterias[i].listaLibro;
-            while(listaSimple != NULL)
+            while(listaSimple != NULL) //recorro cada libro de las estanterias
             {
                 listaDoble=listaSimple->datoLibro.reservasLibro.primero;
-                while(listaDoble != NULL)
+                while(listaDoble != NULL) //recorro cada fila de los libros
                 {
                     aux=listaDoble->datoPrestamo;
                     fwrite(&aux,sizeof(stPrestamo),1,buffer);
                     borrarPrimerNodoDoble(&listaDoble);
+                    listaDoble=listaDoble->siguiente;
 
                 }
                 listaSimple=listaSimple->siguiente;
             }
-
             i++;
         }
         fclose(buffer);
