@@ -14,12 +14,20 @@ El progrma hace unr ecorrido con menues por todo el pragrma en donde se pueden v
 Funcionamiento:
 
 Para ejecutar este programa lo que hay que hacer es lo siguiente
+
+
 1° descargar El proyecto en fomato ZIP
+
 2° Eliminar los archivos .bin
+
 3° Ejecutar programa 
+
 4° Cerrar programa 
+
 5°Comentar las lineas de agregar datos predetermiandos en biblioteca.c
+
 6°Ejecutar el programa y utilizar libremente
+
 
 
 Explciación de librerias:
