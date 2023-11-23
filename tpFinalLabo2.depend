@@ -67,7 +67,7 @@
 	<time.h>
 	"biblioteca.h"
 
-1700706405 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
+1700708092 source:c:\users\fabri\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -91,7 +91,7 @@
 	<time.h>
 	"listaDobleReservas.h"
 
-1700706348 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
+1700707718 source:c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -119,7 +119,7 @@
 1700706070 c:\users\fabri\desktop\proyecto_final_2-main\listadoblereservas.h
 	"pilaPrestamosInactivos.h"
 
-1700706070 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
+1700707573 c:\users\fabri\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 

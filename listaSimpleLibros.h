@@ -142,4 +142,10 @@ int retornarUltimoIDPrestamoEnFila(estanteria arregloEstanterias[]);
 int retornarUltimoIDPrestamoEnPila(pilaPrestamos pilita);
 int retornarUltimoIDPrestamo(estanteria arregloEstanteria[], pilaPrestamos prestamosInactivos);
 
+
+nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoBorrar);
+
+
+
+
 #endif // LSTASIMPLESLIBROS_H_INCLUDED

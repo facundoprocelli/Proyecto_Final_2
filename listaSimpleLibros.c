@@ -1427,29 +1427,35 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
 void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos, nodoDoble* auxPrestamo)
 {
 
+
     if(miembroActual->dato.prestamoActivoID != 0)
     {
 
         nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias,auxPrestamo->datoPrestamo.idLibro);
 
-        mostrarUnLibro(nodoLibroPrestamo->datoLibro);
+        //mostrarUnLibro(nodoLibroPrestamo->datoLibro);
 
+        if(nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.idPrestamo == auxPrestamo->datoPrestamo.idPrestamo)
+        {
 
-        nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.estado = 0;
+        auxPrestamo->datoPrestamo.estado=0;
 
         miembroActual->dato.prestamoActivoID=0;
 
         nodoLibroPrestamo->datoLibro.vecesPrestadoLibro+=1;
 
-
         apilar(prestamosInactivos,extraerUnPrestamoFila(&nodoLibroPrestamo->datoLibro.reservasLibro));
 
-
-
-        if(nodoLibroPrestamo->datoLibro.reservasLibro.primero == NULL)
-        {
-            nodoLibroPrestamo->datoLibro.estado=1;
+            if(nodoLibroPrestamo->datoLibro.reservasLibro.primero == NULL)
+            {
+                nodoLibroPrestamo->datoLibro.estado=1;
+            }
         }
+        else
+        {
+            nodoLibroPrestamo->datoLibro.reservasLibro.primero= borrarNodoDobleXIdPrestamo(nodoLibroPrestamo->datoLibro.reservasLibro.primero,auxPrestamo->datoPrestamo.idPrestamo);
+        }
+
 
     }
     else
@@ -1458,6 +1464,52 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
     }
 
 }
+
+nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
+{
+    nodoDoble*aux;
+    nodoDoble*seg=listaDoble->siguiente;
+    if(listaDoble != NULL)
+    {
+        if(listaDoble->datoPrestamo.idPrestamo == datoIDBorrar)
+        {
+            aux=listaDoble;
+            listaDoble=listaDoble->siguiente;
+        }
+        else
+        {
+            while(seg != NULL && seg->datoPrestamo.idPrestamo != datoIDBorrar)
+            {
+                seg=seg->siguiente;
+            }
+            if(seg != NULL)
+            {
+                ((nodoDoble*)seg->anterior)->siguiente=seg->siguiente;
+                if(seg->siguiente != NULL)
+                {
+                ((nodoDoble*)seg->siguiente)->anterior=seg->anterior;
+
+                }
+
+                aux=seg;
+            }
+            else
+            {
+                puts("Dato no encontrado en la lista doble");
+            }
+        }
+
+
+        free(aux);
+    }
+    else
+    {
+        puts("Lista vacia");
+    }
+    return listaDoble;
+}
+
+
 
 
 
