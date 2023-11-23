@@ -1317,43 +1317,31 @@ void archivoAFilasPrestamos(estanteria arregloEstanterias[])
 ///funciones crear un prestamo
 
 
-stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,char dniUsuarioPrestadoAux[],int idLibroPrestado, char generoDelPrestamo[],char nombreLibro[],pilaPrestamos pila)
+stPrestamo crearUnPrestamo(estanteria arregloEstanterias[],stFecha inicioFecha,int duracionVencimiento,nodoSimple*libroActual,nodoArbol*miembroActual,pilaPrestamos pila, char precioPrestamo[])
 {
     stPrestamo aux;
-    int duracionVencimiento = 0;
     aux.idPrestamo= retornarUltimoIDPrestamo(arregloEstanterias,pila)+1;
 
-    strcpy(aux.dniUsuarioPrestado,dniUsuarioPrestadoAux);
+    strcpy(aux.dniUsuarioPrestado,miembroActual->dato.datosPersonales.dni);
 
-    strcpy(aux.generoEstanteria,generoDelPrestamo);
+    strcpy(aux.generoEstanteria,libroActual->datoLibro.generoLibro);
 
-    aux.idLibro=idLibroPrestado;
+    aux.idLibro=libroActual->datoLibro.idLibro;
 
     aux.estado = 1;
 
-    strcpy(aux.nombreLibro,nombreLibro);
+    strcpy(aux.nombreLibro,libroActual->datoLibro.nombreDeLibro);
 
 
-    //asignarTiempo(&aux.inicioPrestamo,infoTiempo);
     aux.inicioPrestamo = inicioFecha;///lo que hace es guardar la fecha de inicio del ultimo prestamo y dsp iniciarla
-    do
-    {
-        printf("Ingrese de cuantos dias quiere el prestamo: ");
-        fflush(stdin);
-        scanf("%i",&duracionVencimiento);
-    }
-    while(validarDias(duracionVencimiento)== 1);
-
-    int precio = duracionVencimiento * 1000;
-    char precioPrestamo[MAX_DIM];
-
-    sprintf(precioPrestamo, "%d", precio);
 
     strcpy(aux.precioPrestamo, precioPrestamo);
     printf("El precio del prestamos es: $%s\n", aux.precioPrestamo);
 
 
-    calcularVencimiento(&aux.vencimientoPrestamo,aux.inicioPrestamo,duracionVencimiento);
+    calcularVencimiento(&aux.vencimientoPrestamo,inicioFecha,duracionVencimiento);
+
+
     return aux;
 }
 
@@ -1451,13 +1439,10 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
 
         miembroActual->dato.prestamoActivoID=0;
 
+        nodoLibroPrestamo->datoLibro.vecesPrestadoLibro+=1;
+
+
         apilar(prestamosInactivos,extraerUnPrestamoFila(&nodoLibroPrestamo->datoLibro.reservasLibro));
-
-
-
-
-
-
 
 
 
@@ -1532,49 +1517,76 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
         stPrestamo auxPrestamo;
         char opPedir;
         nodoLibroBuscado= preguntarIDLibroParaPedir(arregloEstanterias);
-
-        stFecha auxFecha = retornarUltimaFecha(nodoLibroBuscado->datoLibro.reservasLibro);
-
+        int precio=0,duracionVencimiento=0;
+        char precioPrestamo[MAX_DIM];
+        stFecha inicioPrestamo;
 
         if(nodoLibroBuscado != NULL) // si el usuario quiere pedir un libro
         {
 
-            if(nodoLibroBuscado->datoLibro.reservasLibro.primero != NULL) // si el libro tiene fila le pregunto si lo quiere de todas formas
+            inicioPrestamo = retornarUltimaFecha(nodoLibroBuscado->datoLibro.reservasLibro);
+
+            do
             {
-                imprimirMensajeRojo("Este libro tiene fila de espera desea pedirlo igual? s/n:");
+                printf("Ingrese de cuantos dias quiere el prestamo: ");
                 fflush(stdin);
-                scanf("%c",&opPedir);
+                scanf("%i",&duracionVencimiento);
+            }
+            while(validarDias(duracionVencimiento)== 1);
 
-                if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
+            int precio = duracionVencimiento * 1000;
+
+            sprintf(precioPrestamo, "%d", precio);
+
+
+
+
+            if(nodoMiembroActual->dato.saldo > precio)
+            {
+
+
+                if(nodoLibroBuscado->datoLibro.reservasLibro.primero != NULL) // si el libro tiene fila le pregunto si lo quiere de todas formas
                 {
-                    auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro,pila);
+                    imprimirMensajeRojo("Este libro tiene fila de espera desea pedirlo igual? s/n:");
+                    fflush(stdin);
+                    scanf("%c",&opPedir);
+
+                    if(opPedir == 's') // si lo quiere de todas formas le creamos el prestamo y lo aniadimos a la fila
+                    {
+                        auxPrestamo=crearUnPrestamo(arregloEstanterias,inicioPrestamo,duracionVencimiento,nodoLibroBuscado,nodoMiembroActual,pila,precioPrestamo);
+
+                        mostrarUnPrestamo(auxPrestamo);
 
 
-                    //nodoDoble* NN = crearNodoDoble(auxPrestamo);
+
+                        agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
+
+                        nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
+
+
+                        imprimirMensajeVerde("Su pedido se agrego a la fila de espera");
+                    }
+
+                }
+                else //si no tiene fila le creamos el prestamo de una
+                {
+                    //limpiarPantalla();
+                    auxPrestamo=crearUnPrestamo(arregloEstanterias,inicioPrestamo,duracionVencimiento,nodoLibroBuscado,nodoMiembroActual,pila,precioPrestamo);
+
+                    mostrarUnPrestamo(auxPrestamo);
 
                     agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
                     nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
+                    nodoLibroBuscado->datoLibro.estado=2;
 
 
-                    imprimirMensajeVerde("Su pedido se agrego a la fila de espera");
+                    imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados sino tendra una multa");
                 }
-
             }
-            else //si no tiene fila le creamos el prestamo de una
+            else
             {
-                limpiarPantalla();
-                auxPrestamo=crearUnPrestamo(arregloEstanterias,auxFecha,nodoMiembroActual->dato.datosPersonales.dni,nodoLibroBuscado->datoLibro.idLibro,nodoLibroBuscado->datoLibro.generoLibro,nodoLibroBuscado->datoLibro.nombreDeLibro,pila);
-                mostrarUnPrestamo(auxPrestamo);
-                //nodoDoble* NN = crearNodoDoble(auxPrestamo);
-
-                agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
-
-                nodoMiembroActual->dato.prestamoActivoID = auxPrestamo.idPrestamo;
-                nodoLibroBuscado->datoLibro.estado=2;
-
-
-                imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados sino tendra una multa");
+                imprimirMensajeRojo("No puede pagar el prestamo ya que no dispone con ese dinero");
             }
 
         }
