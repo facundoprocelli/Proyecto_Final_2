@@ -700,9 +700,9 @@ void prestamosAlArchivo(estanteria arregloEstanterias[])
 
                     fwrite(&aux,sizeof(stPrestamo),1,buffer);
 
-                    borrarPrimerNodoDoble(&listaDoble);
+                    listaDoble=borrarPrimerNodoDobleRETORNAR(listaDoble);
 
-                    listaDoble=listaDoble->siguiente;
+                    //listaDoble=listaDoble->siguiente;
 
 
                 }
@@ -1452,6 +1452,14 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
         miembroActual->dato.prestamoActivoID=0;
 
         apilar(prestamosInactivos,extraerUnPrestamoFila(&nodoLibroPrestamo->datoLibro.reservasLibro));
+
+
+
+
+
+
+
+
 
         if(nodoLibroPrestamo->datoLibro.reservasLibro.primero == NULL)
         {

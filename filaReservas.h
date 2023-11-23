@@ -28,4 +28,9 @@ stFecha retornarUltimaFecha(filaReservas reservas);
 void recorrerFilaParaPrestamos(filaReservas reservasLibro,FILE*buffer);
 void recorrerFilaParaArchivarPrestamos(filaReservas reservasLibro,FILE*buffer);
 
+
+nodoDoble*borrarPrimerNodoDobleRETORNAR(nodoDoble*listaDoble);
+
+
+
 #endif // FILARESERVAS_H_INCLUDED

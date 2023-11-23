@@ -188,17 +188,20 @@ nodoDoble*agregarAlFinalDoble(nodoDoble*listaDoble,nodoDoble*nuevoNodo)
 
 void borrarPrimerNodoDoble(nodoDoble**listaDoble)
 {
-    nodoDoble*liberar;
+    nodoDoble*liberar=inicListaDoble();
     nodoDoble*aux=*listaDoble;
 
     if(aux != NULL)
     {
         liberar=aux;
+
         aux=aux->siguiente;
+
         free(liberar);
     }
 
 }
+
 
 
 

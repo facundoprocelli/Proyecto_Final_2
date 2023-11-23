@@ -66,21 +66,47 @@ stPrestamo extraerUnPrestamoFila(filaReservas*reservas)
 {
 
     stPrestamo prestamo;
-    if(reservas->primero != NULL)
+    if(reservas->primero != NULL) // si mi fila tiene datos
     {
 
         prestamo=reservas->primero->datoPrestamo;
 
-        borrarPrimerNodoDoble(&reservas->primero);
+        reservas->primero=borrarPrimerNodoDobleRETORNAR(reservas->primero);
+
 
         if(reservas->primero == NULL)
         {
-            reservas->ultimo= NULL;
+
+            reservas->ultimo= inicListaDoble();
         }
 
     }
+
+
+    mostrarUnPrestamo(prestamo);
+
     return prestamo;
 }
+
+
+nodoDoble*borrarPrimerNodoDobleRETORNAR(nodoDoble*listaDoble)
+{
+    nodoDoble*liberar=inicListaDoble();
+    if(listaDoble != NULL)
+    {
+        liberar=listaDoble;
+
+        listaDoble=listaDoble->siguiente;
+
+        free(liberar);
+    }
+
+    return listaDoble;
+}
+
+
+
+
 
 int filaVacia(filaReservas filaAux)
 {
