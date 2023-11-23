@@ -1427,15 +1427,15 @@ nodoDoble* retornarNodoPrestamoXId(estanteria arregloEstanterias[], int idPresta
 void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaPrestamos*prestamosInactivos, nodoDoble* auxPrestamo)
 {
 
+    nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias,auxPrestamo->datoPrestamo.idLibro);
 
     if(miembroActual->dato.prestamoActivoID != 0)
     {
 
-        nodoSimple*nodoLibroPrestamo = retornarLibroXIDEnEstanterias(arregloEstanterias,auxPrestamo->datoPrestamo.idLibro);
 
         //mostrarUnLibro(nodoLibroPrestamo->datoLibro);
 
-        if(nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.idPrestamo == auxPrestamo->datoPrestamo.idPrestamo)
+        if(nodoLibroPrestamo->datoLibro.reservasLibro.primero->datoPrestamo.idPrestamo == miembroActual->dato.prestamoActivoID)
         {
 
         auxPrestamo->datoPrestamo.estado=0;
@@ -1453,7 +1453,10 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
         }
         else
         {
+            miembroActual->dato.prestamoActivoID=0;
             nodoLibroPrestamo->datoLibro.reservasLibro.primero= borrarNodoDobleXIdPrestamo(nodoLibroPrestamo->datoLibro.reservasLibro.primero,auxPrestamo->datoPrestamo.idPrestamo);
+
+
         }
 
 
@@ -1463,11 +1466,16 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
         imprimirMensajeRojo("Usted no tiene ningun libro para devolver");
     }
 
+            puts("FILAAAAAA");
+            mostrarFila(nodoLibroPrestamo->datoLibro.reservasLibro);
+            puts("PILAAAAA");
+            mostrarPila(*prestamosInactivos);
 }
 
 nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
 {
     nodoDoble*aux;
+    nodoDoble*ante=listaDoble;
     nodoDoble*seg=listaDoble->siguiente;
     if(listaDoble != NULL)
     {
@@ -1475,23 +1483,28 @@ nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
         {
             aux=listaDoble;
             listaDoble=listaDoble->siguiente;
+            free(aux);
         }
         else
         {
             while(seg != NULL && seg->datoPrestamo.idPrestamo != datoIDBorrar)
             {
+                ante=seg;
                 seg=seg->siguiente;
             }
             if(seg != NULL)
             {
-                ((nodoDoble*)seg->anterior)->siguiente=seg->siguiente;
+                ante->siguiente=seg->siguiente;
+                aux=seg;
+
                 if(seg->siguiente != NULL)
                 {
-                ((nodoDoble*)seg->siguiente)->anterior=seg->anterior;
+                    seg=seg->siguiente;
+                    seg->anterior=ante;
 
                 }
+                free(aux);
 
-                aux=seg;
             }
             else
             {
@@ -1500,7 +1513,7 @@ nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
         }
 
 
-        free(aux);
+
     }
     else
     {

@@ -16,6 +16,8 @@ void archivoAPila(pilaPrestamos * pila)
     {
         while(fread(&aux,sizeof(stPrestamo),1,buffer)>0)
         {
+
+
             pila->prestamoInactivo = agregarAlPpioDoble(pila->prestamoInactivo,crearNodoDoble(aux));
         }
     }
@@ -56,7 +58,7 @@ void cargarPilaAlArchivo(pilaPrestamos * pila)
     {
         while(pila->prestamoInactivo != NULL)
         {
-            fwrite(&pila->prestamoInactivo,sizeof(stPrestamo),1,buffer);
+            fwrite(&pila->prestamoInactivo->datoPrestamo,sizeof(stPrestamo),1,buffer);
             pila->prestamoInactivo = pila->prestamoInactivo->siguiente;
         }
 

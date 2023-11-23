@@ -71,6 +71,7 @@ int contarCantidadDeLibros(estanteria arregloEstanterias[]);
 int contarPrestamos(estanteria arregloEstanterias[]);
 int contarPrestamosInactivos(pilaPrestamos pilita);
 int miembroConMayorSaldo(nodoArbol * raiz);
+void verHistorialPrestamos(nodoArbol* miembroActual);
 
 /// funciones de prestamos
 

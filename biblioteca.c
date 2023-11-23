@@ -56,12 +56,12 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
-    arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
+    //arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos
@@ -72,6 +72,8 @@ void menuGeneral()
     inicPila(&prestamosInactivos);
     archivoAPila(&prestamosInactivos);
 
+
+    //mostrarPila(prestamosInactivos);
 
     do
     {
@@ -129,7 +131,7 @@ void menuGeneral()
                 }
             }
 
-                limpiarPantalla();
+            limpiarPantalla();
             if(auxNodoMiembro != NULL)
             {
                 imprimirMensajeVerde("Ha ingresado correctamente");
@@ -151,6 +153,8 @@ void menuGeneral()
     }
     while(continuarBucle != 'n');
 
+
+    //mostrarPila(prestamosInactivos);
 
     arbolAlArchivo(arbolMiembros);
     prestamosAlArchivo(arregloEstanterias);
@@ -306,47 +310,48 @@ void actualizarLibro(estanteria arregloListas[])
         opSw = preguntarDatoEntero();
         if(opSw != 6 && flag == 0)//agrego un flag para seleccione a un libro y si quiere modificar otro va a tener que volver al menu
         {
-        mostrarTodasLasEstanterias(arregloListas);
-        int idBuscado = preguntarID(arregloListas);
-        buscado = retornarLibroXIDEnEstanterias(arregloListas,idBuscado);
-        limpiarPantalla();
-        flag = 1;
+            mostrarTodasLasEstanterias(arregloListas);
+            int idBuscado = preguntarID(arregloListas);
+            buscado = retornarLibroXIDEnEstanterias(arregloListas,idBuscado);
+            limpiarPantalla();
+            flag = 1;
         }
         imprimirMensajeVerde("=========================LIBRO SELECTO==============================");
         mostrarListaSimple(buscado);
         if(buscado != NULL)
         {
 
-        switch(opSw)
-        {
-        case 1: //Actualizar Nombre
-            buscado = modificarNombreLibro(buscado);
-            break;
-        case 2: //Actualizar Genero
-            buscado = modificarGeneroLibro(buscado);
-            break;
-        case 3: // Actualizar Autor
-            buscado = modificarAutorLibro(buscado);
-            break;
-        case 4: // Actualizar Descripción
-            buscado = modificarDescripcionLibro(buscado);
-            break;
-        case 5: // Actualizar Estado
-            buscado = modificarEstadoLibro(buscado);
-            break;
-        case 6:
-            imprimirMensajeVerde("=========================MODIFICADO==============================");
-            mostrarListaSimple(buscado);
-            opCont='n';
-            break;
-        default:
-            imprimirMensajeRojo("Ingrese una opcion valida");
-            break;
+            switch(opSw)
+            {
+            case 1: //Actualizar Nombre
+                buscado = modificarNombreLibro(buscado);
+                break;
+            case 2: //Actualizar Genero
+                buscado = modificarGeneroLibro(buscado);
+                break;
+            case 3: // Actualizar Autor
+                buscado = modificarAutorLibro(buscado);
+                break;
+            case 4: // Actualizar Descripción
+                buscado = modificarDescripcionLibro(buscado);
+                break;
+            case 5: // Actualizar Estado
+                buscado = modificarEstadoLibro(buscado);
+                break;
+            case 6:
+                imprimirMensajeVerde("=========================MODIFICADO==============================");
+                mostrarListaSimple(buscado);
+                opCont='n';
+                break;
+            default:
+                imprimirMensajeRojo("Ingrese una opcion valida");
+                break;
+            }
+
         }
 
     }
-
-    }while(opCont != 'n');
+    while(opCont != 'n');
 
 
 }
@@ -607,7 +612,8 @@ void mostrarPrestamosActivos(estanteria arregloEstanteria[])
         }
     }
 
-    if(flag == 0){
+    if(flag == 0)
+    {
         imprimirMensajeRojo("\n No hay prestamos activos");
     }
 }
@@ -751,12 +757,13 @@ void menuMiembroUsuario(nodoArbol* miembroActual, nodoArbol* arbolMiembro)
         opcionesMenuUsuarioMiembro();
         opMenuPrin=preguntarDatoEntero();
         //limpiarPantalla();
-mostrarUnMiembro(miembroActual->dato);
+        mostrarUnMiembro(miembroActual->dato);
 
 
         nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual->dato.datosPersonales.dni);
 
-        if ( miembroModifcable == NULL){
+        if ( miembroModifcable == NULL)
+        {
 
             printf("asdfggfds");
         }
@@ -828,7 +835,7 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
             }
             break;
         case 4:
-            /// Ver historial de prestamos
+            verHistorialPrestamos(miembroActual);
             break;
         case 5:
             opContinuarMenuPrin = 'n';
@@ -840,6 +847,42 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
     }
     while(opContinuarMenuPrin != 'n');
 }
+
+void verHistorialPrestamos(nodoArbol* miembroActual)
+{
+
+    int flag = 0;
+    stPrestamo aux;
+
+    FILE* archi = fopen(ARCHIVO_PRESTAMOS_INACTIVOS, "rb");
+
+
+    while (fread(&aux, sizeof(stPrestamo), 1, archi) > 0)
+    {
+        if(strcmpi(aux.dniUsuarioPrestado, miembroActual->dato.datosPersonales.dni) == 0)
+        {
+            mostrarUnPrestamo(aux);
+            flag = 1;
+        }
+
+    }
+
+    if(flag == 0)
+    {
+
+        imprimirMensajeRojo("No hay prestamos en el historial");
+    }
+
+    fclose(archi);
+
+}
+
+
+
+
+
+
+
 
 void buscarLibrosUsuario(estanteria arregloEstanterias[])
 {
@@ -1087,10 +1130,10 @@ int contarPrestamos(estanteria arregloEstanterias[])
         {
             auxDoble = aux->datoLibro.reservasLibro.primero;
             while(auxDoble != NULL)
-                {
-                    librosPrestadosActivos++;
-                    auxDoble = auxDoble->siguiente;
-                }
+            {
+                librosPrestadosActivos++;
+                auxDoble = auxDoble->siguiente;
+            }
             aux = aux->siguiente;
         }
     }
@@ -1124,8 +1167,8 @@ int miembroConMayorSaldo(nodoArbol * raiz)
         }
         else
         {
-        saldo = miembroConMayorSaldo(raiz->izquierda);
-        saldo = miembroConMayorSaldo(raiz->derecha);
+            saldo = miembroConMayorSaldo(raiz->izquierda);
+            saldo = miembroConMayorSaldo(raiz->derecha);
         }
     }
 
@@ -1197,28 +1240,51 @@ int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBusc
 int idLibroMasPrestado(estanteria arregloEstanteria[])
 {
 
-    int mayor = 0;
-    int i = 0;
-    nodoSimple* aux = inicListaSimple();
+    int IdMayor = 0;
+    int contadorMasPrestado = 0;
+    nodoSimple* listaSimple = inicListaSimple();
     nodoSimple* maxNodo = inicListaSimple();
 
-    int max = buscarLibroMasPrestado(arregloEstanteria, 0);
+//    int max = buscarLibroMasPrestado(arregloEstanteria, 0);
+//
+//
+//    while ((i < 5))
+//    {
+//
+//        aux = retornarNodosLibroXMasPopularidad(arregloEstanteria[i].listaLibro, max);
+//        if (aux != NULL)
+//        {
+//            maxNodo = aux;
+//        }
+//        i++;
+//    }
+//
+//    mayor = maxNodo->datoLibro.idLibro;
 
 
-    while ((i < 5))
+    for(int i=0; i < 5; i++)
     {
 
-        aux = retornarNodosLibroXMasPopularidad(arregloEstanteria[i].listaLibro, max);
-        if (aux != NULL)
+        listaSimple=arregloEstanteria[i].listaLibro;
+        while(listaSimple != NULL)
         {
-            maxNodo = aux;
+            if(listaSimple->datoLibro.vecesPrestadoLibro > contadorMasPrestado)
+            {
+                IdMayor=listaSimple->datoLibro.idLibro;
+                contadorMasPrestado=listaSimple->datoLibro.vecesPrestadoLibro;
+            }
+            listaSimple=listaSimple->siguiente;
         }
-        i++;
+
+
     }
 
-    mayor = maxNodo->datoLibro.idLibro;
 
-    return mayor ;
+
+
+
+
+    return IdMayor ;
 
 }
 
