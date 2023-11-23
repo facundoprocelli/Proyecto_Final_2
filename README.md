@@ -4,6 +4,9 @@
 Proyecto Final segundo cuatrimestre  "BookMaze"  
 
 
+
+
+
 Descripción: 
 Este proyecto se raliza en el contexto de la materia de laboratorio de computación 2 de la carrera Tecnicatura Universitaria En Programación de la UTN
 EL proyecto conciste en la aplicacion de los conocimientos adquiridos durante la cursada del segundo cuatrimestre de la carrera
