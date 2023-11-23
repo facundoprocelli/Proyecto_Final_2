@@ -7,6 +7,7 @@
 #define ARCHIVO_MIEMBROS "archivoMiembros.bin"
 #define ARCHIVO_PRESTAMOS "archivoPrestamos.bin"
 #define ARCHIVO_LIBROS "archivoLibros.bin"
+#define ARCHIVO_PRESTAMOS_INACTIVOS "archivoPrestamosInactivos.bin"
 
 
 
@@ -55,12 +56,12 @@ void menuGeneral()
     estanteria arregloEstanterias[5];
 
     inicEstanterias(arregloEstanterias); /// a la iniciacion tmb deberiamos agregar las reservas de los libros pero todavia no lo tenemos
-    //cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
+    cargarLibrosPredeterminados(arregloEstanterias); // se cargan los libros automaticamente
     archivoAEstanteria(arregloEstanterias); // Se pasan los libros a la estanteria
 
     /// Cargar Arbol Miembros
     nodoArbol * arbolMiembros=inicArbol();
-    //arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
+    arbolMiembros = cargarMiembrosPredeterminados(arbolMiembros);
     arbolMiembros=archivoAlArbol(arbolMiembros); //pasamos los miembros al arbol
 
     /// Cargar Filas de prestamos
@@ -194,7 +195,7 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
             arbolMiembros = menuMiembros(arbolMiembros);
             break;
         case 3:
-            menuPrestamos();
+            menuPrestamos(arregloEstanterias);
             break;
         case 4:
 
@@ -517,7 +518,6 @@ void menuBuscarMiembros(nodoArbol* raiz)
 
 }
 
-
 void opcionesMenuPrestamos()
 {
     puts("[1] Ver todos los prestamos"); //Ver todos los prestamos activos
@@ -526,7 +526,7 @@ void opcionesMenuPrestamos()
 
 }
 
-void menuPrestamos()
+void menuPrestamos(estanteria arregloEstanterias[])
 {
 
     int opSw=0;
@@ -539,12 +539,9 @@ void menuPrestamos()
         switch(opSw)
         {
         case 1:
-            /// Mostrar Prestamos Activos
+            mostrarTodosLosPrestamos(arregloEstanterias);
             break;
         case 2:
-            ///  informe?
-            break;
-        case 3:
             limpiarPantalla();
             opCont='n';
             break;
@@ -557,6 +554,93 @@ void menuPrestamos()
     while(opCont != 'n');
 
 }
+
+void mostrarTodosLosPrestamos(estanteria arregloEstanteria[])
+{
+
+    int opSw;
+
+    do
+    {
+        menuTodosPrestamos();
+        opSw = preguntarDatoEntero();
+    }
+    while ((opSw != 1 && opSw != 2));
+
+
+    if(opSw == 1)
+    {
+        mostrarPrestamosActivos(arregloEstanteria);
+    }
+    else if (opSw == 2)
+    {
+        mostrarPrestamosInactivos();
+    }
+
+
+
+}
+
+void menuTodosPrestamos()
+{
+    puts("[1] Mostrar prestamos Activos");
+    puts("[2] Mostrar prestamos Inactivos\n");
+}
+
+void mostrarPrestamosActivos(estanteria arregloEstanteria[])
+{
+    int flag = 0;
+
+    for(int i = 0; i<5; i++)
+    {
+        nodoSimple* listaAux = arregloEstanteria[i].listaLibro;
+
+        while (listaAux != NULL)
+        {
+            if(!filaVacia(listaAux->datoLibro.reservasLibro))
+            {
+                flag = 1;
+                mostrarFila(listaAux->datoLibro.reservasLibro);
+            }
+
+            listaAux = listaAux ->siguiente;
+        }
+    }
+
+    if(flag == 0){
+        imprimirMensajeRojo("\n No hay prestamos activos");
+    }
+}
+
+
+void mostrarPrestamosInactivos()
+{
+    stPrestamo aux;
+    int flag = 0;
+    FILE* archi = fopen(ARCHIVO_PRESTAMOS_INACTIVOS, "rb");
+
+    if(archi != NULL)
+    {
+        while (fread(&aux, sizeof(stPrestamo), 1, archi) > 0)
+        {
+            if(aux.estado == 0)
+            {
+                mostrarUnPrestamo(aux);
+                flag = 1;
+            }
+        }
+    }
+
+
+    if(flag == 0)
+    {
+        imprimirMensajeRojo("\nNo hay prestamos Inactivos\n");
+    }
+
+    fclose( archi);
+}
+
+
 
 ///menu usuario
 

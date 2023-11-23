@@ -363,6 +363,7 @@ int validarRangoDeNombre(char nombreAux[])
     return flag;
 }
 
+
 int validarDigitosEnStrings(char nombreAux[])
 {
 
