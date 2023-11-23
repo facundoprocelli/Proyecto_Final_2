@@ -923,10 +923,8 @@ void informeFinal(nodoArbol*raiz,estanteria arregloEstanterias[],pilaPrestamos p
     printf("Total de libros....................[%i]\n",contarCantidadDeLibros(arregloEstanterias));
     printf("Total de prestamos activos.........[%i]\n",contarPrestamos(arregloEstanterias));//activo
     printf("Total de prestamos inactivos.......[%i]\n",contarPrestamosInactivos(pila));//inactivo
-    printf("Libro mas prestado.................[%i]\n",idLibroMasPrestado(arregloEstanterias));// Lo que se impime en esta funcion se pasa a los cosos de abajo
-    printf("Miembro con mayor saldo............[%i]\n"); /*dniMiembroMayorSaldo(raiz));///Mostrar el DNI Estas funciones no andan del todo*/
-    printf("Prestamo mas costoso...............[%i]\n");///Mostrar el ID
-    printf("Miembro con mas prestamos..........[%i]\n");///Mostrar el DNI
+    printf("ID del libro mas prestado..........[%i]\n",idLibroMasPrestado(arregloEstanterias));// Lo que se impime en esta funcion se pasa a los cosos de abajo
+    printf("Miembro con mayor saldo............[%i]\n",miembroConMayorSaldo(raiz)); /*dniMiembroMayorSaldo(raiz));///Mostrar el DNI Estas funciones no andan del todo*/
     puts("==================================================================");
 
 
@@ -1029,6 +1027,25 @@ int contarPrestamosInactivos(pilaPrestamos pilita)
     }
 
     return contadorInactivos;
+}
+
+int miembroConMayorSaldo(nodoArbol * raiz)
+{
+    int saldo = 0;
+    if(raiz != NULL)
+    {
+        if(raiz->dato.saldo > saldo)
+        {
+            saldo = raiz->dato.saldo;
+        }
+        else
+        {
+        saldo = miembroConMayorSaldo(raiz->izquierda);
+        saldo = miembroConMayorSaldo(raiz->derecha);
+        }
+    }
+
+    return saldo;
 }
 
 /// funciones devolver un prestamo

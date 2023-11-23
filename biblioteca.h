@@ -70,11 +70,12 @@ int contarMiembrosInactivos(nodoArbol * raiz);
 int contarCantidadDeLibros(estanteria arregloEstanterias[]);
 int contarPrestamos(estanteria arregloEstanterias[]);
 int contarPrestamosInactivos(pilaPrestamos pilita);
+int miembroConMayorSaldo(nodoArbol * raiz);
+
 /// funciones de prestamos
 
 void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*prestamosInactivos,nodoArbol*miembroActual);
 int retornarPosEstanteriaXGenero(estanteria arregloEstanteria[], char generoBuscar[]);
-
 
 
 

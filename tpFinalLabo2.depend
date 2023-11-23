@@ -123,7 +123,7 @@
 	"filaReservas.h"
 	"arbolMiembros.h"
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\arbolmiembros.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\arbolmiembros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -131,50 +131,50 @@
 	<ctype.h>
 	"arbolMiembros.h"
 
-1700677951 c:\users\gc\desktop\proyecto_final_2-main\arbolmiembros.h
+1700701344 c:\users\gc\desktop\proyecto_final_2-main\arbolmiembros.h
 
-1700677951 c:\users\gc\desktop\proyecto_final_2-main\biblioteca.h
+1700705724 c:\users\gc\desktop\proyecto_final_2-main\biblioteca.h
 	"listaSimpleLibros.h"
 
-1700695519 source:c:\users\gc\desktop\proyecto_final_2-main\biblioteca.c
+1700705743 source:c:\users\gc\desktop\proyecto_final_2-main\biblioteca.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"biblioteca.h"
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\filareservas.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\filareservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"filaReservas.h"
 
-1700683542 c:\users\gc\desktop\proyecto_final_2-main\filareservas.h
+1700701344 c:\users\gc\desktop\proyecto_final_2-main\filareservas.h
 	"listaDobleReservas.h"
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaDobleReservas.h"
 
-1700677951 c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.h
+1700701344 c:\users\gc\desktop\proyecto_final_2-main\listadoblereservas.h
 	"pilaPrestamosInactivos.h"
 
-1700695736 source:c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<time.h>
 	"listaSimpleLibros.h"
 
-1700694648 c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.h
+1700701344 c:\users\gc\desktop\proyecto_final_2-main\listasimplelibros.h
 	"filaReservas.h"
 	"arbolMiembros.h"
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\main.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\main.c
 	<stdio.h>
 	<stdlib.h>
 	"biblioteca.h"
@@ -298,16 +298,16 @@
 
 1700695893 c:\users\fabri\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
 
-1700677951 c:\users\gc\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
+1700701344 c:\users\gc\desktop\proyecto_final_2-main\pilaprestamosinactivos.h
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\pilaprestamosinactivos.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\pilaprestamosinactivos.c
 	<stdio.h>
 	<stdlib.h>
 	"pilaPrestamosInactivos.h"
 
 1700499002 c:\users\gc\desktop\proyecto_final_2-main\colores.h
 
-1700694708 source:c:\users\gc\desktop\proyecto_final_2-main\colores.c
+1700705655 source:c:\users\gc\desktop\proyecto_final_2-main\colores.c
 	<stdio.h>
 	<stdlib.h>
 	"windows.h"
