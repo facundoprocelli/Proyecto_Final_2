@@ -73,13 +73,13 @@ void menuGeneral()
     archivoAPila(&prestamosInactivos);
 
 
-    //mostrarPila(prestamosInactivos);
+
 
     do
     {
         imprimirMensajeMarronOscuro("\t\t\t ||Bienvenido a la Biblioteca BookMaze||");
         imprimirMensajeMarronOscuro("\t\t      =============================================\n\n");
-        puts("\n========================|Menu general|========================");
+        puts("\n===============|Menu general|===============");
         opcionesMenuGeneral();
         opSw=preguntarDatoEntero();
         limpiarPantalla();
@@ -87,7 +87,9 @@ void menuGeneral()
         {
         case 1:
 
-            printf("Ingrese la contrasenia del admin: ");
+
+            printf("Ingrese la contrasenia de administrador: \n");
+            puts("============================================================");
             fflush(stdin);
             gets(contraseniaAdmin);
             if(strcmp(contraseniaAdmin,"Book Maze")==0)
@@ -154,7 +156,7 @@ void menuGeneral()
     while(continuarBucle != 'n');
 
 
-    //mostrarPila(prestamosInactivos);
+
 
     arbolAlArchivo(arbolMiembros);
     prestamosAlArchivo(arregloEstanterias);
@@ -170,10 +172,10 @@ void menuGeneral()
 void opcionesMenuGeneral()
 {
 
-    puts("[1] Admin");
+    puts("[1] Administrador");
     puts("[2] Usuario");
     puts("[3] Finalizar programa");
-    puts("========================================");
+    puts("============================================");
 
 }
 
@@ -222,7 +224,7 @@ void menuDeAccionesPrincipales()
     printf("[1] Opciones Libros\n");
     printf("[2] Opciones Miembros\n");
     printf("[3] Opciones Prestamos \n");
-    printf("[4] Salir \n");
+    printf("[4] Volver al menu general \n");
     puts("============================================================");
 
 }
@@ -287,7 +289,7 @@ void opcionesMenuActualizarLibros()
 {
 
     printf("Seleccione una opcion: \n");
-
+    puts("============================================================");
     printf("[1] Actualizar Nombre\n");
     printf("[2] Actualizar Genero\n");
     printf("[3] Actualizar Autor\n");
@@ -301,7 +303,7 @@ void opcionesMenuActualizarLibros()
 void actualizarLibro(estanteria arregloListas[])
 {
     int opSw=0,flag = 0;
-    char opCont='s';
+    char opCont;
     nodoSimple* buscado = inicListaSimple();
     do
     {
@@ -315,9 +317,9 @@ void actualizarLibro(estanteria arregloListas[])
             buscado = retornarLibroXIDEnEstanterias(arregloListas,idBuscado);
             limpiarPantalla();
             flag = 1;
+            imprimirMensajeVerde("=========================LIBRO SELECTO==============================");
+            mostrarListaSimple(buscado);
         }
-        imprimirMensajeVerde("=========================LIBRO SELECTO==============================");
-        mostrarListaSimple(buscado);
         if(buscado != NULL)
         {
 
@@ -339,6 +341,8 @@ void actualizarLibro(estanteria arregloListas[])
                 buscado = modificarEstadoLibro(buscado);
                 break;
             case 6:
+
+                limpiarPantalla();
                 imprimirMensajeVerde("=========================MODIFICADO==============================");
                 mostrarListaSimple(buscado);
                 opCont='n';
@@ -348,6 +352,10 @@ void actualizarLibro(estanteria arregloListas[])
                 break;
             }
 
+        }else
+        {
+            opCont = 'n';
+            limpiarPantalla();
         }
 
     }
@@ -361,7 +369,7 @@ void opcionesMenuBuscarLibros()
 {
 
     printf("Seleccione una opcion: \n");
-
+    puts("============================================================");
     printf("[1] Buscar por Titulo \n");
     printf("[2] Buscar por Autor \n");
     printf("[3] Buscar por Genero \n");
@@ -416,12 +424,11 @@ void opcionesMenuMiembros()
 
 
     printf("Seleccione una opcion\n");
+    puts("============================================================");
     printf("[1] Registrar Miembros \n");
     printf("[2] Buscar Miembros \n");
-    printf("[3] Calcular Multas \n");
-    printf("[4] Generar Informes  \n");
-    printf("[5] Mostrar todos los Miembros\n");
-    printf("[6] Volver al menu principal \n");
+    printf("[3] Mostrar todos los Miembros\n");
+    printf("[4] Volver al menu principal \n");
     puts("============================================================");
 
 }
@@ -435,6 +442,7 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
     {
         opcionesMenuMiembros();
         opSw=preguntarDatoEntero();
+        limpiarPantalla();
         switch(opSw)
         {
         case 1: //ingresar un nuevo miembro al arbol
@@ -443,14 +451,10 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
         case 2: //buscar un determinado miembro
             menuBuscarMiembros(raiz);
             break;
-        case 3: //calcular multas
-            break;
-        case 4: //informes sobre miembros (hacer un menu)
-            break;
-        case 5:
+        case 3:
             mostrarArbolInorden(raiz);
             break;
-        case 6:
+        case 4:
             opCont='n';
             limpiarPantalla();
             break;
@@ -458,7 +462,6 @@ nodoArbol* menuMiembros(nodoArbol * raiz)
             imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
-        //limpiarPantalla();
     }
     while(opCont != 'n');
 
@@ -471,6 +474,7 @@ void opcionesMenuBuscarMiembros()
 
 
     printf("Seleccione una opcion \n");
+    puts("============================================================");
     printf("[1] Buscar por Nombre\n");
     printf("[2] Buscar por DNI\n");
     printf("[3] Buscar por Estado\n");
@@ -491,7 +495,7 @@ void menuBuscarMiembros(nodoArbol* raiz)
     {
         opcionesMenuBuscarMiembros();
         opSw=preguntarDatoEntero();
-
+        limpiarPantalla();
         switch(opSw)
         {
         case 1:// Buscar miembro por nombre
@@ -681,6 +685,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
             imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
+        limpiarPantalla();
     }
     while(opContinuarMenuPrin != 'n');
 
@@ -690,6 +695,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
 
 void opcionesMenuUsuarioLibros()
 {
+    puts("================================================================");
     puts("[1] Buscar un libro"); //tenemos un menu
     puts("[2] Ver todos los libros disponibles en este momento"); // ver todos los que tienen la fila vacia
     puts("[3] Ver los libros que tienen cola de espera"); // ver todos los que tienen al menos un miembro en la fila
@@ -701,6 +707,7 @@ void opcionesMenuUsuarioLibros()
 
 void opcionesMenuUsuarioMiembro()
 {
+    puts("=======================================");
     puts("[1] Cambiar nombre");
     puts("[2] Cambiar numero de telefono");
     puts("[3] Agregar saldo a la cuenta");
@@ -756,8 +763,7 @@ void menuMiembroUsuario(nodoArbol* miembroActual, nodoArbol* arbolMiembro)
     {
         opcionesMenuUsuarioMiembro();
         opMenuPrin=preguntarDatoEntero();
-        //limpiarPantalla();
-        mostrarUnMiembro(miembroActual->dato);
+        limpiarPantalla();
 
 
         nodoArbol* miembroModifcable = buscarNodoPorDniArbol(arbolMiembro, miembroActual->dato.datosPersonales.dni);
@@ -765,7 +771,7 @@ void menuMiembroUsuario(nodoArbol* miembroActual, nodoArbol* arbolMiembro)
         if ( miembroModifcable == NULL)
         {
 
-            printf("asdfggfds");
+            imprimirMensajeRojo("Error, no se encontro el miembro");
         }
 
         switch(opMenuPrin)
@@ -796,12 +802,13 @@ void menuMiembroUsuario(nodoArbol* miembroActual, nodoArbol* arbolMiembro)
 
 void opcionesMenuUsuarioPrestamos()
 {
+    puts("==============================================================");
     puts("[1] Pedir un libro");
     puts("[2] Devolver un libro o eliminar mi prestamo de la cola de espera");
     puts("[3] Ver mis prestamos activos");
     puts("[4] Ver todo el historial de prestamos");
     puts("[5] Volver al menu principal");
-    puts("===============================================");
+    puts("==============================================================");
 }
 
 void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActual,pilaPrestamos*prestamosInactivos,nodoArbol*arbolMiembros)
@@ -841,6 +848,7 @@ void menuPrestamosUsuario(estanteria arregloEstanterias[],nodoArbol* miembroActu
             opContinuarMenuPrin = 'n';
             break;
         default:
+            limpiarPantalla();
             imprimirMensajeRojo("Ingrese una opcion valida");
             break;
         }
@@ -926,6 +934,7 @@ void buscarLibrosUsuario(estanteria arregloEstanterias[])
 void opcionesMenuBuscarLibrosUsuario()
 {
 
+     puts("======================================");
     puts("[1] Buscar libro por Titulo");
     puts("[2] Buscar libro por Autor");
     puts("[3] Buscar libro por Genero");
@@ -1193,13 +1202,15 @@ void devolverUnLibroUsuario(estanteria arregloEstanterias[],pilaPrestamos*presta
 
         nodoDoble* auxPrestamo = retornarNodoPrestamoXId(arregloEstanterias,miembroActual->dato.prestamoActivoID);
 
-        puts("Este es su prestamo activo: ");
+        imprimirMensajeVerde("Este es su prestamo activo: ");
+        puts("===========================================");
         mostrarUnPrestamo(auxPrestamo->datoPrestamo);
 
         printf("Desea devolver el libro actual? s/n: ");
         fflush(stdin);
         scanf("%c",&opDevolver);
 
+        limpiarPantalla();
         if(opDevolver == 's'||opDevolver == 'S')
         {
             libroDevuelto(arregloEstanterias,miembroActual,prestamosInactivos, auxPrestamo);

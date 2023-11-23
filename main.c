@@ -7,11 +7,6 @@ int main()
 
     menuGeneral();
 
-
-
-
-
-
     return 0;
 }
 

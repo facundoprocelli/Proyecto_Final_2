@@ -1254,9 +1254,11 @@ nodoArbol* cambiarSaldoDeCuentaMiembro(nodoArbol* aux)
     {
         do
         {
+             puts("===========================================");
             printf("\nSaldo actual...: $%i",aux->dato.saldo);
             printf("\nCuanto saldo desea agregar?");
-            printf("\nSaldo: ");
+            printf("\nSaldo: \n");
+            puts("===========================================");
             fflush(stdin);
             gets(saldo);
 

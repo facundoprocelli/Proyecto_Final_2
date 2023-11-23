@@ -1380,7 +1380,7 @@ int validarSiExistePrestamoXId(estanteria arregloEstanterias[], int idPrestamoBu
 
     if(flag == 0)
     {
-        puts("Error prestamo no encontrado");
+        imprimirMensajeRojo("Error prestamo no encontrado");
     }
     return flag;
 }
@@ -1466,10 +1466,6 @@ void libroDevuelto(estanteria arregloEstanterias[],nodoArbol*miembroActual,pilaP
         imprimirMensajeRojo("Usted no tiene ningun libro para devolver");
     }
 
-            puts("FILAAAAAA");
-            mostrarFila(nodoLibroPrestamo->datoLibro.reservasLibro);
-            puts("PILAAAAA");
-            mostrarPila(*prestamosInactivos);
 }
 
 nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
@@ -1508,7 +1504,7 @@ nodoDoble*borrarNodoDobleXIdPrestamo(nodoDoble*listaDoble,int datoIDBorrar)
             }
             else
             {
-                puts("Dato no encontrado en la lista doble");
+                imprimirMensajeRojo("Dato no encontrado en la lista doble");
             }
         }
 
@@ -1573,6 +1569,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
     if(nodoMiembroActual->dato.prestamoActivoID != 0)
     {
         imprimirMensajeRojo("Usted ya tiene un prestamo no puede pedir otro libro: ");
+        puts("==================================================================");
         nodoDoble*auxNodoPrestamo=retornarNodoPrestamoXId(arregloEstanterias,nodoMiembroActual->dato.prestamoActivoID);
         mostrarUnPrestamo(auxNodoPrestamo->datoPrestamo);
     }
@@ -1635,7 +1632,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
                 }
                 else //si no tiene fila le creamos el prestamo de una
                 {
-                    //limpiarPantalla();
+                    limpiarPantalla();
                     auxPrestamo=crearUnPrestamo(arregloEstanterias,inicioPrestamo,duracionVencimiento,nodoLibroBuscado,nodoMiembroActual,pila,precioPrestamo);
 
                     mostrarUnPrestamo(auxPrestamo);
@@ -1649,12 +1646,14 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
                     nodoLibroBuscado->datoLibro.estado=2;
 
 
-                    imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados sino tendra una multa");
+                    imprimirMensajeVerde("Disfrute su libro recuerde devolverlo dentro de los dias pactados");
                 }
             }
             else
             {
+                limpiarPantalla();
                 imprimirMensajeRojo("No puede pagar el prestamo ya que no dispone con ese dinero");
+                puts("==================================================================");
             }
 
         }
