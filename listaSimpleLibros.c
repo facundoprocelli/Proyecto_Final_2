@@ -1557,7 +1557,7 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
 
                         mostrarUnPrestamo(auxPrestamo);
 
-
+                        nodoMiembroActual->dato.saldo-=precio;
 
                         agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
@@ -1574,6 +1574,9 @@ void pedirUnLibro(estanteria arregloEstanterias[],nodoArbol*nodoMiembroActual,pi
                     auxPrestamo=crearUnPrestamo(arregloEstanterias,inicioPrestamo,duracionVencimiento,nodoLibroBuscado,nodoMiembroActual,pila,precioPrestamo);
 
                     mostrarUnPrestamo(auxPrestamo);
+
+
+                    nodoMiembroActual->dato.saldo-=precio;
 
                     agregarAlFinalFila(&nodoLibroBuscado->datoLibro.reservasLibro,auxPrestamo);
 
@@ -1626,7 +1629,8 @@ int retornarUltimoIDPrestamoEnFila(estanteria arregloEstanterias[])
 int retornarUltimoIDPrestamoEnPila(pilaPrestamos pilita)
 {
     int ultID=0;
-    nodoDoble*auxNodoDoble=pilita.prestamoInactivo;
+    nodoDoble*auxNodoDoble=inicListaDoble();
+    auxNodoDoble=pilita.prestamoInactivo;
     while(auxNodoDoble != NULL)
     {
 
@@ -1644,7 +1648,8 @@ int retornarUltimoIDPrestamo(estanteria arregloEstanteria[], pilaPrestamos prest
 {
     int ultimoIDfilas= retornarUltimoIDPrestamoEnFila(arregloEstanteria);
     int ultimoIDpila= retornarUltimoIDPrestamoEnPila(prestamosInactivos);
-
+    printf("ULTIMO ID PILA: %i",ultimoIDpila);
+    printf("ULTIMO ID FILAS: %i",ultimoIDfilas);
     if(ultimoIDfilas > ultimoIDpila)
     {
         return ultimoIDfilas;

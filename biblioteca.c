@@ -706,7 +706,7 @@ mostrarUnMiembro(miembroActual->dato);
 void opcionesMenuUsuarioPrestamos()
 {
     puts("[1] Pedir un libro");
-    puts("[2] Devolver un libro");
+    puts("[2] Devolver un libro o eliminar mi prestamo de la cola de espera");
     puts("[3] Ver mis prestamos activos");
     puts("[4] Ver todo el historial de prestamos");
     puts("[5] Volver al menu principal");
