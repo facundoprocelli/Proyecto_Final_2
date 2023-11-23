@@ -74,10 +74,9 @@ void menuGeneral()
 
     do
     {
-        imprimirMensajeMarronOscuro("\t\t\t ||Bienvenido a la Biblioteca BookMaze||\n");
+        imprimirMensajeMarronOscuro("\t\t\t ||Bienvenido a la Biblioteca BookMaze||");
         imprimirMensajeMarronOscuro("\t\t      =============================================\n\n");
-
-        puts("=============Menu general===============");
+        puts("\n========================|Menu general|========================");
         opcionesMenuGeneral();
         opSw=preguntarDatoEntero();
         limpiarPantalla();
@@ -102,7 +101,7 @@ void menuGeneral()
 
 
             printf("Ingrese su DNI si tiene una cuenta, sino le crearemos una:  \n");
-
+            puts("============================================================");
             do
             {
                 printf("DNI: ");
@@ -110,7 +109,7 @@ void menuGeneral()
                 scanf("%s", &auxString);
 
             }
-            while(validarRangoDNI(auxString)== 0 || validarCaracteresEnEnteros(auxString)== 0);
+            while(validarCaracteresEnEnteros(auxString)== 0||validarRangoDNI(auxString)== 0 || validarCaracteresEnEnteros(auxString)== 0);
 
             auxNodoMiembro=buscarNodoPorDniArbol(arbolMiembros,auxString);
 
@@ -129,9 +128,10 @@ void menuGeneral()
                 }
             }
 
-            limpiarPantalla();
+                limpiarPantalla();
             if(auxNodoMiembro != NULL)
             {
+                imprimirMensajeVerde("Ha ingresado correctamente");
                 menuUsuario(arregloEstanterias, arbolMiembros,auxNodoMiembro,&prestamosInactivos);
             }
 
@@ -150,7 +150,6 @@ void menuGeneral()
     }
     while(continuarBucle != 'n');
 
-    //mostrarPila(prestamosInactivos);
 
     arbolAlArchivo(arbolMiembros);
     prestamosAlArchivo(arregloEstanterias);
@@ -182,7 +181,7 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
     char opContinuarMenuPrin='s';
     do
     {
-        puts("=============Menu admin===============");
+        imprimirMensajeMarronOscuro("\n============================|Menu admin|============================\n");
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
         limpiarPantalla();
@@ -214,7 +213,7 @@ nodoArbol* biblioteca(estanteria arregloEstanterias[], nodoArbol* arbolMiembros)
 void menuDeAccionesPrincipales()
 {
     printf("Por favor, seleccione que accion desea realizar \n\n");
-
+    puts("============================================================");
     printf("[1] Opciones Libros\n");
     printf("[2] Opciones Miembros\n");
     printf("[3] Opciones Prestamos \n");
@@ -522,8 +521,7 @@ void menuBuscarMiembros(nodoArbol* raiz)
 void opcionesMenuPrestamos()
 {
     puts("[1] Ver todos los prestamos"); //Ver todos los prestamos activos
-    puts("[2] Informe de prestamos"); // Esto de aca anda a saber vos si lo hacemos
-    puts("[3] Volver al menu principal");
+    puts("[2] Volver al menu principal");
     puts("============================================================");
 
 }
@@ -570,7 +568,7 @@ void menuUsuario(estanteria arregloEstanterias[],nodoArbol * arbolMiembro, nodoA
     char opContinuarMenuPrin='s';
     do
     {
-        puts("=============Menu usuario===============");
+        imprimirMensajeMarronOscuro("\n============================|Menu usuario|============================\n");
         printf("Bienvenido %s \n",miembroActual->dato.datosPersonales.nombre);
         menuDeAccionesPrincipales();
         opMenuPrin=preguntarDatoEntero();
